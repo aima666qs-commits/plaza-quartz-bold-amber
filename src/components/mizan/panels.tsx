@@ -1,0 +1,583 @@
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button.tsx";
+import { Field, Select, TextInput } from "@/components/ui/field.tsx";
+import { useMizan } from "@/stores/mizan-store.ts";
+import { formatMoney, formatPlain } from "@/lib/mizan/decimal.ts";
+import { getSources, SOURCES } from "@/lib/mizan/sources.ts";
+import { getProfile } from "@/lib/mizan/profiles.ts";
+import { downloadBlob, resultToCsv, resultToHtml, resultToJson } from "@/lib/mizan/export.ts";
+import { askEvidence, localSourceSearch, type AskPayload } from "@/lib/assistant/server.ts";
+import { fetchMarketQuotes } from "@/lib/quotes/server.ts";
+import { LAYOUT_LABEL, THEMES, getTheme, type LayoutFamily } from "@/lib/themes/registry.ts";
+import { NISAB_MODE_RU, OVERALL_RU, RECIPIENTS, REVIEW_RU, SOURCE_TYPE_RU, STATUS_RU } from "@/lib/mizan/labels.ts";
+import { cn } from "@/lib/utils.ts";
+import { Bookmark, Check, Download, Heart, Printer, RotateCcw, Table2, X } from "lucide-react";
+
+export function ResultsPanel() {
+  const result = useMizan((s) => s.lastResult);
+  if (!result) return null;
+  const profile = getProfile(result.profileId);
+  const exact = formatPlain(result.totalMoneyExact);
+  const showExact = result.totalMoneyRounded !== 0n && !exact.endsWith(".00") && !/^[0.]+$/.test(exact);
+  return (
+    <aside className="result-panel border border-[var(--line)] bg-[var(--bg-elev)] p-[var(--pad,1rem)] lg:sticky lg:top-24">
+      <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--muted)]">Закят к уплате</p>
+      <p
+        className="font-display mt-2 text-4xl leading-none tabular-nums text-[var(--ok)] sm:text-5xl"
+        data-testid="zakat-total"
+      >
+        {formatMoney(result.totalMoneyRounded, result.baseCurrency)}
+      </p>
+      {showExact ? (
+        <p className="mt-2 text-xs text-[var(--muted)]">без округления: {exact}</p>
+      ) : null}
+      <p className="mt-3 text-sm">{OVERALL_RU[result.overallStatus] ?? result.overallStatus}</p>
+      <p className="text-xs text-[var(--muted)]">
+        {profile.name} · {result.asOfDate} · {result.completeness === "complete" ? "всё заполнено" : "есть пропуски"}
+      </p>
+      {result.nisab.threshold !== null ? (
+        <p className="mt-2 text-sm tabular-nums">
+          Порог нисаба: {formatMoney(result.nisab.threshold, result.baseCurrency)} ({NISAB_MODE_RU[result.nisab.mode]})
+        </p>
+      ) : (
+        <p className="mt-2 text-sm text-[var(--danger)]">Нисаб не посчитан — нет цены золота или серебра.</p>
+      )}
+      <div className="mt-3 grid grid-cols-2 gap-2 text-center">
+        <div className="border border-[var(--line)] p-2">
+          <p className="text-[11px] text-[var(--muted)]">Нисаб золота</p>
+          <p className="font-display tabular-nums">{formatPlain(result.nisab.goldGrams)} г</p>
+          {result.nisab.goldValue !== null ? (
+            <p className="text-xs tabular-nums text-[var(--muted)]">
+              {formatMoney(result.nisab.goldValue, result.baseCurrency)}
+            </p>
+          ) : null}
+        </div>
+        <div className="border border-[var(--line)] p-2">
+          <p className="text-[11px] text-[var(--muted)]">Нисаб серебра</p>
+          <p className="font-display tabular-nums">{formatPlain(result.nisab.silverGrams)} г</p>
+          {result.nisab.silverValue !== null ? (
+            <p className="text-xs tabular-nums text-[var(--muted)]">
+              {formatMoney(result.nisab.silverValue, result.baseCurrency)}
+            </p>
+          ) : null}
+        </div>
+      </div>
+      {result.natural.length ? (
+        <ul className="mt-3 text-sm">
+          {result.natural.map((n, i) => (
+            <li key={i}>{n.label}</li>
+          ))}
+        </ul>
+      ) : null}
+      <ul className="mt-4 grid gap-1 text-sm">
+        {result.categories
+          .filter((c) => c.status !== "not_entered")
+          .map((c) => (
+            <li key={c.id} className="flex justify-between gap-3 border-t border-[var(--line)] py-1">
+              <span>{c.title}</span>
+              <span className="shrink-0 text-right tabular-nums text-[var(--muted)]">
+                {c.zakatMoney !== undefined ? formatMoney(c.zakatMoney, result.baseCurrency) : ""}
+                {c.natural?.length ? ` ${c.natural.map((n) => n.label).join(", ")}` : ""}
+                {c.zakatMoney === undefined && !c.natural?.length ? STATUS_RU[c.status] : ` · ${STATUS_RU[c.status]}`}
+              </span>
+            </li>
+          ))}
+      </ul>
+      {result.warnings.length ? (
+        <div className="mt-4 text-xs text-[var(--muted)]">
+          <p className="font-medium text-[var(--fg)]">Важно знать</p>
+          <ul className="mt-1 list-disc pl-4">
+            {result.warnings.slice(0, 6).map((w) => (
+              <li key={w}>{w}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {result.missing.length ? (
+        <div className="mt-4 text-xs text-[var(--danger)]">
+          <p className="font-medium">Не хватает данных</p>
+          <ul className="mt-1 list-disc pl-4">
+            {result.missing.slice(0, 8).map((m) => (
+              <li key={m}>{m}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      <ExportBar />
+    </aside>
+  );
+}
+
+function ExportBar() {
+  const input = useMizan((s) => s.input);
+  const result = useMizan((s) => s.lastResult);
+  const saveDraft = useMizan((s) => s.saveDraft);
+  const [saved, setSaved] = useState(false);
+  if (!result) return null;
+  return (
+    <div className="mt-4 grid gap-2">
+      <Button
+        onClick={() => {
+          downloadBlob(`mizan-${input.asOfDate}.json`, "application/json;charset=utf-8", resultToJson(input, result));
+        }}
+      >
+        <Download className="size-4" />
+        Скачать расчёт
+      </Button>
+      <p className="text-xs text-[var(--muted)]">Файл, чтобы потом снова открыть этот расчёт в Мизане.</p>
+      <Button
+        variant="secondary"
+        onClick={() => {
+          const html = resultToHtml(input, result);
+          const w = window.open("", "_blank");
+          if (w) {
+            w.document.write(html);
+            w.document.close();
+          } else {
+            downloadBlob(`mizan-${input.asOfDate}.html`, "text/html;charset=utf-8", html);
+          }
+        }}
+      >
+        <Printer className="size-4" />
+        Распечатать или PDF
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() => downloadBlob(`mizan-${input.asOfDate}.csv`, "text/csv;charset=utf-8", resultToCsv(result))}
+      >
+        <Table2 className="size-4" />
+        Скачать таблицу
+      </Button>
+      <Button
+        variant="ghost"
+        onClick={() => {
+          saveDraft();
+          setSaved(true);
+        }}
+      >
+        <Bookmark className="size-4" />
+        {saved ? "Сохранено в приложении" : "Сохранить здесь"}
+      </Button>
+      <p className="text-xs text-[var(--muted)]">Это только копия расчёта. Деньги никуда не уходят.</p>
+    </div>
+  );
+}
+
+export function RecipientsPanel() {
+  return (
+    <section className="border border-[var(--line)] bg-[var(--surface)] p-[var(--pad,1rem)]">
+      <h2 className="font-display text-lg">Кому можно отдать (Коран 9:60)</h2>
+      <p className="mt-1 text-xs text-[var(--muted)]">
+        Справка. Калькулятор сам никому не переводит деньги.
+      </p>
+      <ul className="mt-3 grid gap-2 text-sm">
+        {RECIPIENTS.map((r) => (
+          <li key={r.ru} className="flex items-baseline justify-between gap-3 border-b border-[var(--line)] py-1">
+            <span>{r.ru}</span>
+            <span lang="ar" dir="rtl" className="ar text-[var(--muted)]">
+              {r.ar}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export function EvidenceList() {
+  const result = useMizan((s) => s.lastResult);
+  const ids = [...new Set(result?.categories.flatMap((c) => c.sourceIds) ?? ["quran.2.43", "bukhari.1454"])];
+  const sources = getSources(ids);
+  return (
+    <div className="grid gap-3">
+      <h2 className="font-display text-xl">Откуда правила</h2>
+      {sources.map((s) => (
+        <article key={s.sourceId} className="border-l-2 border-[var(--accent)] bg-[var(--surface)] p-3 text-sm">
+          <p className="text-xs uppercase tracking-wide text-[var(--muted)]">
+            {SOURCE_TYPE_RU[s.type]} · {REVIEW_RU[s.review]}
+          </p>
+          <h3 className="font-medium">{s.title}</h3>
+          {s.arabic ? (
+            <p lang="ar" dir="rtl" className="ar my-2 text-lg leading-loose">
+              {s.arabic}
+            </p>
+          ) : null}
+          <p>{s.translationRu ?? s.translationEn}</p>
+          <p className="mt-1 text-xs text-[var(--muted)]">
+            {s.locator}.{" "}
+            {s.url ? (
+              <a className="underline" href={s.url} target="_blank" rel="noreferrer">
+                открыть источник
+              </a>
+            ) : (
+              "ссылки нет"
+            )}
+          </p>
+          <p className="mt-1 text-xs">{s.notes}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+export function AssistantPanel() {
+  const result = useMizan((s) => s.lastResult);
+  const input = useMizan((s) => s.input);
+  const [q, setQ] = useState("");
+  const [log, setLog] = useState<{ role: "user" | "bot"; text: string; meta?: string }[]>([]);
+  const [busy, setBusy] = useState(false);
+  async function send() {
+    const question = q.trim();
+    if (!question || busy) return;
+    setQ("");
+    setLog((l) => [...l, { role: "user", text: question }]);
+    setBusy(true);
+    const local = localSourceSearch(question);
+    const excerpts = (local.length ? local : SOURCES.slice(0, 6)).map((s) => ({
+      id: s.sourceId,
+      title: s.title,
+      locator: s.locator,
+      notes: s.notes,
+      arabic: s.arabic,
+    }));
+    const payload: AskPayload = {
+      question,
+      profileId: input.profileId,
+      profileName: getProfile(input.profileId).name,
+      anonymized: {
+        overallStatus: result?.overallStatus ?? "unknown",
+        completeness: result?.completeness ?? "partial",
+        categories: (result?.categories ?? []).map((c) => ({
+          id: c.id,
+          status: c.status,
+          zakat: c.zakatMoney !== undefined ? formatPlain(c.zakatMoney) : undefined,
+          natural: c.natural?.map((n) => n.label),
+        })),
+        missing: result?.missing ?? [],
+      },
+      sourceExcerpts: excerpts,
+    };
+    try {
+      const res = await askEvidence({ data: payload });
+      if (res.ok) {
+        setLog((l) => [
+          ...l,
+          {
+            role: "bot",
+            text: res.text,
+            meta: "Ответ по источникам. Цифры считает калькулятор, не помощник.",
+          },
+        ]);
+      } else {
+        const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
+        setLog((l) => [
+          ...l,
+          {
+            role: "bot",
+            text: `${res.error}\n\nИз местных источников:\n${fallback}`,
+            meta: "поиск по сохранённым источникам",
+          },
+        ]);
+      }
+    } catch (e) {
+      setLog((l) => [
+        ...l,
+        {
+          role: "bot",
+          text: `Сейчас без сети. ${e instanceof Error ? e.message : ""} Ваш расчёт на месте.`,
+          meta: "без сети",
+        },
+      ]);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="border border-[var(--line)] bg-[var(--surface)] p-4">
+      <h2 className="font-display text-lg">Шейх</h2>
+      <p className="text-xs text-[var(--muted)]">Мир тебе. Объясняю правила словами. Сумму считает калькулятор.</p>
+      <div className="mt-3 max-h-56 overflow-y-auto text-sm">
+        {log.map((m, i) => (
+          <div key={i} className={cn("mb-2 p-2", m.role === "user" ? "bg-[var(--bg)]" : "bg-[var(--bg-elev)]")}>
+            <p className="whitespace-pre-wrap">{m.text}</p>
+            {m.meta ? <p className="mt-1 text-[11px] text-[var(--muted)]">{m.meta}</p> : null}
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 flex gap-2">
+        <TextInput
+          value={q}
+          placeholder="Спроси шейха про нисаб, год владения, скот…"
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") void send();
+          }}
+        />
+        <Button onClick={() => void send()} disabled={busy}>
+          Спросить
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+export function QuotesButton() {
+  const input = useMizan((s) => s.input);
+  const setInput = useMizan((s) => s.setInput);
+  const setQuotesStatus = useMizan((s) => s.setQuotesStatus);
+  const status = useMizan((s) => s.quotesStatus);
+  async function load() {
+    setQuotesStatus("loading");
+    try {
+      const res = await fetchMarketQuotes({
+        data: {
+          date: input.asOfDate,
+          base: input.baseCurrency,
+          symbols: ["USD", "EUR", "RUB", "EGP", "SAR", "AED", "GBP", "TRY"],
+          cryptoIds: input.crypto.map((c) => c.coingeckoId).filter((x): x is string => Boolean(x)),
+        },
+      });
+      if (!res.ok) {
+        setQuotesStatus("error", res.error);
+        return;
+      }
+      const manuals = input.quotes.quotes.filter((q) => q.status === "manual");
+      const merged = [...res.snapshot.quotes.filter((q) => !manuals.some((m) => m.asset === q.asset)), ...manuals];
+      setInput({ quotes: { ...res.snapshot, quotes: merged } });
+      setQuotesStatus("ok");
+    } catch (e) {
+      setQuotesStatus("error", e instanceof Error ? e.message : "сеть");
+    }
+  }
+  return (
+    <Button variant="secondary" onClick={() => void load()} disabled={status === "loading"}>
+      {status === "loading" ? "Загружаем цены…" : "Обновить цены"}
+    </Button>
+  );
+}
+
+export function SettingsDialog() {
+  const open = useMizan((s) => s.settingsOpen);
+  const setOpen = useMizan((s) => s.setSettingsOpen);
+  const designsOpen = useMizan((s) => s.designsOpen);
+  const setDesigns = useMizan((s) => s.setDesignsOpen);
+  const settings = useMizan((s) => s.settings);
+  const setSettings = useMizan((s) => s.setSettings);
+  const history = useMizan((s) => s.history);
+  const loadSaved = useMizan((s) => s.loadSaved);
+  const duplicate = useMizan((s) => s.duplicate);
+  const deleteSaved = useMizan((s) => s.deleteSaved);
+  const importJson = useMizan((s) => s.importJson);
+  const [importErr, setImportErr] = useState("");
+  const [imported, setImported] = useState(false);
+  if (!open) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 grid place-items-center bg-[var(--scrim)] p-4"
+      role="presentation"
+      onClick={() => setOpen(false)}
+    >
+      <div
+        role="dialog"
+        aria-labelledby="settings-title"
+        className="dialog-enter max-h-[90vh] w-full max-w-5xl overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 id="settings-title" className="font-display text-2xl">
+            Настройки
+          </h2>
+          <Button variant="ghost" onClick={() => setOpen(false)} aria-label="Закрыть">
+            <X className="size-5" />
+          </Button>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Размер текста">
+            <input
+              type="range"
+              min={0.9}
+              max={1.3}
+              step={0.05}
+              value={settings.fontScale}
+              onChange={(e) => setSettings({ fontScale: Number(e.target.value) })}
+            />
+          </Field>
+          <Field label="Плотность">
+            <Select
+              value={settings.densityOverride}
+              onChange={(e) => setSettings({ densityOverride: e.target.value as typeof settings.densityOverride })}
+            >
+              <option value="theme">Как в оформлении</option>
+              <option value="compact">Компактно</option>
+              <option value="regular">Обычно</option>
+              <option value="airy">Воздушно</option>
+            </Select>
+          </Field>
+          <label className="flex min-h-11 items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={settings.reducedMotion}
+              onChange={(e) => setSettings({ reducedMotion: e.target.checked })}
+            />
+            Без анимаций
+          </label>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          <Button onClick={() => setDesigns(true)}>Оформление</Button>
+          <label className="inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm">
+            Открыть сохранённый расчёт
+            <input
+              type="file"
+              accept="application/json,.json"
+              className="sr-only"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const text = await file.text();
+                const r = importJson(text);
+                setImportErr(r.ok ? "" : r.error ?? "не получилось открыть файл");
+                setImported(r.ok);
+              }}
+            />
+          </label>
+        </div>
+        {imported ? <p className="mt-2 text-sm text-[var(--ok)]">Расчёт открыт.</p> : null}
+        {importErr ? <p className="mt-2 text-sm text-[var(--danger)]">{importErr}</p> : null}
+        {history.length ? (
+          <div className="mt-6">
+            <h3 className="mb-2 font-medium">Сохранённые расчёты</h3>
+            <ul className="grid gap-2 text-sm">
+              {history.map((h) => (
+                <li key={h.id} className="flex flex-wrap items-center justify-between gap-2 border border-[var(--line)] p-2">
+                  <span>
+                    {h.title} · {h.input.asOfDate}
+                  </span>
+                  <span className="flex gap-2">
+                    <Button variant="ghost" onClick={() => loadSaved(h.id)}>
+                      Открыть
+                    </Button>
+                    <Button variant="ghost" onClick={() => duplicate(h.id)}>
+                      Копия
+                    </Button>
+                    <Button variant="ghost" onClick={() => deleteSaved(h.id)}>
+                      Удалить
+                    </Button>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {designsOpen ? <DesignGallery /> : null}
+      </div>
+    </div>
+  );
+}
+
+function DesignGallery() {
+  const settings = useMizan((s) => s.settings);
+  const preview = useMizan((s) => s.previewThemeId);
+  const setPreview = useMizan((s) => s.setPreviewTheme);
+  const apply = useMizan((s) => s.applyTheme);
+  const revert = useMizan((s) => s.revertTheme);
+  const toggleFav = useMizan((s) => s.toggleFavorite);
+  const [q, setQ] = useState("");
+  const [family, setFamily] = useState<LayoutFamily | "all">("all");
+  const [mode, setMode] = useState<"all" | "light" | "dark">("all");
+  const [favOnly, setFavOnly] = useState(false);
+  const previous = settings.themeId;
+  const list = useMemo(() => {
+    return THEMES.filter((t) => {
+      if (family !== "all" && t.family !== family) return false;
+      if (mode !== "all" && t.mode !== mode) return false;
+      if (favOnly && !settings.favorites.includes(t.id)) return false;
+      if (q && !`${t.name} ${t.nameRu} ${t.notes}`.toLowerCase().includes(q.toLowerCase())) return false;
+      return true;
+    });
+  }, [q, family, mode, favOnly, settings.favorites]);
+  return (
+    <div className="mt-6 border-t border-[var(--line)] pt-4">
+      <h3 className="font-display text-xl">Оформление</h3>
+      <p className="text-xs text-[var(--muted)]">
+        Можно посмотреть, не портя расчёт. Отмена вернёт «{getTheme(previous).nameRu}».
+      </p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-4">
+        <Field label="Поиск">
+          <TextInput value={q} onChange={(e) => setQ(e.target.value)} placeholder="Изумруд, мастер…" />
+        </Field>
+        <Field label="Вид экрана">
+          <Select value={family} onChange={(e) => setFamily(e.target.value as typeof family)}>
+            <option value="all">Все</option>
+            {Object.entries(LAYOUT_LABEL).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </Select>
+        </Field>
+        <Field label="Светлый или тёмный">
+          <Select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
+            <option value="all">Все</option>
+            <option value="dark">Тёмные</option>
+            <option value="light">Светлые</option>
+          </Select>
+        </Field>
+        <label className="flex min-h-11 items-end gap-2 text-sm">
+          <input type="checkbox" checked={favOnly} onChange={(e) => setFavOnly(e.target.checked)} />
+          Только избранные
+        </label>
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {list.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setPreview(t.id)}
+            className={cn(
+              "border p-3 text-left",
+              (preview ?? settings.themeId) === t.id ? "border-[var(--accent)]" : "border-[var(--line)]",
+            )}
+            style={{
+              background: t.tokens["--bg"],
+              color: t.tokens["--fg"],
+            }}
+          >
+            <div className="mb-2 flex h-16 overflow-hidden border" style={{ borderColor: t.tokens["--line"] }}>
+              <div className="w-1/4" style={{ background: t.tokens["--surface"] }} />
+              <div className="flex-1 p-2">
+                <div className="h-2 w-1/2" style={{ background: t.tokens["--accent"] }} />
+                <div className="mt-2 h-8" style={{ background: t.tokens["--bg-elev"] }} />
+              </div>
+            </div>
+            <p className="text-sm font-medium">{t.nameRu}</p>
+            <p className="text-[11px] opacity-80">
+              {LAYOUT_LABEL[t.family]} · {t.mode === "dark" ? "тёмная" : "светлая"} · {t.density}
+            </p>
+            {(preview ?? settings.themeId) === t.id ? <p className="mt-1 text-[11px]">выбрано</p> : null}
+          </button>
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Button
+          onClick={() => {
+            if (preview) apply(preview);
+          }}
+          disabled={!preview}
+        >
+          <Check className="size-4" /> Применить
+        </Button>
+        <Button variant="secondary" onClick={revert}>
+          Отмена
+        </Button>
+        <Button variant="ghost" onClick={() => apply("mizan-emerald")}>
+          <RotateCcw className="size-4" /> Вернуть исходный
+        </Button>
+        {preview ? (
+          <Button variant="ghost" onClick={() => toggleFav(preview)}>
+            <Heart className="size-4" /> Избранное
+          </Button>
+        ) : null}
+      </div>
+    </div>
+  );
+}

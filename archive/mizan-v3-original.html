@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b2e23">
+  <title>Мизан — Калькулятор закята с источниками</title>
+  <meta name="description" content="Evidence-first Zakat calculator: money, metals, crypto, investments, livestock, crops. With Quranic sources, hadiths, and institutional methodologies.">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --emerald: #0b2e23;
+      --emerald-dark: #051a14;
+      --emerald-light: #0e3b2c;
+      --gold: #f0cf7a;
+      --gold-dark: #c49b45;
+      --mint: #6ee1ae;
+      --red: #ff8b82;
+      --text: #f8f4e9;
+      --text-muted: #a8b6ae;
+      --text-secondary: #c0cbc5;
+      --glass: rgba(8,28,21,0.72);
+      --glass-strong: rgba(4,13,10,0.85);
+      --line: rgba(240,207,122,0.15);
+      --radius: 16px;
+      --glow: 0 0 30px rgba(240,207,122,0.15);
+      --shadow: 0 20px 60px rgba(0,0,0,0.3);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", sans-serif;
+      background: 
+        radial-gradient(900px 520px at 72% -12%, rgba(240,207,122,0.08), transparent 64%),
+        radial-gradient(760px 620px at -8% 18%, rgba(110,225,174,0.06), transparent 66%),
+        linear-gradient(180deg, #04100c 0%, #071813 38%, #05110e 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(30deg, rgba(240,207,122,0.02) 12%, transparent 12.5%, transparent 87%, rgba(240,207,122,0.02) 87.5%),
+        linear-gradient(150deg, rgba(240,207,122,0.02) 12%, transparent 12.5%, transparent 87%, rgba(240,207,122,0.02) 87.5%);
+      background-size: 80px 140px;
+      background-position: 0 0, 40px 70px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.08;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: var(--glass-strong);
+      border-bottom: 1px solid var(--line);
+      animation: slideDown 0.6s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(240,207,122,0.3);
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(240,207,122,0.15), rgba(110,225,174,0.08));
+      box-shadow: inset 0 0 20px rgba(240,207,122,0.06), var(--glow);
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--mint);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 80px 0 60px;
+      animation: fadeIn 0.8s ease 0.2s both;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .hero-content h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 span { color: var(--gold); }
+
+    .hero-content p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat-box {
+      border: 1px solid var(--line);
+      background: rgba(240,207,122,0.04);
+      border-radius: 14px;
+      padding: 16px;
+      transition: var(--transition);
+    }
+
+    .stat-box:hover {
+      background: rgba(240,207,122,0.08);
+      border-color: rgba(240,207,122,0.3);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: Georgia, serif;
+      color: var(--gold);
+    }
+
+    /* CALCULATOR CARD */
+    .calc-card {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(240,207,122,0.06), rgba(14,41,31,0.4));
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: rgba(240,207,122,0.25);
+      box-shadow: 0 20px 80px rgba(240,207,122,0.1), var(--shadow);
+    }
+
+    /* SECTION STYLES */
+    .section {
+      padding: 28px;
+      border-bottom: 1px solid var(--line);
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* FORM ELEMENTS */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: rgba(8, 28, 21, 0.4);
+      color: var(--text);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--gold);
+      background: rgba(8, 28, 21, 0.6);
+      box-shadow: 0 0 0 3px rgba(240,207,122,0.1);
+    }
+
+    input::placeholder {
+      color: var(--text-muted);
+    }
+
+    select option {
+      background: var(--emerald-dark);
+      color: var(--text);
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      border-radius: 10px;
+      padding: 9px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: var(--transition);
+    }
+
+    .tab:hover {
+      border-color: var(--gold);
+      background: rgba(240,207,122,0.06);
+    }
+
+    .tab.active {
+      background: var(--gold);
+      color: var(--emerald);
+      border-color: var(--gold);
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      width: 100%;
+      padding: 13px 16px;
+      border: none;
+      background: linear-gradient(135deg, #f0d58b, #c49b45);
+      color: var(--emerald);
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 8px 24px rgba(201,160,77,0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201,160,77,0.25);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary-full {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: var(--transition);
+    }
+
+    .btn-secondary-full:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--gold);
+    }
+
+    /* GRID LAYOUTS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    /* ROW BOX (for adding items) */
+    .row-box {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.01);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+      transition: var(--transition);
+    }
+
+    .row-box:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(240,207,122,0.25);
+    }
+
+    .row-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .row-head b {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 18px;
+      transition: var(--transition);
+      padding: 4px;
+    }
+
+    .btn-icon:hover {
+      color: var(--red);
+      transform: scale(1.1);
+    }
+
+    .btn-add {
+      width: 100%;
+      padding: 11px;
+      border: 1px dashed rgba(240,207,122,0.25);
+      background: transparent;
+      color: var(--gold);
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      margin-top: 10px;
+      transition: var(--transition);
+    }
+
+    .btn-add:hover {
+      border-color: rgba(240,207,122,0.45);
+      background: rgba(240,207,122,0.04);
+    }
+
+    /* SIDEBAR RESULTS */
+    .result-card {
+      position: sticky;
+      top: 100px;
+      padding: 24px;
+      background: linear-gradient(160deg, rgba(110,225,174,0.08), rgba(15,110,86,0.3));
+      border: 1px solid rgba(110,225,174,0.2);
+      border-radius: var(--radius);
+      animation: slideUp 0.6s ease 0.3s both;
+    }
+
+    .result-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .result-amount {
+      font-family: Georgia, serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--mint);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-top: 1px solid rgba(110,225,174,0.1);
+      font-size: 13px;
+    }
+
+    .result-row:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .result-row span:first-child {
+      color: var(--text-muted);
+    }
+
+    .result-row .good { color: var(--mint); font-weight: 600; }
+    .result-row .bad { color: var(--red); }
+
+    /* NISAB COMPARISON */
+    .nisab-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(240,207,122,0.04);
+      border-radius: 12px;
+    }
+
+    .nisab-item {
+      text-align: center;
+    }
+
+    .nisab-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .nisab-value {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* EVIDENCE BLOCKS */
+    .evidence-block {
+      border-left: 3px solid var(--gold);
+      background: rgba(240,207,122,0.05);
+      padding: 14px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .evidence-block:hover {
+      background: rgba(240,207,122,0.08);
+      border-left-color: var(--mint);
+    }
+
+    .evidence-title {
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+      margin-top: 8px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .badge.success {
+      border-color: rgba(110,225,174,0.3);
+      color: var(--mint);
+      background: rgba(110,225,174,0.05);
+    }
+
+    .badge.warning {
+      border-color: rgba(255,139,130,0.3);
+      color: var(--red);
+      background: rgba(255,139,130,0.05);
+    }
+
+    /* AI CHAT */
+    .agent-section {
+      padding: 20px;
+    }
+
+    .agent-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .agent-orb {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 32%, #fff1bd 0, #caa14e 23%, #194b39 52%, #07130f 72%);
+      box-shadow: 0 0 24px rgba(240,207,122,0.2);
+    }
+
+    .agent-header b {
+      display: block;
+      font-size: 13px;
+    }
+
+    .agent-header span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chat-box {
+      height: 200px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .bubble {
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .bubble.user {
+      background: rgba(110,225,174,0.1);
+      color: var(--text);
+      margin-left: 30px;
+    }
+
+    .bubble.bot {
+      background: rgba(240,207,122,0.08);
+      color: var(--text-secondary);
+    }
+
+    .chat-send {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    .chat-send input {
+      padding: 10px 12px;
+      margin: 0;
+    }
+
+    .chat-send button {
+      background: var(--gold);
+      color: var(--emerald);
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chat-send button:hover {
+      background: #f0d58b;
+      transform: scale(1.05);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .calc-card { grid-template-columns: 1fr; }
+      .result-card { position: static; }
+      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 16px; }
+      .hero { padding: 60px 0 40px; }
+      .header-inner { gap: 12px; }
+      .brand { font-size: 18px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .nisab-comparison { grid-template-columns: 1fr; }
+      h1 { font-size: 36px; }
+      .result-amount { font-size: 36px; }
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* TOGGLE SWITCH */
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .toggle-switch input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #20352d;
+      transition: var(--transition);
+    }
+
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: #d9e2dd;
+      transition: var(--transition);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: var(--mint);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    /* LOADING ANIMATION */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(240,207,122,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--mint));
+      z-index: 50;
+      box-shadow: 0 0 20px rgba(240,207,122,0.4);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(240,207,122,0.3); } 50% { box-shadow: 0 0 40px rgba(240,207,122,0.6); } }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">𝓜</div>
+        <div>
+          Мизан
+          <small>Калькулятор закята</small>
+        </div>
+      </div>
+      <div class="header-nav">
+        <div class="live-indicator">
+          <div class="live-dot"></div>
+          Evidence-first
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>Расчёт <span>закята</span> с источниками</h1>
+        <p>Определите ваши закятооблагаемые активы: деньги, валюты, золото, серебро, криптовалюты, инвестиции, бизнес, животных и урожай — с указанием хадисов и методик.</p>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <div class="stat-label">Методик</div>
+            <div class="stat-value">4+</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Источников</div>
+            <div class="stat-value">AAOIFI</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Валют</div>
+            <div class="stat-value">∞</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Активов</div>
+            <div class="stat-value">12+</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="aspect-ratio: 1; display: grid; place-items: center; background: linear-gradient(135deg, rgba(240,207,122,0.1), rgba(110,225,174,0.08));">
+        <div style="text-align: center;">
+          <div style="font-size: 80px; margin-bottom: 16px;">💰</div>
+          <div style="font-size: 13px; color: var(--text-secondary);">Ваша калькуляция готова</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR SECTION -->
+  <section style="margin-bottom: 60px;">
+    <div class="calc-card">
+      
+      <!-- MAIN CALCULATOR -->
+      <div class="card">
+
+        <!-- SETTINGS SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Параметры</h2>
+              <p>Дата, методика, нисаб</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Дата расчета</label>
+              <input type="date" id="zakatDate">
+            </div>
+            <div class="form-group">
+              <label>Базовая валюта</label>
+              <select id="baseCurrency">
+                <option value="RUB">РУБ (Russian Ruble)</option>
+                <option value="USD">USD (Dollar)</option>
+                <option value="EUR">EUR (Euro)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Методика нисаба</label>
+            <select id="nisabMethod" onchange="updateNisab()">
+              <option value="ir">Islamic Relief (87.48г Au / 612.36г Ag)</option>
+              <option value="zfa">Zakat Foundation (85г Au)</option>
+              <option value="kwh">Kuwait House (85г Au)</option>
+              <option value="custom">Собственная методика</option>
+            </select>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Цена золота (за г, в РУБ)</label>
+              <input type="number" id="goldPrice" value="4500" placeholder="₽">
+            </div>
+            <div class="form-group">
+              <label>Цена серебра (за г, в РУБ)</label>
+              <input type="number" id="silverPrice" value="60" placeholder="₽">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <div class="toggle-switch">
+                <input type="checkbox" id="haulCheck" checked>
+                <div class="toggle-slider"></div>
+              </div>
+              Хауль (год владения)
+            </label>
+            <p class="help-text">✓ Требуется для денежных активов</p>
+          </div>
+        </div>
+
+        <!-- MONEY SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Денежные активы</h2>
+              <p>Счета, депозиты, наличные</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Основной счет (RUB)</label>
+            <input type="number" id="mainAccount" placeholder="0" min="0">
+          </div>
+
+          <button class="btn-add" onclick="addCurrency()">+ Добавить валюту</button>
+          <div id="currenciesContainer"></div>
+        </div>
+
+        <!-- GOLD & SILVER SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Золото и серебро</h2>
+              <p>По весу и пробе</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Золото (граммы)</label>
+              <input type="number" id="goldGrams" placeholder="0" min="0">
+            </div>
+            <div class="form-group">
+              <label>Серебро (граммы)</label>
+              <input type="number" id="silverGrams" placeholder="0" min="0">
+            </div>
+          </div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Основание: Сахих аль-Бухари 1454</div>
+            <div>Одна сороковая (2,5%) золота и серебра при достижении нисаба и истечении хауля.</div>
+          </div>
+        </div>
+
+        <!-- CRYPTO SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Криптовалюты</h2>
+              <p>Bitcoin, Ethereum, токены</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Нет прямого хадиса о криптовалютах. Оценка по рыночной стоимости на дату закята (иджтихад).</label>
+          </div>
+
+          <button class="btn-add" onclick="addCrypto()">+ Добавить крипто</button>
+          <div id="cryptoContainer"></div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Современное применение (qiyās)</div>
+            <div>Islamic Relief (2026): BTC и ETH обычно рассматриваются как денежные активы. 2,5% после достижения общего нисаба. Для DeFi и locked assets требуется разбор права собственности.</div>
+          </div>
+        </div>
+
+        <!-- INVESTMENTS SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Инвестиции и бизнес</h2>
+              <p>Акции, фонды, товарные остатки</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Режим оценки</label>
+            <div class="tabs">
+              <button class="tab active" onclick="switchInvestMode('full')">100% стоимости</button>
+              <button class="tab" onclick="switchInvestMode('fraction')">Доля активов</button>
+              <button class="tab" onclick="switchInvestMode('proxy')">25% proxy</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Сумма инвестиций</label>
+            <input type="number" id="investmentAmount" placeholder="0" min="0">
+          </div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Методики (Islamic Relief, NZF)</div>
+            <div>Торговля = 100% рыночной стоимости. Долгосрочное владение = точная доля закятооблагаемых активов. Если неясно = 25% proxy, затем 2,5% от доли (факт. 0,625%).</div>
+          </div>
+        </div>
+
+        <!-- LIVESTOCK SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Скот и животные</h2>
+              <p>Овцы, козы, верблюды, КРС</p>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="form-group">
+              <label>Овцы/козы</label>
+              <input type="number" id="sheep" placeholder="0" min="0">
+            </div>
+            <div class="form-group">
+              <label>Верблюды</label>
+              <input type="number" id="camels" placeholder="0" min="0">
+            </div>
+            <div class="form-group">
+              <label>Коровы/быки</label>
+              <input type="number" id="cattle" placeholder="0" min="0">
+            </div>
+          </div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Источник: Сахих аль-Бухари 1454</div>
+            <div>Таблица закята скота с порогами по количеству голов и возрасту. На 40 овец — 1 баран, на 120 — 2 барана.</div>
+          </div>
+        </div>
+
+        <!-- CROP SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Урожай</h2>
+              <p>Сельскохозяйственная продукция</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Урожай при орошении (тонны)</label>
+              <input type="number" id="cropIrrigation" placeholder="0" min="0" step="0.1">
+            </div>
+            <div class="form-group">
+              <label>Урожай без орошения (тонны)</label>
+              <input type="number" id="cropNatural" placeholder="0" min="0" step="0.1">
+            </div>
+          </div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Сахих аль-Бухари 1483</div>
+            <div>10% при естественном орошении, 5% при затратном искусственном. Хауль не требуется. Порог: 5 васков.</div>
+          </div>
+        </div>
+
+        <!-- LIABILITIES SECTION -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Обязательства</h2>
+              <p>Краткосрочные долги</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Вычитаемые долги (РУБ)</label>
+            <input type="number" id="liabilities" placeholder="0" min="0">
+          </div>
+
+          <p class="help-text">Вычитаются только реальные обязательства, подлежащие сейчас или в ближайшем периоде оплате.</p>
+        </div>
+
+        <!-- SPECIAL CATEGORIES -->
+        <div class="section">
+          <div class="section-title">
+            <div>
+              <h2>Специальные категории</h2>
+              <p>Риказ, закят аль-фитр</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Риказ (найденное имущество)</label>
+              <input type="number" id="rikaz" placeholder="0" min="0">
+            </div>
+            <div class="form-group">
+              <label>Закят аль-фитр (человек)</label>
+              <input type="number" id="fitr" placeholder="0" min="0">
+            </div>
+          </div>
+
+          <div class="evidence-block">
+            <div class="evidence-title">Риказ: аль-Бухари 6912 — 1/5</div>
+            <div>Закят аль-фитр: аль-Бухари 1506/1507 — один са' основных продуктов. Денежный эквивалент = локальная методика, не фиксированная сумма из хадиса.</div>
+          </div>
+        </div>
+
+        <!-- EXPORT BUTTON -->
+        <div class="section">
+          <button class="btn-primary" onclick="exportReport()">📥 Скачать отчет с источниками</button>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR RESULTS -->
+      <div>
+        <div class="result-card">
+          <div class="result-label">Закят к уплате</div>
+          <div class="result-amount" id="resultAmount">0 ₽</div>
+
+          <div class="result-row">
+            <span>Активы</span>
+            <span id="resultAssets">0 ₽</span>
+          </div>
+
+          <div class="result-row">
+            <span>Обязательства</span>
+            <span id="resultLiabilities">0 ₽</span>
+          </div>
+
+          <div class="result-row">
+            <span>Чистый результат</span>
+            <span id="resultNet">0 ₽</span>
+          </div>
+
+          <div class="result-row">
+            <span>Нисаб</span>
+            <span id="resultNisab">—</span>
+          </div>
+
+          <div class="result-row">
+            <span>Статус</span>
+            <span id="resultStatus" class="bad">Ожидание данных</span>
+          </div>
+
+          <div class="nisab-comparison">
+            <div class="nisab-item">
+              <div class="nisab-label">Золотой нисаб</div>
+              <div class="nisab-value" id="nisabGold">85г</div>
+            </div>
+            <div class="nisab-item">
+              <div class="nisab-label">Серебряный нисаб</div>
+              <div class="nisab-value" id="nisabSilver">595г</div>
+            </div>
+          </div>
+
+          <button class="btn-secondary-full" onclick="recalculate()">🔄 Пересчитать</button>
+        </div>
+
+        <!-- AI ADVISOR (optional) -->
+        <div class="card" style="margin-top: 20px;">
+          <div class="agent-section">
+            <div class="agent-header">
+              <div class="agent-orb"></div>
+              <div>
+                <b>Миран Советник</b>
+                <span>Evidence AI</span>
+              </div>
+            </div>
+            <div class="chat-box" id="chatBox"></div>
+            <div class="chat-send">
+              <input type="text" id="questionInput" placeholder="Спросите о расчете..." onkeydown="if(event.key==='Enter') askQuestion()">
+              <button onclick="askQuestion()">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ============ STATE ============
+const state = {
+  zakatDate: new Date().toISOString().split('T')[0],
+  baseCurrency: 'RUB',
+  nisabMethod: 'ir',
+  goldPrice: 4500,
+  silverPrice: 60,
+  hawl: true,
+  mainAccount: 0,
+  currencies: [],
+  goldGrams: 0,
+  silverGrams: 0,
+  crypto: [],
+  investments: 0,
+  investMode: 'full',
+  sheep: 0,
+  camels: 0,
+  cattle: 0,
+  cropIrrigation: 0,
+  cropNatural: 0,
+  liabilities: 0,
+  rikaz: 0,
+  fitr: 0,
+};
+
+// ============ NISAB METHODS ============
+const nisabMethods = {
+  ir: { gold: 87.48, silver: 612.36 },
+  zfa: { gold: 85, silver: 595 },
+  kwh: { gold: 85, silver: 595 },
+  custom: { gold: 85, silver: 595 }
+};
+
+// ============ INITIALIZATION ============
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('zakatDate').valueAsDate = new Date();
+  document.getElementById('zakatDate').addEventListener('change', e => {
+    state.zakatDate = e.target.value;
+    recalculate();
+  });
+  
+  ['baseCurrency', 'nisabMethod', 'goldPrice', 'silverPrice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', e => {
+      state[id] = el.type === 'number' ? parseFloat(el.value) : el.value;
+      recalculate();
+    });
+  });
+
+  document.getElementById('haulCheck').addEventListener('change', e => {
+    state.hawl = e.target.checked;
+    recalculate();
+  });
+
+  document.getElementById('mainAccount').addEventListener('input', e => {
+    state.mainAccount = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  ['goldGrams', 'silverGrams'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      state[id] = parseFloat(e.target.value) || 0;
+      recalculate();
+    });
+  });
+
+  document.getElementById('liabilities').addEventListener('input', e => {
+    state.liabilities = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  ['sheep', 'camels', 'cattle'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      state[id] = parseFloat(e.target.value) || 0;
+      recalculate();
+    });
+  });
+
+  ['cropIrrigation', 'cropNatural'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      state[id] = parseFloat(e.target.value) || 0;
+      recalculate();
+    });
+  });
+
+  document.getElementById('investmentAmount').addEventListener('input', e => {
+    state.investments = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  ['rikaz', 'fitr'].addEventListener('input', e => {
+    state[e.target.id] = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  document.getElementById('rikaz').addEventListener('input', e => {
+    state.rikaz = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  document.getElementById('fitr').addEventListener('input', e => {
+    state.fitr = parseFloat(e.target.value) || 0;
+    recalculate();
+  });
+
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = height > 0 ? (window.scrollY / height) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+
+  recalculate();
+});
+
+// ============ ADD CURRENCY ============
+function addCurrency() {
+  const container = document.getElementById('currenciesContainer');
+  const id = 'currency_' + Math.random().toString(36).substr(2, 9);
+  const html = `
+    <div class="row-box" id="${id}">
+      <div class="row-head">
+        <b>Валюта</b>
+        <button class="btn-icon" onclick="document.getElementById('${id}').remove(); recalculate()">✕</button>
+      </div>
+      <div class="grid-2">
+        <input type="text" placeholder="USD, EUR..." class="curr-code" onchange="recalculate()">
+        <input type="number" placeholder="0" class="curr-amount" onchange="recalculate()" min="0">
+      </div>
+    </div>
+  `;
+  container.insertAdjacentHTML('beforeend', html);
+}
+
+// ============ ADD CRYPTO ============
+function addCrypto() {
+  const container = document.getElementById('cryptoContainer');
+  const id = 'crypto_' + Math.random().toString(36).substr(2, 9);
+  const html = `
+    <div class="row-box" id="${id}">
+      <div class="row-head">
+        <b>Криптовалюта</b>
+        <button class="btn-icon" onclick="document.getElementById('${id}').remove(); recalculate()">✕</button>
+      </div>
+      <div class="grid-2">
+        <input type="text" placeholder="BTC, ETH..." class="crypto-name" onchange="recalculate()">
+        <input type="number" placeholder="0" class="crypto-amount" onchange="recalculate()" min="0" step="0.00001">
+      </div>
+      <div class="form-group" style="margin-top: 10px;">
+        <label>Цена в РУБ</label>
+        <input type="number" placeholder="0" class="crypto-price" onchange="recalculate()" min="0">
+      </div>
+    </div>
+  `;
+  container.insertAdjacentHTML('beforeend', html);
+}
+
+// ============ SWITCH INVESTMENT MODE ============
+function switchInvestMode(mode) {
+  state.investMode = mode;
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  recalculate();
+}
+
+// ============ CALCULATE ============
+function recalculate() {
+  const method = nisabMethods[state.nisabMethod] || nisabMethods.ir;
+  const nisabInRubles = Math.min(
+    method.gold * state.goldPrice,
+    method.silver * state.silverPrice
+  );
+
+  // Assets
+  let assets = state.mainAccount;
+  
+  // Add currencies
+  document.querySelectorAll('#currenciesContainer .curr-amount').forEach((el, i) => {
+    assets += parseFloat(el.value) || 0;
+  });
+
+  // Gold & silver
+  assets += state.goldGrams * state.goldPrice;
+  assets += state.silverGrams * state.silverPrice;
+
+  // Crypto
+  document.querySelectorAll('#cryptoContainer .crypto-price').forEach((el, i) => {
+    const amount = document.querySelectorAll('#cryptoContainer .crypto-amount')[i];
+    assets += (parseFloat(el.value) || 0) * (parseFloat(amount.value) || 0);
+  });
+
+  // Investments
+  assets += state.investments;
+
+  // Calculate livestock zakat
+  const livestockZakat = calculateLivestock();
+
+  // Calculate crop zakat
+  const cropZakat = state.cropNatural * 10 + state.cropIrrigation * 5;
+
+  // Net assets
+  let net = assets - state.liabilities;
+  const malZakat = state.hawl && net >= nisabInRubles ? net * 0.025 : 0;
+
+  // Special categories
+  const rikazZakat = state.rikaz * 0.2;
+  const special = livestockZakat + cropZakat + rikazZakat + state.fitr;
+  const total = malZakat + special;
+
+  // Update results
+  document.getElementById('resultAssets').textContent = formatCurrency(assets);
+  document.getElementById('resultLiabilities').textContent = formatCurrency(state.liabilities);
+  document.getElementById('resultNet').textContent = formatCurrency(net);
+  document.getElementById('resultNisab').textContent = formatCurrency(nisabInRubles);
+  document.getElementById('resultAmount').textContent = formatCurrency(total);
+
+  const status = !state.hawl ? 'Хауль не достигнут' : (net >= nisabInRubles ? '✓ Обязан' : '✕ Не обязан');
+  const statusEl = document.getElementById('resultStatus');
+  statusEl.textContent = status;
+  statusEl.className = net >= nisabInRubles && state.hawl ? 'good' : 'bad';
+
+  document.getElementById('nisabGold').textContent = method.gold.toFixed(2) + 'г';
+  document.getElementById('nisabSilver').textContent = method.silver.toFixed(0) + 'г';
+}
+
+function calculateLivestock() {
+  let total = 0;
+  if (state.sheep >= 40) total += Math.floor(state.sheep / 40);
+  if (state.camels >= 5) total += Math.floor(state.camels / 5);
+  if (state.cattle >= 30) total += Math.floor(state.cattle / 30);
+  return total; // Simplified
+}
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(amount);
+}
+
+// ============ EXPORT ============
+function exportReport() {
+  const date = document.getElementById('zakatDate').value;
+  const amount = document.getElementById('resultAmount').textContent;
+  const text = `МИЗАН — РАСЧЁТ ЗАКЯТА\n\nДата: ${date}\nЗакят к уплате: ${amount}\n\nЭтот расчёт опирается на хадисы и современные методики. Проверяйте источники.`;
+  
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `zakat-${date}.txt`;
+  a.click();
+}
+
+// ============ AI CHAT ============
+function askQuestion() {
+  const input = document.getElementById('questionInput');
+  const q = input.value.trim();
+  if (!q) return;
+
+  const chatBox = document.getElementById('chatBox');
+  chatBox.innerHTML += `<div class="bubble user">${escapeHtml(q)}</div>`;
+  input.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Simple local answers
+  let answer = 'По этому вопросу требуется консультация с учёным.';
+  if (/крип|btc|eth/.test(q.toLowerCase())) {
+    answer = 'Криптовалюты оцениваются по рыночной стоимости (иджтихад). Islamic Relief 2026 включает их как денежные активы: 2,5% после нисаба.';
+  } else if (/нисаб|золот|сереб/.test(q.toLowerCase())) {
+    answer = 'Нисаб зависит от выбранной методики. Islamic Relief: 87.48г золота или 612.36г серебра. Выбор остается за вами.';
+  } else if (/хауль|год|время/.test(q.toLowerCase())) {
+    answer = 'Хауль — владение имуществом в течение лунного года. Требуется для денежных активов. Для урожая и скота не требуется.';
+  }
+
+  chatBox.innerHTML += `<div class="bubble bot">${answer}</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function escapeHtml(text) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+function updateNisab() {
+  state.nisabMethod = document.getElementById('nisabMethod').value;
+  recalculate();
+}
+</script>
+
+</body>
+</html>
