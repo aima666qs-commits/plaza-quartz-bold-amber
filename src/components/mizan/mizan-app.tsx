@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { BookOpen, GraduationCap, Home, Scale, Settings, Shield } from "lucide-react";
+import { BookOpen, ChevronLeft, GraduationCap, Home, Scale, Settings, Shield, UserRound } from "lucide-react";
 import { BrandMark } from "@/components/mizan/brand.tsx";
+import { CabinetSheet } from "@/components/mizan/cabinet.tsx";
 import { HadithReader } from "@/components/mizan/hadith-reader.tsx";
 import { HisnView } from "@/components/mizan/hisn-view.tsx";
 import { HomeView } from "@/components/mizan/home-view.tsx";
@@ -8,6 +9,7 @@ import { LearnView } from "@/components/mizan/learn-view.tsx";
 import { PlayerBar } from "@/components/mizan/player-bar.tsx";
 import { QuranView } from "@/components/mizan/quran-view.tsx";
 import { SettingsDialog } from "@/components/mizan/panels.tsx";
+import { StudyGate } from "@/components/mizan/study-gate.tsx";
 import { ZakatView } from "@/components/mizan/zakat-view.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseRoomId } from "@/lib/house/catalog.ts";
 import { translate } from "@/lib/i18n/dict.ts";
@@ -98,24 +100,78 @@ function parseHash() {
 
 function goHome() {
   useLearn.getState().setCourse(null);
+  useLearn.getState().setLane(null);
   useQuran.getState().closeTafsir();
   useMizan.getState().resetToHome();
+}
+
+function goBack() {
+  const m = useMizan.getState();
+  const q = useQuran.getState();
+  const l = useLearn.getState();
+  if (m.settingsOpen) {
+    m.setSettingsOpen(false);
+    return;
+  }
+  if (q.tafsirOn) {
+    q.closeTafsir();
+    return;
+  }
+  if (m.houseHadith != null || m.houseRoom) {
+    m.setHouseRoom(null);
+    return;
+  }
+  if (l.course != null) {
+    l.setCourse(null);
+    return;
+  }
+  if (l.lane) {
+    l.setLane(null);
+    return;
+  }
+  if (m.appTab !== "home") {
+    m.setAppTab("home");
+    return;
+  }
+  goHome();
 }
 
 function Header() {
   const setOpen = useMizan((s) => s.setSettingsOpen);
   const locale = useMizan((s) => s.settings.locale);
+  const tab = useMizan((s) => s.appTab);
+  const room = useMizan((s) => s.houseRoom);
+  const tafsirOn = useQuran((s) => s.tafsirOn);
+  const course = useLearn((s) => s.course);
+  const lane = useLearn((s) => s.lane);
+  const setCabinet = useMizan((s) => s.setCabinetOpen);
+  const back = tab !== "home" || room || tafsirOn || course || Boolean(lane);
   return (
     <header className="relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]">
-      <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={goHome} data-go="home" aria-label="На главную">
-        <BrandMark size={44} />
-        <div className="min-w-0">
-          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
-            <span className="live-dot" />
-            Мизан
-          </p>
-          <p className="truncate text-xs text-[var(--muted)]">Шейх · Закят · Коран · Хисн · Иткан</p>
-        </div>
+      {back ? (
+        <button type="button" className="settings-gear" onClick={goBack} aria-label="Назад" data-go="back">
+          <ChevronLeft className="size-5" />
+        </button>
+      ) : (
+        <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={goHome} data-go="home" aria-label="На главную">
+          <BrandMark size={44} />
+          <div className="min-w-0">
+            <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
+              <span className="live-dot" />
+              Мизан
+            </p>
+            <p className="truncate text-xs text-[var(--muted)]">Шейх · Закят · Коран · Хисн · Иткан</p>
+          </div>
+        </button>
+      )}
+      {back ? (
+        <button type="button" className="flex min-w-0 flex-1 items-center gap-2 text-left" onClick={goHome} aria-label="На главную">
+          <BrandMark size={36} />
+          <span className="truncate text-sm">Мизан</span>
+        </button>
+      ) : <span className="flex-1" />}
+      <button type="button" className="settings-gear" aria-label="Кабинет" onClick={() => setCabinet(true)}>
+        <UserRound className="size-5" />
       </button>
       <button
         type="button"
@@ -193,7 +249,7 @@ export function MizanApp() {
   const hadithOpen = useMizan((s) => s.houseHadith != null);
   const settingsOpen = useMizan((s) => s.settingsOpen);
   const courseOpen = useLearn((s) => s.course != null) && tab === "learn";
-  const chromeOff = hadithOpen || courseOpen || settingsOpen;
+  const chromeOff = hadithOpen || settingsOpen;
   useEffect(() => {
     hydrateMizan();
     hydrateQuran();
@@ -232,6 +288,7 @@ export function MizanApp() {
       <ThemeApplier />
       {hadithOpen || settingsOpen ? null : <div className="geo-veil" aria-hidden />}
       {chromeOff ? null : <Header />}
+      {chromeOff ? null : <PlayerBar />}
       <main inert={chromeOff || undefined} aria-hidden={chromeOff || undefined}>
         <KeepTab id="home" tab={tab}>
           <HomeView key={homeEpoch} />
@@ -249,10 +306,12 @@ export function MizanApp() {
           <LearnView />
         </KeepTab>
       </main>
-      {hadithOpen || settingsOpen ? null : <PlayerBar />}
       {chromeOff ? null : <BottomNav />}
       {hadithOpen && !settingsOpen ? <HadithReader /> : null}
       <SettingsGate />
+      <CabinetSheet />
+      <StudyGate />
+      <StudyGate />
     </div>
   );
 }

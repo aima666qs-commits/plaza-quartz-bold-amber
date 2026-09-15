@@ -83,6 +83,7 @@ interface Store {
   history: SavedCalculation[];
   previewThemeId: string | null;
   settingsOpen: boolean;
+  cabinetOpen: boolean;
   designsOpen: boolean;
   wizardStep: number;
   activeSection: string;
@@ -105,6 +106,7 @@ interface Store {
   revertTheme: () => void;
   toggleFavorite: (id: string) => void;
   setSettingsOpen: (v: boolean) => void;
+  setCabinetOpen: (v: boolean) => void;
   setDesignsOpen: (v: boolean) => void;
   setWizardStep: (n: number) => void;
   setActiveSection: (id: string) => void;
@@ -201,6 +203,7 @@ export const useMizan = create<Store>((set, get) => ({
   history: [],
   previewThemeId: null,
   settingsOpen: false,
+  cabinetOpen: false,
   designsOpen: false,
   wizardStep: 0,
   activeSection: "",
@@ -257,6 +260,7 @@ export const useMizan = create<Store>((set, get) => ({
       history.replaceState(null, "", map[tab]);
     }
   },
+  setCabinetOpen: (v) => set({ cabinetOpen: v }),
   setDesignsOpen: (v) => set({ designsOpen: v, settingsOpen: v ? true : get().settingsOpen }),
   setWizardStep: (n) => set({ wizardStep: n }),
   setActiveSection: (id) => set({ activeSection: id }),

@@ -1,4 +1,4 @@
-import { Bookmark, Pause, Play, Repeat, SkipBack, SkipForward } from "lucide-react";
+import { Bookmark, Pause, Play, Repeat, SkipBack, SkipForward, Square } from "lucide-react";
 import type { CSSProperties } from "react";
 import { reciterById } from "@/lib/quran/reciters.ts";
 import { surahOf } from "@/lib/quran/surahs.ts";
@@ -14,6 +14,7 @@ export function PlayerBar() {
   const repeat = useQuran((s) => s.repeat);
   const bookmarks = useQuran((s) => s.bookmarks);
   const toggle = useQuran((s) => s.toggle);
+  const stop = useQuran((s) => s.stop);
   const next = useQuran((s) => s.next);
   const prev = useQuran((s) => s.prev);
   const setRepeat = useQuran((s) => s.setRepeat);
@@ -92,6 +93,9 @@ export function PlayerBar() {
           aria-label={playing ? "Пауза" : waiting ? "Дальше" : "Слушать"}
         >
           {playing ? <Pause className="size-5" /> : <Play className="size-5 translate-x-px" />}
+        </button>
+        <button type="button" className="grid size-11 place-items-center" onClick={stop} aria-label="Стоп">
+          <Square className="size-3.5 fill-current" />
         </button>
         <button type="button" className="grid size-11 place-items-center" onClick={next} aria-label="Следующий аят">
           <SkipForward className="size-4" />

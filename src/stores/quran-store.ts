@@ -3,6 +3,8 @@ import { loadAyah } from "@/lib/quran/mushaf.ts";
 import { ayahAudioFallback, ayahAudioUrl, DEFAULT_RECITER, reciterById, reciterSurahs } from "@/lib/quran/reciters.ts";
 import { estimateSegs, loadAyahSync, prefetchAyahSync, wordIndexAt, type AyahSync, type SyncWord, type WordSeg } from "@/lib/quran/sync.ts";
 import { refToGlobal, surahOf } from "@/lib/quran/surahs.ts";
+import type { MushafFontId } from "@/lib/quran/fonts.ts";
+import type { MushafLayout } from "@/lib/quran/layout.ts";
 import type { LearnPlayMode, RepeatMode } from "@/lib/quran/types.ts";
 
 const KEY = "mizan.v1.quran";
@@ -24,6 +26,9 @@ interface QuranStore {
   follow: boolean;
   wbw: boolean;
   tajweed: boolean;
+  viewMode: "read" | "learn";
+  mushafFont: MushafFontId;
+  mushafLayout: MushafLayout;
   learnMode: LearnPlayMode;
   speed: number;
   gapMs: number;
@@ -46,6 +51,9 @@ interface QuranStore {
   toggleFollow: () => void;
   toggleWbw: () => void;
   toggleTajweed: () => void;
+  setViewMode: (m: "read" | "learn") => void;
+  setMushafFont: (f: MushafFontId) => void;
+  setMushafLayout: (l: MushafLayout) => void;
   setLearnMode: (m: LearnPlayMode) => void;
   setSpeed: (n: number) => void;
   setGapMs: (n: number) => void;
@@ -55,6 +63,7 @@ interface QuranStore {
   continueLearn: () => void;
   replayUnit: () => void;
   pause: () => void;
+  stop: () => void;
   toggle: () => void;
   next: () => void;
   prev: () => void;
@@ -264,6 +273,9 @@ function persist(partial: Partial<QuranStore>) {
         follow: partial.follow ?? cur.follow,
         wbw: partial.wbw ?? cur.wbw,
         tajweed: partial.tajweed ?? cur.tajweed,
+        viewMode: partial.viewMode ?? cur.viewMode,
+        mushafFont: partial.mushafFont ?? cur.mushafFont,
+        mushafLayout: partial.mushafLayout ?? cur.mushafLayout,
         learnMode: partial.learnMode ?? cur.learnMode,
         speed: partial.speed ?? cur.speed,
         gapMs: partial.gapMs ?? cur.gapMs,
@@ -362,6 +374,9 @@ export const useQuran = create<QuranStore>((set, get) => ({
   follow: true,
   wbw: false,
   tajweed: true,
+  viewMode: "read",
+  mushafFont: "uthmani",
+  mushafLayout: "page",
   learnMode: "listen",
   speed: 1.2,
   gapMs: 0,
@@ -382,9 +397,11 @@ export const useQuran = create<QuranStore>((set, get) => ({
     persist({ surah, ayah });
     set({ surah, ayah, wordIndex: -1, waiting: false });
   },
-  openTafsir: (surah = 12, ayah = 1) => {
-    persist({ surah, ayah });
-    set({ surah, ayah, tafsirOn: true });
+  openTafsir: (surah, ayah) => {
+    const s = surah ?? get().surah;
+    const a = ayah ?? get().ayah;
+    persist({ surah: s, ayah: a });
+    set({ surah: s, ayah: a, tafsirOn: true });
   },
   closeTafsir: () => set({ tafsirOn: false }),
   setTafsirBook: (id) => set({ tafsirBook: id }),
@@ -410,6 +427,18 @@ export const useQuran = create<QuranStore>((set, get) => ({
     const tajweed = !get().tajweed;
     persist({ tajweed });
     set({ tajweed });
+  },
+  setViewMode: (viewMode) => {
+    persist({ viewMode });
+    set({ viewMode });
+  },
+  setMushafFont: (mushafFont) => {
+    persist({ mushafFont });
+    set({ mushafFont });
+  },
+  setMushafLayout: (mushafLayout) => {
+    persist({ mushafLayout });
+    set({ mushafLayout });
   },
   setLearnMode: (learnMode) => {
     persist({ learnMode });
@@ -473,6 +502,17 @@ export const useQuran = create<QuranStore>((set, get) => ({
     stopTick();
     getAudio()?.pause();
     set({ playing: false, pulse: 0 });
+  },
+  stop: () => {
+    clearGap();
+    stopTick();
+    const el = getAudio();
+    if (el) {
+      el.pause();
+      el.removeAttribute("src");
+      el.load();
+    }
+    set({ playing: false, session: false, waiting: false, wordIndex: -1, pulse: 0, audioMs: 0 });
   },
   toggle: () => {
     if (get().waiting) {
@@ -580,6 +620,9 @@ export function hydrateQuran() {
       follow: data.follow ?? true,
       wbw: data.wbw ?? false,
       tajweed: data.tajweed ?? true,
+      viewMode: data.viewMode === "read" || data.viewMode === "learn" ? data.viewMode : "read",
+      mushafFont: data.mushafFont ?? "uthmani",
+      mushafLayout: data.mushafLayout === "ayah" || data.mushafLayout === "words" || data.mushafLayout === "page" ? data.mushafLayout : "page",
       learnMode: data.learnMode ?? "listen",
       speed: data.speed ?? 1.2,
       gapMs: data.gapMs ?? 0,

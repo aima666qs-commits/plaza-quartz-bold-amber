@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { COURSES, type CourseId } from "@/lib/learn/catalog.ts";
+import type { ArabicMethodId } from "@/lib/learn/arabic-methods.ts";
 import type { TrackId } from "@/lib/learn/tracks.ts";
 import { WEEKS } from "@/lib/quran/curriculum.ts";
 
@@ -9,6 +10,9 @@ interface LearnStore {
   week: number;
   track: TrackId;
   course: CourseId | null;
+  lane: "quran" | "arabic" | "hifz" | null;
+  arabicMethod: ArabicMethodId | null;
+  lessonN: number;
   sabaqSurah: number;
   tikrarNeed: 10 | 21;
   completed: Record<string, true>;
@@ -17,6 +21,9 @@ interface LearnStore {
   setWeek: (n: number) => void;
   setTrack: (t: TrackId) => void;
   setCourse: (c: CourseId | null) => void;
+  setLane: (l: LearnStore["lane"]) => void;
+  setArabicMethod: (id: ArabicMethodId | null) => void;
+  setLessonN: (n: number) => void;
   setSabaq: (n: number) => void;
   setTikrarNeed: (n: 10 | 21) => void;
   toggleDay: (week: number, day: number) => void;
@@ -33,6 +40,9 @@ function persist() {
         week: s.week,
         track: s.track,
         course: s.course,
+        lane: s.lane,
+        arabicMethod: s.arabicMethod,
+        lessonN: s.lessonN,
         sabaqSurah: s.sabaqSurah,
         tikrarNeed: s.tikrarNeed,
         completed: s.completed,
@@ -66,6 +76,9 @@ export const useLearn = create<LearnStore>((set, get) => ({
   week: 1,
   track: "itqan",
   course: null,
+  lane: null,
+  arabicMethod: null,
+  lessonN: 1,
   sabaqSurah: 114,
   tikrarNeed: 10,
   completed: {},
@@ -81,6 +94,22 @@ export const useLearn = create<LearnStore>((set, get) => ({
   },
   setCourse: (course) => {
     set({ course: mapCourse(course) });
+    persist();
+  },
+  setLane: (lane) => {
+    set({
+      lane,
+      course: lane ? get().course : null,
+      arabicMethod: lane === "arabic" ? get().arabicMethod : null,
+    });
+    persist();
+  },
+  setArabicMethod: (arabicMethod) => {
+    set({ arabicMethod, lessonN: 1 });
+    persist();
+  },
+  setLessonN: (n) => {
+    set({ lessonN: Math.max(1, n) });
     persist();
   },
   setSabaq: (n) => {
@@ -118,6 +147,9 @@ export function hydrateLearn() {
       week: data.week ?? 1,
       track: (data.track as TrackId | undefined) ?? "itqan",
       course: mapCourse(data.course),
+      lane: data.lane === "quran" || data.lane === "arabic" || data.lane === "hifz" ? data.lane : null,
+      arabicMethod: data.arabicMethod ?? null,
+      lessonN: data.lessonN ?? 1,
       sabaqSurah: clampSurah(data.sabaqSurah ?? 114),
       tikrarNeed: data.tikrarNeed === 21 ? 21 : 10,
       completed: data.completed ?? {},

@@ -3,7 +3,8 @@ import { Check, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { phaseLabel, weekByN, WEEKS } from "@/lib/quran/curriculum.ts";
 import { HARAKAT, HEAVY, LETTERS, TAJWEED_CARDS } from "@/lib/quran/letters.ts";
-import { COURSES, FACULTIES, type Course, type CourseId } from "@/lib/learn/catalog.ts";
+import { ARABIC_METHODS, methodById } from "@/lib/learn/arabic-methods.ts";
+import { COURSES, type Course, type CourseId } from "@/lib/learn/catalog.ts";
 import { TeacherDesk } from "@/components/mizan/teacher-desk.tsx";
 import { loadAyah } from "@/lib/quran/mushaf.ts";
 import { SURAHS, surahOf } from "@/lib/quran/surahs.ts";
@@ -462,12 +463,20 @@ export function LearnView() {
   const setWeek = useLearn((s) => s.setWeek);
   const courseId = useLearn((s) => s.course);
   const setCourse = useLearn((s) => s.setCourse);
+  const lane = useLearn((s) => s.lane);
+  const setLane = useLearn((s) => s.setLane);
+  const arabicMethod = useLearn((s) => s.arabicMethod);
+  const setArabicMethod = useLearn((s) => s.setArabicMethod);
+  const lessonN = useLearn((s) => s.lessonN);
+  const setLessonN = useLearn((s) => s.setLessonN);
   const count = useLearn((s) => s.completedCount());
   const playAt = useQuran((s) => s.playAt);
   const week = weekByN(weekN);
   const [drill, setDrill] = useState<DrillKind | null>(week.days.find((d) => d.drill)?.drill ?? "letters");
   const pct = Math.round((count / TOTAL_STUDY_DAYS) * 100);
   const course = COURSES.find((c) => c.id === courseId) ?? null;
+  const method = methodById(arabicMethod);
+  const lesson = method?.lessons.find((x) => x.n === lessonN) ?? method?.lessons[0];
 
   function openCourse(c: Course) {
     if (c.action === "hisn") {
@@ -479,43 +488,147 @@ export function LearnView() {
       return;
     }
     if (c.action === "tafsir") {
-      useQuran.getState().openTafsir(12, 1);
+      useQuran.getState().openTafsir();
       useMizan.getState().setAppTab("quran");
       return;
     }
     setCourse(c.id);
   }
 
+  if (!lane) {
+    return (
+      <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
+        <div className="text-center">
+          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">ماذا ندرس</p>
+          <h1 className="font-display mt-2 text-3xl tracking-tight">Что учим</h1>
+          <p className="mx-auto mt-2 max-w-md text-sm text-[var(--muted)]">Сначала путь. Потом метод. Потом урок.</p>
+        </div>
+        {(
+          [
+            { id: "quran" as const, ru: "Коран", ar: "القرآن", hint: "Мусхаф, таджвид, тафсир, Иткан." },
+            { id: "arabic" as const, ru: "Арабский язык", ar: "اللغة العربية", hint: "Топ-методики мира, уроки по порядку." },
+            { id: "hifz" as const, ru: "Хифз", ar: "الحفظ", hint: "Заучивание со слухом Хусари. Главный путь." },
+          ]
+        ).map((p) => (
+          <button key={p.id} type="button" className="door text-start" onClick={() => setLane(p.id)}>
+            <span className="ayah-ar block text-2xl" lang="ar">
+              {p.ar}
+            </span>
+            <span className="font-display mt-1 block text-2xl">{p.ru}</span>
+            <span className="mt-1 block text-sm text-[var(--muted)]">{p.hint}</span>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  if (lane === "arabic" && !method) {
+    return (
+      <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
+        <h1 className="font-display text-3xl">Методика арабского</h1>
+        <p className="text-sm text-[var(--muted)]">Пять рабочих школ. Не реклама издательства — как реально учат.</p>
+        {ARABIC_METHODS.map((m) => (
+          <button key={m.id} type="button" className="door text-start" onClick={() => setArabicMethod(m.id)}>
+            <span className="ayah-ar block text-lg" lang="ar">
+              {m.ar}
+            </span>
+            <span className="font-display mt-1 block text-xl">{m.ru}</span>
+            <span className="mt-1 block text-sm">{m.origin}</span>
+            <span className="mt-1 block text-xs text-[var(--muted)]">{m.why}</span>
+            <span className="mt-2 block text-xs text-[var(--muted)]">{m.honest}</span>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  if (lane === "arabic" && method && !course) {
+    return (
+      <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
+        <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
+          <p className="ayah-ar text-2xl" lang="ar">
+            {method.ar}
+          </p>
+          <h1 className="font-display mt-2 text-3xl">{method.ru}</h1>
+          <p className="mt-2 text-sm text-[var(--muted)]">{method.honest}</p>
+        </header>
+        <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Уроки</p>
+        {method.lessons.map((ls) => (
+          <button
+            key={ls.n}
+            type="button"
+            className={cn("door text-start", lessonN === ls.n && "border-[var(--accent)]")}
+            onClick={() => setLessonN(ls.n)}
+          >
+            <span className="text-[11px] text-[var(--muted)]">
+              Урок {ls.n} · {ls.minutes} мин
+            </span>
+            <span className="mt-1 block font-display text-xl">{ls.title}</span>
+            <span className="mt-1 block text-sm text-[var(--muted)]">{ls.goal}</span>
+          </button>
+        ))}
+        {lesson ? (
+          <article className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+              Урок {lesson.n}
+            </p>
+            <h2 className="font-display mt-1 text-2xl">{lesson.title}</h2>
+            <p className="mt-3 text-sm">{lesson.teach}</p>
+            <p className="ayah-ar mt-4 text-3xl" lang="ar">
+              {lesson.exampleAr}
+            </p>
+            <p className="mt-2 text-sm text-[var(--muted)]">{lesson.exampleRu}</p>
+            <div className="mt-4">
+              <DrillPanel kind={lesson.drill === "read" ? "letters" : lesson.drill} />
+            </div>
+            <div className="mt-4 flex gap-2">
+              <Button variant="secondary" className="pill" disabled={lesson.n <= 1} onClick={() => setLessonN(lesson.n - 1)}>
+                Назад
+              </Button>
+              <Button
+                variant="glow"
+                className="pill flex-1"
+                onClick={() => {
+                  const next = method.lessons.find((x) => x.n === lesson.n + 1);
+                  if (next) setLessonN(next.n);
+                }}
+                disabled={!method.lessons.some((x) => x.n === lesson.n + 1)}
+              >
+                Урок {lesson.n + 1}
+              </Button>
+            </div>
+            <Button className="mt-3 w-full" variant="ghost" onClick={() => useMizan.getState().setAppTab("quran")}>
+              Открыть мусхаф
+            </Button>
+          </article>
+        ) : null}
+      </div>
+    );
+  }
+
   if (!course) {
+    const list = COURSES.filter((c) => {
+      if (lane === "hifz") return c.faculty === "hifz";
+      if (lane === "quran") return c.faculty === "quran" || c.faculty === "tajweed" || c.id === "itqan" || c.id === "tafsir";
+      return true;
+    });
     return (
       <div className="page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6">
         <div className="text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">جامعة · факультет</p>
-          <h1 className="font-display mt-2 text-3xl tracking-tight">Сначала метод</h1>
+          <h1 className="font-display mt-2 text-3xl tracking-tight">{lane === "hifz" ? "Хифз" : "Коран"}</h1>
           <p className="mx-auto mt-2 max-w-md text-sm text-[var(--muted)]">
-            Выберите путь. Учитель ведёт только выбранный метод. Иджазу даёт живой шейх, не это окно.
+            {lane === "hifz" ? "Слух, повтор, сокрытие. Иджазу даёт живой шейх." : "Мусхаф, таджвид, программа Иткан."}
           </p>
         </div>
-        {FACULTIES.map((f) => {
-          const list = COURSES.filter((c) => c.faculty === f.id);
-          if (!list.length) return null;
-          return (
-            <section key={f.id} className="grid gap-2">
-              <p className="text-center text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
-                {f.nameAr} · {f.name}
-              </p>
-              {list.map((c) => (
-                <button key={c.id} type="button" className="door text-start" onClick={() => openCourse(c)} data-go={`course-${c.id}`}>
-                  <span className="ayah-ar block text-lg" lang="ar">
-                    {c.nameAr}
-                  </span>
-                  <span className="font-display mt-1 block text-xl leading-tight">{c.name}</span>
-                  <span className="mt-1 block text-sm text-[var(--muted)]">{c.inventor}</span>
-                </button>
-              ))}
-            </section>
-          );
-        })}
+        {list.map((c) => (
+          <button key={c.id} type="button" className="door text-start" onClick={() => openCourse(c)} data-go={`course-${c.id}`}>
+            <span className="ayah-ar block text-lg" lang="ar">
+              {c.nameAr}
+            </span>
+            <span className="font-display mt-1 block text-xl leading-tight">{c.name}</span>
+            <span className="mt-1 block text-sm text-[var(--muted)]">{c.inventor}</span>
+          </button>
+        ))}
       </div>
     );
   }

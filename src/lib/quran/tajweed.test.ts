@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { paintText, paintWord, wordBeats } from "./tajweed.ts";
+import { paintText, paintWord, wordBeats, wordRule } from "./tajweed.ts";
 
 function rulesOf(s: string, next = "") {
   return paintWord(s, next).map((p) => `${p.text}:${p.rule}`);
@@ -61,5 +61,10 @@ describe("tajweed karaoke", () => {
   it("ikhfa shafawi: meem sakin + ba", () => {
     const p = paintText("هُم بِهِ");
     assert.equal(true, p.some((x) => x.rule === "ikhfaShafawi"));
+  });
+
+  it("wordRule keeps one colour so letters join", () => {
+    assert.equal(wordRule("إِنَّ"), "ghunna");
+    assert.equal(wordRule("يَلِدْ"), "qalqala");
   });
 });

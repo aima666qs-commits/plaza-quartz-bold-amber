@@ -270,6 +270,38 @@ export function wordBeats(ar: string, next = ""): number {
   return Math.max(2, sum);
 }
 
+const RULE_RANK: TajweedRule[] = [
+  "maddLazim",
+  "madd",
+  "ghunna",
+  "ikhfa",
+  "idgham",
+  "iqlab",
+  "ikhfaShafawi",
+  "idghamShafawi",
+  "qalqala",
+  "idghamNo",
+  "silent",
+  "izhar",
+  "maddTabi",
+  "none",
+];
+
+/** One colour per word so letters stay joined. */
+export function wordRule(ar: string, next = ""): TajweedRule {
+  const parts = paintWord(ar, next);
+  let best: TajweedRule = "none";
+  let rank = RULE_RANK.length;
+  for (const p of parts) {
+    const i = RULE_RANK.indexOf(p.rule);
+    if (i >= 0 && i < rank) {
+      rank = i;
+      best = p.rule;
+    }
+  }
+  return best;
+}
+
 export function ruleClass(rule: TajweedRule): string {
   if (rule === "none" || rule === "izhar" || rule === "maddTabi") return "";
   return `tj tj-${rule}`;

@@ -42,6 +42,14 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+[data-mushaf-font="uthmani"] { --font-arabic: "Scheherazade New", "Noto Naskh Arabic", serif; }
+[data-mushaf-font="naskh"] { --font-arabic: "Noto Naskh Arabic", "Scheherazade New", serif; }
+[data-mushaf-font="amiri"] { --font-arabic: "Amiri Quran", Amiri, "Scheherazade New", serif; }
+[data-mushaf-font="indopak"] { --font-arabic: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif; }
+[data-mushaf-font="lateef"] { --font-arabic: Lateef, "Noto Naskh Arabic", serif; }
+[data-mushaf-font="kufi"] { --font-arabic: "Reem Kufi", Amiri, sans-serif; }
+[data-mushaf-font="ruqaa"] { --font-arabic: "Aref Ruqaa", Amiri, serif; }
+
 @layer base {
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -292,10 +300,15 @@ canvas {
 
 .ayah-ar {
   font-family: var(--font-arabic);
-  font-size: clamp(1.45rem, 1.15rem + 1.4vw, 2.15rem);
-  line-height: 2.15;
+  font-size: clamp(1.55rem, 1.2rem + 1.6vw, 2.35rem);
+  line-height: 2.35;
   direction: rtl;
   text-align: right;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  max-width: 100%;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+  font-kerning: none;
 }
 
 .ayah-active {
@@ -366,20 +379,29 @@ canvas {
 }
 
 .bottom-dock {
-  z-index: 50;
+  z-index: 80;
   position: fixed;
   inset-inline: 0;
   bottom: 0;
   padding-bottom: env(safe-area-inset-bottom);
   border-top: 1px solid var(--line);
-  background: color-mix(in oklab, var(--bg) 60%, transparent);
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  transition: transform var(--motion-fast) var(--ease-out);
+  transform: none;
 }
 
 .bottom-dock.is-tucked {
-  transform: translateY(calc(100% - 18px));
+  transform: none;
+}
+
+.player-dock {
+  position: sticky;
+  top: 0;
+  z-index: 45;
+  margin: 0 12px 8px;
+  inset-inline: auto;
+  bottom: auto;
 }
 
 .dock-handle {
@@ -392,15 +414,8 @@ canvas {
   background: color-mix(in oklab, var(--fg) 32%, transparent);
 }
 
-.player-dock {
-  position: fixed;
-  inset-inline: 12px;
-  bottom: calc(64px + env(safe-area-inset-bottom));
-  z-index: 29;
-}
-
 .has-player .page-pad {
-  padding-bottom: calc(148px + env(safe-area-inset-bottom));
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
 }
 
 .page-pad {
@@ -673,18 +688,83 @@ canvas {
 }
 
 .ayah-ar {
-  overflow-wrap: anywhere;
-  word-break: break-word;
   max-width: 100%;
+}
+
+.ayah-ar-read .ayah-word {
+  display: inline;
+  padding: 0.02em 0.04em;
+  margin: 0;
+  border-radius: 0.2em;
+}
+
+.ayah-ar-learn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.35rem 0.45rem;
+  row-gap: 0.55rem;
+}
+
+.ayah-ar-learn .ayah-word {
+  display: inline-block;
+  padding: 0.18em 0.32em;
+  margin: 0;
+  border-radius: 0.55em;
+  background: color-mix(in oklab, var(--fg) 6%, transparent);
+  white-space: nowrap;
+}
+
+.mushaf-page {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.7rem, 1.25rem + 2vw, 2.55rem);
+  line-height: 2.55;
+  direction: rtl;
+  text-align: justify;
+  text-align-last: right;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+  padding: 1.1rem 1rem 1.3rem;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.mushaf-ayah {
+  cursor: pointer;
+}
+
+.mushaf-ayah.is-now {
+  background: color-mix(in oklab, var(--accent) 28%, transparent);
+  border-radius: 0.25em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.ayah-end {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35em;
+  height: 1.35em;
+  margin-inline: 0.15em;
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+  border-radius: 999px;
+  font-size: 0.55em;
+  font-family: var(--font-body);
+  line-height: 1;
+  vertical-align: middle;
+  color: var(--accent);
 }
 
 .ayah-word {
   display: inline;
   border-radius: 0.35em;
-  padding: 0.04em 0.1em;
-  margin-inline: 0.02em;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  unicode-bidi: isolate;
+  white-space: nowrap;
   transition:
     background-color var(--motion-quick) var(--ease-out),
     color var(--motion-quick) var(--ease-out),
@@ -803,7 +883,7 @@ canvas {
 }
 
 .has-player .page-pad {
-  padding-bottom: calc(196px + env(safe-area-inset-bottom));
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
 }
 
 [data-nav="top"] .bottom-dock {
@@ -820,7 +900,8 @@ canvas {
 }
 
 [data-nav="top"] .player-dock {
-  bottom: 12px;
+  top: calc(52px + env(safe-area-inset-top));
+  bottom: auto;
 }
 
 [data-nav="sidebar"] .app-shell {

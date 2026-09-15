@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { loadAyah } from "@/lib/quran/mushaf.ts";
-import { loadYusufTafsir, neighbor, pieceAt, TAFSIR_BOOKS, type TafsirSnap } from "@/lib/quran/tafsir.ts";
+import { loadTafsir, TAFSIR_BOOKS, type TafsirHit } from "@/lib/quran/tafsir.ts";
 import { surahOf } from "@/lib/quran/surahs.ts";
 import type { Ayah } from "@/lib/quran/types.ts";
 import { cn } from "@/lib/utils.ts";
@@ -16,28 +16,34 @@ export function TafsirView() {
   const close = useQuran((s) => s.closeTafsir);
   const bookId = useQuran((s) => s.tafsirBook);
   const setBook = useQuran((s) => s.setTafsirBook);
-  const [snap, setSnap] = useState<TafsirSnap | null>(null);
+  const [hit, setHit] = useState<TafsirHit | null>(null);
   const [err, setErr] = useState("");
   const [ayahRow, setAyahRow] = useState<Ayah | null>(null);
 
-  useEffect(() => {
-    if (surah !== 12) setRef(12, 1);
-  }, [surah, setRef]);
+  const meta = surahOf(surah);
+  const bookMeta = TAFSIR_BOOKS.find((b) => b.id === bookId) ?? TAFSIR_BOOKS[0];
 
   useEffect(() => {
-    void loadYusufTafsir()
-      .then(setSnap)
-      .catch(() => setErr("Не удалось открыть снимок тафсира Йусуф."));
-  }, []);
+    let live = true;
+    setErr("");
+    setHit(null);
+    void loadTafsir(bookId, surah, ayah)
+      .then((row) => {
+        if (live) setHit(row);
+      })
+      .catch(() => {
+        if (live) setErr("Не удалось открыть тафсир. Проверь сеть.");
+      });
+    return () => {
+      live = false;
+    };
+  }, [bookId, surah, ayah]);
 
-  const n = surah === 12 ? ayah : 1;
   useEffect(() => {
-    void loadAyah(12, n).then(setAyahRow);
-  }, [n]);
+    void loadAyah(surah, ayah).then(setAyahRow);
+  }, [surah, ayah]);
 
-  const book = snap?.tafsirs.find((t) => t.id === bookId) ?? snap?.tafsirs[0];
-  const piece = book ? pieceAt(book, n) : undefined;
-  const meta = surahOf(12);
+  const arBook = bookMeta.lang === "ar";
 
   return (
     <div className="page-pad mx-auto grid max-w-2xl gap-4 px-4 pt-2">
@@ -46,7 +52,7 @@ export function TafsirView() {
           <ChevronLeft className="size-4" /> Мусхаф
         </button>
         <p className="min-w-0 flex-1 truncate text-center text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">
-          Тафсир · {meta.ru}
+          Тафсир · весь Коран
         </p>
       </div>
 
@@ -58,7 +64,7 @@ export function TafsirView() {
           </span>
         </h1>
         <p className="mt-1 text-xs text-[var(--muted)]">
-          Мекканская · 111 аятов. Снимок Quran.com {snap?.retrievedAt}. Не фетва.
+          {meta.place === "M" ? "Мекканская" : "Мединская"} · {meta.ayahs} аятов · {ayah} / {meta.ayahs}. Не фетва.
         </p>
       </header>
 
@@ -82,7 +88,7 @@ export function TafsirView() {
 
       <article className="ayah-card">
         <p className="text-[11px] tabular-nums text-[var(--muted)]">
-          {piece ? `${piece.from}–${piece.to}` : n} / 111
+          {surah}:{ayah}
         </p>
         {ayahRow ? (
           <>
@@ -95,16 +101,22 @@ export function TafsirView() {
         ) : (
           <p className="mt-2 text-sm text-[var(--muted)]">Мусхаф…</p>
         )}
-        <Button className="mt-3 pill" variant="secondary" onClick={() => playAt(12, n, piece?.to ?? n)}>
+        <Button className="mt-3 pill" variant="secondary" onClick={() => playAt(surah, ayah, ayah)}>
           <Play className="size-4" /> Слушать
         </Button>
       </article>
 
       <article className="rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4">
-        <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{book?.name}</p>
-        {piece?.text ? (
-          <div className="mt-3 grid gap-3 text-sm leading-relaxed whitespace-pre-wrap">{piece.text}</div>
-        ) : (
+        <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{hit?.name ?? bookMeta.ru}</p>
+        {hit?.text ? (
+          <div
+            className={cn("mt-3 grid gap-3 text-sm leading-relaxed whitespace-pre-wrap", arBook && "ayah-ar text-xl")}
+            lang={arBook ? "ar" : "ru"}
+            dir={arBook ? "rtl" : "ltr"}
+          >
+            {hit.text}
+          </div>
+        ) : err ? null : (
           <p className="mt-3 text-sm text-[var(--muted)]">Открываю тафсир…</p>
         )}
       </article>
@@ -113,23 +125,32 @@ export function TafsirView() {
         <Button
           variant="ghost"
           className="pill"
-          disabled={!book || n <= 1}
-          onClick={() => book && setRef(12, neighbor(book, n, -1))}
+          disabled={ayah <= 1 && surah <= 1}
+          onClick={() => {
+            if (ayah > 1) setRef(surah, ayah - 1);
+            else if (surah > 1) {
+              const prev = surahOf(surah - 1);
+              setRef(surah - 1, prev.ayahs);
+            }
+          }}
         >
           <ChevronLeft className="size-4" /> Назад
         </Button>
+        <p className="text-xs tabular-nums text-[var(--muted)]">
+          {surah}:{ayah}
+        </p>
         <Button
           variant="ghost"
           className="pill"
-          disabled={!book || n >= 111}
-          onClick={() => book && setRef(12, neighbor(book, n, 1))}
+          disabled={surah >= 114 && ayah >= meta.ayahs}
+          onClick={() => {
+            if (ayah < meta.ayahs) setRef(surah, ayah + 1);
+            else if (surah < 114) setRef(surah + 1, 1);
+          }}
         >
           Дальше <ChevronRight className="size-4" />
         </Button>
       </div>
-      <p className="text-center text-[11px] text-[var(--muted)]">
-        {snap?.note} Источник: api.quran.com · {snap?.source}
-      </p>
     </div>
   );
 }

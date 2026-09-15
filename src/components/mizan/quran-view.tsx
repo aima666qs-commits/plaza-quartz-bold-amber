@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { Highlighter, Languages, PauseCircle, Play, Repeat1, Search, Sparkles, Type } from "lucide-react";
+import { BookOpen, GraduationCap, Highlighter, Languages, PauseCircle, Pause, Play, Repeat1, Search, Sparkles, Square, Type } from "lucide-react";
 import { AyahLine } from "@/components/mizan/ayah-line.tsx";
 import { TafsirView } from "@/components/mizan/tafsir-view.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { TextInput } from "@/components/ui/field.tsx";
+import { MUSHAF_FONTS } from "@/lib/quran/fonts.ts";
+import { MUSHAF_LAYOUTS } from "@/lib/quran/layout.ts";
 import { loadMushaf, searchMushaf } from "@/lib/quran/mushaf.ts";
 import { RECITERS, reciterById, reciterSurahs } from "@/lib/quran/reciters.ts";
 import { JUZ_START, SURAHS, surahOf } from "@/lib/quran/surahs.ts";
@@ -49,6 +51,14 @@ function MushafView() {
   const toggleWbw = useQuran((s) => s.toggleWbw);
   const tajweed = useQuran((s) => s.tajweed);
   const toggleTajweed = useQuran((s) => s.toggleTajweed);
+  const viewMode = useQuran((s) => s.viewMode);
+  const setViewMode = useQuran((s) => s.setViewMode);
+  const mushafFont = useQuran((s) => s.mushafFont);
+  const setMushafFont = useQuran((s) => s.setMushafFont);
+  const mushafLayout = useQuran((s) => s.mushafLayout);
+  const setMushafLayout = useQuran((s) => s.setMushafLayout);
+  const stop = useQuran((s) => s.stop);
+  const toggle = useQuran((s) => s.toggle);
   const learnMode = useQuran((s) => s.learnMode);
   const setLearnMode = useQuran((s) => s.setLearnMode);
   const speed = useQuran((s) => s.speed);
@@ -88,7 +98,11 @@ function MushafView() {
   const modeMeta = MODES.find((m) => m.id === learnMode) ?? MODES[0];
 
   return (
-    <div className="page-pad mx-auto grid max-w-6xl gap-4 px-4 pt-4 lg:grid-cols-[260px_minmax(0,1fr)]">
+    <div
+      className="page-pad mx-auto grid max-w-6xl gap-4 px-4 pt-4 lg:grid-cols-[260px_minmax(0,1fr)]"
+      data-mushaf-font={mushafFont}
+      data-mushaf-mode={viewMode}
+    >
       <aside className={cn("lg:block", listOpen ? "block" : "hidden")}>
         <div className="mb-3 flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--bg-elev)] px-3">
           <Search className="size-4 text-[var(--muted)]" />
@@ -182,6 +196,78 @@ function MushafView() {
           </Button>
         </div>
 
+        <div className="mt-4 flex gap-2">
+          <button
+            type="button"
+            data-mushaf-mode="read"
+            onClick={() => setViewMode("read")}
+            className={cn(
+              "inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full border px-3 text-sm",
+              viewMode === "read" ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
+            )}
+          >
+            <BookOpen className="size-4" /> Чтение
+          </button>
+          <button
+            type="button"
+            data-mushaf-mode="learn"
+            onClick={() => setViewMode("learn")}
+            className={cn(
+              "inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full border px-3 text-sm",
+              viewMode === "learn" ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
+            )}
+          >
+            <GraduationCap className="size-4" /> Обучение
+          </button>
+        </div>
+        <p className="mt-2 text-xs text-[var(--muted)]">
+          {viewMode === "read"
+            ? "Связный мусхаф. Слова не рвутся. Выбери шрифт."
+            : "Слова отдельно. Таджвид и караоке по чтецу."}
+        </p>
+
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1" data-mushaf-fonts>
+          {MUSHAF_FONTS.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => setMushafFont(f.id)}
+              className={cn(
+                "inline-flex min-h-11 shrink-0 flex-col items-center justify-center rounded-2xl border px-3 py-1",
+                mushafFont === f.id ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
+              )}
+            >
+              <span className="text-[11px]">{f.ru}</span>
+              <span className="ayah-ar text-base leading-none" lang="ar">
+                {f.ar}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+          {MUSHAF_LAYOUTS.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              onClick={() => {
+                setMushafLayout(l.id);
+                if (l.id === "words") setViewMode("learn");
+                else setViewMode("read");
+              }}
+              className={cn(
+                "inline-flex min-h-11 shrink-0 flex-col items-start rounded-2xl border px-3 py-2 text-left",
+                mushafLayout === l.id ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
+              )}
+            >
+              <span className="text-sm">{l.ru}</span>
+              <span className="text-[11px] text-[var(--muted)]">{l.hint}</span>
+            </button>
+          ))}
+        </div>
+
+        {viewMode === "learn" ? (
+        <>
         <div className="mt-4 flex gap-2 overflow-x-auto pb-1" data-learn-modes>
           {MODES.map((m) => (
             <button
@@ -275,6 +361,8 @@ function MushafView() {
             ))}
           </div>
         ) : null}
+        </>
+        ) : null}
 
         <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
           {RECITERS.map((r) => (
@@ -299,11 +387,22 @@ function MushafView() {
         <p className="mt-2 text-xs text-[var(--muted)]">{rec.blurb}</p>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button variant="glow" onClick={() => playAt(surah, 1, rec.kind === "surah" ? null : meta.ayahs)}>
-            <Play className="size-4" /> Слушать суру
-          </Button>
-          <Button variant="secondary" className="pill" onClick={() => openTafsir(surah === 12 ? surah : 12, surah === 12 ? ayah : 1)}>
-            Тафсир Йусуф
+          {playing ? (
+            <>
+              <Button variant="glow" onClick={toggle}>
+                <Pause className="size-4" /> Пауза
+              </Button>
+              <Button variant="secondary" className="pill" onClick={stop}>
+                <Square className="size-3.5 fill-current" /> Стоп
+              </Button>
+            </>
+          ) : (
+            <Button variant="glow" onClick={() => playAt(surah, 1, rec.kind === "surah" ? null : meta.ayahs)}>
+              <Play className="size-4" /> Слушать суру
+            </Button>
+          )}
+          <Button variant="secondary" className="pill" onClick={() => openTafsir(surah, ayah)}>
+            Тафсир
           </Button>
           {recSurahs
             ? recSurahs.map((n) => (
@@ -338,6 +437,42 @@ function MushafView() {
           </p>
         ) : null}
 
+        {mushafLayout === "page" ? (
+          <article
+            className="mushaf-page mt-5"
+            lang="ar"
+            dir="rtl"
+            data-mushaf-font={mushafFont}
+          >
+            {windowed.map((a: Ayah) => {
+              const active = a.i === ayah;
+              return (
+                <span
+                  key={a.g}
+                  ref={active ? (el) => { activeRef.current = el; } : undefined}
+                  className={cn("mushaf-ayah", active && "is-now")}
+                  onClick={() => playAt(surah, a.i, null)}
+                >
+                  {a.ar}
+                  <sup className="ayah-end">{a.i}</sup>
+                  {" "}
+                </span>
+              );
+            })}
+          </article>
+        ) : null}
+
+        {mushafLayout === "page" && current ? (
+          <div className="mt-4 rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4">
+            <p className="text-[11px] tabular-nums text-[var(--muted)]">{surah}:{ayah}</p>
+            <p className="mt-2 text-sm leading-relaxed">{current.ayahs.find((x) => x.i === ayah)?.ru}</p>
+            <button type="button" className="mt-2 text-xs text-[var(--accent)]" onClick={() => openTafsir(surah, ayah)}>
+              Тафсир этого аята
+            </button>
+          </div>
+        ) : null}
+
+        {mushafLayout !== "page" ? (
         <ol className="mt-5 grid gap-3">
           {windowed[0] && windowed[0].i > 1 ? (
             <li>
@@ -382,11 +517,9 @@ function MushafView() {
                 <button type="button" className="mt-3 block w-full text-left" onClick={() => playAt(surah, a.i, null)}>
                   <p className="text-sm leading-relaxed text-[var(--fg)]">{a.ru}</p>
                 </button>
-                {surah === 12 ? (
-                  <button type="button" className="mt-2 text-xs text-[var(--accent)]" onClick={() => openTafsir(12, a.i)}>
-                    Тафсир этого аята
-                  </button>
-                ) : null}
+                <button type="button" className="mt-2 text-xs text-[var(--accent)]" onClick={() => openTafsir(surah, a.i)}>
+                  Тафсир этого аята
+                </button>
               </li>
             );
           })}
@@ -402,6 +535,7 @@ function MushafView() {
             </li>
           ) : null}
         </ol>
+        ) : null}
       </div>
     </div>
   );
