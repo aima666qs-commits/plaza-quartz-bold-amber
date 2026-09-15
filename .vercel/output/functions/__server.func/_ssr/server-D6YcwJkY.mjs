@@ -1,14 +1,16 @@
 import { t as createServerFn } from "./ssr.mjs";
+import { i as safeVoiceId, r as defaultVoice } from "./catalog-BXA7W0Vo.mjs";
 import { t as createServerRpc } from "./createServerRpc-A6pJPYTF.mjs";
 import { spawn } from "node:child_process";
-//#region node_modules/.nitro/vite/services/ssr/assets/server-CIRgbQ8x.js
-function synth(text, lang, gender, rate) {
+//#region node_modules/.nitro/vite/services/ssr/assets/server-D6YcwJkY.js
+function synth(text, lang, gender, rate, voice) {
 	return new Promise((resolve, reject) => {
 		const p = spawn("python3", [
 			"scripts/speak_male.py",
 			lang,
 			gender,
-			rate
+			rate,
+			voice
 		], { cwd: process.cwd() });
 		const chunks = [];
 		const err = [];
@@ -38,11 +40,13 @@ var speakMale = createServerFn({ method: "POST" }).validator((input) => input).h
 	const lang = (data.lang ?? "ru").slice(0, 2);
 	const gender = data.gender === "female" ? "female" : "male";
 	const rate = data.rate === "slow" || data.rate === "fast" ? data.rate : "normal";
+	const fallback = defaultVoice(lang === "ar" ? "ar" : "ru", gender);
+	const voice = safeVoiceId(data.voice, fallback);
 	try {
 		return {
 			ok: true,
 			mime: "audio/mpeg",
-			b64: (await synth(text, lang, gender, rate)).toString("base64")
+			b64: (await synth(text, lang, gender, rate, voice)).toString("base64")
 		};
 	} catch (e) {
 		return {

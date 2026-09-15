@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MizanTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">#ff04100c</item>
+        <item name="android:statusBarColor">#ff04100c</item>
+        <item name="android:navigationBarColor">#ff04100c</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+</resources>

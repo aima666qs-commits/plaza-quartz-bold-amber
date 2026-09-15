@@ -1,18 +1,19 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Mic, Pause, Send, Volume2 } from "lucide-react";
 import { SheikhSeal } from "@/components/mizan/brand.tsx";
+import { HadithSource } from "@/components/mizan/hadith-source.tsx";
 import { HouseRoom } from "@/components/mizan/house-room.tsx";
 import { SheikhSheet } from "@/components/mizan/sheikh-sheet.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseTile } from "@/lib/house/catalog.ts";
-import { hadithMeaning, hadithOfDay, hadithRef, hadithTitle, hijriLabel, speakLang } from "@/lib/house/data.ts";
-import { gradeLabel, gradeNote, isSahih } from "@/lib/house/nawawi-grade.ts";
+import { hadithAr, hadithMeaning, hadithOfDay, hadithTitle, hijriLabel, speakLang } from "@/lib/house/data.ts";
+import { gradeLabel, isSahih } from "@/lib/house/nawawi-grade.ts";
 import { translate } from "@/lib/i18n/dict.ts";
 import { bootNotify, nextSabrLabel, requestNotify, showSabrNow } from "@/lib/notify.ts";
 import { formatRef, loadAyah } from "@/lib/quran/mushaf.ts";
 import { sabrOfDay } from "@/lib/quran/sabr.ts";
 import type { Ayah } from "@/lib/quran/types.ts";
-import { listenRu, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
+import { hearAsk, prefetchSpeak, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
 import { cn } from "@/lib/utils.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 import { useQuran } from "@/stores/quran-store.ts";
@@ -71,27 +72,48 @@ function HadithDay() {
   const setNav = useMizan((s) => s.setHouseNav);
   const h = hadithOfDay();
   const meaning = hadithMeaning(h, locale);
+  const arabic = hadithAr(h);
   const [speaking, setSpeaking] = useState(false);
   const [full, setFull] = useState(false);
   const [source, setSource] = useState(false);
+  const [tongue, setTongue] = useState<"ar" | "ru">("ru");
+  const playId = useRef(0);
 
   useEffect(() => () => stopSpeak(), []);
+  useEffect(() => {
+    void prefetchSpeak(arabic, "ar-SA");
+    if (meaning) void prefetchSpeak(meaning, speakLang(locale));
+  }, [arabic, meaning, locale]);
+
+  async function runSpeak(next: "ar" | "ru") {
+    const id = ++playId.current;
+    setSpeaking(true);
+    try {
+      if (next === "ar") await speakText(arabic, "ar-SA");
+      else if (meaning) await speakText(meaning, speakLang(locale));
+      else await speakText(arabic, "ar-SA");
+    } finally {
+      if (playId.current === id) setSpeaking(false);
+    }
+  }
 
   async function play(e: MouseEvent) {
     e.stopPropagation();
     if (speaking) {
+      playId.current += 1;
       stopSpeak();
       setSpeaking(false);
       return;
     }
-    setSpeaking(true);
-    try {
-      await speakText(h.ar, "ar-SA");
-      if (meaning) await speakText(meaning, speakLang(locale));
-    } finally {
-      setSpeaking(false);
-    }
+    await runSpeak(tongue);
   }
+
+  function flipTongue(next: "ar" | "ru") {
+    setTongue(next);
+    if (speaking) void runSpeak(next);
+  }
+
+  const body = tongue === "ar" ? arabic : meaning;
 
   return (
     <div className="hadith-day">
@@ -104,7 +126,11 @@ function HadithDay() {
           {h.core}
         </p>
         <p className="hadith-day-title">{hadithTitle(h, locale)}</p>
-        {meaning ? <p className={cn("hadith-day-mean", full && "is-full")}>{meaning}</p> : null}
+        {body ? (
+          <p className={cn("hadith-day-mean", (full || tongue === "ar") && "is-full")} lang={tongue === "ar" ? "ar" : undefined} dir={tongue === "ar" ? "rtl" : undefined}>
+            {body}
+          </p>
+        ) : null}
       </button>
       <div className="hadith-minis">
         {meaning ? (
@@ -124,7 +150,7 @@ function HadithDay() {
         ) : null}
         <button
           type="button"
-          className="hadith-mini"
+          className={cn("hadith-mini", source && "is-on")}
           onClick={(e) => {
             e.stopPropagation();
             setSource((v) => !v);
@@ -137,6 +163,18 @@ function HadithDay() {
         </button>
         <button
           type="button"
+          className={cn("hadith-mini", tongue === "ar" && "is-on")}
+          onClick={(e) => {
+            e.stopPropagation();
+            flipTongue(tongue === "ar" ? "ru" : "ar");
+          }}
+          data-go="hadith-lang"
+          aria-label={translate(locale, tongue === "ar" ? "hadith.lang.ru" : "hadith.lang.ar")}
+        >
+          {tongue === "ar" ? translate(locale, "hadith.lang.ru") : translate(locale, "hadith.lang.ar")}
+        </button>
+        <button
+          type="button"
           className={cn("hadith-day-listen", speaking && "is-on")}
           onClick={(e) => void play(e)}
           aria-label={translate(locale, "hadith.listen")}
@@ -146,12 +184,7 @@ function HadithDay() {
           {translate(locale, speaking ? "hadith.stop" : "hadith.listen")}
         </button>
       </div>
-      {source ? (
-        <p className="hadith-source">
-          {gradeLabel(h.n, locale)} · {hadithRef(h, locale)}
-          <span className="mt-1 block">{gradeNote(h.n, locale)}</span>
-        </p>
-      ) : null}
+      {source ? <HadithSource h={h} locale={locale} /> : null}
     </div>
   );
 }
@@ -245,6 +278,7 @@ export function HomeView() {
   const [listening, setListening] = useState(false);
   const [mic, setMic] = useState(false);
   const hijri = hijriLabel(new Date(), locale);
+  const stopMic = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     setReturning(alreadyMet());
@@ -299,17 +333,24 @@ export function HomeView() {
         {mic ? (
           <button
             type="button"
-            className={cn("grid size-10 place-items-center", listening && "text-[var(--accent)]")}
-            aria-label={translate(locale, "ask.ph")}
+            className={cn("grid size-10 place-items-center", listening && "is-hearing")}
+            aria-label={translate(locale, listening ? "mic.hearing" : "mic.listen")}
             onClick={() => {
               if (listening) {
+                stopMic.current?.();
+                stopMic.current = null;
                 setListening(false);
                 return;
               }
               setListening(true);
-              listenRu((t, fin) => {
+              stopMic.current = hearAsk((t, fin) => {
                 setAsk(t);
-                if (fin) setListening(false);
+                if (fin) {
+                  stopMic.current = null;
+                  setListening(false);
+                  const q = t.trim();
+                  if (q) openSheikh(q);
+                }
               });
             }}
           >

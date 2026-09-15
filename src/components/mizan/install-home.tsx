@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Download, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { translate } from "@/lib/i18n/dict.ts";
+import { cn } from "@/lib/utils.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
 type BeforeInstall = Event & {
@@ -19,24 +20,30 @@ function standalone() {
   );
 }
 
+function nativeApk() {
+  if (typeof navigator === "undefined") return false;
+  return /MizanNative\//.test(navigator.userAgent);
+}
+
 export function InstallHome() {
   const locale = useMizan((s) => s.settings.locale);
   const t = (k: string) => translate(locale, k);
   const deferred = useRef<BeforeInstall | null>(null);
   const [can, setCan] = useState(false);
-  const [done, setDone] = useState(false);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
+  const native = nativeApk();
+  const [pwa, setPwa] = useState(false);
 
   useEffect(() => {
-    setDone(standalone());
+    setPwa(standalone());
     const onPrompt = (e: Event) => {
       e.preventDefault();
       deferred.current = e as BeforeInstall;
       setCan(true);
     };
     const onInstalled = () => {
-      setDone(true);
+      setPwa(true);
       setCan(false);
       deferred.current = null;
     };
@@ -56,7 +63,7 @@ export function InstallHome() {
         await ev.prompt();
         const { outcome } = await ev.userChoice;
         if (outcome === "accepted") {
-          setDone(true);
+          setPwa(true);
           setNote(t("set.install.ok"));
         }
       } catch {
@@ -75,9 +82,9 @@ export function InstallHome() {
     <section className="install-card" data-go="install">
       <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)]">{t("set.section.install")}</p>
       <p className="font-display mt-1 text-2xl leading-tight">{t("set.install.title")}</p>
-      {done ? (
+      {native ? (
         <p className="mt-2 flex items-center gap-2 text-sm text-[var(--ok)]">
-          <Check className="size-4" /> {t("set.install.done")}
+          <Check className="size-4" /> {t("set.install.native")}
         </p>
       ) : (
         <p className="mt-2 text-sm text-[var(--muted)]">{t("set.install.lead")}</p>
@@ -87,10 +94,26 @@ export function InstallHome() {
         <article className="install-pane" data-go="install-android">
           <p className="install-pane-kicker">{t("set.install.android.title")}</p>
           <p className="mt-1 text-sm">{t("set.install.android.apk")}</p>
-          <Button variant="glow" className="mt-3 w-full" disabled={busy || done} onClick={() => void installAndroid()}>
-            <Download className="size-4" />
-            {can ? t("set.install.android.now") : t("set.install.android.btn")}
-          </Button>
+          {native ? (
+            <p className="mt-3 flex min-h-12 items-center gap-2 text-sm text-[var(--ok)]">
+              <Check className="size-4" /> {t("set.install.done")}
+            </p>
+          ) : (
+            <a
+              href="/mizan.apk"
+              download="mizan.apk"
+              data-go="install-apk"
+              className={cn(
+                "btn-glow mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 px-6 text-sm font-semibold",
+                "transition-[transform,box-shadow,opacity] duration-150 ease-out active:scale-[0.96]",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]",
+              )}
+              onClick={() => setNote(t("set.install.android.sideload"))}
+            >
+              <Download className="size-4" />
+              {t("set.install.android.btn")}
+            </a>
+          )}
           <ol className="install-steps">
             {["set.install.android.s1", "set.install.android.s2", "set.install.android.s3"].map((k, i) => (
               <li key={k}>
@@ -99,6 +122,12 @@ export function InstallHome() {
               </li>
             ))}
           </ol>
+          {native ? null : (
+            <Button variant="secondary" className="mt-3 w-full" disabled={busy || pwa} onClick={() => void installAndroid()}>
+              <Download className="size-4" />
+              {can ? t("set.install.android.now") : t("set.install.android.chrome")}
+            </Button>
+          )}
         </article>
         <article className="install-pane" data-go="install-ios">
           <p className="install-pane-kicker">{t("set.install.ios.title")}</p>

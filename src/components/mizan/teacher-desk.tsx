@@ -5,6 +5,7 @@ import { askTeacher, localTeach } from "@/lib/assistant/server.ts";
 import type { Course } from "@/lib/learn/catalog.ts";
 import { intentCourse, matches, nextPrompt, openLesson, type Prompt } from "@/lib/learn/lesson.ts";
 import { listenRu, speakAvailable, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
+import { markSalawat } from "@/lib/voice/adab.ts";
 import { SURAHS } from "@/lib/quran/surahs.ts";
 import { useLearn } from "@/stores/learn-store.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
@@ -141,11 +142,11 @@ export function TeacherDesk({ course }: { course: Course | null }) {
     };
     try {
       const res = await askTeacher({ data: payload });
-      const text = res.ok ? res.text : res.error || localTeach(payload.course, question);
+      const text = markSalawat(res.ok ? res.text : res.error || localTeach(payload.course, question));
       setLog((l) => [...l, { role: "teacher", text }]);
       say(text);
     } catch {
-      const text = localTeach(payload.course, question);
+      const text = markSalawat(localTeach(payload.course, question));
       setLog((l) => [...l, { role: "teacher", text }]);
       say(text);
     } finally {

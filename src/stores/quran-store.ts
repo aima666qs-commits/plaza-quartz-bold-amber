@@ -23,6 +23,7 @@ interface QuranStore {
   tafsirBook: number;
   follow: boolean;
   wbw: boolean;
+  tajweed: boolean;
   learnMode: LearnPlayMode;
   speed: number;
   gapMs: number;
@@ -44,6 +45,7 @@ interface QuranStore {
   setFollow: (v: boolean) => void;
   toggleFollow: () => void;
   toggleWbw: () => void;
+  toggleTajweed: () => void;
   setLearnMode: (m: LearnPlayMode) => void;
   setSpeed: (n: number) => void;
   setGapMs: (n: number) => void;
@@ -261,6 +263,7 @@ function persist(partial: Partial<QuranStore>) {
         bookmarks: partial.bookmarks ?? cur.bookmarks,
         follow: partial.follow ?? cur.follow,
         wbw: partial.wbw ?? cur.wbw,
+        tajweed: partial.tajweed ?? cur.tajweed,
         learnMode: partial.learnMode ?? cur.learnMode,
         speed: partial.speed ?? cur.speed,
         gapMs: partial.gapMs ?? cur.gapMs,
@@ -358,8 +361,9 @@ export const useQuran = create<QuranStore>((set, get) => ({
   tafsirBook: 170,
   follow: true,
   wbw: false,
+  tajweed: true,
   learnMode: "listen",
-  speed: 1,
+  speed: 1.2,
   gapMs: 0,
   wordIndex: -1,
   audioMs: 0,
@@ -401,6 +405,11 @@ export const useQuran = create<QuranStore>((set, get) => ({
     const wbw = !get().wbw;
     persist({ wbw });
     set({ wbw });
+  },
+  toggleTajweed: () => {
+    const tajweed = !get().tajweed;
+    persist({ tajweed });
+    set({ tajweed });
   },
   setLearnMode: (learnMode) => {
     persist({ learnMode });
@@ -570,8 +579,9 @@ export function hydrateQuran() {
       bookmarks: data.bookmarks ?? [],
       follow: data.follow ?? true,
       wbw: data.wbw ?? false,
+      tajweed: data.tajweed ?? true,
       learnMode: data.learnMode ?? "listen",
-      speed: data.speed ?? 1,
+      speed: data.speed ?? 1.2,
       gapMs: data.gapMs ?? 0,
     });
   } catch {

@@ -1,8 +1,22 @@
 import { useEffect, useRef } from "react";
 import { splitAyahWords, type SyncWord } from "@/lib/quran/sync.ts";
+import { paintWord, ruleClass } from "@/lib/quran/tajweed.ts";
 import type { Ayah } from "@/lib/quran/types.ts";
 import { cn } from "@/lib/utils.ts";
 import { useQuran } from "@/stores/quran-store.ts";
+
+function WordInk({ ar, next, tajweed }: { ar: string; next: string; tajweed: boolean }) {
+  if (!tajweed) return <>{ar}</>;
+  return (
+    <>
+      {paintWord(ar, next).map((p, i) => (
+        <span key={i} className={ruleClass(p.rule)}>
+          {p.text}
+        </span>
+      ))}
+    </>
+  );
+}
 
 export function AyahLine({ ayah, active }: { ayah: Ayah; active: boolean }) {
   const playing = useQuran((s) => s.playing);
@@ -14,6 +28,7 @@ export function AyahLine({ ayah, active }: { ayah: Ayah; active: boolean }) {
   const waiting = useQuran((s) => s.waiting);
   const playWord = useQuran((s) => s.playWord);
   const surah = useQuran((s) => s.surah);
+  const tajweed = useQuran((s) => s.tajweed);
   const nowRef = useRef<HTMLSpanElement | HTMLButtonElement | null>(null);
 
   const live = active && (playing || waiting);
@@ -49,7 +64,9 @@ export function AyahLine({ ayah, active }: { ayah: Ayah; active: boolean }) {
                 playWord(surah, ayah.i, i);
               }}
             >
-              <span className="ayah-word-text">{w.ar}</span>
+              <span className="ayah-word-text">
+                <WordInk ar={w.ar} next={display[i + 1]?.ar ?? ""} tajweed={tajweed} />
+              </span>
               {w.tr ? <span className="ayah-tr">{w.tr}</span> : null}
               {w.gloss ? <span className="ayah-gloss">{w.gloss}</span> : null}
             </button>
@@ -80,7 +97,7 @@ export function AyahLine({ ayah, active }: { ayah: Ayah; active: boolean }) {
               playWord(surah, ayah.i, i);
             }}
           >
-            {w.ar}
+            <WordInk ar={w.ar} next={display[i + 1]?.ar ?? ""} tajweed={tajweed} />
           </span>
         );
       })}

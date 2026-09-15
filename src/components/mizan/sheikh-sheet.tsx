@@ -6,7 +6,8 @@ import { askEvidence, localSourceSearch, type AskPayload } from "@/lib/assistant
 import { formatPlain } from "@/lib/mizan/decimal.ts";
 import { getProfile } from "@/lib/mizan/profiles.ts";
 import { SOURCES } from "@/lib/mizan/sources.ts";
-import { listenRu, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
+import { hearAsk, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
+import { markSalawat } from "@/lib/voice/adab.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
 type Log = { role: "user" | "sheikh"; text: string };
@@ -62,11 +63,13 @@ export function SheikhSheet({
       return;
     }
     setListening(true);
-    stopVoice.current = listenRu((t, fin) => {
+    stopVoice.current = hearAsk((t, fin) => {
       setQ(t);
       if (fin) {
         setListening(false);
         stopVoice.current = null;
+        const asked = t.trim();
+        if (asked) void send(asked);
       }
     });
   }
@@ -105,9 +108,10 @@ export function SheikhSheet({
     try {
       const res = await askEvidence({ data: payload });
       if (res.ok) {
+        const text = markSalawat(res.text);
         setModelNote("шейх");
-        setLog((l) => [...l, { role: "sheikh", text: res.text }]);
-        void speakText(res.text);
+        setLog((l) => [...l, { role: "sheikh", text }]);
+        void speakText(text);
       } else {
         const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
         setModelNote("источники");

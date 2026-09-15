@@ -16,6 +16,7 @@ import { hijriLabel, speakLang } from "@/lib/house/data.ts";
 import { bootNotify, requestNotify } from "@/lib/notify.ts";
 import { RECITERS } from "@/lib/quran/reciters.ts";
 import { speakText, stopSpeak } from "@/lib/voice.ts";
+import { VOICES_AR, VOICES_RU, defaultVoice, type NeuralVoice } from "@/lib/voice/catalog.ts";
 import { useQuran } from "@/stores/quran-store.ts";
 import { NISAB_MODE_RU, OVERALL_RU, RECIPIENTS, REVIEW_RU, SOURCE_TYPE_RU, STATUS_RU } from "@/lib/mizan/labels.ts";
 import { cn } from "@/lib/utils.ts";
@@ -418,7 +419,24 @@ export function SettingsDialog() {
     }
     setProbing(true);
     try {
+      await speakText(t("set.voice.sample.ar"), "ar-SA");
       await speakText(t("set.voice.probe"), speakLang(locale));
+    } finally {
+      setProbing(false);
+    }
+  }
+
+  async function previewVoice(v: NeuralVoice) {
+    stopSpeak();
+    setProbing(true);
+    try {
+      if (v.lang === "ar") {
+        setSettings({ voiceAr: v.id, voiceGender: v.gender });
+        await speakText(t("set.voice.sample.ar"), "ar-SA");
+      } else {
+        setSettings({ voiceRu: v.id, voiceGender: v.gender });
+        await speakText(t("set.voice.probe"), "ru-RU");
+      }
     } finally {
       setProbing(false);
     }
@@ -582,14 +600,52 @@ export function SettingsDialog() {
 
         <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.voice")}</h3>
         <p className="mb-3 text-xs text-[var(--muted)]">{t("set.voice.note")}</p>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <p className="mb-3 text-xs text-[var(--muted)]">{t("set.voice.pick")}</p>
+        <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.voice.ru")}</p>
+        <div className="voice-grid" data-go="settings-voice-ru">
+          {VOICES_RU.map((v) => (
+            <button
+              key={v.id}
+              type="button"
+              className={cn("voice-card", (settings.voiceRu ?? defaultVoice("ru", settings.voiceGender)) === v.id && "is-on")}
+              onClick={() => void previewVoice(v)}
+              data-go={`voice-${v.id}`}
+            >
+              <span className="voice-card-name">{v.name}</span>
+              <span className="voice-card-place">{v.place}</span>
+              <span className="voice-card-note">{v.note}</span>
+            </button>
+          ))}
+        </div>
+        <p className="mt-4 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.voice.ar")}</p>
+        <div className="voice-grid" data-go="settings-voice-ar">
+          {VOICES_AR.map((v) => (
+            <button
+              key={v.id}
+              type="button"
+              className={cn("voice-card", (settings.voiceAr ?? defaultVoice("ar", settings.voiceGender)) === v.id && "is-on")}
+              onClick={() => void previewVoice(v)}
+              data-go={`voice-${v.id}`}
+            >
+              <span className="voice-card-name">{v.name}</span>
+              <span className="voice-card-place">{v.place} · {v.gender === "female" ? t("set.voice.female") : t("set.voice.male")}</span>
+              <span className="voice-card-note">{v.note}</span>
+            </button>
+          ))}
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 mt-4">
           <Field label={t("set.voice.gender")}>
             <Select
               value={settings.voiceGender ?? "male"}
               onChange={(e) => {
                 stopSpeak();
                 setProbing(false);
-                setSettings({ voiceGender: e.target.value as VoiceGender });
+                const voiceGender = e.target.value as VoiceGender;
+                setSettings({
+                  voiceGender,
+                  voiceAr: defaultVoice("ar", voiceGender),
+                  voiceRu: defaultVoice("ru", voiceGender),
+                });
               }}
             >
               <option value="male">{t("set.voice.male")}</option>

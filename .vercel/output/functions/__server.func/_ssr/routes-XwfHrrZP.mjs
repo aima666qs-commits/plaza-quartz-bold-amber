@@ -1,12 +1,13 @@
 import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
 import { R as require_react, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TSS_SERVER_FUNCTION, r as getServerFnById, t as createServerFn } from "./ssr.mjs";
+import { i as safeVoiceId, n as VOICES_RU, r as defaultVoice, t as VOICES_AR } from "./catalog-BXA7W0Vo.mjs";
 import { A as Landmark, B as ChevronLeft, C as Play, D as Lightbulb, E as MessagesSquare, F as GraduationCap, G as Bookmark, H as Check, I as Download, J as Badge, K as BookOpen, L as CirclePause, M as Highlighter, N as Heart, O as Library, P as Headphones, R as CircleHelp, S as Plus, T as Mic, U as CalendarDays, V as ChevronDown, W as Building2, _ as Scale, a as Trash2, b as Repeat1, c as SkipForward, d as Shield, f as Share2, g as ScrollText, h as Search, j as House, k as Languages, l as SkipBack, m as Send, n as Volume2, o as Table2, p as Settings, q as Bell, r as Type, s as Sparkles, t as X, u as Signpost, v as RotateCcw, w as Pause, x as Printer, y as Repeat, z as ChevronRight } from "../_libs/lucide-react.mjs";
 import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { t as create } from "../_libs/zustand.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BSN42R5V.js
-var routes_BSN42R5V_exports = /* @__PURE__ */ __exportAll({
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-XwfHrrZP.js
+var routes_XwfHrrZP_exports = /* @__PURE__ */ __exportAll({
 	a: () => notifySupported,
 	c: () => showSabrNow,
 	component: () => Home,
@@ -2013,6 +2014,139 @@ function gradeNote(n, locale) {
 	if (n === 41) return "Ан-Навави: достоверная цепь в «аль-Худжже». В двух «Сахихах» нет.";
 	return "В сорока ан-Навави отмечен как хасан (ат-Тирмизи, Ибн Маджа или другие).";
 }
+var SALAWAT_AR = "صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ";
+var SALAWAT_RU = "саллалла́ху алейхи́ ва саллям";
+var SALAWAT_EN = "salla Llahu alayhi wa sallam";
+var MARK_HEAD = /^(ﷺ|صلى\s*الله\s*عليه\s*وسلم|صلّى\s*الله\s*عليه\s*وسلم|صَلَّى[\s\u00a0]*اللَّهُ[\s\u00a0]*عَلَيْهِ[\s\u00a0]*وَسَلَّمَ|саллаллах[уа]? алейхи ва\s*саллям|салляллах[уа]? алейхи ва\s*саллям|sallallahu alayhi wa sallam|عليه الصلاة والسلام)/i;
+function alreadyHonored(rest) {
+	return MARK_HEAD.test(rest.trimStart().slice(0, 48));
+}
+function honorAfter(src, re, mark) {
+	const flags = re.flags.includes("g") ? re.flags : `${re.flags}g`;
+	const rx = new RegExp(re.source, flags);
+	return src.replace(rx, (m, ...args) => {
+		const off = args[args.length - 2];
+		if (alreadyHonored(src.slice(off + m.length))) return m;
+		return `${m} ${mark}`;
+	});
+}
+function isAr(lang) {
+	return lang.toLowerCase().startsWith("ar");
+}
+function isEn(lang) {
+	return lang.toLowerCase().startsWith("en");
+}
+/** Insert ﷺ / Arabic salawat after the Prophet's titles and name. Idempotent. */
+function markSalawat(text, lang = "ru") {
+	if (!text) return text;
+	const mark = isAr(lang) ? SALAWAT_AR : "ﷺ";
+	let s = text;
+	if (isAr(lang)) {
+		s = honorAfter(s, /رسول[\s\u00a0]+الله/g, mark);
+		s = honorAfter(s, /النبي(?![\u0640-\u06FF])/g, mark);
+		s = honorAfter(s, /يا[\s\u00a0]+محمد/g, mark);
+		s = honorAfter(s, /(?<![\u0600-\u06FF])محمد(?![\s\u00a0]+بن)(?![\u0600-\u06FF])/g, mark);
+		return s;
+	}
+	s = honorAfter(s, /Посланник(?:а|у|ом|е)?[\s\u00a0]+Аллаха/giu, mark);
+	s = honorAfter(s, /Пророк(?:а|у|ом|е)?[\s\u00a0]+Аллаха/giu, mark);
+	s = honorAfter(s, /(?<![\p{L}])Пророк(?:а|у|ом|е)?(?![\p{L}])/giu, mark);
+	s = honorAfter(s, /the Messenger of Allah/gi, mark);
+	s = honorAfter(s, /the Prophet(?!s)/gi, mark);
+	s = honorAfter(s, /(?<!Абу[\s\u00a0])(?<!Нур[\s\u00a0])(?<!ибн[\s\u00a0])(?<!Ibn[\s\u00a0])(?<!Abu[\s\u00a0])Мухаммад(?:а|у|ом|е)?(?![\p{L}])/giu, mark);
+	s = honorAfter(s, /(?<!Abu[\s\u00a0])(?<!Ibn[\s\u00a0])Muhammad(?![A-Za-z])/g, mark);
+	return s;
+}
+function spokenSalawat(lang) {
+	if (isAr(lang)) return SALAWAT_AR;
+	if (isEn(lang)) return SALAWAT_EN;
+	return SALAWAT_RU;
+}
+function expandHonorifics(text, lang) {
+	const spoken = spokenSalawat(lang);
+	return text.replace(/ﷺ/g, ` ${spoken} `).replace(/صَلَّى[\s\u00a0]*اللَّهُ[\s\u00a0]*عَلَيْهِ[\s\u00a0]*وَسَلَّمَ/g, ` ${spoken} `).replace(/صلّى\s*الله\s*عليه\s*وسلم/g, ` ${spoken} `).replace(/صلى\s*الله\s*عليه\s*وسلم/g, ` ${spoken} `).replace(/عليه الصلاة والسلام/g, ` ${spoken} `).replace(/салляллах[уа]?\s+алейхи\s+ва\s*саллям/gi, spoken).replace(/саллаллах[уа]?\s+алейхи\s+ва\s*саллям/gi, spoken).replace(/sallallahu\s+alayhi\s+wa\s+sallam/gi, spoken);
+}
+function word(from, to) {
+	return [new RegExp(`(?<![\\p{L}\\p{M}])${from}(?![\\p{L}\\p{M}])`, "giu"), to];
+}
+/** Russian TTS flattens shadda. Hyphen + stress keeps Хат-та́б, Муха́м-мад. */
+var RU_LEXICON = [
+	word("аль-Хаттаба", "аль-Хат-та́ба"),
+	word("аль-Хаттабом", "аль-Хат-та́бом"),
+	word("аль-Хаттабу", "аль-Хат-та́бу"),
+	word("аль-Хаттаб", "аль-Хат-та́б"),
+	word("Хаттаба", "Хат-та́ба"),
+	word("Хаттабом", "Хат-та́бом"),
+	word("Хаттабу", "Хат-та́бу"),
+	word("Хаттаб", "Хат-та́б"),
+	word("Мухаммада", "Муха́м-мада"),
+	word("Мухаммаду", "Муха́м-маду"),
+	word("Мухаммадом", "Муха́м-мадом"),
+	word("Мухаммаде", "Муха́м-маде"),
+	word("Мухаммад", "Муха́м-мад"),
+	word("Аиши", "Аи́ши"),
+	word("Аишу", "Аи́шу"),
+	word("Аишей", "Аи́шей"),
+	word("Аиша", "Аи́ша"),
+	word("Хурайры", "Хурайры́"),
+	word("Хурайре", "Хурайре́"),
+	word("Хурайру", "Хурайру́"),
+	word("Хурайра", "Хурайра́"),
+	word("Муаза", "Муа́за"),
+	word("Муазу", "Муа́зу"),
+	word("Муазом", "Муа́зом"),
+	word("Муаз", "Муа́з"),
+	word("Джабира", "Джа́бира"),
+	word("Джабиру", "Джа́биру"),
+	word("Джабир", "Джа́бир"),
+	word("Аббаса", "Абба́са"),
+	word("Аббасу", "Абба́су"),
+	word("Аббас", "Абба́с"),
+	word("Умара", "У́мара"),
+	word("Умару", "У́мару"),
+	word("Умаром", "У́маром"),
+	word("Умар", "У́мар"),
+	word("Усмана", "Усма́на"),
+	word("Усман", "Усма́н"),
+	word("Али", "Али́"),
+	word("Анаса", "А́наса"),
+	word("Анас", "А́нас"),
+	word("Малика", "Ма́лика"),
+	word("Малик", "Ма́лик"),
+	word("Бухари", "Буха́ри"),
+	word("ан-Навави", "ан-Нава́ви"),
+	word("Навави", "Нава́ви"),
+	word("Муслима", "Му́слима"),
+	word("Муслим", "Му́слим"),
+	word("Рамадан", "Рамада́н"),
+	word("закята", "закя́та"),
+	word("закят", "закя́т"),
+	word("ихсане", "ихса́не"),
+	word("ихсан", "ихса́н"),
+	word("имане", "има́не"),
+	word("иман", "има́н"),
+	word("хадж", "хадж"),
+	word("Аллаха", "Алла́ха"),
+	word("Аллаху", "Алла́ху"),
+	word("Аллахом", "Алла́хом"),
+	word("Аллах", "Алла́х"),
+	word("Мас‘уда", "Мас-у́да"),
+	word("Мас'уда", "Мас-у́да"),
+	word("Ну‘мана", "Ну-ма́на"),
+	word("Ну'мана", "Ну-ма́на"),
+	word("ибн", "ибн")
+];
+function applyLexicon(text, pairs) {
+	let s = text;
+	for (const [re, to] of pairs) s = s.replace(re, to);
+	return s;
+}
+/** Text for TTS: salawat spoken in full, names with shadda. */
+function speakPrep(text, lang = "ru") {
+	let s = expandHonorifics(markSalawat(text, lang), lang);
+	if (!isAr(lang) && !isEn(lang)) s = applyLexicon(s, RU_LEXICON);
+	return s.replace(/\s+/g, " ").trim();
+}
 var NAMES_META = names_default;
 var NAMES = NAMES_META.items;
 function cleanAr(s) {
@@ -2038,10 +2172,13 @@ function hadithTitle(h, locale) {
 	if (locale === "ar") return `الحديث ${h.n}`;
 	return h.title;
 }
+function hadithAr(h) {
+	return markSalawat(h.ar, "ar");
+}
 function hadithMeaning(h, locale) {
-	if (locale === "en") return h.en;
+	if (locale === "en") return markSalawat(h.en, "en");
 	if (locale === "ar") return "";
-	return h.ru;
+	return markSalawat(h.ru, "ru");
 }
 function hadithRef(h, locale) {
 	if (locale === "en") return h.ref.replace(/^sunnah\.com\/nawawi40:/, "an-Nawawi ");
@@ -3119,22 +3256,54 @@ fill("set.voice.test", {
 	kk: "Тыңда"
 });
 fill("set.voice.note", {
-	ru: "Голос хадисов, шейха и учителя. Чтецы Корана — отдельно, выше.",
-	en: "Voice for hadith, the sheikh and the teacher. Quran reciters are above.",
-	ar: "صوت الأحاديث والشيخ والمعلم. قرّاء القرآن أعلاه.",
-	tr: "Hadis, şeyh ve öğretmen sesi. Kur’an okuyucuları yukarıda.",
-	uz: "Hadis, shayx va o‘qituvchi ovozi. Qur’on qorilari yuqorida.",
-	tg: "Овози ҳадис, шайх ва муаллим. Қориҳои Қуръон болотар.",
-	kk: "Хадис, шейх және ұстаз дауысы. Құран қарилары жоғарыда."
+	ru: "Салават произносится всегда: «саллаллаху алейхи ва саллям». Имена с шаддой: Хатта́б, не «хатаба». Чтецы Корана — отдельно, выше.",
+	en: "The salawat is always spoken. Names keep the shadda: Khaṭṭāb, not «khataba». Quran reciters are above.",
+	ar: "الصلاة على النبي تُنطق دائمًا. أسماء بشدة: الخطّاب. قرّاء القرآن أعلاه.",
+	tr: "Salavat her zaman okunur. İsimlerde şedde durur: Hattâb. Kur’an okuyucuları yukarıda.",
+	uz: "Salavot doim aytiladi. Ismda shadda: Hattob, «hataba» emas. Qur’on qorilari yuqorida.",
+	tg: "Салавот ҳамеша гуфта мешавад. Номҳо бо шадда: Хаттоб. Қориҳои Қуръон болотар.",
+	kk: "Салауат әрдайым айтылады. Есімде шәддә: Хаттаб. Құран қарилары жоғарыда."
 });
 fill("set.voice.probe", {
-	ru: "Мир тебе. Это голос Мизан.",
-	en: "Peace be upon you. This is the voice of Mizan.",
-	ar: "السلام عليكم. هذا صوت ميزان.",
-	tr: "Selam üzerine olsun. Bu Mizan’ın sesi.",
-	uz: "Salom senga. Bu Mizan ovozi.",
-	tg: "Салом бар ту. Ин овози Мизан аст.",
-	kk: "Сәлем саған. Бұл Мизан дауысы."
+	ru: "Передают со слов Умара ибн аль-Хаттаба, да будет доволен им Аллах, что Посланник Аллаха сказал: поистине, дела — по намерениям.",
+	en: "From Umar ibn al-Khattab, may Allah be pleased with him: the Messenger of Allah said that deeds are only by intentions.",
+	ar: "عن عمر بن الخطاب رضي الله عنه أن رسول الله قال إنما الأعمال بالنيات.",
+	tr: "Ömer ibnü’l-Hattâb’dan: Allah’ın Elçisi buyurdu ki ameller niyetlere göredir.",
+	uz: "Umar ibn al-Hattob roziyallohu anhudan: Allohning Elchisi aytdilar, amallar niyatga ko‘ra.",
+	tg: "Аз Умар ибни ал-Хаттоб: Паёмбари Аллоҳ гуфт, ки амалҳо ба ниятҳоянд.",
+	kk: "Омар ибн әл-Хаттабтан: Алланың Елшісі айтты, істер ниетке қарай."
+});
+fill("set.voice.ar", {
+	ru: "Арабский матн",
+	en: "Arabic matn",
+	ar: "المتن العربي",
+	tr: "Arapça metin",
+	uz: "Arabcha matn",
+	tg: "Матни арабӣ",
+	kk: "Араб мәтіні"
+});
+fill("set.voice.ru", {
+	ru: "Русский смысл",
+	en: "Russian meaning",
+	ar: "المعنى الروسي",
+	tr: "Rusça mana",
+	uz: "Ruscha ma’no",
+	tg: "Маънои русӣ",
+	kk: "Орысша мағына"
+});
+fill("set.voice.pick", {
+	ru: "Нажми карточку — услышишь сразу",
+	en: "Tap a card to hear it",
+	ar: "اضغط البطاقة لتسمع",
+	tr: "Kartı bas, hemen duy",
+	uz: "Kartani bos — darhol eshitasan",
+	tg: "Кортро пахш кун — фавран мешунавӣ",
+	kk: "Карточканы бас — бірден естисің"
+});
+fill("set.voice.sample.ar", {
+	ru: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ",
+	en: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ",
+	ar: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ"
 });
 fill("set.close", {
 	ru: "Закрыть",
@@ -3758,13 +3927,17 @@ fill("set.install.title", {
 	kk: "Қолданба ретінде орнат"
 });
 fill("set.install.lead", {
-	ru: "Полный экран и иконка на рабочем столе. Магазин не нужен: на Android Chrome сам собирает пакет, на iPhone — Safari.",
-	en: "Full screen and a home-screen icon. No store: Chrome packages it on Android, Safari on iPhone."
+	ru: "На Android — настоящий пакет APK: скачайте и поставьте, как любое приложение. На iPhone — через Safari, на экран «Домой».",
+	en: "On Android — a real APK package: download and install like any app. On iPhone — Safari, Add to Home Screen."
 });
 fill("set.install.done", {
 	ru: "Мизан уже на экране.",
 	en: "Mizan is already on the home screen.",
 	ar: "الميزان على الشاشة."
+});
+fill("set.install.native", {
+	ru: "Вы уже в приложении Мизан.",
+	en: "You are already in the Mizan app."
 });
 fill("set.install.ok", {
 	ru: "Готово. Иконка на рабочем столе.",
@@ -3781,18 +3954,27 @@ fill("set.install.ios.title", {
 	ar: "آيفون"
 });
 fill("set.install.android.apk", {
-	ru: "Chrome сам соберёт пакет и поставит иконку весов — это и есть установка, как у обычного приложения.",
-	en: "Chrome packages the app and puts the scales icon on the home screen — that is the install."
+	ru: "Пакет .apk — иконка весов на рабочем столе. Магазин не нужен. Если телефон спросит — разрешите установку из этого источника.",
+	en: "An .apk package — the scales icon on the home screen. No store. If asked, allow installs from this source."
 });
 fill("set.install.android.btn", {
-	ru: "Установить на Android",
-	en: "Install on Android",
-	ar: "تثبيت على أندرويد"
+	ru: "Скачать APK",
+	en: "Download APK",
+	ar: "تنزيل APK"
 });
 fill("set.install.android.now", {
 	ru: "Установить сейчас",
 	en: "Install now",
 	ar: "ثبّت الآن"
+});
+fill("set.install.android.chrome", {
+	ru: "Или поставить через Chrome",
+	en: "Or install via Chrome",
+	ar: "أو ثبّت عبر كروم"
+});
+fill("set.install.android.sideload", {
+	ru: "Файл скачивается. Откройте его и разрешите установку — иконка весов появится на экране.",
+	en: "The file is downloading. Open it and allow the install — the scales icon will appear on the home screen."
 });
 fill("set.install.ios.btn", {
 	ru: "Как поставить на iPhone",
@@ -3800,20 +3982,20 @@ fill("set.install.ios.btn", {
 	ar: "كيف تثبّت على آيفون"
 });
 fill("set.install.android.how", {
-	ru: "Chrome: меню ⋮ → «Установить приложение» или «Добавить на главный экран».",
-	en: "Chrome: menu ⋮ → Install app or Add to Home screen."
+	ru: "Если файл не качается из этого окна — откройте Мизан в Chrome и нажмите «Скачать APK» ещё раз.",
+	en: "If the file does not download here, open Mizan in Chrome and tap Download APK again."
 });
 fill("set.install.ios.how", {
 	ru: "Только Safari: кнопка «Поделиться» → «На экран Домой». Chrome на iPhone так не умеет.",
 	en: "Safari only: Share → Add to Home Screen. Chrome on iPhone cannot do this."
 });
 fill("set.install.android.s1", {
-	ru: "Откройте Мизан в Chrome, не во встроенном окне.",
-	en: "Open Mizan in Chrome, not an in-app browser."
+	ru: "Нажмите «Скачать APK» — файл Мизан сохранится на телефон.",
+	en: "Tap Download APK — the Mizan file saves to the phone."
 });
 fill("set.install.android.s2", {
-	ru: "Меню ⋮ справа вверху → «Установить приложение».",
-	en: "Menu ⋮ at the top right → Install app."
+	ru: "Откройте файл. Если спросит — разрешите установку из этого приложения.",
+	en: "Open the file. If asked, allow installs from this app."
 });
 fill("set.install.android.s3", {
 	ru: "Иконка весов появится на экране, как у обычного приложения.",
@@ -7220,7 +7402,9 @@ var defaultSettings = {
 	highContrast: false,
 	largeTap: false,
 	voiceGender: "male",
-	voiceRate: "normal"
+	voiceRate: "normal",
+	voiceAr: "ar-SA-HamedNeural",
+	voiceRu: "ru-RU-DmitryNeural"
 };
 function persistSettings(s) {
 	try {
@@ -7579,7 +7763,7 @@ function listenRu(onText, lang = "ru-RU") {
 	return () => rec.stop();
 }
 var FEMALE = /female|woman|girl|milena|irina|oksana|tatyana|tatiana|svetlana|daria|dariya|alena|elena|kate|katya|zira|susan|samantha|hazel|karen|moira|fiona|veena|tessa|siri|jane|anna|kendra|joanna|ivy|salli|nicole|raveena|aditi|lupa|natalia|paulina|salma|jenny|emel/i;
-var MALE = /male|dmitry|dmitri|yuri|yury|pavel|filipp|zahar|ermil|andrei|alexandr|shakir|daniel|david|mark|george|fred|arthur|guy|ahmet|google uk english male/i;
+var MALE = /male|dmitry|dmitri|yuri|yury|pavel|filipp|zahar|ermil|andrei|alexandr|shakir|hamed|hamdan|moaz|bassel|saleh|daniel|david|mark|george|fred|arthur|guy|ahmet|google uk english male/i;
 var BROWSER_RATE = {
 	slow: .84,
 	normal: 1,
@@ -7588,14 +7772,19 @@ var BROWSER_RATE = {
 function voicePrefs() {
 	try {
 		const s = useMizan.getState().settings;
+		const gender = s.voiceGender === "female" ? "female" : "male";
 		return {
-			gender: s.voiceGender === "female" ? "female" : "male",
-			rate: s.voiceRate === "slow" || s.voiceRate === "fast" ? s.voiceRate : "normal"
+			gender,
+			rate: s.voiceRate === "slow" || s.voiceRate === "fast" ? s.voiceRate : "normal",
+			voiceAr: safeVoiceId(s.voiceAr, defaultVoice("ar", gender)),
+			voiceRu: safeVoiceId(s.voiceRu, defaultVoice("ru", gender))
 		};
 	} catch {
 		return {
 			gender: "male",
-			rate: "normal"
+			rate: "normal",
+			voiceAr: defaultVoice("ar", "male"),
+			voiceRu: defaultVoice("ru", "male")
 		};
 	}
 }
@@ -7633,14 +7822,21 @@ function chunkText(s, max = 640) {
 	if (rest) out.push(rest);
 	return out;
 }
+function neuralId(lang, voiceAr, voiceRu, gender) {
+	const code = lang.slice(0, 2).toLowerCase();
+	if (code === "ar") return voiceAr;
+	if (code === "ru") return voiceRu;
+	return defaultVoice(code === "tr" ? "ru" : "ru", gender);
+}
 async function speakText(text, lang = "ru-RU") {
 	if (typeof window === "undefined") return;
-	const clean = text.replace(/[ʿʾ*#_]/g, "").replace(/\s+/g, " ").trim();
-	if (!clean) return;
+	const prepared = speakPrep(text.replace(/[ʿʾ*#_]/g, ""), lang);
+	if (!prepared) return;
 	stopSpeak();
 	const mine = seq;
-	const { gender, rate } = voicePrefs();
-	const chunks = chunkText(clean);
+	const { gender, rate, voiceAr, voiceRu } = voicePrefs();
+	const voice = neuralId(lang, voiceAr, voiceRu, gender);
+	const chunks = chunkText(prepared);
 	for (const chunk of chunks) {
 		if (mine !== seq) return;
 		try {
@@ -7648,7 +7844,8 @@ async function speakText(text, lang = "ru-RU") {
 				text: chunk,
 				lang: lang.slice(0, 2),
 				gender,
-				rate
+				rate,
+				voice
 			} });
 			if (mine !== seq) return;
 			if (res.ok) {
@@ -7789,7 +7986,7 @@ function HadithReader() {
 		if (!kind) return;
 		setSpeaking(kind);
 		try {
-			if (kind === "ar" || kind === "all") await speakText(h.ar, "ar-SA");
+			if (kind === "ar" || kind === "all") await speakText(hadithAr(h), "ar-SA");
 			if (kind === "mean" || kind === "all") {
 				const text = meaning || title;
 				if (text) await speakText(text, speakLang(locale));
@@ -7844,7 +8041,7 @@ function HadithReader() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "book-ar gold-flow",
 						lang: "ar",
-						children: h.ar
+						children: hadithAr(h)
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChipRow, {
 						items: AR_FONTS.map((f) => ({
@@ -11236,12 +11433,13 @@ function SheikhSheet({ open, seed, onClose }) {
 		try {
 			const res = await askEvidence({ data: payload });
 			if (res.ok) {
+				const text = markSalawat(res.text);
 				setModelNote("шейх");
 				setLog((l) => [...l, {
 					role: "sheikh",
-					text: res.text
+					text
 				}]);
-				speakText(res.text);
+				speakText(text);
 			} else {
 				const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
 				setModelNote("источники");
@@ -11426,7 +11624,7 @@ function HadithDay() {
 		}
 		setSpeaking(true);
 		try {
-			await speakText(h.ar, "ar-SA");
+			await speakText(hadithAr(h), "ar-SA");
 			if (meaning) await speakText(meaning, speakLang(locale));
 		} finally {
 			setSpeaking(false);
@@ -13396,14 +13594,14 @@ function TeacherDesk({ course }) {
 		};
 		try {
 			const res = await askTeacher({ data: payload });
-			const text = res.ok ? res.text : res.error || localTeach(payload.course, question);
+			const text = markSalawat(res.ok ? res.text : res.error || localTeach(payload.course, question));
 			setLog((l) => [...l, {
 				role: "teacher",
 				text
 			}]);
 			say(text);
 		} catch {
-			const text = localTeach(payload.course, question);
+			const text = markSalawat(localTeach(payload.course, question));
 			setLog((l) => [...l, {
 				role: "teacher",
 				text
@@ -15363,23 +15561,28 @@ function standalone() {
 	const n = navigator;
 	return window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || Boolean(n.standalone);
 }
+function nativeApk() {
+	if (typeof navigator === "undefined") return false;
+	return /MizanNative\//.test(navigator.userAgent);
+}
 function InstallHome() {
 	const locale = useMizan((s) => s.settings.locale);
 	const t = (k) => translate(locale, k);
 	const deferred = (0, import_react.useRef)(null);
 	const [can, setCan] = (0, import_react.useState)(false);
-	const [done, setDone] = (0, import_react.useState)(false);
 	const [busy, setBusy] = (0, import_react.useState)(false);
 	const [note, setNote] = (0, import_react.useState)("");
+	const native = nativeApk();
+	const [pwa, setPwa] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
-		setDone(standalone());
+		setPwa(standalone());
 		const onPrompt = (e) => {
 			e.preventDefault();
 			deferred.current = e;
 			setCan(true);
 		};
 		const onInstalled = () => {
-			setDone(true);
+			setPwa(true);
 			setCan(false);
 			deferred.current = null;
 		};
@@ -15398,7 +15601,7 @@ function InstallHome() {
 				await ev.prompt();
 				const { outcome } = await ev.userChoice;
 				if (outcome === "accepted") {
-					setDone(true);
+					setPwa(true);
 					setNote(t("set.install.ok"));
 				}
 			} catch {
@@ -15424,12 +15627,12 @@ function InstallHome() {
 				className: "font-display mt-1 text-2xl leading-tight",
 				children: t("set.install.title")
 			}),
-			done ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+			native ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 				className: "mt-2 flex items-center gap-2 text-sm text-[var(--ok)]",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" }),
 					" ",
-					t("set.install.done")
+					t("set.install.native")
 				]
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 				className: "mt-2 text-sm text-[var(--muted)]",
@@ -15449,12 +15652,20 @@ function InstallHome() {
 							className: "mt-1 text-sm",
 							children: t("set.install.android.apk")
 						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-							variant: "glow",
-							className: "mt-3 w-full",
-							disabled: busy || done,
-							onClick: () => void installAndroid(),
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "size-4" }), can ? t("set.install.android.now") : t("set.install.android.btn")]
+						native ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "mt-3 flex min-h-12 items-center gap-2 text-sm text-[var(--ok)]",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" }),
+								" ",
+								t("set.install.done")
+							]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+							href: "/mizan.apk",
+							download: "mizan.apk",
+							"data-go": "install-apk",
+							className: cn("btn-glow mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 px-6 text-sm font-semibold", "transition-[transform,box-shadow,opacity] duration-150 ease-out active:scale-[0.96]", "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"),
+							onClick: () => setNote(t("set.install.android.sideload")),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "size-4" }), t("set.install.android.btn")]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
 							className: "install-steps",
@@ -15463,6 +15674,13 @@ function InstallHome() {
 								"set.install.android.s2",
 								"set.install.android.s3"
 							].map((k, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: i + 1 }), t(k)] }, k))
+						}),
+						native ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "secondary",
+							className: "mt-3 w-full",
+							disabled: busy || pwa,
+							onClick: () => void installAndroid(),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "size-4" }), can ? t("set.install.android.now") : t("set.install.android.chrome")]
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
@@ -15968,7 +16186,29 @@ function SettingsDialog() {
 		}
 		setProbing(true);
 		try {
+			await speakText(t("set.voice.sample.ar"), "ar-SA");
 			await speakText(t("set.voice.probe"), speakLang(locale));
+		} finally {
+			setProbing(false);
+		}
+	}
+	async function previewVoice(v) {
+		stopSpeak();
+		setProbing(true);
+		try {
+			if (v.lang === "ar") {
+				setSettings({
+					voiceAr: v.id,
+					voiceGender: v.gender
+				});
+				await speakText(t("set.voice.sample.ar"), "ar-SA");
+			} else {
+				setSettings({
+					voiceRu: v.id,
+					voiceGender: v.gender
+				});
+				await speakText(t("set.voice.probe"), "ru-RU");
+			}
 		} finally {
 			setProbing(false);
 		}
@@ -16262,8 +16502,72 @@ function SettingsDialog() {
 				className: "mb-3 text-xs text-[var(--muted)]",
 				children: t("set.voice.note")
 			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-3 text-xs text-[var(--muted)]",
+				children: t("set.voice.pick")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.voice.ru")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "voice-grid",
+				"data-go": "settings-voice-ru",
+				children: VOICES_RU.map((v) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: cn("voice-card", (settings.voiceRu ?? defaultVoice("ru", settings.voiceGender)) === v.id && "is-on"),
+					onClick: () => void previewVoice(v),
+					"data-go": `voice-${v.id}`,
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "voice-card-name",
+							children: v.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "voice-card-place",
+							children: v.place
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "voice-card-note",
+							children: v.note
+						})
+					]
+				}, v.id))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-4 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.voice.ar")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "voice-grid",
+				"data-go": "settings-voice-ar",
+				children: VOICES_AR.map((v) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: cn("voice-card", (settings.voiceAr ?? defaultVoice("ar", settings.voiceGender)) === v.id && "is-on"),
+					onClick: () => void previewVoice(v),
+					"data-go": `voice-${v.id}`,
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "voice-card-name",
+							children: v.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "voice-card-place",
+							children: [
+								v.place,
+								" · ",
+								v.gender === "female" ? t("set.voice.female") : t("set.voice.male")
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "voice-card-note",
+							children: v.note
+						})
+					]
+				}, v.id))
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "grid gap-4 sm:grid-cols-2",
+				className: "grid gap-4 sm:grid-cols-2 mt-4",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
 					label: t("set.voice.gender"),
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
@@ -16271,7 +16575,12 @@ function SettingsDialog() {
 						onChange: (e) => {
 							stopSpeak();
 							setProbing(false);
-							setSettings({ voiceGender: e.target.value });
+							const voiceGender = e.target.value;
+							setSettings({
+								voiceGender,
+								voiceAr: defaultVoice("ar", voiceGender),
+								voiceRu: defaultVoice("ru", voiceGender)
+							});
 						},
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
 							value: "male",
@@ -16355,7 +16664,7 @@ function SettingsDialog() {
 					variant: "secondary",
 					onClick: async () => {
 						if (await requestNotify() === "granted") {
-							const { showSabrNow } = await import("./notify--icT2eg2.mjs");
+							const { showSabrNow } = await import("./notify-wYMowT57.mjs");
 							await showSabrNow();
 							setNote("Уведомление ушло, если система его не глушит.");
 						} else setNote("Сначала разрешите уведомления.");
@@ -18477,7 +18786,7 @@ function MizanApp() {
 				parseHash();
 			}
 			if (e.data?.type === "SABR_DUE") {
-				if (useMizan.getState().settings.sabrNotify) import("./notify--icT2eg2.mjs").then((m) => m.showSabrNow());
+				if (useMizan.getState().settings.sabrNotify) import("./notify-wYMowT57.mjs").then((m) => m.showSabrNow());
 			}
 		};
 		navigator.serviceWorker?.addEventListener("message", onMsg);
@@ -18540,4 +18849,4 @@ function Home() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MizanApp, {});
 }
 //#endregion
-export { notifySupported as a, showSabrNow as c, Home as component, routes_BSN42R5V_exports as d, nextSabrLabel as i, shownToday as l, bootNotify as n, registerSw as o, nextSabrDate as r, requestNotify as s, armSabrTimer as t, startSabrDaily as u };
+export { notifySupported as a, showSabrNow as c, Home as component, routes_XwfHrrZP_exports as d, nextSabrLabel as i, shownToday as l, bootNotify as n, registerSw as o, nextSabrDate as r, requestNotify as s, armSabrTimer as t, startSabrDaily as u };

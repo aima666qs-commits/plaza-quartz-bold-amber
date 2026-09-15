@@ -3,6 +3,7 @@ import nawawiJson from "@/lib/house/nawawi.json";
 import { NAWAWI_RU } from "@/lib/house/nawawi-ru.ts";
 import { hadithGrade, isSahih } from "@/lib/house/nawawi-grade.ts";
 import type { Locale } from "@/lib/i18n/dict.ts";
+import { markSalawat } from "@/lib/voice/adab.ts";
 
 export type AllahName = { n: number; ar: string; tr: string; en: string; ru: string };
 export type NawawiHadith = {
@@ -64,16 +65,45 @@ export function hadithTitle(h: NawawiHadith, locale: Locale): string {
   return h.title;
 }
 
+export function hadithAr(h: NawawiHadith): string {
+  return markSalawat(h.ar, "ar");
+}
+
 export function hadithMeaning(h: NawawiHadith, locale: Locale): string {
-  if (locale === "en") return h.en;
+  if (locale === "en") return markSalawat(h.en, "en");
   if (locale === "ar") return "";
-  return h.ru;
+  return markSalawat(h.ru, "ru");
 }
 
 export function hadithRef(h: NawawiHadith, locale: Locale): string {
   if (locale === "en") return h.ref.replace(/^sunnah\.com\/nawawi40:/, "an-Nawawi ");
   if (locale === "ar") return `النووي ${h.n}`;
   return h.refRu;
+}
+
+export type HadithChain = {
+  narrator: string;
+  narratorAr: string;
+  prophet: string;
+  books: string;
+  collection: string;
+  gradeKey: number;
+};
+
+export function hadithChain(h: NawawiHadith, locale: Locale): HadithChain {
+  const ruMatch = h.ru.match(/со слов\s+(.+?)(?=\s*,\s*да будет|\s*:\s|\s+я слышал|\s+что\s)/i);
+  let narrator = (ruMatch?.[1] ?? "").replace(/\s+/g, " ").trim();
+  if (!narrator) narrator = h.refRu;
+  const arMatch = h.ar.match(/عَنْ[\s\u00a0]+(.+?)[\s\u00a0]+(?:رَضِيَ|قَالَ)/);
+  const narratorAr = (arMatch?.[1] ?? "").replace(/\s+/g, " ").trim();
+  const books =
+    locale === "ar"
+      ? h.ar.match(/رَوَاهُ[\s\S]{0,180}/)?.[0]?.replace(/\s+/g, " ").trim() || h.ref
+      : h.refRu;
+  const collection =
+    locale === "ar" ? `الأربعون النووية، الحديث ${h.n}` : locale === "en" ? `an-Nawawi, hadith ${h.n}` : `ан-Навави, хадис ${h.n}`;
+  const prophet = locale === "ar" ? "رسول الله ﷺ" : locale === "en" ? "the Messenger of Allah ﷺ" : "Посланник Аллаха ﷺ";
+  return { narrator, narratorAr, prophet, books, collection, gradeKey: h.n };
 }
 
 export function speakLang(locale: Locale): string {

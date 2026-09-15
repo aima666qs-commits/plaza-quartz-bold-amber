@@ -396,7 +396,10 @@ function TajweedRoom() {
       <p className="text-xs text-[var(--muted)]">{translate(locale, "room.tajweed.note")}</p>
       {TAJWEED_CARDS.map((c) => (
         <article key={c.id} className="rounded-2xl border border-[var(--line)] p-3">
-          <h2 className="font-display text-xl">{c.title}</h2>
+          <h2 className="font-display text-xl" style={{ color: c.color }}>
+            {c.title}
+          </h2>
+          <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[var(--muted)]">{c.beats}</p>
           <p className="mt-2 text-sm">{c.rule}</p>
           <p className="ayah-ar mt-2" lang="ar">
             {c.example}

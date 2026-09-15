@@ -1,4 +1,5 @@
 import type { Reciter } from "@/lib/quran/types.ts";
+import { wordBeats } from "@/lib/quran/tajweed.ts";
 
 const QURAN_API = "https://api.quran.com/api/v4";
 const WBW_CDN = "https://audio.qurancdn.com/";
@@ -33,12 +34,7 @@ export function splitAyahWords(ar: string): SyncWord[] {
 
 export function estimateSegs(words: SyncWord[], durationMs: number): WordSeg[] {
   if (!words.length || durationMs <= 0) return [];
-  const weights = words.map((w) => {
-    const letters = w.ar.replace(/[^\u0621-\u064A\u0670\u0671\u06D5]/g, "");
-    let wgt = Math.max(2, letters.length);
-    if (/[اآويىٰ]/.test(w.ar)) wgt += 2;
-    return wgt;
-  });
+  const weights = words.map((w, i) => wordBeats(w.ar, words[i + 1]?.ar ?? ""));
   const total = weights.reduce((a, b) => a + b, 0) || 1;
   const lead = durationMs * 0.03;
   const usable = durationMs * 0.94;

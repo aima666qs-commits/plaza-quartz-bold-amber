@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { Highlighter, Languages, PauseCircle, Play, Repeat1, Search, Type } from "lucide-react";
+import { Highlighter, Languages, PauseCircle, Play, Repeat1, Search, Sparkles, Type } from "lucide-react";
 import { AyahLine } from "@/components/mizan/ayah-line.tsx";
 import { TafsirView } from "@/components/mizan/tafsir-view.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -7,6 +7,7 @@ import { TextInput } from "@/components/ui/field.tsx";
 import { loadMushaf, searchMushaf } from "@/lib/quran/mushaf.ts";
 import { RECITERS, reciterById, reciterSurahs } from "@/lib/quran/reciters.ts";
 import { JUZ_START, SURAHS, surahOf } from "@/lib/quran/surahs.ts";
+import { TAJWEED_KARAOKE_KEY } from "@/lib/quran/tajweed.ts";
 import type { Ayah, LearnPlayMode, MushafSurah } from "@/lib/quran/types.ts";
 import { cn } from "@/lib/utils.ts";
 import { useQuran } from "@/stores/quran-store.ts";
@@ -46,6 +47,8 @@ function MushafView() {
   const toggleFollow = useQuran((s) => s.toggleFollow);
   const wbw = useQuran((s) => s.wbw);
   const toggleWbw = useQuran((s) => s.toggleWbw);
+  const tajweed = useQuran((s) => s.tajweed);
+  const toggleTajweed = useQuran((s) => s.toggleTajweed);
   const learnMode = useQuran((s) => s.learnMode);
   const setLearnMode = useQuran((s) => s.setLearnMode);
   const speed = useQuran((s) => s.speed);
@@ -223,6 +226,18 @@ function MushafView() {
             <Languages className="size-3.5" />
             Слова
           </button>
+          <button
+            type="button"
+            data-tajweed
+            onClick={toggleTajweed}
+            className={cn(
+              "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3 text-xs",
+              tajweed ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
+            )}
+          >
+            <Sparkles className="size-3.5" />
+            Таджвид
+          </button>
           {SPEEDS.map((sp) => (
             <button
               key={sp}
@@ -250,6 +265,16 @@ function MushafView() {
             </button>
           ))}
         </div>
+        {tajweed ? (
+          <div className="tajweed-legend" data-go="tajweed-legend">
+            {TAJWEED_KARAOKE_KEY.map((k) => (
+              <span key={k.ru}>
+                <i style={{ background: k.color }} />
+                {k.ru}
+              </span>
+            ))}
+          </div>
+        ) : null}
 
         <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
           {RECITERS.map((r) => (

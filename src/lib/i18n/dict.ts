@@ -422,23 +422,27 @@ fill("set.voice.normal", { ru: "Обычно", en: "Normal", ar: "عادي", tr:
 fill("set.voice.fast", { ru: "Быстро", en: "Fast", ar: "سريع", tr: "Hızlı", uz: "Tez", tg: "Тез", kk: "Жылдам" });
 fill("set.voice.test", { ru: "Прослушать", en: "Listen", ar: "استمع", tr: "Dinle", uz: "Tingla", tg: "Шунав", kk: "Тыңда" });
 fill("set.voice.note", {
-  ru: "Голос хадисов, шейха и учителя. Чтецы Корана — отдельно, выше.",
-  en: "Voice for hadith, the sheikh and the teacher. Quran reciters are above.",
-  ar: "صوت الأحاديث والشيخ والمعلم. قرّاء القرآن أعلاه.",
-  tr: "Hadis, şeyh ve öğretmen sesi. Kur’an okuyucuları yukarıda.",
-  uz: "Hadis, shayx va o‘qituvchi ovozi. Qur’on qorilari yuqorida.",
-  tg: "Овози ҳадис, шайх ва муаллим. Қориҳои Қуръон болотар.",
-  kk: "Хадис, шейх және ұстаз дауысы. Құран қарилары жоғарыда.",
+  ru: "Салават произносится всегда: «саллаллаху алейхи ва саллям». Имена с шаддой: Хатта́б, не «хатаба». Чтецы Корана — отдельно, выше.",
+  en: "The salawat is always spoken. Names keep the shadda: Khaṭṭāb, not «khataba». Quran reciters are above.",
+  ar: "الصلاة على النبي تُنطق دائمًا. أسماء بشدة: الخطّاب. قرّاء القرآن أعلاه.",
+  tr: "Salavat her zaman okunur. İsimlerde şedde durur: Hattâb. Kur’an okuyucuları yukarıda.",
+  uz: "Salavot doim aytiladi. Ismda shadda: Hattob, «hataba» emas. Qur’on qorilari yuqorida.",
+  tg: "Салавот ҳамеша гуфта мешавад. Номҳо бо шадда: Хаттоб. Қориҳои Қуръон болотар.",
+  kk: "Салауат әрдайым айтылады. Есімде шәддә: Хаттаб. Құран қарилары жоғарыда.",
 });
 fill("set.voice.probe", {
-  ru: "Мир тебе. Это голос Мизан.",
-  en: "Peace be upon you. This is the voice of Mizan.",
-  ar: "السلام عليكم. هذا صوت ميزان.",
-  tr: "Selam üzerine olsun. Bu Mizan’ın sesi.",
-  uz: "Salom senga. Bu Mizan ovozi.",
-  tg: "Салом бар ту. Ин овози Мизан аст.",
-  kk: "Сәлем саған. Бұл Мизан дауысы.",
+  ru: "Передают со слов Умара ибн аль-Хаттаба, да будет доволен им Аллах, что Посланник Аллаха сказал: поистине, дела — по намерениям.",
+  en: "From Umar ibn al-Khattab, may Allah be pleased with him: the Messenger of Allah said that deeds are only by intentions.",
+  ar: "عن عمر بن الخطاب رضي الله عنه أن رسول الله قال إنما الأعمال بالنيات.",
+  tr: "Ömer ibnü’l-Hattâb’dan: Allah’ın Elçisi buyurdu ki ameller niyetlere göredir.",
+  uz: "Umar ibn al-Hattob roziyallohu anhudan: Allohning Elchisi aytdilar, amallar niyatga ko‘ra.",
+  tg: "Аз Умар ибни ал-Хаттоб: Паёмбари Аллоҳ гуфт, ки амалҳо ба ниятҳоянд.",
+  kk: "Омар ибн әл-Хаттабтан: Алланың Елшісі айтты, істер ниетке қарай.",
 });
+fill("set.voice.ar", { ru: "Арабский матн", en: "Arabic matn", ar: "المتن العربي", tr: "Arapça metin", uz: "Arabcha matn", tg: "Матни арабӣ", kk: "Араб мәтіні" });
+fill("set.voice.ru", { ru: "Русский смысл", en: "Russian meaning", ar: "المعنى الروسي", tr: "Rusça mana", uz: "Ruscha ma’no", tg: "Маънои русӣ", kk: "Орысша мағына" });
+fill("set.voice.pick", { ru: "Нажми карточку — услышишь сразу", en: "Tap a card to hear it", ar: "اضغط البطاقة لتسمع", tr: "Kartı bas, hemen duy", uz: "Kartani bos — darhol eshitasan", tg: "Кортро пахш кун — фавран мешунавӣ", kk: "Карточканы бас — бірден естисің" });
+fill("set.voice.sample.ar", { ru: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ", en: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ", ar: "عَنْ عُمَرَ بْنِ الْخَطَّابِ أَنَّ رَسُولَ اللَّهِ قَالَ" });
 fill("set.close", { ru: "Закрыть", en: "Close", ar: "إغلاق", tr: "Kapat", uz: "Yopish", tg: "Пӯшидан", kk: "Жабу" });
 fill("set.saved", { ru: "Сохранённые расчёты", en: "Saved calculations", ar: "الحسابات المحفوظة", tr: "Kayıtlı hesaplar", uz: "Saqlangan hisoblar", tg: "Ҳисобҳои захирашуда", kk: "Сақталған есептер" });
 fill("set.saved.open", { ru: "Открыть", en: "Open", ar: "فتح", tr: "Aç", uz: "Ochish", tg: "Кушодан", kk: "Ашу" });
@@ -480,6 +484,13 @@ fill("hadith.stop", { ru: "Стоп", en: "Stop", ar: "قف", tr: "Dur", uz: "To
 fill("hadith.more", { ru: "полностью", en: "full", ar: "كامل", tr: "tamamı", uz: "to‘liq", tg: "пурра", kk: "толық" });
 fill("hadith.less", { ru: "свернуть", en: "less", ar: "أقل", tr: "kısalt", uz: "qisqa", tg: "пӯшидан", kk: "жию" });
 fill("hadith.whence", { ru: "откуда", en: "source", ar: "المصدر", tr: "kaynak", uz: "qayerdan", tg: "аз куҷо", kk: "қайдан" });
+fill("hadith.lang.ar", { ru: "ع", en: "ع", ar: "ع", tr: "ع", uz: "ع", tg: "ع", kk: "ع" });
+fill("hadith.lang.ru", { ru: "рус", en: "RU", ar: "روس", tr: "RU", uz: "RU", tg: "RU", kk: "RU" });
+fill("hadith.chain", { ru: "Цепочка", en: "Chain", ar: "السند", tr: "Sened", uz: "Isnod", tg: "Силсила", kk: "Тізбек" });
+fill("hadith.chain.narrator", { ru: "Равий", en: "Narrator", ar: "الراوي", tr: "Râvi", uz: "Roviy", tg: "Ровӣ", kk: "Рауи" });
+fill("hadith.chain.then", { ru: "от", en: "from", ar: "عن", tr: "den", uz: "dan", tg: "аз", kk: "дан" });
+fill("mic.listen", { ru: "Говори", en: "Speak", ar: "تكلم", tr: "Konuş", uz: "Gapir", tg: "Гӯй", kk: "Сөйле" });
+fill("mic.hearing", { ru: "Слышу…", en: "Hearing…", ar: "أسمع…", tr: "Dinliyorum…", uz: "Eshitaman…", tg: "Мешунавам…", kk: "Естимін…" });
 fill("hadith.filter.sahih", { ru: "только сахих", en: "sahih only", ar: "الصحيح فقط", tr: "yalnız sahih", uz: "faqat sahih", tg: "танҳо саҳеҳ", kk: "тек сахих" });
 fill("hadith.filter.all", { ru: "все 42", en: "all 42", ar: "الكل ٤٢", tr: "42’si", uz: "42 ta", tg: "ҳамаи 42", kk: "барлығы 42" });
 fill("set.font.family", { ru: "Шрифт", en: "Typeface", ar: "الخط", tr: "Yazı tipi", uz: "Shrift", tg: "Ҳуруф", kk: "Қаріп" });
@@ -519,30 +530,36 @@ fill("room.books.note", { ru: "Каталог известных сборник�
 fill("set.section.install", { ru: "На телефон", en: "On your phone", ar: "على الهاتف", tr: "Telefona", uz: "Telefonga", tg: "Ба телефон", kk: "Телефонға" });
 fill("set.install.title", { ru: "Поставить как приложение", en: "Install as an app", ar: "ثبّت كتطبيق", tr: "Uygulama olarak kur", uz: "Ilova qilib o‘rnat", tg: "Чун барнома насб кун", kk: "Қолданба ретінде орнат" });
 fill("set.install.lead", {
-  ru: "Полный экран и иконка на рабочем столе. Магазин не нужен: на Android Chrome сам собирает пакет, на iPhone — Safari.",
-  en: "Full screen and a home-screen icon. No store: Chrome packages it on Android, Safari on iPhone.",
+  ru: "На Android — настоящий пакет APK: скачайте и поставьте, как любое приложение. На iPhone — через Safari, на экран «Домой».",
+  en: "On Android — a real APK package: download and install like any app. On iPhone — Safari, Add to Home Screen.",
 });
 fill("set.install.done", { ru: "Мизан уже на экране.", en: "Mizan is already on the home screen.", ar: "الميزان على الشاشة." });
+fill("set.install.native", { ru: "Вы уже в приложении Мизан.", en: "You are already in the Mizan app." });
 fill("set.install.ok", { ru: "Готово. Иконка на рабочем столе.", en: "Done. The icon is on the home screen." });
 fill("set.install.android.title", { ru: "Android", en: "Android", ar: "أندرويد" });
 fill("set.install.ios.title", { ru: "iPhone", en: "iPhone", ar: "آيفون" });
 fill("set.install.android.apk", {
-  ru: "Chrome сам соберёт пакет и поставит иконку весов — это и есть установка, как у обычного приложения.",
-  en: "Chrome packages the app and puts the scales icon on the home screen — that is the install.",
+  ru: "Пакет .apk — иконка весов на рабочем столе. Магазин не нужен. Если телефон спросит — разрешите установку из этого источника.",
+  en: "An .apk package — the scales icon on the home screen. No store. If asked, allow installs from this source.",
 });
-fill("set.install.android.btn", { ru: "Установить на Android", en: "Install on Android", ar: "تثبيت على أندرويد" });
+fill("set.install.android.btn", { ru: "Скачать APK", en: "Download APK", ar: "تنزيل APK" });
 fill("set.install.android.now", { ru: "Установить сейчас", en: "Install now", ar: "ثبّت الآن" });
+fill("set.install.android.chrome", { ru: "Или поставить через Chrome", en: "Or install via Chrome", ar: "أو ثبّت عبر كروم" });
+fill("set.install.android.sideload", {
+  ru: "Файл скачивается. Откройте его и разрешите установку — иконка весов появится на экране.",
+  en: "The file is downloading. Open it and allow the install — the scales icon will appear on the home screen.",
+});
 fill("set.install.ios.btn", { ru: "Как поставить на iPhone", en: "How to add on iPhone", ar: "كيف تثبّت على آيفون" });
 fill("set.install.android.how", {
-  ru: "Chrome: меню ⋮ → «Установить приложение» или «Добавить на главный экран».",
-  en: "Chrome: menu ⋮ → Install app or Add to Home screen.",
+  ru: "Если файл не качается из этого окна — откройте Мизан в Chrome и нажмите «Скачать APK» ещё раз.",
+  en: "If the file does not download here, open Mizan in Chrome and tap Download APK again.",
 });
 fill("set.install.ios.how", {
   ru: "Только Safari: кнопка «Поделиться» → «На экран Домой». Chrome на iPhone так не умеет.",
   en: "Safari only: Share → Add to Home Screen. Chrome on iPhone cannot do this.",
 });
-fill("set.install.android.s1", { ru: "Откройте Мизан в Chrome, не во встроенном окне.", en: "Open Mizan in Chrome, not an in-app browser." });
-fill("set.install.android.s2", { ru: "Меню ⋮ справа вверху → «Установить приложение».", en: "Menu ⋮ at the top right → Install app." });
+fill("set.install.android.s1", { ru: "Нажмите «Скачать APK» — файл Мизан сохранится на телефон.", en: "Tap Download APK — the Mizan file saves to the phone." });
+fill("set.install.android.s2", { ru: "Откройте файл. Если спросит — разрешите установку из этого приложения.", en: "Open the file. If asked, allow installs from this app." });
 fill("set.install.android.s3", { ru: "Иконка весов появится на экране, как у обычного приложения.", en: "The scales icon lands on the home screen like any app." });
 fill("set.install.ios.s1", { ru: "Откройте Мизан в Safari — не в Chrome и не из Telegram.", en: "Open Mizan in Safari — not Chrome, not Telegram." });
 fill("set.install.ios.s2", { ru: "Внизу кнопка «Поделиться» (квадрат со стрелкой).", en: "Tap Share at the bottom (square with an arrow)." });

@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Pause, Volume2 } from "lucide-react";
 import {
   NAWAWI,
   NAWAWI_SAHIH,
+  hadithAr,
   hadithMeaning,
   hadithRef,
   hadithTitle,
@@ -11,9 +12,10 @@ import {
   type HadithMeanFont,
   type HadithPaper,
 } from "@/lib/house/data.ts";
-import { gradeLabel, gradeNote, isSahih } from "@/lib/house/nawawi-grade.ts";
+import { HadithSource } from "@/components/mizan/hadith-source.tsx";
+import { gradeLabel, isSahih } from "@/lib/house/nawawi-grade.ts";
 import { translate } from "@/lib/i18n/dict.ts";
-import { speakText, stopSpeak } from "@/lib/voice.ts";
+import { prefetchSpeak, speakText, stopSpeak } from "@/lib/voice.ts";
 import { cn } from "@/lib/utils.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
@@ -68,6 +70,9 @@ export function HadithReader() {
     stopSpeak();
     setSpeaking(null);
     setSource(false);
+    const ar = hadithAr(h);
+    void prefetchSpeak(ar, "ar-SA");
+    if (meaning) void prefetchSpeak(meaning, speakLang(locale));
   }, [h.n]);
 
   function back() {
@@ -91,7 +96,7 @@ export function HadithReader() {
     if (!kind) return;
     setSpeaking(kind);
     try {
-      if (kind === "ar" || kind === "all") await speakText(h.ar, "ar-SA");
+      if (kind === "ar" || kind === "all") await speakText(hadithAr(h), "ar-SA");
       if (kind === "mean" || kind === "all") {
         const text = meaning || title;
         if (text) await speakText(text, speakLang(locale));
@@ -126,7 +131,7 @@ export function HadithReader() {
       <div className="book-sheet">
         <h1 className="book-title">{title}</h1>
         <p className="book-ar gold-flow" lang="ar">
-          {h.ar}
+          {hadithAr(h)}
         </p>
         <ChipRow
           items={AR_FONTS.map((f) => ({ id: f.id, label: t(f.key) }))}
@@ -151,7 +156,7 @@ export function HadithReader() {
         >
           {t("hadith.whence")}
         </button>
-        {source ? <p className="book-source">{gradeNote(h.n, locale)}</p> : null}
+        {source ? <HadithSource h={h} locale={locale} /> : null}
         <ChipRow
           items={PAPERS.map((p) => ({ id: p.id, label: t(p.key) }))}
           value={paper}

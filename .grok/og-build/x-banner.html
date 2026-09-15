@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <style>
@@ -13,37 +13,49 @@
       src: url("LiberationSerif-Regular.ttf") format("truetype");
       font-weight: 400;
     }
+    @font-face {
+      font-family: "FreeSerif";
+      src: url("FreeSerif.ttf") format("truetype");
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 1200px; height: 264px; overflow: hidden; background: #04100c; }
     .frame { position: relative; width: 1200px; height: 264px; }
-    .bg { position: absolute; inset: 0; width: 1200px; height: 264px; object-fit: cover; }
+    .bg { position: absolute; inset: 0; width: 1200px; height: 264px; object-fit: cover; object-position: center; }
     .veil {
       position: absolute; inset: 0;
       background:
-        linear-gradient(90deg, rgba(4,16,12,0.72) 0%, rgba(4,16,12,0.38) 34%, rgba(4,16,12,0.08) 62%, transparent 82%),
-        linear-gradient(180deg, rgba(4,16,12,0.22) 0%, transparent 50%, rgba(4,16,12,0.42) 100%);
+        linear-gradient(90deg, rgba(4,16,12,0.78) 0%, rgba(4,16,12,0.48) 32%, rgba(4,16,12,0.1) 58%, transparent 80%),
+        linear-gradient(180deg, rgba(4,16,12,0.18) 0%, transparent 48%, rgba(4,16,12,0.4) 100%);
     }
     .lockup {
       position: absolute;
       left: 48px;
-      top: 28px;
-      width: 520px;
+      top: 36px;
+      width: 540px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
+    .mark {
+      font-family: "FreeSerif", serif;
+      font-size: 28px;
+      line-height: 1;
+      color: #f0cf7a;
+      text-shadow: 0 2px 12px rgba(4,16,12,0.85);
+    }
     .title {
+      margin-top: 4px;
       font-family: "LibSerif", Georgia, serif;
       font-weight: 700;
-      font-size: 58px;
+      font-size: 56px;
       line-height: 0.95;
       color: #f8f4e9;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.14em;
       padding-left: 0.04em;
       text-shadow: 0 2px 0 rgba(4,16,12,0.55), 0 8px 22px rgba(4,16,12,0.75);
     }
     .tag {
-      margin-top: 10px;
+      margin-top: 8px;
       font-family: "LibSerif", Georgia, serif;
       font-size: 15px;
       color: #f0cf7a;
@@ -58,8 +70,9 @@
     <img class="bg" src="banner-bg.jpg" alt="" />
     <div class="veil"></div>
     <div class="lockup">
-      <h1 class="title">MIZAN</h1>
-      <p class="tag">Zakat · Quran · Hisn</p>
+      <div class="mark">الميزان</div>
+      <h1 class="title">Мизан</h1>
+      <p class="tag">Закят · Коран · Хисн</p>
     </div>
   </div>
 </body>

@@ -43,6 +43,8 @@ export interface SettingsState {
   largeTap: boolean;
   voiceGender: VoiceGender;
   voiceRate: VoiceRate;
+  voiceAr: string;
+  voiceRu: string;
 }
 
 const defaultSettings: SettingsState = {
@@ -70,7 +72,9 @@ const defaultSettings: SettingsState = {
   highContrast: false,
   largeTap: false,
   voiceGender: "male",
-  voiceRate: "normal",
+  voiceRate: "fast",
+  voiceAr: "ar-SA-HamedNeural",
+  voiceRu: "ru-RU-DmitryNeural",
 };
 
 interface Store {

@@ -20,47 +20,47 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 1200px; height: 630px; overflow: hidden; background: #04100c; }
     .frame { position: relative; width: 1200px; height: 630px; }
-    .bg { position: absolute; inset: 0; width: 1200px; height: 630px; object-fit: cover; }
+    .bg { position: absolute; inset: 0; width: 1200px; height: 630px; object-fit: cover; object-position: center 42%; }
     .veil {
       position: absolute; inset: 0;
       background:
-        linear-gradient(180deg, rgba(4,16,12,0.55) 0%, rgba(4,16,12,0.12) 42%, rgba(4,16,12,0.35) 100%),
-        radial-gradient(ellipse 58% 42% at 50% 22%, rgba(4,16,12,0.5), transparent 70%);
+        radial-gradient(ellipse 70% 55% at 50% 48%, rgba(4,16,12,0.62), rgba(4,16,12,0.12) 62%, rgba(4,16,12,0.45) 100%),
+        linear-gradient(180deg, rgba(4,16,12,0.28) 0%, transparent 28%, rgba(4,16,12,0.55) 100%);
     }
     .lockup {
       position: absolute;
-      left: 180px; right: 180px; top: 58px;
+      left: 160px; right: 160px; top: 268px;
       display: flex; flex-direction: column; align-items: center;
     }
     .mark {
       font-family: "FreeSerif", serif;
-      font-size: 42px;
+      font-size: 54px;
       line-height: 1;
       color: #f0cf7a;
-      text-shadow: 0 2px 18px rgba(4,16,12,0.8);
+      text-shadow: 0 2px 18px rgba(4,16,12,0.85);
     }
     .title {
-      margin-top: 8px;
+      margin-top: 6px;
       font-family: "LibSerif", Georgia, serif;
       font-weight: 700;
-      font-size: 92px;
+      font-size: 86px;
       line-height: 0.95;
       color: #f8f4e9;
-      letter-spacing: 0.18em;
-      padding-left: 0.18em;
-      text-shadow: 0 2px 0 rgba(4,16,12,0.5), 0 10px 32px rgba(4,16,12,0.7);
+      letter-spacing: 0.16em;
+      padding-left: 0.16em;
+      text-shadow: 0 2px 0 rgba(4,16,12,0.55), 0 10px 32px rgba(4,16,12,0.75);
     }
     .rule {
-      width: 96px; height: 2px; margin: 16px 0 14px;
+      width: 96px; height: 2px; margin: 14px 0 12px;
       background: linear-gradient(90deg, transparent, #c49b45 20%, #f0cf7a 50%, #c49b45 80%, transparent);
     }
     .tag {
       font-family: "LibSerif", Georgia, serif;
       font-size: 20px;
       color: #f0cf7a;
-      letter-spacing: 0.28em;
-      padding-left: 0.28em;
-      text-shadow: 0 2px 14px rgba(4,16,12,0.8);
+      letter-spacing: 0.26em;
+      padding-left: 0.26em;
+      text-shadow: 0 2px 14px rgba(4,16,12,0.85);
     }
   </style>
 </head>
@@ -69,10 +69,10 @@
     <img class="bg" src="og-bg.jpg" alt="" />
     <div class="veil"></div>
     <div class="lockup">
-      <div class="mark">م</div>
+      <div class="mark">الميزان</div>
       <h1 class="title">Мизан</h1>
       <div class="rule"></div>
-      <p class="tag">закят · Коран · хисн</p>
+      <p class="tag">Закят · Коран · Хисн</p>
     </div>
   </div>
 </body>
