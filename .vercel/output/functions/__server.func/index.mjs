@@ -15,8 +15,8 @@ var grokOgIdentity = { "site": {
 	"title": "Мизан",
 	"type": "website",
 	"card": "custom",
-	"color": "070B14",
-	"description": "Закят · Коран Кулиева · Иткан",
+	"color": "04100c",
+	"description": "Закят · Коран · Хисн",
 	"image": "/og.jpg"
 } };
 //#endregion

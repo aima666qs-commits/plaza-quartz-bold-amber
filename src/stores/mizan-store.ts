@@ -1,6 +1,9 @@
-import { calculate, emptyInput } from "@/lib/mizan/engine.ts";
+import type { HouseRoomId } from "@/lib/house/catalog.ts";
+import type { HadithArFont, HadithMeanFont, HadithPaper } from "@/lib/house/data.ts";
+import type { Locale, NavLayout } from "@/lib/i18n/dict.ts";
 import type { CalculationInput, CalculationResult, SavedCalculation } from "@/lib/mizan/types.ts";
-import { DEFAULT_THEME_ID } from "@/lib/themes/registry.ts";
+import { calculate, emptyInput } from "@/lib/mizan/engine.ts";
+import { DEFAULT_THEME_ID, type FontPair } from "@/lib/themes/registry.ts";
 import { todayISO, uid } from "@/lib/utils.ts";
 import { create } from "zustand";
 
@@ -10,6 +13,9 @@ const HISTORY_KEY = "mizan.v1.history";
 const UI_KEY = "mizan.v1.ui";
 
 export type AppTab = "home" | "zakat" | "quran" | "hisn" | "learn";
+export type HouseHadithFrom = "list" | "home";
+export type VoiceGender = "male" | "female";
+export type VoiceRate = "slow" | "normal" | "fast";
 
 export interface SettingsState {
   themeId: string;
@@ -18,6 +24,25 @@ export interface SettingsState {
   densityOverride: "theme" | "compact" | "regular" | "airy";
   colorScheme: "theme" | "light" | "dark" | "system";
   fontScale: number;
+  fontPair: FontPair | "theme";
+  hadithPaper: HadithPaper;
+  hadithArFont: HadithArFont;
+  hadithMeanFont: HadithMeanFont;
+  locale: Locale;
+  navLayout: NavLayout;
+  sabrNotify: boolean;
+  sabrHour: number;
+  startTab: AppTab;
+  showMeaning: boolean;
+  keepLastTab: boolean;
+  homeSize: "compact" | "roomy";
+  showHijri: boolean;
+  favFirst: boolean;
+  autoPlayAyah: boolean;
+  highContrast: boolean;
+  largeTap: boolean;
+  voiceGender: VoiceGender;
+  voiceRate: VoiceRate;
 }
 
 const defaultSettings: SettingsState = {
@@ -27,6 +52,25 @@ const defaultSettings: SettingsState = {
   densityOverride: "theme",
   colorScheme: "theme",
   fontScale: 1,
+  fontPair: "theme",
+  hadithPaper: "night",
+  hadithArFont: "naskh",
+  hadithMeanFont: "literata",
+  locale: "ru",
+  navLayout: "bottom",
+  sabrNotify: true,
+  sabrHour: 8,
+  startTab: "home",
+  showMeaning: true,
+  keepLastTab: true,
+  homeSize: "compact",
+  showHijri: true,
+  favFirst: true,
+  autoPlayAyah: false,
+  highContrast: false,
+  largeTap: false,
+  voiceGender: "male",
+  voiceRate: "normal",
 };
 
 interface Store {
@@ -46,6 +90,9 @@ interface Store {
   detailsOpen: boolean;
   openZakatSection: string | null;
   hisnChapterId: number | null;
+  houseRoom: HouseRoomId | null;
+  houseHadith: number | null;
+  houseHadithFrom: HouseHadithFrom;
   setInput: (patch: Partial<CalculationInput> | ((prev: CalculationInput) => CalculationInput)) => void;
   setSettings: (patch: Partial<SettingsState>) => void;
   setPreviewTheme: (id: string | null) => void;
@@ -61,6 +108,8 @@ interface Store {
   setDetailsOpen: (v: boolean) => void;
   setOpenZakatSection: (id: string | null) => void;
   setHisnChapter: (id: number | null) => void;
+  setHouseRoom: (id: HouseRoomId | null) => void;
+  setHouseNav: (room: HouseRoomId | null, hadith?: number | null, from?: HouseHadithFrom) => void;
   recompute: () => CalculationResult;
   saveDraft: (title?: string) => void;
   loadSaved: (id: string) => void;
@@ -80,6 +129,17 @@ function persistSettings(s: SettingsState) {
 }
 function persistInput(i: CalculationInput) {
   try {
+    if (typeof window !== "undefined") {
+      window.clearTimeout((persistInput as { t?: number }).t);
+      (persistInput as { t?: number }).t = window.setTimeout(() => {
+        try {
+          localStorage.setItem(INPUT_KEY, JSON.stringify(i));
+        } catch {
+          /* ignore */
+        }
+      }, 180);
+      return;
+    }
     localStorage.setItem(INPUT_KEY, JSON.stringify(i));
   } catch {
     /* ignore */
@@ -101,11 +161,20 @@ function persistUi(s: Store) {
         zakatOpen: s.zakatOpen,
         detailsOpen: s.detailsOpen,
         openZakatSection: s.openZakatSection,
+        houseRoom: s.houseRoom,
+        houseHadith: s.houseHadith,
+        houseHadithFrom: s.houseHadithFrom,
       }),
     );
   } catch {
     /* ignore */
   }
+}
+
+function houseHash(room: HouseRoomId | null, hadith: number | null) {
+  if (!room) return "#home";
+  if (room === "nawawi" && hadith != null) return `#house/nawawi/${hadith}`;
+  return `#house/${room}`;
 }
 
 function loadJson<T>(key: string, fallback: T): T {
@@ -118,11 +187,7 @@ function loadJson<T>(key: string, fallback: T): T {
   }
 }
 
-const initialInput = emptyInput({
-  id: uid("calc"),
-  asOfDate: todayISO(),
-  title: "Черновик",
-});
+const initialInput = emptyInput({ id: uid("calc"), asOfDate: todayISO() });
 
 export const useMizan = create<Store>((set, get) => ({
   input: initialInput,
@@ -132,7 +197,7 @@ export const useMizan = create<Store>((set, get) => ({
   settingsOpen: false,
   designsOpen: false,
   wizardStep: 0,
-  activeSection: "params",
+  activeSection: "",
   lastResult: null,
   quotesStatus: "idle",
   quotesError: "",
@@ -141,6 +206,9 @@ export const useMizan = create<Store>((set, get) => ({
   detailsOpen: false,
   openZakatSection: null,
   hisnChapterId: null,
+  houseRoom: null,
+  houseHadith: null,
+  houseHadithFrom: "list",
   setInput: (patch) => {
     const prev = get().input;
     const next = typeof patch === "function" ? patch(prev) : { ...prev, ...patch };
@@ -166,12 +234,14 @@ export const useMizan = create<Store>((set, get) => ({
       : [...get().settings.favorites, id];
     get().setSettings({ favorites: fav });
   },
-  setSettingsOpen: (v) => set({ settingsOpen: v, designsOpen: v ? get().designsOpen : false }),
+  setSettingsOpen: (v) => set({ settingsOpen: v, designsOpen: false }),
   setDesignsOpen: (v) => set({ designsOpen: v, settingsOpen: v ? true : get().settingsOpen }),
   setWizardStep: (n) => set({ wizardStep: n }),
   setActiveSection: (id) => set({ activeSection: id }),
   setAppTab: (appTab) => {
-    set({ appTab });
+    const cur = get();
+    if (cur.appTab === appTab && cur.houseRoom == null && cur.houseHadith == null) return;
+    set({ appTab, houseRoom: null, houseHadith: null });
     persistUi(get());
     if (typeof window !== "undefined") {
       const map: Record<AppTab, string> = {
@@ -203,10 +273,21 @@ export const useMizan = create<Store>((set, get) => ({
     persistUi(get());
   },
   setHisnChapter: (hisnChapterId) => {
-    set({ hisnChapterId, appTab: hisnChapterId != null ? "hisn" : get().appTab });
+    set({ hisnChapterId, appTab: hisnChapterId != null ? "hisn" : get().appTab, houseRoom: hisnChapterId != null ? null : get().houseRoom, houseHadith: hisnChapterId != null ? null : get().houseHadith });
     persistUi(get());
     if (typeof window !== "undefined" && hisnChapterId != null) {
       history.replaceState(null, "", `#hisn/${hisnChapterId}`);
+    }
+  },
+  setHouseRoom: (houseRoom) => {
+    get().setHouseNav(houseRoom, null);
+  },
+  setHouseNav: (houseRoom, hadith = null, from = "list") => {
+    const houseHadith = houseRoom === "nawawi" ? hadith : null;
+    set({ houseRoom, houseHadith, houseHadithFrom: from, appTab: "home" });
+    persistUi(get());
+    if (typeof window !== "undefined") {
+      history.replaceState(null, "", houseHash(houseRoom, houseHadith));
     }
   },
   recompute: () => {
@@ -279,10 +360,15 @@ export function hydrateMizan() {
   const settings = loadJson(SETTINGS_KEY, defaultSettings);
   const input = loadJson(INPUT_KEY, initialInput);
   const history = loadJson<SavedCalculation[]>(HISTORY_KEY, []);
-  const ui = loadJson<{ appTab?: AppTab; zakatOpen?: boolean; detailsOpen?: boolean; openZakatSection?: string | null }>(
-    UI_KEY,
-    {},
-  );
+  const ui = loadJson<{
+    appTab?: AppTab;
+    zakatOpen?: boolean;
+    detailsOpen?: boolean;
+    openZakatSection?: string | null;
+    houseRoom?: HouseRoomId | null;
+    houseHadith?: number | null;
+    houseHadithFrom?: HouseHadithFrom;
+  }>(UI_KEY, {});
   useMizan.setState({
     settings: { ...defaultSettings, ...settings },
     input,
@@ -292,5 +378,8 @@ export function hydrateMizan() {
     zakatOpen: ui.zakatOpen ?? false,
     detailsOpen: ui.detailsOpen ?? false,
     openZakatSection: ui.openZakatSection ?? null,
+    houseRoom: ui.houseRoom ?? null,
+    houseHadith: ui.houseHadith ?? null,
+    houseHadithFrom: ui.houseHadithFrom ?? "list",
   });
 }

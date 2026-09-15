@@ -76,6 +76,16 @@ describe("decimal parse", () => {
     const p = parseDecimal("-1");
     assert.equal(p.ok, false);
   });
+  it("parses live gold rate with 6 decimals", () => {
+    const p = parseDecimal("12164.999887");
+    assert.equal(p.ok, true);
+    if (p.ok) assert.equal(formatPlain(p.qty), "12164.999887");
+  });
+  it("parses silver rate with 6 decimals", () => {
+    const p = parseDecimal("185.664236");
+    assert.equal(p.ok, true);
+    if (p.ok) assert.equal(formatPlain(p.qty), "185.664236");
+  });
 });
 
 describe("sheep brackets Bukhari 1454", () => {
@@ -398,6 +408,36 @@ describe("engine scenarios", () => {
     assert.notEqual(r.overallStatus, "not_due_confirmed");
     const mal = r.categories.find((c) => c.id === "mal_net");
     assert.equal(mal?.status, "incomplete");
+  });
+
+  it("below nisab is not due even if hawl unknown", () => {
+    const r = calculate(
+      base({
+        hawlConfirmed: null,
+        money: [{ id: "1", label: "c", currency: "RUB", amount: "1000", ownerSharePct: "100", joint: false }],
+      }),
+    );
+    const mal = r.categories.find((c) => c.id === "mal_net");
+    assert.equal(mal?.status, "below_nisab");
+    assert.equal(formatFixed(mal?.zakatMoney ?? Q0, 2), "0.00");
+    assert.equal(r.overallStatus, "not_due_confirmed");
+  });
+
+  it("live 6-decimal gold price does not explode nisab", () => {
+    const r = calculate(
+      base({
+        quotes: {
+          asOfDate: "2026-09-09",
+          fetchedAt: "test",
+          quotes: [metal("gold", "RUB", "12164.999887"), metal("silver", "RUB", "185.664236"), fx("USD", "RUB", "90")],
+        },
+      }),
+    );
+    assert.ok(r.nisab.goldValue !== null);
+    const gold = Number(formatFixed(r.nisab.goldValue ?? Q0, 2));
+    assert.ok(gold > 500_000 && gold < 2_000_000, `gold nisab was ${gold}`);
+    const silver = Number(formatFixed(r.nisab.silverValue ?? Q0, 2));
+    assert.ok(silver > 50_000 && silver < 250_000, `silver nisab was ${silver}`);
   });
 
   it("120 sheep natural 1 sheep, not added as 3 RUB", () => {

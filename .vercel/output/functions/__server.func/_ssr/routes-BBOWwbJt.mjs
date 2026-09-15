@@ -1,0 +1,17594 @@
+import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
+import { R as require_react, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as TSS_SERVER_FUNCTION, r as getServerFnById, t as createServerFn } from "./ssr.mjs";
+import { A as House, B as ChevronDown, C as Pause, D as Library, E as Lightbulb, F as Download, G as BookOpen, H as CalendarDays, I as CirclePause, K as Bell, L as CircleHelp, M as Heart, N as Headphones, O as Languages, P as GraduationCap, R as ChevronRight, S as Play, T as MessagesSquare, U as Building2, V as Check, W as Bookmark, _ as RotateCcw, a as Trash2, b as Printer, c as SkipForward, d as Shield, f as Settings, g as Scale, h as ScrollText, j as Highlighter, k as Landmark, l as SkipBack, m as Search, n as Volume2, o as Table2, p as Send, q as Badge, r as Type, s as Sparkles, t as X, u as Signpost, v as Repeat, w as Mic, x as Plus, y as Repeat1, z as ChevronLeft } from "../_libs/lucide-react.mjs";
+import { t as clsx } from "../_libs/clsx.mjs";
+import { t as twMerge } from "../_libs/tailwind-merge.mjs";
+import { t as create } from "../_libs/zustand.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BBOWwbJt.js
+var routes_BBOWwbJt_exports = /* @__PURE__ */ __exportAll({
+	a: () => notifySupported,
+	c: () => showSabrNow,
+	component: () => Home,
+	i: () => nextSabrLabel,
+	l: () => shownToday,
+	n: () => bootNotify,
+	o: () => registerSw,
+	r: () => nextSabrDate,
+	s: () => requestNotify,
+	t: () => armSabrTimer,
+	u: () => startSabrDaily
+});
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+var SURAHS = `
+1|7|الفاتحة|Al-Fatiha|Открывающая|M
+2|286|البقرة|Al-Baqara|Корова|D
+3|200|آل عمران|Ali Imran|Семейство Имрана|D
+4|176|النساء|An-Nisa|Женщины|D
+5|120|المائدة|Al-Maida|Трапеза|D
+6|165|الأنعام|Al-Anam|Скот|M
+7|206|الأعراف|Al-Araf|Преграды|M
+8|75|الأنفال|Al-Anfal|Добыча|D
+9|129|التوبة|At-Tawba|Покаяние|D
+10|109|يونس|Yunus|Йунус|M
+11|123|هود|Hud|Худ|M
+12|111|يوسف|Yusuf|Йусуф|M
+13|43|الرعد|Ar-Rad|Гром|D
+14|52|إبراهيم|Ibrahim|Ибрахим|M
+15|99|الحجر|Al-Hijr|Аль-Хиджр|M
+16|128|النحل|An-Nahl|Пчёлы|M
+17|111|الإسراء|Al-Isra|Ночной перенос|M
+18|110|الكهف|Al-Kahf|Пещера|M
+19|98|مريم|Maryam|Марьям|M
+20|135|طه|Ta-Ha|Та Ха|M
+21|112|الأنبياء|Al-Anbiya|Пророки|M
+22|78|الحج|Al-Hajj|Хадж|D
+23|118|المؤمنون|Al-Muminun|Верующие|M
+24|64|النور|An-Nur|Свет|D
+25|77|الفرقان|Al-Furqan|Различение|M
+26|227|الشعراء|Ash-Shuara|Поэты|M
+27|93|النمل|An-Naml|Муравьи|M
+28|88|القصص|Al-Qasas|Рассказ|M
+29|69|العنكبوت|Al-Ankabut|Паук|M
+30|60|الروم|Ar-Rum|Римляне|M
+31|34|لقمان|Luqman|Лукман|M
+32|30|السجدة|As-Sajda|Поклон|M
+33|73|الأحزاب|Al-Ahzab|Союзники|D
+34|54|سبأ|Saba|Саба|M
+35|45|فاطر|Fatir|Творец|M
+36|83|يس|Ya-Sin|Йа Син|M
+37|182|الصافات|As-Saffat|Выстроившиеся|M
+38|88|ص|Sad|Сад|M
+39|75|الزمر|Az-Zumar|Толпы|M
+40|85|غافر|Ghafir|Прощающий|M
+41|54|فصلت|Fussilat|Разъяснены|M
+42|53|الشورى|Ash-Shura|Совет|M
+43|89|الزخرف|Az-Zukhruf|Украшения|M
+44|59|الدخان|Ad-Dukhan|Дым|M
+45|37|الجاثية|Al-Jathiya|Коленопреклонённые|M
+46|35|الأحقاف|Al-Ahqaf|Аль-Ахкаф|M
+47|38|محمد|Muhammad|Мухаммад|D
+48|29|الفتح|Al-Fath|Победа|D
+49|18|الحجرات|Al-Hujurat|Комнаты|D
+50|45|ق|Qaf|Каф|M
+51|60|الذاريات|Adh-Dhariyat|Рассеивающие|M
+52|49|الطور|At-Tur|Гора|M
+53|62|النجم|An-Najm|Звезда|M
+54|55|القمر|Al-Qamar|Луна|M
+55|78|الرحمن|Ar-Rahman|Милостивый|M
+56|96|الواقعة|Al-Waqia|Событие|M
+57|29|الحديد|Al-Hadid|Железо|D
+58|22|المجادلة|Al-Mujadila|Препирающаяся|D
+59|24|الحشر|Al-Hashr|Сбор|D
+60|13|الممتحنة|Al-Mumtahina|Испытуемая|D
+61|14|الصف|As-Saff|Ряды|D
+62|11|الجمعة|Al-Jumu'a|Пятница|D
+63|11|المنافقون|Al-Munafiqun|Лицемеры|D
+64|18|التغابن|At-Taghabun|Взаимный обман|D
+65|12|الطلاق|At-Talaq|Развод|D
+66|12|التحريم|At-Tahrim|Запрещение|D
+67|30|الملك|Al-Mulk|Власть|M
+68|52|القلم|Al-Qalam|Письменная трость|M
+69|52|الحاقة|Al-Haqqa|Неизбежное|M
+70|44|المعارج|Al-Maarij|Ступени|M
+71|28|نوح|Nuh|Нух|M
+72|28|الجن|Al-Jinn|Джинны|M
+73|20|المزمل|Al-Muzzammil|Закутавшийся|M
+74|56|المدثر|Al-Muddaththir|Завернувшийся|M
+75|40|القيامة|Al-Qiyama|Воскресение|M
+76|31|الانسان|Al-Insan|Человек|D
+77|50|المرسلات|Al-Mursalat|Посылаемые|M
+78|40|النبأ|An-Naba|Весть|M
+79|46|النازعات|An-Naziat|Исторгающие|M
+80|42|عبس|Abasa|Нахмурился|M
+81|29|التكوير|At-Takwir|Скручивание|M
+82|19|الانفطار|Al-Infitar|Раскалывание|M
+83|36|المطففين|Al-Mutaffifin|Обвешивающие|M
+84|25|الانشقاق|Al-Inshiqaq|Разверзнется|M
+85|22|البروج|Al-Buruj|Созвездия|M
+86|17|الطارق|At-Tariq|Ночной путник|M
+87|19|الأعلى|Al-Ala|Всевышний|M
+88|26|الغاشية|Al-Ghashiya|Покрывающее|M
+89|30|الفجر|Al-Fajr|Заря|M
+90|20|البلد|Al-Balad|Город|M
+91|15|الشمس|Ash-Shams|Солнце|M
+92|21|الليل|Al-Layl|Ночь|M
+93|11|الضحى|Ad-Duha|Утро|M
+94|8|الشرح|Ash-Sharh|Раскрытие|M
+95|8|التين|At-Tin|Смоковница|M
+96|19|العلق|Al-Alaq|Сгусток|M
+97|5|القدر|Al-Qadr|Могущество|M
+98|8|البينة|Al-Bayyina|Ясное знамение|D
+99|8|الزلزلة|Az-Zalzala|Сотрясение|D
+100|11|العاديات|Al-Adiyat|Скачущие|M
+101|11|القارعة|Al-Qaria|Поражающее|M
+102|8|التكاثر|At-Takathur|Соперничество|M
+103|3|العصر|Al-Asr|Время|M
+104|9|الهمزة|Al-Humaza|Хулитель|M
+105|5|الفيل|Al-Fil|Слон|M
+106|4|قريش|Quraysh|Курайш|M
+107|7|الماعون|Al-Maun|Подаяние|M
+108|3|الكوثر|Al-Kawthar|Изобилие|M
+109|6|الكافرون|Al-Kafirun|Неверующие|M
+110|3|النصر|An-Nasr|Помощь|D
+111|5|المسد|Al-Masad|Пальмовые волокна|M
+112|4|الإخلاص|Al-Ikhlas|Искренность|M
+113|5|الفلق|Al-Falaq|Рассвет|M
+114|6|الناس|An-Nas|Люди|M
+`.trim().split("\n").map((line) => {
+	const [n, ayahs, ar, tr, ru, place] = line.split("|");
+	return {
+		n: Number(n),
+		ayahs: Number(ayahs),
+		ar,
+		tr,
+		ru,
+		place
+	};
+});
+var START = new Array(115);
+{
+	let g = 1;
+	for (const s of SURAHS) {
+		START[s.n] = g;
+		g += s.ayahs;
+	}
+}
+function surahOf(n) {
+	return SURAHS[n - 1] ?? SURAHS[0];
+}
+function refToGlobal(surah, ayah) {
+	return (START[surah] ?? 1) + ayah - 1;
+}
+/** Start of each juz (Hafs). */
+var JUZ_START = [
+	{
+		juz: 1,
+		surah: 1,
+		ayah: 1
+	},
+	{
+		juz: 2,
+		surah: 2,
+		ayah: 142
+	},
+	{
+		juz: 3,
+		surah: 2,
+		ayah: 253
+	},
+	{
+		juz: 4,
+		surah: 3,
+		ayah: 93
+	},
+	{
+		juz: 5,
+		surah: 4,
+		ayah: 24
+	},
+	{
+		juz: 6,
+		surah: 4,
+		ayah: 148
+	},
+	{
+		juz: 7,
+		surah: 5,
+		ayah: 82
+	},
+	{
+		juz: 8,
+		surah: 6,
+		ayah: 111
+	},
+	{
+		juz: 9,
+		surah: 7,
+		ayah: 88
+	},
+	{
+		juz: 10,
+		surah: 8,
+		ayah: 41
+	},
+	{
+		juz: 11,
+		surah: 9,
+		ayah: 93
+	},
+	{
+		juz: 12,
+		surah: 11,
+		ayah: 6
+	},
+	{
+		juz: 13,
+		surah: 12,
+		ayah: 53
+	},
+	{
+		juz: 14,
+		surah: 15,
+		ayah: 1
+	},
+	{
+		juz: 15,
+		surah: 17,
+		ayah: 1
+	},
+	{
+		juz: 16,
+		surah: 18,
+		ayah: 75
+	},
+	{
+		juz: 17,
+		surah: 21,
+		ayah: 1
+	},
+	{
+		juz: 18,
+		surah: 23,
+		ayah: 1
+	},
+	{
+		juz: 19,
+		surah: 25,
+		ayah: 21
+	},
+	{
+		juz: 20,
+		surah: 27,
+		ayah: 56
+	},
+	{
+		juz: 21,
+		surah: 29,
+		ayah: 46
+	},
+	{
+		juz: 22,
+		surah: 33,
+		ayah: 31
+	},
+	{
+		juz: 23,
+		surah: 36,
+		ayah: 28
+	},
+	{
+		juz: 24,
+		surah: 39,
+		ayah: 32
+	},
+	{
+		juz: 25,
+		surah: 41,
+		ayah: 47
+	},
+	{
+		juz: 26,
+		surah: 46,
+		ayah: 1
+	},
+	{
+		juz: 27,
+		surah: 51,
+		ayah: 31
+	},
+	{
+		juz: 28,
+		surah: 58,
+		ayah: 1
+	},
+	{
+		juz: 29,
+		surah: 67,
+		ayah: 1
+	},
+	{
+		juz: 30,
+		surah: 78,
+		ayah: 1
+	}
+];
+var cache$2 = null;
+var pending$2 = null;
+function loadMushaf() {
+	if (cache$2) return Promise.resolve(cache$2);
+	if (!pending$2) pending$2 = fetch("/quran/mushaf.json").then((r) => {
+		if (!r.ok) throw new Error("mushaf");
+		return r.json();
+	}).then((data) => {
+		cache$2 = data;
+		return data;
+	}).catch((err) => {
+		pending$2 = null;
+		throw err;
+	});
+	return pending$2;
+}
+async function loadSurah(n) {
+	const all = await loadMushaf();
+	return all[n - 1] ?? all[0];
+}
+async function loadAyah(surah, ayah) {
+	return (await loadSurah(surah)).ayahs.find((a) => a.i === ayah) ?? null;
+}
+function searchMushaf(all, q, limit = 40) {
+	const needle = q.trim().toLowerCase();
+	if (needle.length < 2) return [];
+	const out = [];
+	for (const s of all) for (const a of s.ayahs) if (a.ru.toLowerCase().includes(needle) || a.ar.includes(q.trim())) {
+		out.push({
+			surah: s.n,
+			ayah: a
+		});
+		if (out.length >= limit) return out;
+	}
+	return out;
+}
+function formatRef(surah, ayah) {
+	return `${surahOf(surah).ru} ${surah}:${ayah}`;
+}
+/** Аяты терпения и утешения. Номера — Усмани. Текст берём из мусхафа Кулиева, не сочиняем. */
+var SABR_AYAHS = [
+	{
+		surah: 2,
+		ayah: 45
+	},
+	{
+		surah: 2,
+		ayah: 153
+	},
+	{
+		surah: 2,
+		ayah: 155
+	},
+	{
+		surah: 2,
+		ayah: 156
+	},
+	{
+		surah: 2,
+		ayah: 157
+	},
+	{
+		surah: 2,
+		ayah: 214
+	},
+	{
+		surah: 2,
+		ayah: 286
+	},
+	{
+		surah: 3,
+		ayah: 139
+	},
+	{
+		surah: 3,
+		ayah: 186
+	},
+	{
+		surah: 3,
+		ayah: 200
+	},
+	{
+		surah: 8,
+		ayah: 46
+	},
+	{
+		surah: 9,
+		ayah: 40
+	},
+	{
+		surah: 9,
+		ayah: 51
+	},
+	{
+		surah: 11,
+		ayah: 11
+	},
+	{
+		surah: 12,
+		ayah: 18
+	},
+	{
+		surah: 12,
+		ayah: 87
+	},
+	{
+		surah: 13,
+		ayah: 28
+	},
+	{
+		surah: 16,
+		ayah: 96
+	},
+	{
+		surah: 16,
+		ayah: 127
+	},
+	{
+		surah: 18,
+		ayah: 28
+	},
+	{
+		surah: 21,
+		ayah: 83
+	},
+	{
+		surah: 29,
+		ayah: 69
+	},
+	{
+		surah: 39,
+		ayah: 10
+	},
+	{
+		surah: 39,
+		ayah: 53
+	},
+	{
+		surah: 40,
+		ayah: 55
+	},
+	{
+		surah: 41,
+		ayah: 30
+	},
+	{
+		surah: 46,
+		ayah: 35
+	},
+	{
+		surah: 65,
+		ayah: 2
+	},
+	{
+		surah: 65,
+		ayah: 3
+	},
+	{
+		surah: 70,
+		ayah: 5
+	},
+	{
+		surah: 76,
+		ayah: 12
+	},
+	{
+		surah: 90,
+		ayah: 17
+	},
+	{
+		surah: 93,
+		ayah: 5
+	},
+	{
+		surah: 94,
+		ayah: 5
+	},
+	{
+		surah: 94,
+		ayah: 6
+	},
+	{
+		surah: 103,
+		ayah: 3
+	}
+];
+function sabrOfDay(date = /* @__PURE__ */ new Date()) {
+	const start = Date.UTC(2024, 0, 1);
+	return SABR_AYAHS[(Math.floor((date.getTime() - start) / 864e5) % SABR_AYAHS.length + SABR_AYAHS.length) % SABR_AYAHS.length];
+}
+function sabrDayKey(date = /* @__PURE__ */ new Date()) {
+	return date.toISOString().slice(0, 10);
+}
+var SHOWN_KEY = "mizan.v1.sabrShown";
+var timer = null;
+function notifySupported() {
+	return typeof window !== "undefined" && "Notification" in window && "serviceWorker" in navigator;
+}
+function nextSabrDate(hour, from = /* @__PURE__ */ new Date()) {
+	const next = new Date(from);
+	next.setHours(hour, 0, 0, 0);
+	if (next.getTime() <= from.getTime()) next.setDate(next.getDate() + 1);
+	return next;
+}
+function nextSabrLabel(hour) {
+	const n = nextSabrDate(hour);
+	const hh = String(n.getHours()).padStart(2, "0");
+	const today = /* @__PURE__ */ new Date();
+	return `${n.getDate() === today.getDate() && n.getMonth() === today.getMonth() ? "сегодня" : "завтра"} ${hh}:00`;
+}
+async function registerSw() {
+	if (!notifySupported()) return null;
+	try {
+		return await navigator.serviceWorker.register("/sw.js", { scope: "/" });
+	} catch {
+		return null;
+	}
+}
+async function requestNotify() {
+	if (!notifySupported()) return "unsupported";
+	await registerSw();
+	if (Notification.permission === "granted") return "granted";
+	try {
+		return await Notification.requestPermission();
+	} catch {
+		return Notification.permission;
+	}
+}
+async function payload() {
+	const ref = sabrOfDay();
+	const ru = ((await loadAyah(ref.surah, ref.ayah))?.ru ?? "").replace(/\s+/g, " ").trim();
+	return {
+		title: "Мизан · аят сабра на сегодня",
+		options: {
+			body: `${formatRef(ref.surah, ref.ayah)}. ${ru.slice(0, 180)}`,
+			lang: "ru",
+			tag: "mizan-sabr",
+			data: { url: `/#quran/${ref.surah}/${ref.ayah}` }
+		}
+	};
+}
+function markShown() {
+	try {
+		localStorage.setItem(SHOWN_KEY, sabrDayKey());
+	} catch {}
+}
+function shownToday() {
+	try {
+		return localStorage.getItem(SHOWN_KEY) === sabrDayKey();
+	} catch {
+		return false;
+	}
+}
+async function showSabrNow() {
+	if (!notifySupported() || Notification.permission !== "granted") return false;
+	const p = await payload();
+	const reg = await navigator.serviceWorker.ready.catch(() => null);
+	if (reg) {
+		await reg.showNotification(p.title, p.options);
+		reg.active?.postMessage({
+			type: "SAVE_SABR",
+			...p
+		});
+	} else new Notification(p.title, p.options);
+	markShown();
+	return true;
+}
+function msUntilHour(hour) {
+	return nextSabrDate(hour).getTime() - Date.now();
+}
+function armSabrTimer(hour) {
+	if (typeof window === "undefined") return;
+	if (timer) window.clearTimeout(timer);
+	if (!notifySupported() || Notification.permission !== "granted") return;
+	const wait = shownToday() ? msUntilHour(hour) : 400;
+	timer = window.setTimeout(() => {
+		showSabrNow().then(() => armSabrTimer(hour));
+	}, wait);
+}
+async function startSabrDaily(hour) {
+	await registerSw();
+	if (!notifySupported()) return "unsupported";
+	if (Notification.permission === "granted") {
+		armSabrTimer(hour);
+		return "granted";
+	}
+	return Notification.permission;
+}
+async function bootNotify(enabled, hour) {
+	if (!enabled) {
+		if (timer) window.clearTimeout(timer);
+		return;
+	}
+	await startSabrDaily(hour);
+}
+function BrandMark({ size = 44 }) {
+	const [ok, setOk] = (0, import_react.useState)(true);
+	if (!ok) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+		width: size,
+		height: size,
+		viewBox: "0 0 64 64",
+		className: "brand-logo",
+		"aria-hidden": true,
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
+			width: "64",
+			height: "64",
+			rx: "14",
+			fill: "var(--accent)"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
+			x: "32",
+			y: "42",
+			textAnchor: "middle",
+			fontSize: "28",
+			fill: "var(--accent-fg)",
+			fontFamily: "serif",
+			children: "م"
+		})]
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+		src: "/brand/mizan-mark.jpg",
+		alt: "Мизан",
+		className: "brand-logo",
+		width: size,
+		height: size,
+		onError: () => setOk(false)
+	});
+}
+function SheikhSeal({ size = 128, onClick }) {
+	const [ok, setOk] = (0, import_react.useState)(true);
+	const inner = ok ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+		src: "/brand/sheikh-seal.jpg",
+		alt: "",
+		width: size,
+		height: size,
+		onError: () => setOk(false)
+	}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+		width: size,
+		height: size,
+		viewBox: "0 0 128 128",
+		"aria-hidden": true,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
+				cx: "64",
+				cy: "64",
+				r: "62",
+				fill: "#0b2e23",
+				stroke: "#f0cf7a",
+				strokeWidth: "3"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
+				x: "64",
+				y: "58",
+				textAnchor: "middle",
+				fontSize: "22",
+				fill: "#f0cf7a",
+				fontFamily: "serif",
+				children: "شيخ"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
+				x: "64",
+				y: "88",
+				textAnchor: "middle",
+				fontSize: "16",
+				fill: "#f8f4e9",
+				fontFamily: "serif",
+				children: "ميزان"
+			})
+		]
+	});
+	if (!onClick) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+		className: "sheikh-seal-btn",
+		children: inner
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		type: "button",
+		className: "sheikh-seal-btn",
+		"aria-label": "Спросить шейха",
+		title: "Спросить шейха",
+		onClick,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {
+				className: "sheikh-ring",
+				"aria-hidden": true
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {
+				className: "sheikh-ring",
+				"aria-hidden": true
+			}),
+			inner
+		]
+	});
+}
+var names_default = {
+	source: "api.aladhan.com/v1/asmaAlHusna. Русский — общепринятый смысл имени, не отдельный тафсир. Перечень 99 связан с преданием ат-Тирмизи; нумерация в умме известна в нескольких списках.",
+	count: 99,
+	items: [
+		{
+			"n": 1,
+			"ar": "الرَّحْمَنُ",
+			"tr": "Ar Rahmaan",
+			"en": "The Beneficent",
+			"ru": "Милостивый"
+		},
+		{
+			"n": 2,
+			"ar": "الرَّحِيمُ",
+			"tr": "Ar Raheem",
+			"en": "The Merciful",
+			"ru": "Милосердный"
+		},
+		{
+			"n": 3,
+			"ar": "الْمَلِكُ",
+			"tr": "Al Malik",
+			"en": "The King / Eternal Lord",
+			"ru": "Властелин"
+		},
+		{
+			"n": 4,
+			"ar": "الْقُدُّوسُ",
+			"tr": "Al Quddus",
+			"en": "The Purest",
+			"ru": "Святой"
+		},
+		{
+			"n": 5,
+			"ar": "السَّلاَمُ",
+			"tr": "As Salaam",
+			"en": "The Source of Peace",
+			"ru": "Пречистый"
+		},
+		{
+			"n": 6,
+			"ar": "الْمُؤْمِنُ",
+			"tr": "Al Mu'min",
+			"en": "The inspirer of faith",
+			"ru": "Хранитель веры"
+		},
+		{
+			"n": 7,
+			"ar": "الْمُهَيْمِنُ",
+			"tr": "Al Muhaymin",
+			"en": "The Guardian",
+			"ru": "Хранитель"
+		},
+		{
+			"n": 8,
+			"ar": "الْعَزِيزُ",
+			"tr": "Al Azeez",
+			"en": "The Precious / The Most Mighty",
+			"ru": "Могущественный"
+		},
+		{
+			"n": 9,
+			"ar": "الْجَبَّارُ",
+			"tr": "Al Jabbaar",
+			"en": "The Compeller",
+			"ru": "Могучий"
+		},
+		{
+			"n": 10,
+			"ar": "الْمُتَكَبِّرُ",
+			"tr": "Al Mutakabbir",
+			"en": "The Greatest",
+			"ru": "Гордый"
+		},
+		{
+			"n": 11,
+			"ar": "الْخَالِقُ",
+			"tr": "Al Khaaliq",
+			"en": "The Creator",
+			"ru": "Творец"
+		},
+		{
+			"n": 12,
+			"ar": "الْبَارِئُ",
+			"tr": "Al Baari",
+			"en": "The Maker of Order",
+			"ru": "Создатель"
+		},
+		{
+			"n": 13,
+			"ar": "الْمُصَوِّرُ",
+			"tr": "Al Musawwir",
+			"en": "The Shaper of Beauty",
+			"ru": "Дарующий облик"
+		},
+		{
+			"n": 14,
+			"ar": "الْغَفَّارُ",
+			"tr": "Al Ghaffaar",
+			"en": "The Forgiving",
+			"ru": "Прощающий"
+		},
+		{
+			"n": 15,
+			"ar": "الْقَهَّارُ",
+			"tr": "Al Qahhaar",
+			"en": "The Subduer",
+			"ru": "Покоритель"
+		},
+		{
+			"n": 16,
+			"ar": "الْوَهَّابُ",
+			"tr": "Al Wahhaab",
+			"en": "The Giver of All",
+			"ru": "Дарующий"
+		},
+		{
+			"n": 17,
+			"ar": "الرَّزَّاقُ",
+			"tr": "Ar Razzaaq",
+			"en": "The Sustainer",
+			"ru": "Наделяющий удел"
+		},
+		{
+			"n": 18,
+			"ar": "الْفَتَّاحُ",
+			"tr": "Al Fattaah",
+			"en": "The Opener",
+			"ru": "Раскрывающий"
+		},
+		{
+			"n": 19,
+			"ar": "اَلْعَلِيْمُ",
+			"tr": "Al 'Aleem",
+			"en": "The Knower of all",
+			"ru": "Знающий"
+		},
+		{
+			"n": 20,
+			"ar": "الْقَابِضُ",
+			"tr": "Al Qaabid",
+			"en": "The Constrictor",
+			"ru": "Сжимающий"
+		},
+		{
+			"n": 21,
+			"ar": "الْبَاسِطُ",
+			"tr": "Al Baasit",
+			"en": "The Reliever",
+			"ru": "Расширяющий"
+		},
+		{
+			"n": 22,
+			"ar": "الْخَافِضُ",
+			"tr": "Al Khaafid",
+			"en": "The Abaser",
+			"ru": "Понижающий"
+		},
+		{
+			"n": 23,
+			"ar": "الرَّافِعُ",
+			"tr": "Ar Raafi'",
+			"en": "The Exalter",
+			"ru": "Возвышающий"
+		},
+		{
+			"n": 24,
+			"ar": "الْمُعِزُّ",
+			"tr": "Al Mu'iz",
+			"en": "The Bestower of Honour",
+			"ru": "Дарующий честь"
+		},
+		{
+			"n": 25,
+			"ar": "المُذِلُّ",
+			"tr": "Al Mudhil",
+			"en": "The Humiliator",
+			"ru": "Унижающий"
+		},
+		{
+			"n": 26,
+			"ar": "السَّمِيعُ",
+			"tr": "As Samee'",
+			"en": "The Hearer of all",
+			"ru": "Слышащий"
+		},
+		{
+			"n": 27,
+			"ar": "الْبَصِيرُ",
+			"tr": "Al Baseer",
+			"en": "The Seer of all",
+			"ru": "Видящий"
+		},
+		{
+			"n": 28,
+			"ar": "الْحَكَمُ",
+			"tr": "Al Hakam",
+			"en": "The Judge",
+			"ru": "Судья"
+		},
+		{
+			"n": 29,
+			"ar": "الْعَدْلُ",
+			"tr": "Al 'Adl",
+			"en": "The Just",
+			"ru": "Справедливый"
+		},
+		{
+			"n": 30,
+			"ar": "اللَّطِيفُ",
+			"tr": "Al Lateef",
+			"en": "The Subtle One",
+			"ru": "Тонкий"
+		},
+		{
+			"n": 31,
+			"ar": "الْخَبِيرُ",
+			"tr": "Al Khabeer",
+			"en": "The All Aware",
+			"ru": "Ведающий сокровенное"
+		},
+		{
+			"n": 32,
+			"ar": "الْحَلِيمُ",
+			"tr": "Al Haleem",
+			"en": "The Forebearing",
+			"ru": "Выдержанный"
+		},
+		{
+			"n": 33,
+			"ar": "الْعَظِيمُ",
+			"tr": "Al 'Azeem",
+			"en": "The Maginificent",
+			"ru": "Великий"
+		},
+		{
+			"n": 34,
+			"ar": "الْغَفُورُ",
+			"tr": "Al Ghafoor",
+			"en": "The Great Forgiver",
+			"ru": "Прощающий"
+		},
+		{
+			"n": 35,
+			"ar": "الشَّكُورُ",
+			"tr": "Ash Shakoor",
+			"en": "The Rewarder of Thankfulness",
+			"ru": "Благодарный"
+		},
+		{
+			"n": 36,
+			"ar": "الْعَلِيُّ",
+			"tr": "Al 'Aliyy",
+			"en": "The Highest",
+			"ru": "Всевышний"
+		},
+		{
+			"n": 37,
+			"ar": "الْكَبِيرُ",
+			"tr": "Al Kabeer",
+			"en": "The Greatest",
+			"ru": "Великий"
+		},
+		{
+			"n": 38,
+			"ar": "الْحَفِيظُ",
+			"tr": "Al Hafeez",
+			"en": "The Preserver",
+			"ru": "Хранитель"
+		},
+		{
+			"n": 39,
+			"ar": "المُقيِت",
+			"tr": "Al Muqeet",
+			"en": "The Nourisher",
+			"ru": "Питающий"
+		},
+		{
+			"n": 40,
+			"ar": "الْحسِيبُ",
+			"tr": "Al Haseeb",
+			"en": "The Reckoner",
+			"ru": "Дающий расчёт"
+		},
+		{
+			"n": 41,
+			"ar": "الْجَلِيلُ",
+			"tr": "Al Jaleel",
+			"en": "The Majestic",
+			"ru": "Величественный"
+		},
+		{
+			"n": 42,
+			"ar": "الْكَرِيمُ",
+			"tr": "Al Kareem",
+			"en": "The Generous",
+			"ru": "Щедрый"
+		},
+		{
+			"n": 43,
+			"ar": "الرَّقِيبُ",
+			"tr": "Ar Raqeeb",
+			"en": "The Watchful One",
+			"ru": "Наблюдающий"
+		},
+		{
+			"n": 44,
+			"ar": "الْمُجِيبُ",
+			"tr": "Al Mujeeb ",
+			"en": "The Responder to Prayer",
+			"ru": "Отвечающий"
+		},
+		{
+			"n": 45,
+			"ar": "الْوَاسِعُ",
+			"tr": "Al Waasi'",
+			"en": "The All Comprehending",
+			"ru": "Объемлющий"
+		},
+		{
+			"n": 46,
+			"ar": "الْحَكِيمُ",
+			"tr": "Al Hakeem",
+			"en": "The Perfectly Wise",
+			"ru": "Мудрый"
+		},
+		{
+			"n": 47,
+			"ar": "الْوَدُودُ",
+			"tr": "Al Wudood",
+			"en": "The Loving One",
+			"ru": "Любящий"
+		},
+		{
+			"n": 48,
+			"ar": "الْمَجِيدُ",
+			"tr": "Al Majeed",
+			"en": "The Most Glorious One",
+			"ru": "Достославный"
+		},
+		{
+			"n": 49,
+			"ar": "الْبَاعِثُ",
+			"tr": "Al Baa'ith",
+			"en": "The Resurrector",
+			"ru": "Воскрешающий"
+		},
+		{
+			"n": 50,
+			"ar": "الشَّهِيدُ",
+			"tr": "Ash Shaheed",
+			"en": "The Witness",
+			"ru": "Свидетель"
+		},
+		{
+			"n": 51,
+			"ar": "الْحَقُّ",
+			"tr": "Al Haqq",
+			"en": "The Truth",
+			"ru": "Истина"
+		},
+		{
+			"n": 52,
+			"ar": "الْوَكِيلُ",
+			"tr": "Al Wakeel",
+			"en": "The Trustee",
+			"ru": "Попечитель"
+		},
+		{
+			"n": 53,
+			"ar": "الْقَوِيُّ",
+			"tr": "Al Qawiyy",
+			"en": "The Possessor of all strength",
+			"ru": "Крепкий"
+		},
+		{
+			"n": 54,
+			"ar": "الْمَتِينُ",
+			"tr": "Al Mateen",
+			"en": "The Forceful",
+			"ru": "Надёжный"
+		},
+		{
+			"n": 55,
+			"ar": "الْوَلِيُّ",
+			"tr": "Al Waliyy",
+			"en": "The Protector",
+			"ru": "Покровитель"
+		},
+		{
+			"n": 56,
+			"ar": "الْحَمِيدُ",
+			"tr": "Al Hameed",
+			"en": "The Praised",
+			"ru": "Достохвальный"
+		},
+		{
+			"n": 57,
+			"ar": "الْمُحْصِي",
+			"tr": "Al Muhsi",
+			"en": "The Appraiser",
+			"ru": "Считающий"
+		},
+		{
+			"n": 58,
+			"ar": "الْمُبْدِئُ",
+			"tr": "Al Mubdi",
+			"en": "The Originator",
+			"ru": "Начинающий"
+		},
+		{
+			"n": 59,
+			"ar": "الْمُعِيدُ",
+			"tr": "Al Mu'eed",
+			"en": "The Restorer",
+			"ru": "Возвращающий"
+		},
+		{
+			"n": 60,
+			"ar": "الْمُحْيِي",
+			"tr": "Al Muhiy",
+			"en": "The Giver of life",
+			"ru": "Оживляющий"
+		},
+		{
+			"n": 61,
+			"ar": "اَلْمُمِيتُ",
+			"tr": "Al Mumeet",
+			"en": "The Taker of life",
+			"ru": "Умертвляющий"
+		},
+		{
+			"n": 62,
+			"ar": "الْحَيُّ",
+			"tr": "Al Haiyy",
+			"en": "The Ever Living",
+			"ru": "Живой"
+		},
+		{
+			"n": 63,
+			"ar": "الْقَيُّومُ",
+			"tr": "Al Qayyoom",
+			"en": "The Self Existing",
+			"ru": "Самодостаточный"
+		},
+		{
+			"n": 64,
+			"ar": "الْوَاجِدُ",
+			"tr": "Al Waajid",
+			"en": "The Finder",
+			"ru": "Находящий"
+		},
+		{
+			"n": 65,
+			"ar": "الْمَاجِدُ",
+			"tr": "Al Maajid",
+			"en": "The Glorious",
+			"ru": "Славный"
+		},
+		{
+			"n": 66,
+			"ar": "الْواحِدُ",
+			"tr": "Al Waahid",
+			"en": "The Only One",
+			"ru": "Единственный"
+		},
+		{
+			"n": 67,
+			"ar": "اَلاَحَدُ",
+			"tr": "Al Ahad",
+			"en": "The One",
+			"ru": "Единый"
+		},
+		{
+			"n": 68,
+			"ar": "الصَّمَدُ",
+			"tr": "As Samad",
+			"en": "The Supreme Provider",
+			"ru": "Ни в чём не нуждающийся"
+		},
+		{
+			"n": 69,
+			"ar": "الْقَادِرُ",
+			"tr": "Al Qaadir",
+			"en": "The Powerful",
+			"ru": "Могучий"
+		},
+		{
+			"n": 70,
+			"ar": "الْمُقْتَدِرُ",
+			"tr": "Al Muqtadir",
+			"en": "The Creator of all power",
+			"ru": "Всемогущий"
+		},
+		{
+			"n": 71,
+			"ar": "الْمُقَدِّمُ",
+			"tr": "Al Muqaddim",
+			"en": "The Expediter",
+			"ru": "Приближающий"
+		},
+		{
+			"n": 72,
+			"ar": "الْمُؤَخِّرُ",
+			"tr": "Al Mu’akhir",
+			"en": "The Delayer",
+			"ru": "Отдаляющий"
+		},
+		{
+			"n": 73,
+			"ar": "الأوَّلُ",
+			"tr": "Al Awwal",
+			"en": "The First",
+			"ru": "Первый"
+		},
+		{
+			"n": 74,
+			"ar": "الآخِرُ",
+			"tr": "Al Aakhir",
+			"en": "The Last",
+			"ru": "Последний"
+		},
+		{
+			"n": 75,
+			"ar": "الظَّاهِرُ",
+			"tr": "Az Zaahir",
+			"en": "The Manifest",
+			"ru": "Явный"
+		},
+		{
+			"n": 76,
+			"ar": "الْبَاطِنُ",
+			"tr": "Al Baatin",
+			"en": "The Hidden",
+			"ru": "Скрытый"
+		},
+		{
+			"n": 77,
+			"ar": "الْوَالِي",
+			"tr": "Al Waali",
+			"en": "The Governor",
+			"ru": "Покровитель"
+		},
+		{
+			"n": 78,
+			"ar": "الْمُتَعَالِي",
+			"tr": "Al Muta’ali",
+			"en": "The Supreme One",
+			"ru": "Превознесённый"
+		},
+		{
+			"n": 79,
+			"ar": "الْبَرُّ",
+			"tr": "Al Barr",
+			"en": "The Doer of Good",
+			"ru": "Благодетель"
+		},
+		{
+			"n": 80,
+			"ar": "التَّوَابُ",
+			"tr": "At Tawwaab",
+			"en": "The Guide to Repentence",
+			"ru": "Принимающий покаяние"
+		},
+		{
+			"n": 81,
+			"ar": "الْمُنْتَقِمُ",
+			"tr": "Al Muntaqim",
+			"en": "The Avenger",
+			"ru": "Мстящий"
+		},
+		{
+			"n": 82,
+			"ar": "العَفُوُّ",
+			"tr": "Al Afuww",
+			"en": "The Forgiver",
+			"ru": "Прощающий"
+		},
+		{
+			"n": 83,
+			"ar": "الرَّؤُوفُ",
+			"tr": "Ar Ra’oof",
+			"en": "The Clement",
+			"ru": "Сострадательный"
+		},
+		{
+			"n": 84,
+			"ar": "مَالِكُ الْمُلْكِ",
+			"tr": "Maalik Ul Mulk",
+			"en": "The Owner / Soverign of All",
+			"ru": "Владыка власти"
+		},
+		{
+			"n": 85,
+			"ar": "ذُوالْجَلاَلِ وَالإكْرَامِ",
+			"tr": "Dhu Al Jalaali Wa Al Ikraam",
+			"en": "Possessor of Majesty and Bounty",
+			"ru": "Обладатель величия и щедрости"
+		},
+		{
+			"n": 86,
+			"ar": "الْمُقْسِطُ",
+			"tr": "Al Muqsit",
+			"en": "The Equitable One",
+			"ru": "Беспристрастный"
+		},
+		{
+			"n": 87,
+			"ar": "الْجَامِعُ",
+			"tr": "Al Jaami'",
+			"en": "The Gatherer",
+			"ru": "Собирающий"
+		},
+		{
+			"n": 88,
+			"ar": "الْغَنِيُّ",
+			"tr": "Al Ghaniyy",
+			"en": "The Rich One",
+			"ru": "Богатый"
+		},
+		{
+			"n": 89,
+			"ar": "الْمُغْنِي",
+			"tr": "Al Mughi",
+			"en": "The Enricher",
+			"ru": "Обогащающий"
+		},
+		{
+			"n": 90,
+			"ar": "اَلْمَانِعُ",
+			"tr": "Al Maani'",
+			"en": "The Preventer of harm",
+			"ru": "Удерживающий"
+		},
+		{
+			"n": 91,
+			"ar": "الضَّارَّ",
+			"tr": "Ad Daaarr",
+			"en": "The Creator of the harmful",
+			"ru": "Вредящий"
+		},
+		{
+			"n": 92,
+			"ar": "النَّافِعُ",
+			"tr": "An Naafi’",
+			"en": "The Bestower of Benefits",
+			"ru": "Приносящий пользу"
+		},
+		{
+			"n": 93,
+			"ar": "النُّورُ",
+			"tr": "An Noor",
+			"en": "The Light",
+			"ru": "Свет"
+		},
+		{
+			"n": 94,
+			"ar": "الْهَادِي",
+			"tr": "Al Haadi",
+			"en": "The Guider",
+			"ru": "Направляющий"
+		},
+		{
+			"n": 95,
+			"ar": "الْبَدِيعُ",
+			"tr": "Al Badi'",
+			"en": "The Originator",
+			"ru": "Творец небывалого"
+		},
+		{
+			"n": 96,
+			"ar": "اَلْبَاقِي",
+			"tr": "Al Baaqi",
+			"en": "The Everlasting One",
+			"ru": "Вечный"
+		},
+		{
+			"n": 97,
+			"ar": "الْوَارِثُ",
+			"tr": "Al Waarith",
+			"en": "The Inhertior",
+			"ru": "Наследник"
+		},
+		{
+			"n": 98,
+			"ar": "الرَّشِيدُ",
+			"tr": "Ar Rasheed",
+			"en": "The Most Righteous Guide",
+			"ru": "Направляющий верно"
+		},
+		{
+			"n": 99,
+			"ar": "الصَّبُورُ",
+			"tr": "As Saboor",
+			"en": "The Patient One",
+			"ru": "Терпеливый"
+		}
+	]
+};
+var nawawi_default = {
+	source: "Сорок хадисов имама ан-Навави. Русский смысл учебный, не выдаётся за канон.",
+	count: 42,
+	items: [
+		{
+			"n": 1,
+			"title": "Дела по намерениям",
+			"ar": "عَنْ أَمِيرِ الْمُؤْمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ: \" إنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إلَى مَا هَاجَرَ إلَيْهِ\". رَوَاهُ إِمَامَا الْمُحَدِّثِينَ أَبُو عَبْدِ اللهِ مُحَمَّدُ بنُ إِسْمَاعِيل بن إِبْرَاهِيم بن الْمُغِيرَة بن بَرْدِزبَه الْبُخَارِيُّ الْجُعْفِيُّ [رقم:1]، وَأَبُو الْحُسَيْنِ مُسْلِمٌ بنُ الْحَجَّاج بن مُسْلِم الْقُشَيْرِيُّ النَّيْسَابُورِيُّ [رقم:1907] رَضِيَ اللهُ عَنْهُمَا فِي \"صَحِيحَيْهِمَا\" اللذَينِ هُمَا أَصَحُّ الْكُتُبِ الْمُصَنَّفَةِ",
+			"en": "It is narrated on the authority of Amirul Mu'minin, Abu Hafs 'Umar bin al-Khattab (ra) who said: I heard the Messenger of Allah (ﷺ) say: \"Actions are (judged) by motives (niyyah), so each man will have what he intended. Thus, he whose migration (hijrah) was to Allah and His Messenger, his migration is to Allah and His Messenger; but he whose migration was for some worldly thing he might gain, or for a wife he might marry, his migration is to that for which he migrated.\" [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:1"
+		},
+		{
+			"n": 2,
+			"title": "Ислам, иман, ихсан",
+			"ar": "عَنْ عُمَرَ رَضِيَ اللهُ عَنْهُ أَيْضًا قَالَ: بَيْنَمَا نَحْنُ جُلُوسٌ عِنْدَ رَسُولِ اللَّهِ صلى الله عليه و سلم ذَاتَ يَوْمٍ، إذْ طَلَعَ عَلَيْنَا رَجُلٌ شَدِيدُ بَيَاضِ الثِّيَابِ، شَدِيدُ سَوَادِ الشَّعْرِ، لَا يُرَى عَلَيْهِ أَثَرُ السَّفَرِ، وَلَا يَعْرِفُهُ مِنَّا أَحَدٌ. حَتَّى جَلَسَ إلَى النَّبِيِّ صلى الله عليه و سلم . فَأَسْنَدَ رُكْبَتَيْهِ إلَى رُكْبَتَيْهِ، وَوَضَعَ كَفَّيْهِ عَلَى فَخِذَيْهِ، وَقَالَ: يَا مُحَمَّدُ أَخْبِرْنِي عَنْ الْإِسْلَامِ. فَقَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إنْ اسْتَطَعْت إلَيْهِ سَبِيلًا. قَالَ: صَدَقْت . فَعَجِبْنَا لَهُ يَسْأَلُهُ وَيُصَدِّقُهُ! قَالَ: فَأَخْبِرْنِي عَنْ الْإِيمَانِ. قَالَ: أَنْ تُؤْمِنَ بِاَللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الْآخِرِ، وَتُؤْمِنَ بِالْقَدَرِ خَيْرِهِ وَشَرِّهِ. قَالَ: صَدَقْت. قَالَ: فَأَخْبِرْنِي عَنْ الْإِحْسَانِ. قَالَ: أَنْ تَعْبُدَ اللَّهَ كَأَنَّك تَرَاهُ، فَإِنْ لَمْ تَكُنْ تَرَاهُ فَإِنَّهُ يَرَاك. قَالَ: فَأَخْبِرْنِي عَنْ السَّاعَةِ. قَالَ: مَا الْمَسْئُولُ عَنْهَا بِأَعْلَمَ مِنْ السَّائِلِ. قَالَ: فَأَخْبِرْنِي عَنْ أَمَارَاتِهَا؟ قَالَ: أَنْ تَلِدَ الْأَمَةُ رَبَّتَهَا، وَأَنْ تَرَى الْحُفَاةَ الْعُرَاةَ الْعَالَةَ رِعَاءَ الشَّاءِ يَتَطَاوَلُونَ فِي الْبُنْيَانِ. ثُمَّ انْطَلَقَ، فَلَبِثْتُ مَلِيًّا، ثُمَّ قَالَ: يَا عُمَرُ أَتَدْرِي مَنْ السَّائِلُ؟. ‫‬قُلْتُ: اللَّهُ وَرَسُولُهُ أَعْلَمُ. قَالَ: فَإِنَّهُ جِبْرِيلُ أَتَاكُمْ يُعَلِّمُكُمْ دِينَكُمْ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "Also on the authority of `Umar (ra) who said: While we were one day sitting with the Messenger of Allah (ﷺ) there appeared before us a man dressed in extremely white clothes and with very black hair. No traces of journeying were visible on him, and none of us knew him. He sat down close by the Prophet (ﷺ) rested his knees against the knees of the Prophet (ﷺ) and placed his palms over his thighs, and said: \"O Muhammad! Inform me about Islam.\" The Messenger of Allah (ﷺ) replied: \"Islam is that you should testify that there is no deity worthy of worship except Allah and that Muhammad is His Messenger (ﷺ), that you should perform salah (ritual prayer), pay the zakah, fast during Ramadan, and perform Hajj (pilgrimage) to the House (the Ka`bah at Makkah), if you can find a way to it (or find the means for making the journey to it).\" He said: \"You have spoken the truth.\" We were astonished at his thus questioning him (ﷺ) and then telling him that he was right, but he went on to say, \"Inform me about Iman (faith).\" He (the Prophet) answered, \"It is that you believe in Allah and His angels and His Books and His Messengers and in the Last Day, and in fate (qadar), both in its good and in its evil aspects.\" He said, \"You have spoken the truth.\" Then he (the man) said, \"Inform me about Ihsan.\" He (the Prophet) answered, \"It is that you should serve Allah as though you could see Him, for though you cannot see Him yet He sees you.\" He said, \"Inform me about the Hour.\" He (the Prophet) said, \"About that the one questioned knows no more than the questioner.\" So he said, \"Well, inform me about its signs.\" He said, \"They are that the slave-girl will give birth to her mistress and that you will see the barefooted ones, the naked, the destitute, the herdsmen of the sheep (competing with each other) in raising lofty buildings.\" Thereupon the man went off. I waited a while, and then he (the Prophet) said, \"O `Umar, do you know who that questioner was?\" I replied, \"Allah and His Messenger know better.\" He said, \"That was Jibril. He came to teach you your religion.\" [Muslim]",
+			"ref": "sunnah.com/nawawi40:2"
+		},
+		{
+			"n": 3,
+			"title": "Столпы ислама",
+			"ar": "عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ . [رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Abdullah, the son of Umar ibn al-Khattab (ra), who said: I heard the Messenger of Allah (ﷺ) say, \"Islam has been built on five [pillars]: testifying that there is no deity worthy of worship except Allah and that Muhammad is the Messenger of Allah, establishing the salah (prayer), paying the zakat (obligatory charity), making the hajj (pilgrimage) to the House, and fasting in Ramadhan.\" [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:3"
+		},
+		{
+			"n": 4,
+			"title": "Создание человека",
+			"ar": "عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ رَضِيَ اللهُ عَنْهُ قَالَ: حَدَّثَنَا رَسُولُ اللَّهِ صلى الله عليه و سلم -وَهُوَ الصَّادِقُ الْمَصْدُوقُ-: إنَّ أَحَدَكُمْ يُجْمَعُ خَلْقُهُ فِي بَطْنِ أُمِّهِ أَرْبَعِينَ يَوْمًا نُطْفَةً، ثُمَّ يَكُونُ عَلَقَةً مِثْلَ ذَلِكَ، ثُمَّ يَكُونُ مُضْغَةً مِثْلَ ذَلِكَ، ثُمَّ يُرْسَلُ إلَيْهِ الْمَلَكُ فَيَنْفُخُ فِيهِ الرُّوحَ، وَيُؤْمَرُ بِأَرْبَعِ كَلِمَاتٍ: بِكَتْبِ رِزْقِهِ، وَأَجَلِهِ، وَعَمَلِهِ، وَشَقِيٍّ أَمْ سَعِيدٍ؛ فَوَاَللَّهِ الَّذِي لَا إلَهَ غَيْرُهُ إنَّ أَحَدَكُمْ لَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ حَتَّى مَا يَكُونُ بَيْنَهُ وَبَيْنَهَا إلَّا ذِرَاعٌ فَيَسْبِقُ عَلَيْهِ الْكِتَابُ فَيَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ فَيَدْخُلُهَا. وَإِنَّ أَحَدَكُمْ لَيَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ حَتَّى مَا يَكُونُ بَيْنَهُ وَبَيْنَهَا إلَّا ذِرَاعٌ فَيَسْبِقُ عَلَيْهِ الْكِتَابُ فَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ فَيَدْخُلُهَا . [رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Abdullah ibn Masood (ra), who said: The Messenger of Allah (ﷺ), and he is the truthful, the believed, narrated to us, “Verily the creation of each one of you is brought together in his mother’s womb for forty days in the form of a nutfah (a drop), then he becomes an alaqah (clot of blood) for a like period, then a mudghah (morsel of flesh) for a like period, then there is sent to him the angel who blows his soul into him and who is commanded with four matters: to write down his rizq (sustenance), his life span, his actions, and whether he will be happy or unhappy (i.e., whether or not he will enter Paradise). By the One, other than Whom there is no deity, verily one of you performs the actions of the people of Paradise until there is but an arms length between him and it, and that which has been written overtakes him, and so he acts with the actions of the people of the Hellfire and thus enters it; and verily one of you performs the actions of the people of the Hellfire, until there is but an arms length between him and it, and that which has been written overtakes him and so he acts with the actions of the people of Paradise and thus he enters it.” [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:4"
+		},
+		{
+			"n": 5,
+			"title": "Нововведения",
+			"ar": "عَنْ أُمِّ الْمُؤْمِنِينَ أُمِّ عَبْدِ اللَّهِ عَائِشَةَ رَضِيَ اللَّهُ عَنْهَا، قَالَتْ: قَالَ: رَسُولُ اللَّهِ صلى الله عليه و سلم مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ [رَوَاهُ الْبُخَارِيُّ] ،[وَمُسْلِمٌ] وَفِي رِوَايَةٍ لِمُسْلِمٍ: مَنْ عَمِلَ عَمَلًا لَيْسَ عَلَيْهِ أَمْرُنَا فَهُوَ رَدٌّ",
+			"en": "On the authority of the mother of the faithful, Aisha (ra), who said: The Messenger of Allah (ﷺ) said, “He who innovates something in this matter of ours (i.e., Islam) that is not of it will have it rejected (by Allah).” [Bukhari & Muslim] In another version in Muslim it reads: “He who does an act which we have not commanded, will have it rejected (by Allah).”",
+			"ref": "sunnah.com/nawawi40:5"
+		},
+		{
+			"n": 6,
+			"title": "Халяль и харам",
+			"ar": "عَنْ أَبِي عَبْدِ اللَّهِ النُّعْمَانِ بْنِ بَشِيرٍ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: إنَّ الْحَلَالَ بَيِّنٌ، وَإِنَّ الْحَرَامَ بَيِّنٌ، وَبَيْنَهُمَا أُمُورٌ مُشْتَبِهَاتٌ لَا يَعْلَمُهُنَّ كَثِيرٌ مِنْ النَّاسِ، فَمَنْ اتَّقَى الشُّبُهَاتِ فَقْد اسْتَبْرَأَ لِدِينِهِ وَعِرْضِهِ، وَمَنْ وَقَعَ فِي الشُّبُهَاتِ وَقَعَ فِي الْحَرَامِ، كَالرَّاعِي يَرْعَى حَوْلَ الْحِمَى يُوشِكُ أَنْ يَرْتَعَ فِيهِ، أَلَا وَإِنَّ لِكُلِّ مَلِكٍ حِمًى، أَلَا وَإِنَّ حِمَى اللَّهِ مَحَارِمُهُ، أَلَا وَإِنَّ فِي الْجَسَدِ مُضْغَةً إذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ، أَلَا وَهِيَ الْقَلْبُ .<br>[رَوَاهُ الْبُخَارِيُّ]، [وَمُسْلِمٌ]",
+			"en": "On the authority of an-Nu’man ibn Basheer (ra), who said: I heard the Messenger of Allah (ﷺ) say, “That which is lawful is clear and that which is unlawful is clear, and between the two of them are doubtful matters about which many people do not know. Thus he who avoids doubtful matters clears himself in regard to his religion and his honor, but he who falls into doubtful matters [eventually] falls into that which is unlawful, like the shepherd who pastures around a sanctuary, all but grazing therein. Truly every king has a sanctuary, and truly Allah’s sanctuary is His prohibitions. Truly in the body there is a morsel of flesh, which, if it be whole, all the body is whole, and which, if it is diseased, all of [the body] is diseased. Truly, it is the heart.” [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:6"
+		},
+		{
+			"n": 7,
+			"title": "Религия — совет",
+			"ar": "عَنْ أَبِي رُقَيَّةَ تَمِيمِ بْنِ أَوْسٍ الدَّارِيِّ رَضِيَ اللهُ عَنْهُ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ: \"الدِّينُ النَّصِيحَةُ.\" قُلْنَا: لِمَنْ؟ قَالَ: \"لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ.\" [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Tameem ibn Aus ad-Daree (ra): The Prophet (ﷺ) said, “The deen (religion) is naseehah (advice, sincerity).” We said, “To whom?” He (ﷺ) said, “To Allah, His Book, His Messenger, and to the leaders of the Muslims and their common folk.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:7"
+		},
+		{
+			"n": 8,
+			"title": "Боевой приказ",
+			"ar": "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا، أَنَّ رَسُولَ اللَّهِ صلى الله عليه و سلم قَالَ: أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَشْهَدُوا أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَيُقِيمُوا الصَّلَاةَ، وَيُؤْتُوا الزَّكَاةَ؛ فَإِذَا فَعَلُوا ذَلِكَ عَصَمُوا مِنِّي دِمَاءَهُمْ وَأَمْوَالَهُمْ إلَّا بِحَقِّ الْإِسْلَامِ، وَحِسَابُهُمْ عَلَى اللَّهِ تَعَالَى .<br>[رَوَاهُ الْبُخَارِيُّ] ،[وَمُسْلِمٌ]",
+			"en": "On the authority of Abdullah ibn Umar (ra): The Messenger of Allah (ﷺ) said, \"I have been ordered to fight against the people until they testify that there is none worthy of worship except Allah and that Muhammad is the Messenger of Allah, and until they establish the salah and pay the zakat. And if they do that then they will have gained protection from me for their lives and property, unless [they commit acts that are punishable] in Islam, and their reckoning will be with Allah.\" [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:8"
+		},
+		{
+			"n": 9,
+			"title": "Что приказано — по мере сил",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ عَبْدِ الرَّحْمَنِ بْنِ صَخْرٍ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ، وَمَا أَمَرْتُكُمْ بِهِ فَأْتُوا مِنْهُ مَا اسْتَطَعْتُمْ، فَإِنَّمَا أَهْلَكَ الَّذِينَ مِنْ قَبْلِكُمْ كَثْرَةُ مَسَائِلِهِمْ وَاخْتِلَافُهُمْ عَلَى أَنْبِيَائِهِمْ .<br>[رَوَاهُ الْبُخَارِيُّ] ،[وَمُسْلِمٌ]",
+			"en": "On the authority of Abu Hurayrah (ra): I heard the Messenger of Allah (ﷺ) say, “What I have forbidden for you, avoid. What I have ordered you [to do], do as much of it as you can. For verily, it was only the excessive questioning and their disagreeing with their Prophets that destroyed [the nations] who were before you.” [Bukhari & Muslim]",
+			"ref": "sunnah.com/nawawi40:9"
+		},
+		{
+			"n": 10,
+			"title": "Чистое пропитание",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم \"إنَّ اللَّهَ طَيِّبٌ لَا يَقْبَلُ إلَّا طَيِّبًا، وَإِنَّ اللَّهَ أَمَرَ الْمُؤْمِنِينَ بِمَا أَمَرَ بِهِ الْمُرْسَلِينَ فَقَالَ تَعَالَى: \"يَا أَيُّهَا الرُّسُلُ كُلُوا مِنْ الطَّيِّبَاتِ وَاعْمَلُوا صَالِحًا\"، وَقَالَ تَعَالَى: \"يَا أَيُّهَا الَّذِينَ آمَنُوا كُلُوا مِنْ طَيِّبَاتِ مَا رَزَقْنَاكُمْ\" ثُمَّ ذَكَرَ الرَّجُلَ يُطِيلُ السَّفَرَ أَشْعَثَ أَغْبَرَ يَمُدُّ يَدَيْهِ إلَى السَّمَاءِ: يَا رَبِّ! يَا رَبِّ! وَمَطْعَمُهُ حَرَامٌ، وَمَشْرَبُهُ حَرَامٌ، وَمَلْبَسُهُ حَرَامٌ، وَغُذِّيَ بِالْحَرَامِ، فَأَنَّى يُسْتَجَابُ لَهُ؟\". [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Hurayrah (ra): The Messenger of Allah (ﷺ) said, “Allah the Almighty is Good and accepts only that which is good. And verily Allah has commanded the believers to do that which He has commanded the Messengers. So the Almighty has said: “O (you) Messengers! Eat of the tayyibat [all kinds of halal (legal) foods], and perform righteous deeds.” [23:51] and the Almighty has said: “O you who believe! Eat of the lawful things that We have provided you.” [2:172]” Then he (ﷺ) mentioned [the case] of a man who, having journeyed far, is disheveled and dusty, and who spreads out his hands to the sky saying “O Lord! O Lord!,” while his food is haram (unlawful), his drink is haram, his clothing is haram, and he has been nourished with haram, so how can [his supplication] be answered? [Muslim]",
+			"ref": "sunnah.com/nawawi40:10"
+		},
+		{
+			"n": 11,
+			"title": "Оставь сомнительное",
+			"ar": "عَنْ أَبِي مُحَمَّدٍ الْحَسَنِ بْنِ عَلِيِّ بْنِ أَبِي طَالِبٍ سِبْطِ رَسُولِ اللَّهِ صلى الله عليه و سلم وَرَيْحَانَتِهِ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: حَفِظْت مِنْ رَسُولِ اللَّهِ صلى الله عليه و سلم دَعْ مَا يُرِيبُك إلَى مَا لَا يُرِيبُك . رَوَاهُ التِّرْمِذِيُّ [رقم:2520]، [وَالنَّسَائِيّ] وَقَالَ التِّرْمِذِيُّ: حَدِيثٌ حَسَنٌ صَحِيحٌ",
+			"en": "On the authority of Abu Muhammad al-Hasan ibn Ali ibn Abee Talib (may Allah be pleased with him), the grandson of the Messenger of Allah (peace and blessings of Allah be upon him), and the one much loved by him, who said: I memorised from the Messenger of Allah (peace and blessings of Allah be upon him): “Leave that which makes you doubt for that which does not make you doubt.” [At-Tirmidhi] [An-Nasai] At-Tirmidhi said that it was a good and sound (hasan saheeh) hadeeth",
+			"ref": "sunnah.com/nawawi40:11"
+		},
+		{
+			"n": 12,
+			"title": "То, что не касается",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم مِنْ حُسْنِ إسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ . حَدِيثٌ حَسَنٌ، رَوَاهُ التِّرْمِذِيُّ [رقم: 2318] ، ابن ماجه [رقم:]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Part of the perfection of one’s Islam is his leaving that which does not concern him.” A hasan (good) hadeeth which was related by at-Tirmidhi and others in this fashion",
+			"ref": "sunnah.com/nawawi40:12"
+		},
+		{
+			"n": 13,
+			"title": "Люби брату то же",
+			"ar": "عَنْ أَبِي حَمْزَةَ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللهُ عَنْهُ خَادِمِ رَسُولِ اللَّهِ صلى الله عليه و سلم عَنْ النَّبِيِّ صلى الله عليه و سلم قَالَ: لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ . رَوَاهُ الْبُخَارِيُّ [رقم:13]، وَمُسْلِمٌ [رقم:45].<br>[رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Abu Hamzah Anas bin Malik (may Allah be pleased with him) — the servant of the Messenger of Allah (peace and blessings of Allah be upon him) — that the Prophet (peace and blessings of Allah be upon him) said: None of you [truly] believes until he loves for his brother that which he loves for himself. [Al-Bukhari] [Muslim]",
+			"ref": "sunnah.com/nawawi40:13"
+		},
+		{
+			"n": 14,
+			"title": "Кровь мусульманина",
+			"ar": "عَنْ ابْنِ مَسْعُودٍ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم لَا يَحِلُّ دَمُ امْرِئٍ مُسْلِمٍ [ يشهد أن لا إله إلا الله، وأني رسول الله] إلَّا بِإِحْدَى ثَلَاثٍ: الثَّيِّبُ الزَّانِي، وَالنَّفْسُ بِالنَّفْسِ، وَالتَّارِكُ لِدِينِهِ الْمُفَارِقُ لِلْجَمَاعَةِ .<br>[رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Ibn Masood (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “It is not permissible to spill the blood of a Muslim except in three [instances]: the married person who commits adultery, a life for a life, and the one who forsakes his religion and separates from the community.” [Al-Bukhari] [Muslim]",
+			"ref": "sunnah.com/nawawi40:14"
+		},
+		{
+			"n": 15,
+			"title": "Кто уверовал в Аллаха и Последний день",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه و سلم قَالَ: مَنْ كَانَ يُؤْمِنُ بِاَللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ، وَمَنْ كَانَ يُؤْمِنُ بِاَللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاَللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ ضَيْفَهُ .<br>[رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: Let him who believes in Allah and the Last Day speak good, or keep silent; and let him who believes in Allah and the Last Day be generous to his neighbour; and let him who believes in Allah and the Last Day be generous to his guest. [Al-Bukhari] [Muslim]",
+			"ref": "sunnah.com/nawawi40:15"
+		},
+		{
+			"n": 16,
+			"title": "Не гневайся",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ أَنَّ رَجُلًا قَالَ لِلنَّبِيِّ صلى الله عليه و سلم أَوْصِنِي. قَالَ: لَا تَغْضَبْ، فَرَدَّدَ مِرَارًا، قَالَ: لَا تَغْضَبْ\" .<br>[رَوَاهُ الْبُخَارِيُّ]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him): A man said to the Prophet (peace and blessings of Allah be upon him), “Counsel me,” so he (peace and blessings of Allah be upon him) said, “Do not become angry.” The man repeated [his request for counsel] several times, and [each time] he (peace and blessings of Allah be upon him) said, “Do not become angry.” [Al-Bukhari]",
+			"ref": "sunnah.com/nawawi40:16"
+		},
+		{
+			"n": 17,
+			"title": "Прекрасное для всего",
+			"ar": "عَنْ أَبِي يَعْلَى شَدَّادِ بْنِ أَوْسٍ رَضِيَ اللهُ عَنْهُ عَنْ رَسُولِ اللَّهِ صلى الله عليه و سلم قَالَ: إنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذِّبْحَةَ، وَلْيُحِدَّ أَحَدُكُمْ شَفْرَتَهُ، وَلْيُرِحْ ذَبِيحَتَهُ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Ya’la Shaddad bin Aws (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: Verily Allah has prescribed ihsan (proficiency, perfection) in all things. So if you kill then kill well; and if you slaughter, then slaughter well. Let each one of you sharpen his blade and let him spare suffering to the animal he slaughters.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:17"
+		},
+		{
+			"n": 18,
+			"title": "Таква и хороший нрав",
+			"ar": "عَنْ أَبِي ذَرٍّ جُنْدَبِ بْنِ جُنَادَةَ، وَأَبِي عَبْدِ الرَّحْمَنِ مُعَاذِ بْنِ جَبَلٍ رَضِيَ اللَّهُ عَنْهُمَا، عَنْ رَسُولِ اللَّهِ صلى الله عليه و سلم قَالَ: اتَّقِ اللَّهَ حَيْثُمَا كُنْت، وَأَتْبِعْ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا، وَخَالِقْ النَّاسَ بِخُلُقٍ حَسَنٍ . رَوَاهُ التِّرْمِذِيُّ [رقم:1987] وَقَالَ: حَدِيثٌ حَسَنٌ، وَفِي بَعْضِ النُّسَخِ: حَسَنٌ صَحِيحٌ",
+			"en": "On the authority of Abu Dharr Jundub ibn Junadah, and Abu Abdur-Rahman Muadh bin Jabal (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: Have taqwa (fear) of Allah wherever you may be, and follow up a bad deed with a good deed which will wipe it out, and behave well towards the people. It was related by at-Tirmidhi, who said it was a hasan (good) hadeeth, and in some copies it is stated to be a hasan saheeh hadeeth",
+			"ref": "sunnah.com/nawawi40:18"
+		},
+		{
+			"n": 19,
+			"title": "Храни Аллаха",
+			"ar": "عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: \"كُنْت خَلْفَ رَسُولِ اللَّهِ صلى الله عليه و سلم يَوْمًا، فَقَالَ: يَا غُلَامِ! إنِّي أُعَلِّمُك كَلِمَاتٍ: احْفَظْ اللَّهَ يَحْفَظْك، احْفَظْ اللَّهَ تَجِدْهُ تُجَاهَك، إذَا سَأَلْت فَاسْأَلْ اللَّهَ، وَإِذَا اسْتَعَنْت فَاسْتَعِنْ بِاَللَّهِ، وَاعْلَمْ أَنَّ الْأُمَّةَ لَوْ اجْتَمَعَتْ عَلَى أَنْ يَنْفَعُوك بِشَيْءٍ لَمْ يَنْفَعُوك إلَّا بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ لَك، وَإِنْ اجْتَمَعُوا عَلَى أَنْ يَضُرُّوك بِشَيْءٍ لَمْ يَضُرُّوك إلَّا بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ عَلَيْك؛ رُفِعَتْ الْأَقْلَامُ، وَجَفَّتْ الصُّحُفُ\" . رَوَاهُ التِّرْمِذِيُّ [رقم:2516] وَقَالَ: حَدِيثٌ حَسَنٌ صَحِيحٌ. وَفِي رِوَايَةِ غَيْرِ التِّرْمِذِيِّ: \"احْفَظْ اللَّهَ تَجِدْهُ أمامك، تَعَرَّفْ إلَى اللَّهِ فِي الرَّخَاءِ يَعْرِفُك فِي الشِّدَّةِ، وَاعْلَمْ أَنَّ مَا أَخْطَأَك لَمْ يَكُنْ لِيُصِيبَك، وَمَا أَصَابَك لَمْ يَكُنْ لِيُخْطِئَك، وَاعْلَمْ أَنَّ النَّصْرَ مَعَ الصَّبْرِ، وَأَنْ الْفَرَجَ مَعَ الْكَرْبِ، وَأَنَّ مَعَ الْعُسْرِ يُسْرًا",
+			"en": "On the authority of Abu Abbas Abdullah bin Abbas (may Allah be pleased with him) who said: One day I was behind the Prophet (peace and blessings of Allah be upon him) [riding on the same mount] and he said, “O young man, I shall teach you some words [of advice]: Be mindful of Allah and Allah will protect you. Be mindful of Allah and you will find Him in front of you. If you ask, then ask Allah [alone]; and if you seek help, then seek help from Allah [alone]. And know that if the nation were to gather together to benefit you with anything, they would not benefit you except with what Allah had already prescribed for you. And if they were to gather together to harm you with anything, they would not harm you except with what Allah had already prescribed against you. The pens have been lifted and the pages have dried.” It was related by at-Tirmidhi, who said it was a good and sound hadeeth. Another narration, other than that of Tirmidhi, reads: Be mindful of Allah, and you will find Him in front of you. Recognize and acknowledge Allah in times of ease and prosperity, and He will remember you in times of adversity. And know that what has passed you by [and you have failed to attain] was not going to befall you, and what has befallen you was not going to pass you by. And know that victory comes with patience, relief with affliction, and hardship with ease",
+			"ref": "sunnah.com/nawawi40:19"
+		},
+		{
+			"n": 20,
+			"title": "Стыд от Аллаха",
+			"ar": "عَنْ أَبِي مَسْعُودٍ عُقْبَةَ بْنِ عَمْرٍو الْأَنْصَارِيِّ الْبَدْرِيِّ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم إنَّ مِمَّا أَدْرَكَ النَّاسُ مِنْ كَلَامِ النُّبُوَّةِ الْأُولَى: إذَا لَمْ تَسْتَحِ فَاصْنَعْ مَا شِئْت .<br>[رَوَاهُ الْبُخَارِيُّ]",
+			"en": "On the authority of Abu Masood Uqbah bin ’Amr al-Ansaree al-Badree (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Verily, from what was learnt by the people from the speech of the earliest prophecy is: If you feel no shame, then do as you wish.” [Al-Bukhari]",
+			"ref": "sunnah.com/nawawi40:20"
+		},
+		{
+			"n": 21,
+			"title": "Истикяма",
+			"ar": "عَنْ أَبِي عَمْرٍو وَقِيلَ: أَبِي عَمْرَةَ سُفْيَانَ بْنِ عَبْدِ اللَّهِ رَضِيَ اللهُ عَنْهُ قَالَ: قُلْت: يَا رَسُولَ اللَّهِ! قُلْ لِي فِي الْإِسْلَامِ قَوْلًا لَا أَسْأَلُ عَنْهُ أَحَدًا غَيْرَك؛ قَالَ: قُلْ: آمَنْت بِاَللَّهِ ثُمَّ اسْتَقِمْ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu `Amr — and he is also called Abu `Amrah — Sufyan bin Abdullah ath- Thaqafee (may Allah be pleased with him) who said: I said, \"O Messenger of Allah, tell me something about al-Islam which I can ask of no one but you.\" He (peace and blessings of Allah be upon him) said, \"Say I believe in Allah — and then be steadfast.\" [Muslim]",
+			"ref": "sunnah.com/nawawi40:21"
+		},
+		{
+			"n": 22,
+			"title": "Обряды — путь в Рай",
+			"ar": "عَنْ أَبِي عَبْدِ اللَّهِ جَابِرِ بْنِ عَبْدِ اللَّهِ الْأَنْصَارِيِّ رَضِيَ اللَّهُ عَنْهُمَا: أَنَّ رَجُلًا سَأَلَ رَسُولَ اللَّهِ صلى الله عليه و سلم فَقَالَ: أَرَأَيْت إذَا صَلَّيْت الْمَكْتُوبَاتِ، وَصُمْت رَمَضَانَ، وَأَحْلَلْت الْحَلَالَ، وَحَرَّمْت الْحَرَامَ، وَلَمْ أَزِدْ عَلَى ذَلِكَ شَيْئًا؛ أَأَدْخُلُ الْجَنَّةَ؟ قَالَ: نَعَمْ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Abdullah Jabir bin Abdullah al-Ansaree (may Allah be pleased with him) that: A man questioned the Messenger of Allah (peace and blessings of Allah be upon him) and said, “Do you think that if I perform the obligatory prayers, fast in Ramadhan, treat as lawful that which is halal, and treat as forbidden that which is haram, and do not increase upon that [in voluntary good deeds], then I shall enter Paradise?” He (peace and blessings of Allah be upon him) replied, “Yes.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:22"
+		},
+		{
+			"n": 23,
+			"title": "Очищение",
+			"ar": "عَنْ أَبِي مَالِكٍ الْحَارِثِ بْنِ عَاصِمٍ الْأَشْعَرِيِّ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم الطَّهُورُ شَطْرُ الْإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ، وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلَآنِ -أَوْ: تَمْلَأُ- مَا بَيْنَ السَّمَاءِ وَالْأَرْضِ، وَالصَّلَاةُ نُورٌ، وَالصَّدَقَةُ بُرْهَانٌ، وَالصَّبْرُ ضِيَاءٌ، وَالْقُرْآنُ حُجَّةٌ لَك أَوْ عَلَيْك، كُلُّ النَّاسِ يَغْدُو، فَبَائِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Malik al-Harith bin Asim al-Asharee (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Purity is half of iman (faith). ‘Al-hamdu lillah (praise be to Allah)’ fills the scales, and ‘subhan-Allah (how far is Allah from every imperfection) and ‘Al-hamdulillah (praise be to Allah)’ fill that which is between heaven and earth. And the salah (prayer) is a light, and charity is a proof, and patience is illumination, and the Qur’an is a proof either for you or against you. Every person starts his day as a vendor of his soul, either freeing it or causing its ruin.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:23"
+		},
+		{
+			"n": 24,
+			"title": "Запрет тирании Аллаха",
+			"ar": "عَنْ أَبِي ذَرٍّ الْغِفَارِيِّ رَضِيَ اللهُ عَنْهُ عَنْ النَّبِيِّ صلى الله عليه و سلم فِيمَا يَرْوِيهِ عَنْ رَبِّهِ تَبَارَكَ وَتَعَالَى، أَنَّهُ قَالَ: يَا عِبَادِي: إنِّي حَرَّمْت الظُّلْمَ عَلَى نَفْسِي، وَجَعَلْته بَيْنَكُمْ مُحَرَّمًا؛ فَلَا تَظَالَمُوا. يَا عِبَادِي! كُلُّكُمْ ضَالٌّ إلَّا مَنْ هَدَيْته، فَاسْتَهْدُونِي أَهْدِكُمْ. يَا عِبَادِي! كُلُّكُمْ جَائِعٌ إلَّا مَنْ أَطْعَمْته، فَاسْتَطْعِمُونِي أُطْعِمْكُمْ. يَا عِبَادِي! كُلُّكُمْ عَارٍ إلَّا مَنْ كَسَوْته، فَاسْتَكْسُونِي أَكْسُكُمْ. يَا عِبَادِي! إنَّكُمْ تُخْطِئُونَ بِاللَّيْلِ وَالنَّهَارِ، وَأَنَا أَغْفِرُ الذُّنُوبَ جَمِيعًا؛ فَاسْتَغْفِرُونِي أَغْفِرْ لَكُمْ. يَا عِبَادِي! إنَّكُمْ لَنْ تَبْلُغُوا ضُرِّي فَتَضُرُّونِي، وَلَنْ تَبْلُغُوا نَفْعِي فَتَنْفَعُونِي. يَا عِبَادِي! لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ كَانُوا عَلَى أَتْقَى قَلْبِ رَجُلٍ وَاحِدٍ مِنْكُمْ، مَا زَادَ ذَلِكَ فِي مُلْكِي شَيْئًا. يَا عِبَادِي! لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ كَانُوا عَلَى أَفْجَرِ قَلْبِ رَجُلٍ وَاحِدٍ مِنْكُمْ، مَا نَقَصَ ذَلِكَ مِنْ مُلْكِي شَيْئًا. يَا عِبَادِي! لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ قَامُوا فِي صَعِيدٍ وَاحِدٍ، فَسَأَلُونِي، فَأَعْطَيْت كُلَّ وَاحِدٍ مَسْأَلَته، مَا نَقَصَ ذَلِكَ مِمَّا عِنْدِي إلَّا كَمَا يَنْقُصُ الْمِخْيَطُ إذَا أُدْخِلَ الْبَحْرَ. يَا عِبَادِي! إنَّمَا هِيَ أَعْمَالُكُمْ أُحْصِيهَا لَكُمْ، ثُمَّ أُوَفِّيكُمْ إيَّاهَا؛ فَمَنْ وَجَدَ خَيْرًا فَلْيَحْمَدْ اللَّهَ، وَمَنْ وَجَدَ غَيْرَ ذَلِكَ فَلَا يَلُومَن إلَّا نَفْسَهُ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Dharr al-Ghifaree (may Allah be pleased with him) from the Prophet (peace and blessings of Allah be upon him) from his Lord, that He said: O My servants! I have forbidden dhulm (oppression) for Myself, and I have made it forbidden amongst you, so do not oppress one another. O My servants, all of you are astray except those whom I have guided, so seek guidance from Me and I shall guide you. O My servants, all of you are hungry except those whom I have fed, so seek food from Me and I shall feed you. O My servants, all of you are naked except those whom I have clothed, so seek clothing from Me and I shall clothe you. O My servants, you commit sins by day and by night, and I forgive all sins, so seek forgiveness from Me and I shall forgive you. O My servants, you will not attain harming Me so as to harm Me, and you will not attain benefiting Me so as to benefit Me. O My servants, if the first of you and the last of you, and the humans of you and the jinn of you, were all as pious as the most pious heart of any individual amongst you, then this would not increase My Kingdom an iota. O My servants, if the first of you and the last of you, and the humans of you and the jinn of you, were all as wicked as the most wicked heart of any individual amongst you, then this would not decrease My Kingdom an iota. O My servants, if the first of you and the last of you, and the humans of you and the jinn of you, were all to stand together in one place and ask of Me, and I were to give everyone what he requested, then that would not decrease what I Possess, except what is decreased of the ocean when a needle is dipped into it. O My servants, it is but your deeds that I account for you, and then recompense you for. So he who finds good, let him praise Allah, and he who finds other than that, let him blame no one but himself. [Muslim]",
+			"ref": "sunnah.com/nawawi40:24"
+		},
+		{
+			"n": 25,
+			"title": "Много дорог добра",
+			"ar": "عَنْ أَبِي ذَرٍّ رَضِيَ اللهُ عَنْهُ أَيْضًا، أَنَّ نَاسًا مِنْ أَصْحَابِ رَسُولِ اللَّهِ صلى الله عليه و سلم قَالُوا لِلنَّبِيِّ صلى الله عليه و سلم يَا رَسُولَ اللَّهِ ذَهَبَ أَهْلُ الدُّثُورِ بِالْأُجُورِ؛ يُصَلُّونَ كَمَا نُصَلِّي، وَيَصُومُونَ كَمَا نَصُومُ، وَيَتَصَدَّقُونَ بِفُضُولِ أَمْوَالِهِمْ. قَالَ: أَوَلَيْسَ قَدْ جَعَلَ اللَّهُ لَكُمْ مَا تَصَّدَّقُونَ؟ إنَّ بِكُلِّ تَسْبِيحَةٍ صَدَقَةً، وَكُلِّ تَكْبِيرَةٍ صَدَقَةً، وَكُلِّ تَحْمِيدَةٍ صَدَقَةً، وَكُلِّ تَهْلِيلَةٍ صَدَقَةً، وَأَمْرٌ بِمَعْرُوفٍ صَدَقَةٌ، وَنَهْيٌ عَنْ مُنْكَرٍ صَدَقَةٌ، وَفِي بُضْعِ أَحَدِكُمْ صَدَقَةٌ. قَالُوا: يَا رَسُولَ اللَّهِ أَيَأْتِي أَحَدُنَا شَهْوَتَهُ وَيَكُونُ لَهُ فِيهَا أَجْرٌ؟ قَالَ: أَرَأَيْتُمْ لَوْ وَضَعَهَا فِي حَرَامٍ أَكَانَ عَلَيْهِ وِزْرٌ؟ فَكَذَلِكَ إذَا وَضَعَهَا فِي الْحَلَالِ، كَانَ لَهُ أَجْرٌ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "Also on the authority of Abu Dharr (may Allah be pleased with him): Some people from amongst the Companions of the Messenger of Allah (peace and blessings of Allah be upon him) said to the Prophet (peace and blessings of Allah be upon him), \"O Messenger of Allah, the affluent have made off with the rewards; they pray as we pray, they fast as we fast, and they give [much] in charity by virtue of their wealth.\" He (peace and blessings of Allah be upon him) said, \"Has not Allah made things for you to give in charity? Truly every tasbeehah [saying: 'subhan-Allah'] is a charity, and every takbeerah [saying: 'Allahu akbar'] is a charity, and every tahmeedah [saying: 'al-hamdu lillah'] is a charity, and every tahleelah [saying: 'laa ilaha illAllah'] is a charity. And commanding the good is a charity, and forbidding an evil is a charity, and in the bud`i [sexual act] of each one of you there is a charity.\" They said, \"O Messenger of Allah, when one of us fulfils his carnal desire will he have some reward for that?\" He (peace and blessings of Allah be upon him) said, \"Do you not see that if he were to act upon it [his desire] in an unlawful manner then he would be deserving of punishment? Likewise, if he were to act upon it in a lawful manner then he will be deserving of a reward.\" [Muslim]",
+			"ref": "sunnah.com/nawawi40:25"
+		},
+		{
+			"n": 26,
+			"title": "Каждый сустав — садака",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم كُلُّ سُلَامَى مِنْ النَّاسِ عَلَيْهِ صَدَقَةٌ، كُلَّ يَوْمٍ تَطْلُعُ فِيهِ الشَّمْسُ تَعْدِلُ بَيْنَ اثْنَيْنِ صَدَقَةٌ، وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُهُ عَلَيْهَا أَوْ تَرْفَعُ لَهُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ، وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَبِكُلِّ خُطْوَةٍ تَمْشِيهَا إلَى الصَّلَاةِ صَدَقَةٌ، وَتُمِيطُ الْأَذَى عَنْ الطَّرِيقِ صَدَقَةٌ .<br>[رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Every joint of a person must perform a charity each day that the sun rises: to judge justly between two people is a charity. To help a man with his mount, lifting him onto it or hoisting up his belongings onto it, is a charity. And the good word is a charity. And every step that you take towards the prayer is a charity, and removing a harmful object from the road is a charity.” [Al-Bukhari] [Muslim]",
+			"ref": "sunnah.com/nawawi40:26"
+		},
+		{
+			"n": 27,
+			"title": "Бирр и исм",
+			"ar": "عَنْ النَّوَّاسِ بْنِ سَمْعَانَ رَضِيَ اللهُ عَنْهُ عَنْ النَّبِيِّ صلى الله عليه و سلم قَالَ: \"الْبِرُّ حُسْنُ الْخُلُقِ، وَالْإِثْمُ مَا حَاكَ فِي صَدْرِك، وَكَرِهْت أَنْ يَطَّلِعَ عَلَيْهِ النَّاسُ\" رَوَاهُ مُسْلِمٌ [رَوَاهُ مُسْلِمٌ]. وَعَنْ وَابِصَةَ بْنِ مَعْبَدٍ رَضِيَ اللهُ عَنْهُ قَالَ: أَتَيْت رَسُولَ اللَّهِ صلى الله عليه و سلم فَقَالَ: \"جِئْتَ تَسْأَلُ عَنْ الْبِرِّ؟ قُلْت: نَعَمْ. فقَالَ: استفت قلبك، الْبِرُّ مَا اطْمَأَنَّتْ إلَيْهِ النَّفْسُ، وَاطْمَأَنَّ إلَيْهِ الْقَلْبُ، وَالْإِثْمُ مَا حَاكَ فِي النَّفْسِ وَتَرَدَّدَ فِي الصَّدْرِ، وَإِنْ أَفْتَاك النَّاسُ وَأَفْتَوْك\" . حَدِيثٌ حَسَنٌ، رَوَيْنَاهُ في مُسْنَدَي الْإِمَامَيْنِ أَحْمَدَ بْنِ حَنْبَلٍ [رقم:4/227]، وَالدَّارِمِيّ [2/246] بِإِسْنَادٍ حَسَنٍ",
+			"en": "On the authority of an-Nawas bin Sam’an (may Allah be pleased with him), that the Prophet (peace and blessings of Allah be upon him) said: Righteousness is in good character, and wrongdoing is that which wavers in your soul, and which you dislike people finding out about. [Muslim] And on the authority of Wabisah bin Ma’bad (may Allah be pleased with him) who said: I came to the Messenger of Allah (peace and blessings of Allah be upon him) and he (peace and blessings of Allah be upon him) said, “You have come to ask about righteousness.” I said, “Yes.” He (peace and blessings of Allah be upon him) said, “Consult your heart. Righteousness is that about which the soul feels at ease and the heart feels tranquil. And wrongdoing is that which wavers in the soul and causes uneasiness in the breast, even though people have repeatedly given their legal opinion [in its favour].” A good hadeeth transmitted from the musnads of the two imams, Ahmed bin Hambal and Al- Darimi, with a good chain of authorities",
+			"ref": "sunnah.com/nawawi40:27"
+		},
+		{
+			"n": 28,
+			"title": "Сунна при смуте",
+			"ar": "عَنْ أَبِي نَجِيحٍ الْعِرْبَاضِ بْنِ سَارِيَةَ رَضِيَ اللهُ عَنْهُ قَالَ: وَعَظَنَا رَسُولُ اللَّهِ صلى الله عليه و سلم مَوْعِظَةً وَجِلَتْ مِنْهَا الْقُلُوبُ، وَذَرَفَتْ مِنْهَا الْعُيُونُ، فَقُلْنَا: يَا رَسُولَ اللَّهِ! كَأَنَّهَا مَوْعِظَةُ مُوَدِّعٍ فَأَوْصِنَا، قَالَ: أُوصِيكُمْ بِتَقْوَى اللَّهِ، وَالسَّمْعِ وَالطَّاعَةِ وَإِنْ تَأَمَّرَ عَلَيْكُمْ عَبْدٌ، فَإِنَّهُ مَنْ يَعِشْ مِنْكُمْ فَسَيَرَى اخْتِلَافًا كَثِيرًا، فَعَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيينَ، عَضُّوا عَلَيْهَا بِالنَّوَاجِذِ، وَإِيَّاكُمْ وَمُحْدَثَاتِ الْأُمُورِ؛ فَإِنَّ كُلَّ بِدْعَةٍ ضَلَالَةٌ . [رَوَاهُ أَبُو دَاوُدَ]، وَاَلتِّرْمِذِيُّ [رقم:266] وَقَالَ: حَدِيثٌ حَسَنٌ صَحِيحٌ",
+			"en": "On the authority of Abu Najeeh al-’Irbaad ibn Saariyah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) gave us a sermon by which our hearts were filled with fear and tears came to our eyes. So we said, “O Messenger of Allah! It is as though this is a farewell sermon, so counsel us.” He (peace and blessings of Allah be upon him) said, “I counsel you to have taqwa (fear) of Allah, and to listen and obey [your leader], even if a slave were to become your ameer. Verily he among you who lives long will see great controversy, so you must keep to my Sunnah and to the Sunnah of the Khulafa ar-Rashideen (the rightly guided caliphs), those who guide to the right way. Cling to it stubbornly [literally: with your molar teeth]. Beware of newly invented matters [in the religion], for verily every bidah (innovation) is misguidance.” [Abu Dawud] It was related by at-Tirmidhi, who said that it was a good and sound hadeeth",
+			"ref": "sunnah.com/nawawi40:28"
+		},
+		{
+			"n": 29,
+			"title": "Что вводит в Рай",
+			"ar": "عَنْ مُعَاذِ بْنِ جَبَلٍ رَضِيَ اللهُ عَنْهُ قَالَ: قُلْت يَا رَسُولَ اللَّهِ! أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدْنِي مِنْ النَّارِ، قَالَ: \"لَقَدْ سَأَلْت عَنْ عَظِيمٍ، وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ: تَعْبُدُ اللَّهَ لَا تُشْرِكْ بِهِ شَيْئًا، وَتُقِيمُ الصَّلَاةَ، وَتُؤْتِي الزَّكَاةَ، وَتَصُومُ رَمَضَانَ، وَتَحُجُّ الْبَيْتَ، ثُمَّ قَالَ: أَلَا أَدُلُّك عَلَى أَبْوَابِ الْخَيْرِ؟ الصَّوْمُ جُنَّةٌ، وَالصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ، وَصَلَاةُ الرَّجُلِ فِي جَوْفِ اللَّيْلِ، ثُمَّ تَلَا: \" تَتَجَافَى جُنُوبُهُمْ عَنِ الْمَضَاجِعِ \" حَتَّى بَلَغَ \"يَعْمَلُونَ\"،[ 32 سورة السجدة / الأيتان : 16 و 17 ] ثُمَّ قَالَ: أَلَا أُخْبِرُك بِرَأْسِ الْأَمْرِ وَعَمُودِهِ وَذُرْوَةِ سَنَامِهِ؟ قُلْت: بَلَى يَا رَسُولَ اللَّهِ. قَالَ: رَأْسُ الْأَمْرِ الْإِسْلَامُ، وَعَمُودُهُ الصَّلَاةُ، وَذُرْوَةُ سَنَامِهِ الْجِهَادُ، ثُمَّ قَالَ: أَلَا أُخْبِرُك بِمَلَاكِ ذَلِكَ كُلِّهِ؟ فقُلْت: بَلَى يَا رَسُولَ اللَّهِ ! فَأَخَذَ بِلِسَانِهِ وَقَالَ: كُفَّ عَلَيْك هَذَا. قُلْت: يَا نَبِيَّ اللَّهِ وَإِنَّا لَمُؤَاخَذُونَ بِمَا نَتَكَلَّمُ بِهِ؟ فَقَالَ: ثَكِلَتْك أُمُّك وَهَلْ يَكُبُّ النَّاسَ عَلَى وُجُوهِهِمْ -أَوْ قَالَ عَلَى مَنَاخِرِهِمْ- إلَّا حَصَائِدُ أَلْسِنَتِهِمْ؟!\" . رَوَاهُ التِّرْمِذِيُّ [رقم:2616] وَقَالَ: حَدِيثٌ حَسَنٌ صَحِيحٌ",
+			"en": "On the authority of Muadh bin Jabal (may Allah be pleased with him) who said: I said, “O Messenger of Allah, tell me of an act which will take me into Paradise and will keep me away from the Hellfire.” He (peace and blessings of Allah be upon him) said, “You have asked me about a great matter, yet it is easy for him for whom Allah makes it easy: worship Allah, without associating any partners with Him; establish the prayer; pay the zakat; fast in Ramadhan; and make the pilgrimage to the House.” Then he (peace and blessings of Allah be upon him) said, “Shall I not guide you towards the means of goodness? Fasting is a shield; charity wipes away sin as water extinguishes fire; and the praying of a man in the depths of the night.” Then he (peace and blessings of Allah be upon him) recited: “[Those] who forsake their beds, to invoke their Lord in fear and hope, and they spend (charity in Allah’s cause) out of what We have bestowed on them. No person knows what is kept hidden for them of joy as a reward for what they used to do.” [as-Sajdah, 16-17] Then he (peace and blessings of Allah be upon him) said, “Shall I not inform you of the head of the matter, its pillar and its peak?” I said, “Yes, O Messenger of Allah.” He (peace and blessings of Allah be upon him) said, “The head of the matter is Islam, its pillar is the prayer and its peak is jihad.” Then he (peace and blessings of Allah be upon him) said, “Shall I not tell you of the foundation of all of that?” I said, “Yes, O Messenger of Allah.” So he took hold of his tongue and said, “Restrain this.” I said, “O Prophet (ﷺ) of Allah, will we be taken to account for what we say with it?” He (peace and blessings of Allah be upon him) said, “May your mother be bereaved of you, O Muadh! Is there anything that throws people into the Hellfire upon their faces — or: on their noses — except the harvests of their tongues?” It was related by at-Tirmidhi, who said it was a good and sound hadeeth",
+			"ref": "sunnah.com/nawawi40:29"
+		},
+		{
+			"n": 30,
+			"title": "Границы Аллаха",
+			"ar": "عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ جُرْثُومِ بن نَاشِر رَضِيَ اللهُ عَنْهُ عَنْ رَسُولِ اللَّهِ صلى الله عليه و سلم قَال: \"إنَّ اللَّهَ تَعَالَى فَرَضَ فَرَائِضَ فَلَا تُضَيِّعُوهَا، وَحَدَّ حُدُودًا فَلَا تَعْتَدُوهَا، وَحَرَّمَ أَشْيَاءَ فَلَا تَنْتَهِكُوهَا، وَسَكَتَ عَنْ أَشْيَاءَ رَحْمَةً لَكُمْ غَيْرَ نِسْيَانٍ فَلَا تَبْحَثُوا عَنْهَا\". حَدِيثٌ حَسَنٌ، رَوَاهُ الدَّارَقُطْنِيّ ْ\"في سننه\" [4/184]، وَغَيْرُهُ",
+			"en": "On the authority of Abu Tha’labah al-Kushanee — Jurthoom bin Nashir (may Allah be pleased with him) — that the Messenger of Allah (peace and blessings of Allah be upon him) said: Verily Allah ta’ala has laid down religious obligations (fara’id), so do not neglect them; and He has set limits, so do not overstep them; and He has forbidden some things, so do not violate them; and He has remained silent about some things, out of compassion for you, not forgetfulness — so do not seek after them. A hasan hadeeth narrated by ad-Daraqutnee and others",
+			"ref": "sunnah.com/nawawi40:30"
+		},
+		{
+			"n": 31,
+			"title": "Зухд",
+			"ar": "عَنْ أَبِي الْعَبَّاسِ سَهْلِ بْنِ سَعْدٍ السَّاعِدِيّ رَضِيَ اللهُ عَنْهُ قَالَ: جَاءَ رَجُلٌ إلَى النَّبِيِّ صلى الله عليه و سلم فَقَالَ: يَا رَسُولَ اللهِ! دُلَّنِي عَلَى عَمَلٍ إذَا عَمِلْتُهُ أَحَبَّنِي اللهُ وَأَحَبَّنِي النَّاسُ؛ فَقَالَ: ازْهَدْ فِي الدُّنْيَا يُحِبَّك اللهُ، وَازْهَدْ فِيمَا عِنْدَ النَّاسِ يُحِبَّك النَّاسُ . حديث حسن، رَوَاهُ ابْنُ مَاجَهْ [رقم:4102]، وَغَيْرُهُ بِأَسَانِيدَ حَسَنَةٍ",
+			"en": "On the authority of Abu al-’Abbas Sahl bin Sa’ad as-Sa’idee (may Allah be pleased with him) who said: A man came to the Prophet (peace and blessings of Allah be upon him) and said, “O Messenger of Allah, direct me to an act which, if I do it, [will cause] Allah to love me and the people to love me.” So he (peace and blessings of Allah be upon him) said, “Renounce the world and Allah will love you, and renounce what the people possess and the people will love you.” A hasan hadeeth related by Ibn Majah and others with good chains of authorities",
+			"ref": "sunnah.com/nawawi40:31"
+		},
+		{
+			"n": 32,
+			"title": "Не вреди",
+			"ar": "عَنْ أَبِي سَعِيدٍ سَعْدِ بْنِ مَالِكِ بْنِ سِنَانٍ الْخُدْرِيّ رَضِيَ اللهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه و سلم قَالَ: \" لَا ضَرَرَ وَلَا ضِرَارَ\" . حَدِيثٌ حَسَنٌ، رَوَاهُ ابْنُ مَاجَهْ [راجع رقم:2341]، وَالدَّارَقُطْنِيّ [رقم:4/228]، وَغَيْرُهُمَا مُسْنَدًا. وَرَوَاهُ مَالِكٌ [2/746] فِي \"الْمُوَطَّإِ\" عَنْ عَمْرِو بْنِ يَحْيَى عَنْ أَبِيهِ عَنْ النَّبِيِّ صلى الله عليه و سلم مُرْسَلًا، فَأَسْقَطَ أَبَا سَعِيدٍ، وَلَهُ طُرُقٌ يُقَوِّي بَعْضُهَا بَعْضًا",
+			"en": "On the authority of Abu Sa’eed al-Khudree (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: There should be neither harming (darar) nor reciprocating harm (dirar). A hasan hadeeth related by Ibn Majah, ad-Daraqutnee and others as a musnad hadeeth. It was also related by Malik in al-Muwatta in mursal form from Amr bin Yahya, from his father from the Prophet (peace and blessings of Allah be upon him), but leaving Abu Sa’eed from the chain. And it has other chains of narrations that strengthen one another",
+			"ref": "sunnah.com/nawawi40:32"
+		},
+		{
+			"n": 33,
+			"title": "Доказательство на истце",
+			"ar": "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه و سلم قَالَ: \"لَوْ يُعْطَى النَّاسُ بِدَعْوَاهُمْ لَادَّعَى رِجَالٌ أَمْوَالَ قَوْمٍ وَدِمَاءَهُمْ، لَكِنَّ الْبَيِّنَةَ عَلَى الْمُدَّعِي، وَالْيَمِينَ عَلَى مَنْ أَنْكَرَ\" . حَدِيثٌ حَسَنٌ، رَوَاهُ الْبَيْهَقِيّ [في\"السنن\" 10/252]، وَغَيْرُهُ هَكَذَا، وَبَعْضُهُ فِي \"الصَّحِيحَيْنِ",
+			"en": "On the authority of Ibn Abbas (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: Were people to be given everything that they claimed, men would [unjustly] claim the wealth and lives of [other] people. But, the onus of proof is upon the claimant, and the taking of an oath is upon him who denies. A hasan hadeeth narrated by al-Baihaqee and others in this form, and part of it is in the two Saheehs",
+			"ref": "sunnah.com/nawawi40:33"
+		},
+		{
+			"n": 34,
+			"title": "Долг изменить зло",
+			"ar": "عَنْ أَبِي سَعِيدٍ الْخُدْرِيّ رَضِيَ اللهُ عَنْهُ قَالَ سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ، وَذَلِكَ أَضْعَفُ الْإِيمَانِ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Sa`eed al-Khudree (may Allah be pleased with him) who said: I heard the Messenger of Allah (ﷺ) say, “Whosoever of you sees an evil, let him change it with his hand; and if he is not able to do so, then [let him change it] with his tongue; and if he is not able to do so, then with his heart — and that is the weakest of faith.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:34"
+		},
+		{
+			"n": 35,
+			"title": "Не завидуй",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم لَا تَحَاسَدُوا، وَلَا تَنَاجَشُوا، وَلَا تَبَاغَضُوا، وَلَا تَدَابَرُوا، وَلَا يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ، وَكُونُوا عِبَادَ اللَّهِ إخْوَانًا، الْمُسْلِمُ أَخُو الْمُسْلِمِ، لَا يَظْلِمُهُ، وَلَا يَخْذُلُهُ، وَلَا يَكْذِبُهُ، وَلَا يَحْقِرُهُ، التَّقْوَى هَاهُنَا، وَيُشِيرُ إلَى صَدْرِهِ ثَلَاثَ مَرَّاتٍ، بِحَسْبِ امْرِئٍ مِنْ الشَّرِّ أَنْ يَحْقِرَ أَخَاهُ الْمُسْلِمَ، كُلُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ حَرَامٌ: دَمُهُ وَمَالُهُ وَعِرْضُهُ . [رَوَاهُ مُسْلِمٌ]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Do not envy one another, and do not inflate prices for one another, and do not hate one another, and do not turn away from one another, and do not undercut one another in trade, but [rather] be slaves of Allah and brothers [amongst yourselves]. A Muslim is the brother of a Muslim: he does not oppress him, nor does he fail him, nor does he lie to him, nor does he hold him in contempt. Taqwa (piety) is right here [and he pointed to his chest three times]. It is evil enough for a man to hold his brother Muslim in contempt. The whole of a Muslim is inviolable for another Muslim: his blood, his property, and his honour.” [Muslim]",
+			"ref": "sunnah.com/nawawi40:35"
+		},
+		{
+			"n": 36,
+			"title": "Кто облегчил — тому облегчат",
+			"ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ عَنْ النَّبِيِّ صلى الله عليه و سلم قَالَ: مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ، وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ، وَمَنْ سَتَرَ مُسْلِما سَتَرَهُ اللهُ فِي الدُّنْيَا وَالْآخِرَةِ ، وَاَللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ، وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إلَى الْجَنَّةِ، وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ فِيمَا بَيْنَهُمْ؛ إلَّا نَزَلَتْ عَلَيْهِمْ السَّكِينَةُ، وَغَشِيَتْهُمْ الرَّحْمَةُ، وَ حَفَّتهُمُ المَلاَئِكَة، وَذَكَرَهُمْ اللَّهُ فِيمَنْ عِنْدَهُ، وَمَنْ أَبَطْأَ بِهِ عَمَلُهُ لَمْ يُسْرِعْ بِهِ نَسَبُهُ . [رَوَاهُ مُسْلِمٌ] بهذا اللفظ",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him), that the Prophet (peace and blessings of Allah be upon him) said: Whoever removes a worldly grief from a believer, Allah will remove from him one of the griefs of the Day of Resurrection. And whoever alleviates the need of a needy person, Allah will alleviate his needs in this world and the Hereafter. Whoever shields [or hides the misdeeds of] a Muslim, Allah will shield him in this world and the Hereafter. And Allah will aid His slave so long as he aids his brother. And whoever follows a path to seek knowledge therein, Allah will make easy for him a path to Paradise. No people gather together in one of the Houses of Allah, reciting the Book of Allah and studying it among themselves, except that sakeenah (tranquility) descends upon them, and mercy envelops them, and the angels surround them, and Allah mentions them amongst those who are with Him. And whoever is slowed down by his actions, will not be hastened forward by his lineage. Related by [Muslim] in these words",
+			"ref": "sunnah.com/nawawi40:36"
+		},
+		{
+			"n": 37,
+			"title": "Намерение и милость Аллаха",
+			"ar": "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا عَنْ رَسُولِ اللَّهِ صلى الله عليه و سلم فِيمَا يَرْوِيهِ عَنْ رَبِّهِ تَبَارَكَ وَتَعَالَى، قَالَ: \"إنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ، ثُمَّ بَيَّنَ ذَلِكَ، فَمَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ عِنْدَهُ عَشْرَ حَسَنَاتٍ إلَى سَبْعِمِائَةِ ضِعْفٍ إلَى أَضْعَافٍ كَثِيرَةٍ، وَإِنْ هَمَّ بِسَيِّئَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ سَيِّئَةً وَاحِدَةً\".<br>[رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]، في \"صحيحيهما\" بهذه الحروف",
+			"en": "On the authority of Ibn Abbas (may Allah be pleased with him), from the Messenger of Allah (peace and blessings of Allah be upon him), from what he has related from his Lord: Verily Allah ta’ala has written down the good deeds and the evil deeds, and then explained it [by saying]: “Whosoever intended to perform a good deed, but did not do it, then Allah writes it down with Himself as a complete good deed. And if he intended to perform it and then did perform it, then Allah writes it down with Himself as from ten good deeds up to seven hundred times, up to many times multiplied. And if he intended to perform an evil deed, but did not do it, then Allah writes it down with Himself as a complete good deed. And if he intended it [i.e., the evil deed] and then performed it, then Allah writes it down as one evil deed.” [Al-Bukhari] [Muslim]",
+			"ref": "sunnah.com/nawawi40:37"
+		},
+		{
+			"n": 38,
+			"title": "Вали Аллаха",
+			"ar": "عَنْ أَبِي هُرَيْرَة رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُول اللَّهِ صلى الله عليه و سلم إنَّ اللَّهَ تَعَالَى قَالَ: مَنْ عَادَى لِي وَلِيًّا فَقْد آذَنْتهُ بِالْحَرْبِ، وَمَا تَقَرَّبَ إلَيَّ عَبْدِي بِشَيْءٍ أَحَبَّ إلَيَّ مِمَّا افْتَرَضْتُهُ عَلَيْهِ، وَلَا يَزَالُ عَبْدِي يَتَقَرَّبُ إلَيَّ بِالنَّوَافِلِ حَتَّى أُحِبَّهُ، فَإِذَا أَحْبَبْتُهُ كُنْت سَمْعَهُ الَّذِي يَسْمَعُ بِهِ، وَبَصَرَهُ الَّذِي يُبْصِرُ بِهِ، وَيَدَهُ الَّتِي يَبْطِشُ بِهَا، وَرِجْلَهُ الَّتِي يَمْشِي بِهَا، وَلَئِنْ سَأَلَنِي لَأُعْطِيَنَّهُ، وَلَئِنْ اسْتَعَاذَنِي لَأُعِيذَنَّهُ . [رَوَاهُ الْبُخَارِيُّ]",
+			"en": "On the authority of Abu Hurayrah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Verily Allah ta’ala has said: ‘Whosoever shows enmity to a wali (friend) of Mine, then I have declared war against him. And My servant does not draw near to Me with anything more loved to Me than the religious duties I have obligated upon him. And My servant continues to draw near to me with nafil (supererogatory) deeds until I Love him. When I Love him, I am his hearing with which he hears, and his sight with which he sees, and his hand with which he strikes, and his foot with which he walks. Were he to ask [something] of Me, I would surely give it to him; and were he to seek refuge with Me, I would surely grant him refuge.’ ” [Al-Bukhari]",
+			"ref": "sunnah.com/nawawi40:38"
+		},
+		{
+			"n": 39,
+			"title": "Прощение ошибок",
+			"ar": "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا أَنَّ رَسُولَ اللَّهِ صلى الله عليه و سلم قَالَ: \"إنَّ اللَّهَ تَجَاوَزَ لِي عَنْ أُمَّتِي الْخَطَأَ وَالنِّسْيَانَ وَمَا اسْتُكْرِهُوا عَلَيْهِ\" . حَدِيثٌ حَسَنٌ، رَوَاهُ ابْنُ مَاجَهْ [رقم:2045]، وَالْبَيْهَقِيّ [\"السنن]",
+			"en": "On the authority of Ibn Abbas (may Allah be pleased with him), that the Messenger of Allah (peace and blessings of Allah be upon him) said: Verily Allah has pardoned [or been lenient with] for me my ummah: their mistakes, their forgetfulness, and that which they have been forced to do under duress. A hasan hadeeth related by Ibn Majah, and al-Bayhaqee and others",
+			"ref": "sunnah.com/nawawi40:39"
+		},
+		{
+			"n": 40,
+			"title": "Будь в мире как странник",
+			"ar": "عَنْ ابْن عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: أَخَذَ رَسُولُ اللَّهِ صلى الله عليه و سلم بِمَنْكِبِي، وَقَالَ: كُنْ فِي الدُّنْيَا كَأَنَّك غَرِيبٌ أَوْ عَابِرُ سَبِيلٍ . وَكَانَ ابْنُ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا يَقُولُ: إذَا أَمْسَيْتَ فَلَا تَنْتَظِرْ الصَّبَاحَ، وَإِذَا أَصْبَحْتَ فَلَا تَنْتَظِرْ الْمَسَاءَ، وَخُذْ مِنْ صِحَّتِك لِمَرَضِك، وَمِنْ حَيَاتِك لِمَوْتِك. [رَوَاهُ الْبُخَارِيُّ]",
+			"en": "On the authority of Abdullah ibn Umar (may Allah be pleased with him), who said: The Messenger of Allah (peace and blessings of Allah be upon him) took me by the shoulder and said, “Be in this world as though you were a stranger or a wayfarer.” And Ibn Umar (may Allah be pleased with him) used to say, “In the evening do not expect [to live until] the morning, and in the morning do not expect [to live until] the evening. Take [advantage of] your health before times of sickness, and [take advantage of] your life before your death.” [Al-Bukhari]",
+			"ref": "sunnah.com/nawawi40:40"
+		},
+		{
+			"n": 41,
+			"title": "Страсть подчинена",
+			"ar": "عَنْ أَبِي مُحَمَّدٍ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم \"لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ\". حَدِيثٌ حَسَنٌ صَحِيحٌ، رَوَيْنَاهُ فِي كِتَابِ \"الْحُجَّةِ\" بِإِسْنَادٍ صَحِيحٍ",
+			"en": "On the authority of Abu Muhammad Abdullah bin ’Amr bin al-’Aas (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “None of you [truly] believes until his desires are subservient to that which I have brought.” [Imam an-Nawawi says:] We have related it in Kitab al-Hujjah with a saheeh chain of narrators",
+			"ref": "sunnah.com/nawawi40:41"
+		},
+		{
+			"n": 42,
+			"title": "Прощение через прощение людей",
+			"ar": "عَنْ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: قَالَ اللَّهُ تَعَالَى: يَا ابْنَ آدَمَ! إِنَّكَ مَا دَعَوْتنِي وَرَجَوْتنِي غَفَرْتُ لَك عَلَى مَا كَانَ مِنْك وَلَا أُبَالِي، يَا ابْنَ آدَمَ! لَوْ بَلَغَتْ ذُنُوبُك عَنَانَ السَّمَاءِ ثُمَّ اسْتَغْفَرْتنِي غَفَرْتُ لَك، يَا ابْنَ آدَمَ! إنَّك لَوْ أتَيْتنِي بِقُرَابِ الْأَرْضِ خَطَايَا ثُمَّ لَقِيتنِي لَا تُشْرِكُ بِي شَيْئًا لَأَتَيْتُك بِقُرَابِهَا مَغْفِرَةً . رَوَاهُ التِّرْمِذِيُّ [رقم:3540]، وَقَالَ: حَدِيثٌ حَسَنٌ صَحِيحٌ",
+			"en": "On the authority of Anas (may Allah be pleased with him) who said: I heard the Messenger of Allah (peace and blessings of Allah be upon him) say, “Allah the Almighty has said: ‘O Son of Adam, as long as you invoke Me and ask of Me, I shall forgive you for what you have done, and I shall not mind. O Son of Adam, were your sins to reach the clouds of the sky and you then asked forgiveness from Me, I would forgive you. O Son of Adam, were you to come to Me with sins nearly as great as the Earth, and were you then to face Me, ascribing no partner to Me, I would bring you forgiveness nearly as great as it [too].’ ” It was related by at-Tirmidhi, who said that it was a hasan hadeeth",
+			"ref": "sunnah.com/nawawi40:42"
+		}
+	]
+};
+var NAWAWI_RU = {
+	1: {
+		titleEn: "Actions are by intentions",
+		core: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов повелителя верующих Абу Хафса Умара ибн аль-Хаттаба, да будет доволен им Аллах, что он слышал, как Посланник Аллаха ﷺ сказал: «Поистине, дела оцениваются только по намерениям, и поистине, каждому человеку достанется лишь то, что он намеревался. Чья хиджра была к Аллаху и Его Посланнику, того хиджра — к Аллаху и Его Посланнику. А чья хиджра была ради мирского, которое он хочет обрести, или ради женщины, на которой он хочет жениться, того хиджра — к тому, ради чего он переселялся»."
+	},
+	2: {
+		titleEn: "Islam, iman, ihsan",
+		core: "أَنْ تَعْبُدَ اللَّهَ كَأَنَّكَ تَرَاهُ",
+		refRu: "Муслим",
+		ru: "Передают со слов Умара, да будет доволен им Аллах: однажды, когда мы сидели у Посланника Аллаха ﷺ, явился человек в ослепительно белой одежде, с иссиня-чёрными волосами. На нём не было следов пути, и никто из нас его не знал. Он сел к Пророку ﷺ, прижал колени к его коленям, положил ладони на свои бёдра и сказал: «О Мухаммад, поведай мне об исламе». Посланник Аллаха ﷺ сказал: «Ислам — чтобы ты засвидетельствовал, что нет божества, достойного поклонения, кроме Аллаха, и что Мухаммад — Посланник Аллаха, выстаивал молитву, давал закят, постился в Рамадан и совершал хадж к Дому, если в силах добраться до него». Тот сказал: «Ты сказал правду». Мы дивились: спрашивает и сам подтверждает. Он сказал: «Поведай мне об имане». Пророк ﷺ сказал: «Чтобы ты уверовал в Аллаха, Его ангелов, Его Писания, Его посланников, в Последний день и в предопределение — добро его и зло». — «Ты сказал правду. Поведай мне об ихсане». — «Чтобы ты поклонялся Аллаху так, будто видишь Его. А если ты Его не видишь, то ведь Он видит тебя». — «Поведай мне о Часе». — «Спрашиваемый знает о нём не больше спрашивающего». — «Поведай о его знаках». — «Рабыня родит свою госпожу, и ты увидишь босых, нагих, бедных пастухов овец соревнующимися в высоких зданиях». Затем тот ушёл. Спустя время Пророк ﷺ сказал: «О Умар, знаешь ли, кто был спрашивающий?» Я сказал: «Аллах и Его Посланник знают лучше». Он сказал: «Это был Джибриль. Он пришёл научить вас вашей религии»."
+	},
+	3: {
+		titleEn: "Pillars of Islam",
+		core: "بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Абдуррахмана Абдуллаха ибн Умара ибн аль-Хаттаба, да будет доволен Аллах ими обоими: я слышал, как Посланник Аллаха ﷺ сказал: «Ислам воздвигнут на пяти: свидетельстве, что нет божества, достойного поклонения, кроме Аллаха, и что Мухаммад — Посланник Аллаха, выстаивании молитвы, выплате закята, хадже к Дому и посте в Рамадан»."
+	},
+	4: {
+		titleEn: "Creation of the human being",
+		core: "إنَّ أَحَدَكُمْ يُجْمَعُ خَلْقُهُ فِي بَطْنِ أُمِّهِ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Абдуррахмана Абдуллаха ибн Мас‘уда, да будет доволен им Аллах, что Посланник Аллаха ﷺ — а он правдив и ему верят — сказал: «Поистине, каждый из вас собирается в утробе матери сорок дней каплей, затем столько же — сгустком крови, затем столько же — кусочком плоти. Затем к нему посылается ангел, который вдувает дух и которому велено записать четыре слова: удел, срок, дела и счастлив он или несчастен. Клянусь Аллахом, кроме Которого нет божества: поистине, один из вас совершает дела обитателей Рая, пока не останется между ним и Раем локоть, — и запись опережает его, и он совершает дела обитателей Огня и входит в него. И поистине, один из вас совершает дела обитателей Огня, пока не останется между ним и Огнём локоть, — и запись опережает его, и он совершает дела обитателей Рая и входит в него»."
+	},
+	5: {
+		titleEn: "Innovations",
+		core: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов матери верующих Умм Абдуллах Аиши, да будет доволен ею Аллах, что Посланник Аллаха ﷺ сказал: «Кто ввёл в это наше дело то, что к нему не относится, то оно отвергнуто». В другой передаче у Муслима: «Кто совершил дело, на котором нет нашего повеления, то оно отвергнуто»."
+	},
+	6: {
+		titleEn: "Halal and haram",
+		core: "إنَّ الْحَلَالَ بَيِّنٌ، وَإِنَّ الْحَرَامَ بَيِّنٌ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Абдуллаха ан-Ну‘мана ибн Башира, да будет доволен Аллах ими обоими: я слышал, как Посланник Аллаха ﷺ сказал: «Поистине, дозволенное ясно, и поистине, запретное ясно, а между ними — сомнительное, о котором многие люди не знают. Кто остерёгся сомнительного, тот очистил свою религию и свою честь. А кто впал в сомнительное, тот впал в запретное, подобно пастуху, который пасёт вокруг заповедника и едва не зайдёт в него. Поистине, у каждого владыки есть заповедник, и поистине, заповедник Аллаха — Его запреты. Поистине, в теле есть кусочек плоти: если он исправен, исправно всё тело, а если испорчен, испорчено всё тело. Поистине, это сердце»."
+	},
+	7: {
+		titleEn: "Religion is sincerity",
+		core: "الدِّينُ النَّصِيحَةُ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Рукайи Тамима ибн Ауса ад-Дари, да будет доволен им Аллах, что Пророк ﷺ сказал: «Религия — это искренний совет». Мы спросили: «Кому?» Он сказал: «Аллаху, Его Писанию, Его Посланнику, предводителям мусульман и их простым людям»."
+	},
+	8: {
+		titleEn: "The command of fighting",
+		core: "أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَشْهَدُوا",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Ибн Умара, да будет доволен Аллах ими обоими, что Посланник Аллаха ﷺ сказал: «Мне велено сражаться с людьми, пока они не засвидетельствуют, что нет божества, достойного поклонения, кроме Аллаха, и что Мухаммад — Посланник Аллаха, не будут выстаивать молитву и не будут давать закят. Если они сделают это, то защитят от меня свою кровь и своё имущество — кроме как по праву ислама, а расчёт их — у Аллаха Всевышнего»."
+	},
+	9: {
+		titleEn: "Do what you are able",
+		core: "مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Хурайры Абдуррахмана ибн Сахра, да будет доволен им Аллах: я слышал, как Посланник Аллаха ﷺ сказал: «Чего я вам запретил — сторонитесь того. А что я вам повелел — исполняйте из этого, сколько сможете. Поистине, погубило тех, кто был до вас, множество их вопросов и разногласие с их пророками»."
+	},
+	10: {
+		titleEn: "Pure provision",
+		core: "إنَّ اللَّهَ طَيِّبٌ لَا يَقْبَلُ إلَّا طَيِّبًا",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Поистине, Аллах благ и принимает только благое. И поистине, Аллах повелел верующим то же, что повелел посланникам». Всевышний сказал: «О посланники! Ешьте из благого и творите праведное». И сказал: «О те, которые уверовали! Ешьте из благ, которыми Мы вас наделили». Затем он упомянул человека, который долго в пути, растрёпан и покрыт пылью, простирает руки к небу: «О Господь! О Господь!» — а пища его запретна, питьё запретно, одежда запретна, и вскормлен он запретным. Как же ему будет отвечено?"
+	},
+	11: {
+		titleEn: "Leave what makes you doubt",
+		core: "دَعْ مَا يُرِيبُك إلَى مَا لَا يُرِيبُك",
+		refRu: "ат-Тирмизи и ан-Насаи",
+		ru: "Передают со слов Абу Мухаммада аль-Хасана ибн Али ибн Аби Талиба, внука Посланника Аллаха ﷺ и его райхана, да будет доволен Аллах ими обоими: я запомнил от Посланника Аллаха ﷺ: «Оставь то, что вызывает у тебя сомнение, ради того, что сомнения не вызывает»."
+	},
+	12: {
+		titleEn: "Leave what does not concern you",
+		core: "مِنْ حُسْنِ إسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ",
+		refRu: "ат-Тирмизи",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Из красоты ислама человека — оставлять то, что его не касается»."
+	},
+	13: {
+		titleEn: "Love for your brother what you love for yourself",
+		core: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Хамзы Анаса ибн Малика, да будет доволен им Аллах, слуги Посланника Аллаха ﷺ, что Пророк ﷺ сказал: «Не уверует никто из вас, пока не будет желать брату своему того же, чего желает себе»."
+	},
+	14: {
+		titleEn: "The blood of a Muslim",
+		core: "لَا يَحِلُّ دَمُ امْرِئٍ مُسْلِمٍ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Ибн Мас‘уда, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Не дозволена кровь мусульманина, который свидетельствует, что нет божества, достойного поклонения, кроме Аллаха, и что я — Посланник Аллаха, кроме как в трёх случаях: женатый прелюбодей, жизнь за жизнь и оставивший свою религию, отделившийся от общины»."
+	},
+	15: {
+		titleEn: "Whoever believes in Allah and the Last Day",
+		core: "فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Кто верует в Аллаха и в Последний день — пусть говорит благое или молчит. Кто верует в Аллаха и в Последний день — пусть почитает своего соседа. Кто верует в Аллаха и в Последний день — пусть почитает своего гостя»."
+	},
+	16: {
+		titleEn: "Do not become angry",
+		core: "لَا تَغْضَبْ",
+		refRu: "аль-Бухари",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что некий человек сказал Пророку ﷺ: «Дай мне наставление». Он сказал: «Не гневайся». Тот повторил просьбу несколько раз, и каждый раз он говорил: «Не гневайся»."
+	},
+	17: {
+		titleEn: "Excellence in all things",
+		core: "إنَّ اللَّهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Я‘ля Шаддада ибн Ауса, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Поистине, Аллах предписал совершенство во всём. Если убиваете — убивайте хорошо. Если режете — режьте хорошо. Пусть каждый из вас наточит свой клинок и избавит жертву от мучения»."
+	},
+	18: {
+		titleEn: "Taqwa and good character",
+		core: "اتَّقِ اللَّهَ حَيْثُمَا كُنْت",
+		refRu: "ат-Тирмизи",
+		ru: "Передают со слов Абу Зарра Джундуба ибн Джунады и Абу Абдуррахмана Муаза ибн Джабаля, да будет доволен Аллах ими обоими, что Посланник Аллаха ﷺ сказал: «Бойся Аллаха, где бы ты ни был. За скверным делом соверши доброе — оно сотрёт его. И обходись с людьми благонравно»."
+	},
+	19: {
+		titleEn: "Be mindful of Allah",
+		core: "احْفَظْ اللَّهَ يَحْفَظْك",
+		refRu: "ат-Тирмизи",
+		ru: "Передают со слов Абдуллаха ибн Аббаса, да будет доволен Аллах ими обоими: однажды я ехал позади Посланника Аллаха ﷺ, и он сказал: «О мальчик, я научу тебя словам. Храни Аллаха — и Он сохранит тебя. Храни Аллаха — и найдёшь Его перед собой. Если просишь — проси Аллаха. Если ищешь помощи — ищи её у Аллаха. И знай: если община соберётся, чтобы принести тебе пользу чем-то, они не принесут её, кроме как тем, что Аллах уже записал тебе. А если соберутся, чтобы повредить тебе чем-то, не повредят, кроме как тем, что Аллах уже записал против тебя. Перья подняты, и свитки высохли». В другой передаче: «Храни Аллаха — и найдёшь Его перед собой. Познай Аллаха в благополучии — и Он узнает тебя в беде. Знай: что миновало тебя, не должно было поразить тебя, а что поразило, не должно было миновать. Знай: победа — с терпением, выход — с горем, и поистине, с трудностью — лёгкость»."
+	},
+	20: {
+		titleEn: "If you feel no shame",
+		core: "إذَا لَمْ تَسْتَحِ فَاصْنَعْ مَا شِئْت",
+		refRu: "аль-Бухари",
+		ru: "Передают со слов Абу Мас‘уда Укбы ибн Амра аль-Ансари аль-Бадри, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Поистине, из того, что люди застали из слов первой пророческой вести: если не стыдишься — делай что хочешь»."
+	},
+	21: {
+		titleEn: "Believe, then be steadfast",
+		core: "قُلْ: آمَنْت بِاَللَّهِ ثُمَّ اسْتَقِمْ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Амра — говорят также: Абу Амры — Суфьяна ибн Абдуллаха, да будет доволен им Аллах: я сказал: «О Посланник Аллаха, скажи мне об исламе такое слово, о котором я не спрошу никого, кроме тебя». Он сказал: «Скажи: я уверовал в Аллаха — и затем будь стоек»."
+	},
+	22: {
+		titleEn: "The rites that lead to Paradise",
+		core: "أَأَدْخُلُ الْجَنَّةَ؟ قَالَ: نَعَمْ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Абдуллаха Джабира ибн Абдуллаха аль-Ансари, да будет доволен Аллах ими обоими, что некий человек спросил Посланника Аллаха ﷺ: «Скажи, если я буду совершать обязательные молитвы, поститься в Рамадан, считать дозволенное дозволенным и запретное запретным и не прибавлю к этому ничего — войду ли я в Рай?» Он сказал: «Да»."
+	},
+	23: {
+		titleEn: "Purity is half of faith",
+		core: "الطَّهُورُ شَطْرُ الْإِيمَانِ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Малика аль-Хариса ибн Асима аль-Аш‘ари, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Очищение — половина веры. „Аль-хамду ли-Ллях“ наполняет Весы. „Субхан-Аллах“ и „аль-хамду ли-Ллях“ наполняют то, что между небом и землёй. Молитва — свет. Милостыня — доказательство. Терпение — сияние. Коран — довод за тебя или против тебя. Каждый человек выходит утром и продаёт свою душу: либо освобождает её, либо губит»."
+	},
+	24: {
+		titleEn: "Allah has forbidden oppression",
+		core: "يَا عِبَادِي: إنِّي حَرَّمْت الظُّلْمَ عَلَى نَفْسِي",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Зарра аль-Гифари, да будет доволен им Аллах, от Пророка ﷺ в том, что он передаёт от своего Господа, благословен Он и возвышен: «О рабы Мои, Я запретил гнёт Себе и сделал его запретным между вами — так не притесняйте друг друга. О рабы Мои, все вы заблудшие, кроме тех, кого Я наставил, — так просите у Меня руководства, и Я наставлю вас. О рабы Мои, все вы голодны, кроме тех, кого Я накормил, — так просите у Меня пищи, и Я накормлю вас. О рабы Мои, все вы наги, кроме тех, кого Я одел, — так просите у Меня одежды, и Я одену вас. О рабы Мои, вы грешите ночью и днём, а Я прощаю все грехи — так просите у Меня прощения, и Я прощу вас. О рабы Мои, вы не достигнете вреда Мне, чтобы навредить Мне, и не достигнете пользы Мне, чтобы принести Мне пользу. О рабы Мои, если бы первые из вас и последние, люди и джинны, были на самом богобоязненном сердце одного из вас, это ничего не прибавило бы в Моей власти. О рабы Мои, если бы первые из вас и последние, люди и джинны, были на самом нечестивом сердце одного из вас, это ничего не убавило бы из Моей власти. О рабы Мои, если бы первые из вас и последние, люди и джинны, встали на одном месте и попросили Меня, и Я дал бы каждому то, что он просит, это убавило бы из того, что у Меня, лишь настолько, насколько убавляет игла, опущенная в море. О рабы Мои, это лишь ваши дела: Я считаю их для вас, а затем сполна воздам. Кто найдёт благо — пусть хвалит Аллаха. А кто найдёт иное — пусть не винит никого, кроме себя»."
+	},
+	25: {
+		titleEn: "Many paths of good",
+		core: "إنَّ بِكُلِّ تَسْبِيحَةٍ صَدَقَةً",
+		refRu: "Муслим",
+		ru: "Передают также со слов Абу Зарра, да будет доволен им Аллах, что некоторые сподвижники сказали Пророку ﷺ: «О Посланник Аллаха, богатые унесли награды: они молятся, как молимся мы, постятся, как постимся мы, и раздают из избытка своего имущества». Он сказал: «Разве Аллах не сделал вам того, чем вы можете давать милостыню? За каждое „субхан-Аллах“ — милостыня, за каждое „Аллаху акбар“ — милостыня, за каждое „аль-хамду ли-Ллях“ — милостыня, за каждое „ля иляха илля Ллах“ — милостыня. Повеление одобряемого — милостыня, удержание от порицаемого — милостыня. И в близости каждого из вас — милостыня». Они сказали: «О Посланник Аллаха, неужели кто-то из нас удовлетворит своё желание и будет за это награда?» Он сказал: «Скажите, если бы он положил это в запретное, разве не было бы на нём бремени? Так же, если положит это в дозволенное, будет ему награда»."
+	},
+	26: {
+		titleEn: "Every joint is a charity",
+		core: "كُلُّ سُلَامَى مِنْ النَّاسِ عَلَيْهِ صَدَقَةٌ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «На каждом суставе человека — милостыня каждый день, в который восходит солнце. Рассудить справедливо между двумя — милостыня. Помочь человеку с его животным: посадить его или поднять на него поклажу — милостыня. Доброе слово — милостыня. Каждый шаг, которым ты идёшь к молитве, — милостыня. Убрать с дороги то, что вредит, — милостыня»."
+	},
+	27: {
+		titleEn: "Righteousness and sin",
+		core: "الْبِرُّ حُسْنُ الْخُلُقِ",
+		refRu: "Муслим; Ахмад и ад-Дарими",
+		ru: "Передают со слов ан-Навваса ибн Сам‘ана, да будет доволен им Аллах, что Пророк ﷺ сказал: «Праведность — это благонравие, а грех — то, что шевелится в груди и что ты не хотел бы, чтобы люди узнали». И со слов Вабисы ибн Ма‘бада, да будет доволен им Аллах: я пришёл к Посланнику Аллаха ﷺ, и он сказал: «Ты пришёл спросить о праведности?» Я сказал: «Да». Он сказал: «Спроси своё сердце. Праведность — то, в чём успокоилась душа и успокоилось сердце. А грех — то, что шевелится в душе и колеблется в груди, даже если люди дадут тебе фетву за фетвой»."
+	},
+	28: {
+		titleEn: "Hold to the Sunnah in times of fitnah",
+		core: "عَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ",
+		refRu: "Абу Дауд и ат-Тирмизи",
+		ru: "Передают со слов Абу Наджиха аль-Ирбада ибн Сарии, да будет доволен им Аллах: Посланник Аллаха ﷺ дал нам наставление, от которого сердца устрашились и глаза прослезились. Мы сказали: «О Посланник Аллаха, будто это наставление прощающегося — так завещай нам». Он сказал: «Завещаю вам богобоязненность Аллаха, слух и повиновение, даже если над вами поставят раба. Кто из вас проживёт, увидит много разногласий. Так держитесь моей сунны и сунны праведных халифов, ведомых прямым путём. Вгрызитесь в неё коренными зубами. И остерегайтесь новшеств в делах: поистине, каждое нововведение — заблуждение»."
+	},
+	29: {
+		titleEn: "What takes one into Paradise",
+		core: "كُفَّ عَلَيْك هَذَا",
+		refRu: "ат-Тирмизи",
+		ru: "Передают со слов Муаза ибн Джабаля, да будет доволен им Аллах: я сказал: «О Посланник Аллаха, поведай мне о деле, которое введёт меня в Рай и удалит от Огня». Он сказал: «Ты спросил о великом, а оно легко для того, кому Аллах облегчит: поклоняйся Аллаху, не придавая Ему ничего в сотоварищи, выстаивай молитву, давай закят, постись в Рамадан и совершай хадж к Дому». Затем сказал: «Не указать ли тебе врата блага? Пост — щит. Милостыня гасит проступок, как вода гасит огонь. И молитва человека в глубине ночи». Затем прочитал: «Бока их отдаляются от постелей…» — до слов «…что они совершали». Затем сказал: «Не поведать ли тебе о главе дела, его столпе и вершине его горба?» Я сказал: «Конечно, о Посланник Аллаха». Он сказал: «Глава дела — ислам, его столп — молитва, вершина его горба — جهاد». Затем сказал: «Не поведать ли тебе, что держит всё это?» Я сказал: «Конечно». Тогда он взял себя за язык и сказал: «Удержи это». Я сказал: «О Пророк Аллаха, неужели мы будем спрошены за то, что говорим?» Он сказал: «Да лишит тебя мать! Разве низвергает людей на лица — или на носы — что-либо, кроме урожая их языков?»"
+	},
+	30: {
+		titleEn: "The limits of Allah",
+		core: "إنَّ اللَّهَ تَعَالَى فَرَضَ فَرَائِضَ فَلَا تُضَيِّعُوهَا",
+		refRu: "ад-Даракутни",
+		ru: "Передают со слов Абу Са‘лабы аль-Хушани Джуртума ибн Нашира, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Поистине, Аллах Всевышний возложил обязанности — не оставляйте их. Установил пределы — не преступайте их. Запретил вещи — не нарушайте их. И умолчал о вещах из милости к вам, не по забывчивости, — так не доискивайтесь их»."
+	},
+	31: {
+		titleEn: "Renounce the world",
+		core: "ازْهَدْ فِي الدُّنْيَا يُحِبَّك اللهُ",
+		refRu: "Ибн Маджа",
+		ru: "Передают со слов Абу-ль-Аббаса Сахля ибн Са‘да ас-Са‘иди, да будет доволен им Аллах: некий человек пришёл к Пророку ﷺ и сказал: «О Посланник Аллаха, укажи мне на дело, совершив которое, я буду любим Аллахом и любим людьми». Он сказал: «Воздержись от мира — и Аллах полюбит тебя. Воздержись от того, что у людей, — и люди полюбят тебя»."
+	},
+	32: {
+		titleEn: "Neither harm nor reciprocating harm",
+		core: "لَا ضَرَرَ وَلَا ضِرَارَ",
+		refRu: "Ибн Маджа и ад-Даракутни",
+		ru: "Передают со слов Абу Са‘ида Са‘да ибн Малика ибн Синана аль-Худри, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Нет вреда и нет взаимного вреда»."
+	},
+	33: {
+		titleEn: "Proof is upon the claimant",
+		core: "الْبَيِّنَةَ عَلَى الْمُدَّعِي، وَالْيَمِينَ عَلَى مَنْ أَنْكَرَ",
+		refRu: "аль-Байхаки; часть — в двух Сахихах",
+		ru: "Передают со слов Ибн Аббаса, да будет доволен Аллах ими обоими, что Посланник Аллаха ﷺ сказал: «Если бы людям давали по их притязаниям, то люди притязали бы на имущество других и на их кровь. Однако доказательство — на истце, а клятва — на том, кто отрицает»."
+	},
+	34: {
+		titleEn: "Change the evil you see",
+		core: "مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Са‘ида аль-Худри, да будет доволен им Аллах: я слышал, как Посланник Аллаха ﷺ сказал: «Кто из вас увидит порицаемое — пусть изменит его своей рукой. Если не сможет — то языком. Если не сможет — то сердцем. И это — слабейшая вера»."
+	},
+	35: {
+		titleEn: "Do not envy one another",
+		core: "كُونُوا عِبَادَ اللَّهِ إخْوَانًا",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Не завидуйте друг другу, не взвинчивайте цены друг против друга, не питайте ненависти, не отворачивайтесь и пусть никто не перебивает продажу брата. Будьте рабами Аллаха, братьями. Мусульманин — брат мусульманину: не притесняет его, не оставляет без помощи, не лжёт ему и не унижает его. Богобоязненность — вот здесь», — и он трижды указал на свою грудь. «Довольно человеку зла, если он унижает брата-мусульманина. Весь мусульманин для мусульманина запретен: его кровь, его имущество и его честь»."
+	},
+	36: {
+		titleEn: "Whoever relieves a believer",
+		core: "وَاَللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ",
+		refRu: "Муслим",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Пророк ﷺ сказал: «Кто снимет с верующего одну из печалей мира, Аллах снимет с него одну из печалей Дня воскресения. Кто облегчит стеснённому, Аллах облегчит ему в мире и в вечности. Кто покроет мусульманина, Аллах покроет его в мире и в вечности. Аллах в помощи раба, пока раб в помощи своему брату. Кто вступит на путь, взыскуя на нём знания, Аллах облегчит ему этим путь в Рай. Не соберётся народ в одном из домов Аллаха, читая Книгу Аллаха и изучая её между собой, кроме как низойдёт на них спокойствие, покроет их милость, окружат их ангелы, и Аллах помянет их среди тех, кто у Него. А кого замедлило его дело, того не ускорит его происхождение»."
+	},
+	37: {
+		titleEn: "Good deeds and bad deeds",
+		core: "إنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ",
+		refRu: "аль-Бухари и Муслим",
+		ru: "Передают со слов Ибн Аббаса, да будет доволен Аллах ими обоими, от Посланника Аллаха ﷺ в том, что он передаёт от своего Господа, благословен Он и возвышен: «Поистине, Аллах записал добрые дела и скверные, затем разъяснил это. Кто задумал доброе дело и не совершил его, Аллах записывает его у Себя как полное доброе дело. Если задумал и совершил, записывает его как от десяти до семисот крат и до многих крат. Если задумал скверное и не совершил, записывает его у Себя как полное доброе дело. Если задумал и совершил, записывает его как одно скверное дело»."
+	},
+	38: {
+		titleEn: "Whoever shows enmity to a friend of Mine",
+		core: "مَنْ عَادَى لِي وَلِيًّا فَقْد آذَنْتهُ بِالْحَرْبِ",
+		refRu: "аль-Бухари",
+		ru: "Передают со слов Абу Хурайры, да будет доволен им Аллах, что Посланник Аллаха ﷺ сказал: «Поистине, Аллах Всевышний сказал: „Кто враждует с близким ко Мне, тому Я объявил войну. Не приближается раб Мой ко Мне ничем более любимым для Меня, чем тем, что Я вменил ему в обязанность. И не перестаёт раб Мой приближаться ко Мне добровольным, пока Я не полюблю его. Когда Я полюблю его, Я — его слух, которым он слышит, его зрение, которым он видит, его рука, которой он берёт, и его нога, которой он ходит. Если он попросит Меня — непременно дам ему. Если он станет искать у Меня защиты — непременно защищу его“»."
+	},
+	39: {
+		titleEn: "Pardon for mistakes and forgetfulness",
+		core: "إنَّ اللَّهَ تَجَاوَزَ لِي عَنْ أُمَّتِي الْخَطَأَ وَالنِّسْيَانَ",
+		refRu: "Ибн Маджа и аль-Байхаки",
+		ru: "Передают со слов Ибн Аббаса, да будет доволен Аллах ими обоими, что Посланник Аллаха ﷺ сказал: «Поистине, Аллах простил моей общине ошибку, забывчивость и то, к чему их принудили»."
+	},
+	40: {
+		titleEn: "Be in this world as a stranger",
+		core: "كُنْ فِي الدُّنْيَا كَأَنَّك غَرِيبٌ أَوْ عَابِرُ سَبِيلٍ",
+		refRu: "аль-Бухари",
+		ru: "Передают со слов Ибн Умара, да будет доволен Аллах ими обоими: Посланник Аллаха ﷺ взял меня за плечо и сказал: «Будь в мире так, будто ты чужеземец или путник». Ибн Умар, да будет доволен Аллах ими обоими, говорил: «Если наступил вечер — не жди утра. Если наступило утро — не жди вечера. Бери из своего здоровья для своей болезни и из своей жизни для своей смерти»."
+	},
+	41: {
+		titleEn: "None of you believes until his desire follows what I brought",
+		core: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ",
+		refRu: "«аль-Худжжа», с достоверной цепью",
+		ru: "Передают со слов Абу Мухаммада Абдуллаха ибн Амра ибн аль-Аса, да будет доволен Аллах ими обоими, что Посланник Аллаха ﷺ сказал: «Не уверует никто из вас, пока его страсть не последует за тем, с чем я пришёл»."
+	},
+	42: {
+		titleEn: "O son of Adam, as long as you call upon Me",
+		core: "يَا ابْنَ آدَمَ! إِنَّكَ مَا دَعَوْتنِي وَرَجَوْتنِي غَفَرْتُ لَك",
+		refRu: "ат-Тирмизи",
+		ru: "Передают со слов Анаса ибн Малика, да будет доволен им Аллах: я слышал, как Посланник Аллаха ﷺ сказал: «Аллах Всевышний сказал: „О сын Адама, пока ты взываешь ко Мне и надеешься на Меня, Я прощаю тебе то, что было от тебя, и Мне нет до этого дела. О сын Адама, если бы твои грехи достигли облаков неба, а затем ты попросил у Меня прощения, Я простил бы тебя. О сын Адама, если бы ты пришёл ко Мне с грехами величиной с землю, а затем встретил Меня, не придавая Мне ничего в сотоварищи, Я пришёл бы к тебе с прощением такой же величины“»."
+	}
+};
+var NAMES_META = names_default;
+var NAMES = NAMES_META.items;
+function cleanAr(s) {
+	return s.replace(/<br\s*\/?>/gi, " ").replace(/‫‬/g, "").replace(/\s+/g, " ").trim();
+}
+var NAWAWI = nawawi_default.items.map((h) => {
+	const extra = NAWAWI_RU[h.n];
+	return {
+		n: h.n,
+		title: h.title,
+		titleEn: extra?.titleEn ?? h.title,
+		ar: cleanAr(h.ar),
+		core: extra?.core ?? cleanAr(h.ar).slice(0, 80),
+		en: h.en,
+		ru: extra?.ru ?? h.ru ?? h.title,
+		ref: h.ref,
+		refRu: extra?.refRu ?? h.ref
+	};
+});
+function hadithTitle(h, locale) {
+	if (locale === "en") return h.titleEn;
+	if (locale === "ar") return `الحديث ${h.n}`;
+	return h.title;
+}
+function hadithMeaning(h, locale) {
+	if (locale === "en") return h.en;
+	if (locale === "ar") return "";
+	return h.ru;
+}
+function hadithRef(h, locale) {
+	if (locale === "en") return h.ref.replace(/^sunnah\.com\/nawawi40:/, "an-Nawawi ");
+	if (locale === "ar") return `النووي ${h.n}`;
+	return h.refRu;
+}
+function speakLang(locale) {
+	if (locale === "en") return "en-US";
+	if (locale === "ar") return "ar-SA";
+	if (locale === "tr") return "tr-TR";
+	return "ru-RU";
+}
+function hadithOfDay() {
+	return NAWAWI[dayIndex(NAWAWI.length)] ?? NAWAWI[0];
+}
+function hijriLabel(d = /* @__PURE__ */ new Date(), locale = "ru") {
+	const tag = locale === "ar" ? "ar-SA" : locale === "en" ? "en-GB" : locale === "tr" ? "tr-TR" : "ru-RU";
+	return {
+		hijri: new Intl.DateTimeFormat(`${tag}-u-ca-islamic-umalqura`, {
+			day: "numeric",
+			month: "long",
+			year: "numeric"
+		}).format(d),
+		greg: new Intl.DateTimeFormat(tag, {
+			day: "numeric",
+			month: "long",
+			year: "numeric"
+		}).format(d)
+	};
+}
+function dayIndex(mod) {
+	const start = Date.UTC(2024, 0, 1);
+	return (Math.floor((Date.now() - start) / 864e5) % mod + mod) % mod;
+}
+var LOCALES = [
+	{
+		id: "ru",
+		native: "Русский",
+		nameRu: "Русский",
+		dir: "ltr"
+	},
+	{
+		id: "en",
+		native: "English",
+		nameRu: "Английский",
+		dir: "ltr"
+	},
+	{
+		id: "ar",
+		native: "العربية",
+		nameRu: "Арабский",
+		dir: "rtl"
+	},
+	{
+		id: "tr",
+		native: "Türkçe",
+		nameRu: "Турецкий",
+		dir: "ltr"
+	},
+	{
+		id: "uz",
+		native: "Oʻzbekcha",
+		nameRu: "Узбекский",
+		dir: "ltr"
+	},
+	{
+		id: "tg",
+		native: "Тоҷикӣ",
+		nameRu: "Таджикский",
+		dir: "ltr"
+	},
+	{
+		id: "kk",
+		native: "Қазақша",
+		nameRu: "Казахский",
+		dir: "ltr"
+	}
+];
+var NAV_LAYOUTS = [
+	{
+		id: "theme",
+		ru: "Как в оформлении"
+	},
+	{
+		id: "bottom",
+		ru: "Снизу"
+	},
+	{
+		id: "top",
+		ru: "Сверху"
+	},
+	{
+		id: "rail",
+		ru: "Только значки"
+	},
+	{
+		id: "sidebar",
+		ru: "Сбоку"
+	}
+];
+var PACKS = {
+	ru: {
+		"nav.home": "Главная",
+		"nav.zakat": "Закят",
+		"nav.quran": "Коран",
+		"nav.hisn": "Хисн",
+		"nav.learn": "Учить",
+		settings: "Настройки",
+		language: "Язык",
+		"nav.layout": "Раскладка вкладок",
+		sheikh: "Шейх",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Мир тебе.",
+		"ask.ph": "Шейху…",
+		"hisn.book": "Книга",
+		"hisn.listen": "Слушать",
+		"hisn.chapter": "Глава",
+		"hisn.hide": "Скрыть смысл",
+		"hisn.show": "Смысл",
+		"hisn.reset": "С начала",
+		"hisn.done": "готово",
+		"hisn.note": "hisnmuslim.com · счётчик на сегодня · тап по тексту или кругу",
+		"hisn.meaning.src": "Смысл: арабский матн — hisnmuslim.com. Русский — по английскому изданию той же книги, не замена арабскому.",
+		more: "Дополнительно",
+		"tile.names": "Имена",
+		"tile.quran": "Коран",
+		"tile.hisn": "Крепость",
+		"tile.nawawi": "40 хадисов",
+		"tile.index": "Указатели",
+		"tile.zakat": "Закят",
+		"tile.alphabet": "Алфавит",
+		"tile.quiz": "Викторина",
+		"tile.dict": "Словарь",
+		"tile.reminder": "Напоминание",
+		"tile.wisdom": "Мудрость",
+		"tile.calendar": "Календарь",
+		"tile.recite": "Красивое чтение",
+		"tile.tajweed": "Таджвид",
+		"tile.tafsir": "Тафсир",
+		"tile.books": "9 сборников",
+		"tile.mecca": "Мекка",
+		"tile.madina": "Медина",
+		"tile.learn": "Учить"
+	},
+	en: {
+		"nav.home": "Home",
+		"nav.zakat": "Zakat",
+		"nav.quran": "Quran",
+		"nav.hisn": "Hisn",
+		"nav.learn": "Learn",
+		settings: "Settings",
+		language: "Language",
+		"nav.layout": "Tab layout",
+		sheikh: "Sheikh",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Peace be upon you.",
+		"ask.ph": "Ask the sheikh…",
+		"hisn.book": "Book",
+		"hisn.listen": "Listen",
+		"hisn.chapter": "Chapter",
+		"hisn.hide": "Hide meaning",
+		"hisn.show": "Meaning",
+		"hisn.reset": "From start",
+		"hisn.done": "done",
+		"hisn.note": "hisnmuslim.com · daily counter · tap the text or the ring",
+		"hisn.meaning.src": "Arabic from hisnmuslim.com. English is the same edition.",
+		more: "More",
+		"tile.names": "Names",
+		"tile.quran": "Quran",
+		"tile.hisn": "Fortress",
+		"tile.nawawi": "40 hadiths",
+		"tile.index": "Index",
+		"tile.zakat": "Zakat",
+		"tile.alphabet": "Alphabet",
+		"tile.quiz": "Quiz",
+		"tile.dict": "Dictionary",
+		"tile.reminder": "Reminder",
+		"tile.wisdom": "Wisdom",
+		"tile.calendar": "Calendar",
+		"tile.recite": "Recitation",
+		"tile.tajweed": "Tajweed",
+		"tile.tafsir": "Tafsir",
+		"tile.books": "9 collections",
+		"tile.mecca": "Makkah",
+		"tile.madina": "Madinah",
+		"tile.learn": "Learn"
+	},
+	ar: {
+		"nav.home": "الرئيسية",
+		"nav.zakat": "الزكاة",
+		"nav.quran": "القرآن",
+		"nav.hisn": "الحصن",
+		"nav.learn": "تعلّم",
+		settings: "الإعدادات",
+		language: "اللغة",
+		"nav.layout": "ترتيب الأبواب",
+		sheikh: "الشيخ",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "سلامٌ عليك.",
+		"ask.ph": "اكتب للشيخ…",
+		"hisn.book": "الكتاب",
+		"hisn.listen": "استمع",
+		"hisn.chapter": "الباب",
+		"hisn.hide": "إخفاء المعنى",
+		"hisn.show": "المعنى",
+		"hisn.reset": "من أول",
+		"hisn.done": "تم",
+		"hisn.note": "hisnmuslim.com · العداد لليوم · اضغط النص أو الحلقة",
+		"hisn.meaning.src": "المتن العربي من hisnmuslim.com.",
+		more: "المزيد",
+		"tile.names": "الأسماء",
+		"tile.quran": "القرآن",
+		"tile.hisn": "الحصن",
+		"tile.nawawi": "الأربعون",
+		"tile.index": "الفهارس",
+		"tile.zakat": "الزكاة",
+		"tile.alphabet": "الحروف",
+		"tile.quiz": "اختبار",
+		"tile.dict": "المعجم",
+		"tile.reminder": "التذكير",
+		"tile.wisdom": "حكمة",
+		"tile.calendar": "التقويم",
+		"tile.recite": "التلاوة",
+		"tile.tajweed": "التجويد",
+		"tile.tafsir": "التفسير",
+		"tile.books": "تسعة كتب",
+		"tile.mecca": "مكة",
+		"tile.madina": "المدينة",
+		"tile.learn": "تعلّم"
+	},
+	tr: {
+		"nav.home": "Ana sayfa",
+		"nav.zakat": "Zekât",
+		"nav.quran": "Kur’an",
+		"nav.hisn": "Hisn",
+		"nav.learn": "Öğren",
+		settings: "Ayarlar",
+		language: "Dil",
+		"nav.layout": "Sekme düzeni",
+		sheikh: "Şeyh",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Selâm üzerine olsun.",
+		"ask.ph": "Şeyhe yaz…",
+		"hisn.book": "Kitap",
+		"hisn.listen": "Dinle",
+		"hisn.chapter": "Bölüm",
+		"hisn.hide": "Anlamı gizle",
+		"hisn.show": "Anlam",
+		"hisn.reset": "Baştan",
+		"hisn.done": "tamam",
+		"hisn.note": "hisnmuslim.com · günlük sayaç · metne veya halkaya dokun",
+		"hisn.meaning.src": "Arapça metin hisnmuslim.com. Türkçe anlam Islamic-Pro Azkar.",
+		more: "Daha fazla",
+		"tile.names": "İsimler",
+		"tile.quran": "Kur’an",
+		"tile.hisn": "Kale",
+		"tile.nawawi": "40 hadis",
+		"tile.index": "Dizin",
+		"tile.zakat": "Zekât",
+		"tile.alphabet": "Alfabe",
+		"tile.quiz": "Quiz",
+		"tile.dict": "Sözlük",
+		"tile.reminder": "Hatırlatma",
+		"tile.wisdom": "Hikmet",
+		"tile.calendar": "Takvim",
+		"tile.recite": "Tilavet",
+		"tile.tajweed": "Tecvid",
+		"tile.tafsir": "Tefsir",
+		"tile.books": "9 eser",
+		"tile.mecca": "Mekke",
+		"tile.madina": "Medine",
+		"tile.learn": "Öğren"
+	},
+	uz: {
+		"nav.home": "Bosh sahifa",
+		"nav.zakat": "Zakot",
+		"nav.quran": "Qur’on",
+		"nav.hisn": "Hisn",
+		"nav.learn": "O‘rganish",
+		settings: "Sozlamalar",
+		language: "Til",
+		"nav.layout": "Varaqlar joylashuvi",
+		sheikh: "Shayx",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Senga tinchlik.",
+		"ask.ph": "Shayxga yozing…",
+		"hisn.book": "Kitob",
+		"hisn.listen": "Tinglash",
+		"hisn.chapter": "Bob",
+		"hisn.hide": "Ma’noni yashirish",
+		"hisn.show": "Ma’no",
+		"hisn.reset": "Boshidan",
+		"hisn.done": "tayyor",
+		"hisn.note": "hisnmuslim.com · bugungi hisoblagich",
+		"hisn.meaning.src": "Duo matni arabcha. Qobiq o‘zbekcha; duo tarjimasi rus/ingliz/turk.",
+		more: "Qo‘shimcha",
+		"tile.names": "Ismlar",
+		"tile.quran": "Qur’on",
+		"tile.hisn": "Qal’a",
+		"tile.nawawi": "40 hadis",
+		"tile.index": "Ko‘rsatkich",
+		"tile.zakat": "Zakot",
+		"tile.alphabet": "Alifbo",
+		"tile.quiz": "Viktorina",
+		"tile.dict": "Lug‘at",
+		"tile.reminder": "Eslatma",
+		"tile.wisdom": "Hikmat",
+		"tile.calendar": "Taqvim",
+		"tile.recite": "Qiroat",
+		"tile.tajweed": "Tajvid",
+		"tile.tafsir": "Tafsir",
+		"tile.books": "9 to‘plam",
+		"tile.mecca": "Makka",
+		"tile.madina": "Madina",
+		"tile.learn": "O‘rganish"
+	},
+	tg: {
+		"nav.home": "Асосӣ",
+		"nav.zakat": "Закот",
+		"nav.quran": "Қуръон",
+		"nav.hisn": "Ҳисн",
+		"nav.learn": "Омӯхтан",
+		settings: "Танзимот",
+		language: "Забон",
+		"nav.layout": "Тартиби варақаҳо",
+		sheikh: "Шайх",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Салом бар ту.",
+		"ask.ph": "Ба шайх нависед…",
+		"hisn.book": "Китоб",
+		"hisn.listen": "Шунидан",
+		"hisn.chapter": "Боб",
+		"hisn.hide": "Пинҳон кардани маъно",
+		"hisn.show": "Маъно",
+		"hisn.reset": "Аз аввал",
+		"hisn.done": "тайёр",
+		"hisn.note": "hisnmuslim.com · ҳисобкунаки имрӯз",
+		"hisn.meaning.src": "Матни дуо арабӣ. Забони барнома тоҷикӣ; тарҷумаи дуо русӣ/англисӣ/туркӣ.",
+		more: "Иловагӣ",
+		"tile.names": "Номҳо",
+		"tile.quran": "Қуръон",
+		"tile.hisn": "Қалъа",
+		"tile.nawawi": "40 ҳадис",
+		"tile.index": "Нишондиҳанда",
+		"tile.zakat": "Закот",
+		"tile.alphabet": "Алифбо",
+		"tile.quiz": "Викторина",
+		"tile.dict": "Луғат",
+		"tile.reminder": "Ёдрас",
+		"tile.wisdom": "Ҳикмат",
+		"tile.calendar": "Тақвим",
+		"tile.recite": "Қироат",
+		"tile.tajweed": "Таҷвид",
+		"tile.tafsir": "Тафсир",
+		"tile.books": "9 маҷмӯа",
+		"tile.mecca": "Макка",
+		"tile.madina": "Мадина",
+		"tile.learn": "Омӯхтан"
+	},
+	kk: {
+		"nav.home": "Басты",
+		"nav.zakat": "Зекет",
+		"nav.quran": "Құран",
+		"nav.hisn": "Хисн",
+		"nav.learn": "Оқу",
+		settings: "Баптау",
+		language: "Тіл",
+		"nav.layout": "Қойындылар",
+		sheikh: "Шейх",
+		"peace.ar": "السلام عليكم",
+		"peace.ru": "Саған сәлем.",
+		"ask.ph": "Шейхке жаз…",
+		"hisn.book": "Кітап",
+		"hisn.listen": "Тыңдау",
+		"hisn.chapter": "Тарау",
+		"hisn.hide": "Мағынаны жасыру",
+		"hisn.show": "Мағына",
+		"hisn.reset": "Басынан",
+		"hisn.done": "дайын",
+		"hisn.note": "hisnmuslim.com · бүгінгі есептеуіш",
+		"hisn.meaning.src": "Дұға мәтіні арабша. Қолданба қазақша; дұға аудармасы орыс/ағылшын/түрік.",
+		more: "Қосымша",
+		"tile.names": "Есімдер",
+		"tile.quran": "Құран",
+		"tile.hisn": "Қамал",
+		"tile.nawawi": "40 хадис",
+		"tile.index": "Көрсеткіш",
+		"tile.zakat": "Зекет",
+		"tile.alphabet": "Әліпби",
+		"tile.quiz": "Викторина",
+		"tile.dict": "Сөздік",
+		"tile.reminder": "Еске салу",
+		"tile.wisdom": "Даналық",
+		"tile.calendar": "Күнтізбе",
+		"tile.recite": "Қирағат",
+		"tile.tajweed": "Тәжуид",
+		"tile.tafsir": "Тәпсір",
+		"tile.books": "9 жинақ",
+		"tile.mecca": "Мекке",
+		"tile.madina": "Мәдина",
+		"tile.learn": "Оқу"
+	}
+};
+function fill(key, values) {
+	Object.keys(PACKS).forEach((loc) => {
+		PACKS[loc][key] = values[loc] ?? values.ru;
+	});
+}
+fill("hisn.col.morning", {
+	ru: "Утро и вечер",
+	en: "Morning & evening",
+	ar: "الصباح والمساء",
+	tr: "Sabah ve akşam",
+	uz: "Tong va kech",
+	tg: "Субҳ ва шом",
+	kk: "Таң мен кеш"
+});
+fill("hisn.col.prayer", {
+	ru: "После намаза",
+	en: "After prayer",
+	ar: "بعد الصلاة",
+	tr: "Namazdan sonra",
+	uz: "Namozdan keyin",
+	tg: "Баъди намоз",
+	kk: "Намаздан кейін"
+});
+fill("hisn.col.sleep", {
+	ru: "Перед сном",
+	en: "Before sleep",
+	ar: "قبل النوم",
+	tr: "Uyumadan önce",
+	uz: "Uxlamasdan oldin",
+	tg: "Пеш аз хоб",
+	kk: "Ұйқы алдында"
+});
+fill("hisn.col.wake", {
+	ru: "Пробуждение",
+	en: "Upon waking",
+	ar: "عند الاستيقاظ",
+	tr: "Uyanınca",
+	uz: "Uyg‘onganda",
+	tg: "Бедоршавӣ",
+	kk: "Оянғанда"
+});
+fill("hisn.col.home", {
+	ru: "Дом",
+	en: "Home",
+	ar: "المنزل",
+	tr: "Ev",
+	uz: "Uy",
+	tg: "Хона",
+	kk: "Үй"
+});
+fill("hisn.col.mosque", {
+	ru: "Мечеть",
+	en: "Mosque",
+	ar: "المسجد",
+	tr: "Cami",
+	uz: "Masjid",
+	tg: "Масҷид",
+	kk: "Мешіт"
+});
+fill("hisn.col.food", {
+	ru: "Еда",
+	en: "Food",
+	ar: "الطعام",
+	tr: "Yemek",
+	uz: "Ovqat",
+	tg: "Хӯрок",
+	kk: "Тамақ"
+});
+fill("hisn.col.travel", {
+	ru: "В пути",
+	en: "Travel",
+	ar: "السفر",
+	tr: "Yolculuk",
+	uz: "Safar",
+	tg: "Сафар",
+	kk: "Жол"
+});
+fill("hisn.col.dhikr", {
+	ru: "Зикр",
+	en: "Dhikr",
+	ar: "الذكر",
+	tr: "Zikir",
+	uz: "Zikr",
+	tg: "Зикр",
+	kk: "Зікір"
+});
+fill("hisn.col.tawba", {
+	ru: "Тауба",
+	en: "Repentance",
+	ar: "التوبة",
+	tr: "Tövbe",
+	uz: "Tavba",
+	tg: "Тавба",
+	kk: "Тәубе"
+});
+fill("hisn.wird", {
+	ru: "Главный вирд",
+	en: "Main wird",
+	ar: "الورد الأكبر",
+	tr: "Ana vird",
+	uz: "Asosiy wird",
+	tg: "Вирди асосӣ",
+	kk: "Негізгі вірд"
+});
+fill("hisn.daych", {
+	ru: "Глава дня",
+	en: "Chapter of the day",
+	ar: "باب اليوم",
+	tr: "Günün bölümü",
+	uz: "Kun bobı",
+	tg: "Боби рӯз",
+	kk: "Күн тарауы"
+});
+fill("hisn.fav", {
+	ru: "Избранное",
+	en: "Favorites",
+	ar: "المفضلة",
+	tr: "Favoriler",
+	uz: "Sevimlilar",
+	tg: "Интихобшуда",
+	kk: "Таңдаулы"
+});
+fill("hisn.find", {
+	ru: "Найти главу: арабский, русский, номер",
+	en: "Find a chapter: Arabic, English, number",
+	ar: "ابحث: عربي أو رقم",
+	tr: "Bölüm ara: Arapça, Türkçe, numara",
+	uz: "Bob qidirish: arabcha, ruscha, raqam",
+	tg: "Ҷустуҷӯи боб: арабӣ, русӣ, рақам",
+	kk: "Тарау іздеу: арабша, орысша, нөмір"
+});
+fill("hisn.more", {
+	ru: "Ещё главы",
+	en: "More chapters",
+	ar: "المزيد من الأبواب",
+	tr: "Daha fazla bölüm",
+	uz: "Yana boblar",
+	tg: "Боз бобҳо",
+	kk: "Тағы тараулар"
+});
+fill("hisn.today", {
+	ru: "Сегодня",
+	en: "Today",
+	ar: "اليوم",
+	tr: "Bugün",
+	uz: "Bugun",
+	tg: "Имрӯз",
+	kk: "Бүгін"
+});
+fill("hisn.chapters", {
+	ru: "глав",
+	en: "chapters",
+	ar: "باباً",
+	tr: "bölüm",
+	uz: "bob",
+	tg: "боб",
+	kk: "тарау"
+});
+fill("hisn.duas", {
+	ru: "дуа",
+	en: "duas",
+	ar: "دعاء",
+	tr: "dua",
+	uz: "duo",
+	tg: "дуо",
+	kk: "дұға"
+});
+fill("hisn.fortress", {
+	ru: "Крепость мусульманина",
+	en: "Fortress of the Muslim",
+	ar: "حصن المسلم",
+	tr: "Müslümanın kalesi",
+	uz: "Musulmon qal’asi",
+	tg: "Қалъаи мусулмон",
+	kk: "Мұсылман қамалы"
+});
+fill("hisn.all", {
+	ru: "Все 132 главы",
+	en: "All 132 chapters",
+	ar: "كل الأبواب",
+	tr: "132 bölümün tümü",
+	uz: "132 bobning barchasi",
+	tg: "Ҳамаи 132 боб",
+	kk: "132 тараудың бәрі"
+});
+fill("set.lang", {
+	ru: "Язык приложения",
+	en: "App language",
+	ar: "لغة التطبيق",
+	tr: "Uygulama dili",
+	uz: "Ilova tili",
+	tg: "Забони барнома",
+	kk: "Қолданба тілі"
+});
+fill("set.start", {
+	ru: "Стартовая вкладка",
+	en: "Start tab",
+	ar: "التبويب عند الفتح",
+	tr: "Açılış sekmesi",
+	uz: "Boshlash varag‘i",
+	tg: "Варақаи оғоз",
+	kk: "Бастапқы қойынды"
+});
+fill("set.keep", {
+	ru: "Помнить последнюю вкладку",
+	en: "Remember last tab",
+	ar: "تذكّر آخر تبويب",
+	tr: "Son sekmeyi hatırla",
+	uz: "Oxirgi varaqni eslab qol",
+	tg: "Варақаи охиринро ёд дор",
+	kk: "Соңғы қойындыны есте сақта"
+});
+fill("set.nav", {
+	ru: "Раскладка вкладок",
+	en: "Tab layout",
+	ar: "ترتيب الأبواب",
+	tr: "Sekme düzeni",
+	uz: "Varaqlar joylashuvi",
+	tg: "Тартиби варақаҳо",
+	kk: "Қойындылар орны"
+});
+fill("set.scheme", {
+	ru: "Свет / тень",
+	en: "Light / dark",
+	ar: "فاتح / داكن",
+	tr: "Açık / koyu",
+	uz: "Yorug‘ / qorong‘u",
+	tg: "Равшан / торик",
+	kk: "Жарық / қараңғы"
+});
+fill("set.font", {
+	ru: "Размер текста",
+	en: "Text size",
+	ar: "حجم الخط",
+	tr: "Yazı boyutu",
+	uz: "Matn o‘lchami",
+	tg: "Андозаи матн",
+	kk: "Мәтін өлшемі"
+});
+fill("set.density", {
+	ru: "Плотность",
+	en: "Density",
+	ar: "الكثافة",
+	tr: "Sıklık",
+	uz: "Zichlik",
+	tg: "Зичӣ",
+	kk: "Тығыздық"
+});
+fill("set.home", {
+	ru: "Сетка главной",
+	en: "Home grid",
+	ar: "شبكة الرئيسية",
+	tr: "Ana sayfa ızgarası",
+	uz: "Bosh sahifa panjarasi",
+	tg: "Тӯри асосӣ",
+	kk: "Басты тор"
+});
+fill("set.reciter", {
+	ru: "Чтец Корана",
+	en: "Quran reciter",
+	ar: "قارئ القرآن",
+	tr: "Kur’an okuyucusu",
+	uz: "Qur’on qorisi",
+	tg: "Қории Қуръон",
+	kk: "Құран қариі"
+});
+fill("set.sabrhour", {
+	ru: "Час аята сабра",
+	en: "Sabr ayah hour",
+	ar: "ساعة آية الصبر",
+	tr: "Sabır ayeti saati",
+	uz: "Sabr oyat soati",
+	tg: "Соати ояти сабр",
+	kk: "Сабыр аяты сағаты"
+});
+fill("set.motion", {
+	ru: "Без анимаций",
+	en: "Reduce motion",
+	ar: "بدون حركة",
+	tr: "Animasyonsuz",
+	uz: "Animatsiyasiz",
+	tg: "Бе ҳаракат",
+	kk: "Анимациясыз"
+});
+fill("set.meaning", {
+	ru: "Показывать смысл / перевод",
+	en: "Show meaning / translation",
+	ar: "إظهار المعنى",
+	tr: "Anlamı göster",
+	uz: "Ma’noni ko‘rsat",
+	tg: "Маъноро нишон деҳ",
+	kk: "Мағынаны көрсет"
+});
+fill("set.hijri", {
+	ru: "Показывать хиджру",
+	en: "Show Hijri date",
+	ar: "إظهار التاريخ الهجري",
+	tr: "Hicri tarihi göster",
+	uz: "Hijriy sanani ko‘rsat",
+	tg: "Таърихи ҳиҷриро нишон деҳ",
+	kk: "Һижри күнді көрсет"
+});
+fill("set.favfirst", {
+	ru: "Избранное Хисн сверху",
+	en: "Hisn favorites first",
+	ar: "المفضلة أولاً",
+	tr: "Favoriler üstte",
+	uz: "Sevimlilar tepada",
+	tg: "Интихобшуда боло",
+	kk: "Таңдаулы жоғарыда"
+});
+fill("set.autoplay", {
+	ru: "Коран: следующий аят сам",
+	en: "Quran: auto-play next ayah",
+	ar: "تشغيل الآية التالية تلقائياً",
+	tr: "Sonraki ayeti otomatik çal",
+	uz: "Keyingi oyatni o‘zi qo‘ysin",
+	tg: "Ояти навбатиро худ пахш кун",
+	kk: "Келесі аятты өзі ойнатып"
+});
+fill("set.contrast", {
+	ru: "Сильнее контраст",
+	en: "Higher contrast",
+	ar: "تباين أقوى",
+	tr: "Daha yüksek kontrast",
+	uz: "Kuchliroq kontrast",
+	tg: "Контрасти қавитар",
+	kk: "Күштірек контраст"
+});
+fill("set.largetap", {
+	ru: "Крупные кнопки",
+	en: "Larger tap targets",
+	ar: "أزرار أكبر",
+	tr: "Daha büyük düğmeler",
+	uz: "Kattaroq tugmalar",
+	tg: "Тугмаҳои калонтар",
+	kk: "Үлкенірек батырмалар"
+});
+fill("set.notify", {
+	ru: "Аят сабра каждый день на телефон",
+	en: "Daily sabr ayah on the phone",
+	ar: "آية الصبر يومياً على الهاتف",
+	tr: "Her gün telefona sabır ayeti",
+	uz: "Har kuni telefonga sabr oyati",
+	tg: "Ҳар рӯз ояти сабр ба телефон",
+	kk: "Күн сайын телефонға сабыр аяты"
+});
+fill("set.theme", {
+	ru: "Оформление",
+	en: "Appearance",
+	ar: "المظهر",
+	tr: "Görünüm",
+	uz: "Ko‘rinish",
+	tg: "Намуд",
+	kk: "Көрініс"
+});
+fill("set.data", {
+	ru: "Данные на этом устройстве",
+	en: "Data on this device",
+	ar: "بيانات هذا الجهاز",
+	tr: "Bu cihazdaki veriler",
+	uz: "Ushbu qurilmadagi ma’lumot",
+	tg: "Маълумоти ҳамин дастгоҳ",
+	kk: "Осы құрылғыдағы дерек"
+});
+fill("set.reset.hisn", {
+	ru: "Сбросить счётчики Хисн за сегодня",
+	en: "Reset today’s Hisn counters",
+	ar: "تصفير عدّاد الحصن اليوم",
+	tr: "Bugünün Hisn sayaçlarını sıfırla",
+	uz: "Bugungi Hisn hisoblagichini noldan",
+	tg: "Ҳисобкунаки имрӯзи Ҳиснро сифр кун",
+	kk: "Бүгінгі Хисн есептегішін тазалау"
+});
+fill("set.reset.all", {
+	ru: "Стереть все локальные данные",
+	en: "Erase all local data",
+	ar: "مسح كل البيانات المحلية",
+	tr: "Tüm yerel verileri sil",
+	uz: "Barcha mahalliy ma’lumotni o‘chirish",
+	tg: "Ҳамаи маълумоти маҳаллиро пок кун",
+	kk: "Барлық жергілікті деректерді өшіру"
+});
+fill("set.test.notify", {
+	ru: "Проверить уведомление сейчас",
+	en: "Send a test notification now",
+	ar: "إرسال إشعار تجريبي الآن",
+	tr: "Şimdi deneme bildirimi gönder",
+	uz: "Hozir sinov bildirishnomasini yubor",
+	tg: "Ҳозир огоҳии санҷишӣ фирист",
+	kk: "Қазір сынақ хабарламасын жібер"
+});
+fill("set.as.theme", {
+	ru: "Как в оформлении",
+	en: "Follow theme",
+	ar: "حسب المظهر",
+	tr: "Temaya göre",
+	uz: "Mavzuga qarab",
+	tg: "Мувофиқи намуд",
+	kk: "Без бойынша"
+});
+fill("set.dark", {
+	ru: "Тёмная",
+	en: "Dark",
+	ar: "داكن",
+	tr: "Koyu",
+	uz: "Qorong‘u",
+	tg: "Торик",
+	kk: "Қараңғы"
+});
+fill("set.light", {
+	ru: "Светлая",
+	en: "Light",
+	ar: "فاتح",
+	tr: "Açık",
+	uz: "Yorug‘",
+	tg: "Равшан",
+	kk: "Жарық"
+});
+fill("set.compact", {
+	ru: "Компактно",
+	en: "Compact",
+	ar: "مضغوط",
+	tr: "Sıkışık",
+	uz: "Ixcham",
+	tg: "Фишурда",
+	kk: "Ықшам"
+});
+fill("set.regular", {
+	ru: "Обычно",
+	en: "Regular",
+	ar: "عادي",
+	tr: "Normal",
+	uz: "Oddiy",
+	tg: "Оддӣ",
+	kk: "Қалыпты"
+});
+fill("set.airy", {
+	ru: "Воздушно",
+	en: "Airy",
+	ar: "واسع",
+	tr: "Ferah",
+	uz: "Keng",
+	tg: "Васеъ",
+	kk: "Кең"
+});
+fill("set.roomy", {
+	ru: "Просторно",
+	en: "Roomy",
+	ar: "فسيح",
+	tr: "Geniş",
+	uz: "Kengroq",
+	tg: "Фарох",
+	kk: "Кеңірек"
+});
+fill("tab.home", {
+	ru: "Главная",
+	en: "Home",
+	ar: "الرئيسية",
+	tr: "Ana sayfa",
+	uz: "Bosh sahifa",
+	tg: "Асосӣ",
+	kk: "Басты"
+});
+fill("tab.zakat", {
+	ru: "Закят",
+	en: "Zakat",
+	ar: "الزكاة",
+	tr: "Zekât",
+	uz: "Zakot",
+	tg: "Закот",
+	kk: "Зекет"
+});
+fill("tab.quran", {
+	ru: "Коран",
+	en: "Quran",
+	ar: "القرآن",
+	tr: "Kur’an",
+	uz: "Qur’on",
+	tg: "Қуръон",
+	kk: "Құран"
+});
+fill("tab.hisn", {
+	ru: "Хисн",
+	en: "Hisn",
+	ar: "الحصن",
+	tr: "Hisn",
+	uz: "Hisn",
+	tg: "Ҳисн",
+	kk: "Хисн"
+});
+fill("tab.learn", {
+	ru: "Учить",
+	en: "Learn",
+	ar: "تعلّم",
+	tr: "Öğren",
+	uz: "O‘rganish",
+	tg: "Омӯхтан",
+	kk: "Оқу"
+});
+fill("set.section.lang", {
+	ru: "Язык и вид",
+	en: "Language & look",
+	ar: "اللغة والمظهر",
+	tr: "Dil ve görünüm",
+	uz: "Til va ko‘rinish",
+	tg: "Забон ва намуд",
+	kk: "Тіл және көрініс"
+});
+fill("set.section.quran", {
+	ru: "Коран и Хисн",
+	en: "Quran & Hisn",
+	ar: "القرآن والحصن",
+	tr: "Kur’an ve Hisn",
+	uz: "Qur’on va Hisn",
+	tg: "Қуръон ва Ҳисн",
+	kk: "Құран және Хисн"
+});
+fill("set.section.notify", {
+	ru: "Напоминания",
+	en: "Reminders",
+	ar: "التذكير",
+	tr: "Hatırlatmalar",
+	uz: "Eslatmalar",
+	tg: "Ёдраскуниҳо",
+	kk: "Еске салғыштар"
+});
+fill("set.section.voice", {
+	ru: "Озвучка",
+	en: "Voice",
+	ar: "الصوت",
+	tr: "Ses",
+	uz: "Ovoz",
+	tg: "Овоз",
+	kk: "Дауыс"
+});
+fill("set.voice.gender", {
+	ru: "Голос",
+	en: "Voice",
+	ar: "الصوت",
+	tr: "Ses",
+	uz: "Ovoz",
+	tg: "Овоз",
+	kk: "Дауыс"
+});
+fill("set.voice.male", {
+	ru: "Мужской",
+	en: "Male",
+	ar: "ذكر",
+	tr: "Erkek",
+	uz: "Erkak",
+	tg: "Мардона",
+	kk: "Ер"
+});
+fill("set.voice.female", {
+	ru: "Женский",
+	en: "Female",
+	ar: "أنثى",
+	tr: "Kadın",
+	uz: "Ayol",
+	tg: "Занона",
+	kk: "Әйел"
+});
+fill("set.voice.rate", {
+	ru: "Темп",
+	en: "Pace",
+	ar: "السرعة",
+	tr: "Tempo",
+	uz: "Sur’at",
+	tg: "Суръат",
+	kk: "Қарқын"
+});
+fill("set.voice.slow", {
+	ru: "Медленно",
+	en: "Slow",
+	ar: "بطيء",
+	tr: "Yavaş",
+	uz: "Sekin",
+	tg: "Оҳиста",
+	kk: "Баяу"
+});
+fill("set.voice.normal", {
+	ru: "Обычно",
+	en: "Normal",
+	ar: "عادي",
+	tr: "Normal",
+	uz: "Oddiy",
+	tg: "Оддӣ",
+	kk: "Қалыпты"
+});
+fill("set.voice.fast", {
+	ru: "Быстро",
+	en: "Fast",
+	ar: "سريع",
+	tr: "Hızlı",
+	uz: "Tez",
+	tg: "Тез",
+	kk: "Жылдам"
+});
+fill("set.voice.test", {
+	ru: "Прослушать",
+	en: "Listen",
+	ar: "استمع",
+	tr: "Dinle",
+	uz: "Tingla",
+	tg: "Шунав",
+	kk: "Тыңда"
+});
+fill("set.voice.note", {
+	ru: "Голос хадисов, шейха и учителя. Чтецы Корана — отдельно, выше.",
+	en: "Voice for hadith, the sheikh and the teacher. Quran reciters are above.",
+	ar: "صوت الأحاديث والشيخ والمعلم. قرّاء القرآن أعلاه.",
+	tr: "Hadis, şeyh ve öğretmen sesi. Kur’an okuyucuları yukarıda.",
+	uz: "Hadis, shayx va o‘qituvchi ovozi. Qur’on qorilari yuqorida.",
+	tg: "Овози ҳадис, шайх ва муаллим. Қориҳои Қуръон болотар.",
+	kk: "Хадис, шейх және ұстаз дауысы. Құран қарилары жоғарыда."
+});
+fill("set.voice.probe", {
+	ru: "Мир тебе. Это голос Мизан.",
+	en: "Peace be upon you. This is the voice of Mizan.",
+	ar: "السلام عليكم. هذا صوت ميزان.",
+	tr: "Selam üzerine olsun. Bu Mizan’ın sesi.",
+	uz: "Salom senga. Bu Mizan ovozi.",
+	tg: "Салом бар ту. Ин овози Мизан аст.",
+	kk: "Сәлем саған. Бұл Мизан дауысы."
+});
+fill("set.close", {
+	ru: "Закрыть",
+	en: "Close",
+	ar: "إغلاق",
+	tr: "Kapat",
+	uz: "Yopish",
+	tg: "Пӯшидан",
+	kk: "Жабу"
+});
+fill("set.saved", {
+	ru: "Сохранённые расчёты",
+	en: "Saved calculations",
+	ar: "الحسابات المحفوظة",
+	tr: "Kayıtlı hesaplar",
+	uz: "Saqlangan hisoblar",
+	tg: "Ҳисобҳои захирашуда",
+	kk: "Сақталған есептер"
+});
+fill("set.saved.open", {
+	ru: "Открыть",
+	en: "Open",
+	ar: "فتح",
+	tr: "Aç",
+	uz: "Ochish",
+	tg: "Кушодан",
+	kk: "Ашу"
+});
+fill("set.saved.copy", {
+	ru: "Копия",
+	en: "Copy",
+	ar: "نسخة",
+	tr: "Kopya",
+	uz: "Nusxa",
+	tg: "Нусха",
+	kk: "Көшірме"
+});
+fill("set.saved.delete", {
+	ru: "Удалить",
+	en: "Delete",
+	ar: "حذف",
+	tr: "Sil",
+	uz: "O‘chirish",
+	tg: "Нест кардан",
+	kk: "Жою"
+});
+fill("set.import", {
+	ru: "Открыть сохранённый расчёт",
+	en: "Open a saved calculation",
+	ar: "فتح حساب محفوظ",
+	tr: "Kayıtlı hesabı aç",
+	uz: "Saqlangan hisobni ochish",
+	tg: "Ҳисоби захирашударо кушо",
+	kk: "Сақталған есепті ашу"
+});
+fill("set.note", {
+	ru: "Язык меняет подписи и смысл. Арабский матн не трогаем. Это не фетва.",
+	en: "Language changes labels and meanings. Arabic text stays. Not a fatwa.",
+	ar: "اللغة تغيّر العناوين والمعنى. المتن العربي يبقى. ليست فتوى.",
+	tr: "Dil etiketleri ve anlamı değiştirir. Arapça metin durur. Fetva değildir.",
+	uz: "Til yozuvlar va ma’noni o‘zgartiradi. Arabcha matn qoladi. Fatvo emas.",
+	tg: "Забон имзоҳо ва маъноро иваз мекунад. Матни арабӣ мемонад. Фатво нест.",
+	kk: "Тіл жазу мен мағынаны өзгертеді. Араб мәтіні қалады. Пәтуа емес."
+});
+fill("hadith.day", {
+	ru: "Хадис дня",
+	en: "Hadith of the day",
+	ar: "حديث اليوم",
+	tr: "Günün hadisi",
+	uz: "Kun hadisi",
+	tg: "Ҳадиси рӯз",
+	kk: "Күн хадисі"
+});
+fill("hadith.n", {
+	ru: "Хадис",
+	en: "Hadith",
+	ar: "حديث",
+	tr: "Hadis",
+	uz: "Hadis",
+	tg: "Ҳадис",
+	kk: "Хадис"
+});
+fill("hadith.back", {
+	ru: "Назад",
+	en: "Back",
+	ar: "رجوع",
+	tr: "Geri",
+	uz: "Orqaga",
+	tg: "Бозгашт",
+	kk: "Артқа"
+});
+fill("hadith.prev", {
+	ru: "Предыдущий",
+	en: "Previous",
+	ar: "السابق",
+	tr: "Önceki",
+	uz: "Oldingi",
+	tg: "Қаблӣ",
+	kk: "Алдыңғы"
+});
+fill("hadith.next", {
+	ru: "Дальше",
+	en: "Next",
+	ar: "التالي",
+	tr: "Sonraki",
+	uz: "Keyingi",
+	tg: "Баъдӣ",
+	kk: "Келесі"
+});
+fill("hadith.listen.ar", {
+	ru: "Арабский",
+	en: "Arabic",
+	ar: "العربية",
+	tr: "Arapça",
+	uz: "Arabcha",
+	tg: "Арабӣ",
+	kk: "Арабша"
+});
+fill("hadith.listen.mean", {
+	ru: "Перевод",
+	en: "Meaning",
+	ar: "المعنى",
+	tr: "Anlam",
+	uz: "Ma’no",
+	tg: "Маъно",
+	kk: "Мағына"
+});
+fill("hadith.listen.all", {
+	ru: "Слушать всё",
+	en: "Listen to all",
+	ar: "استمع للكل",
+	tr: "Tümünü dinle",
+	uz: "Hammasini tingla",
+	tg: "Ҳамаро шунав",
+	kk: "Бәрін тыңда"
+});
+fill("hadith.paper.mushaf", {
+	ru: "Мусхаф",
+	en: "Mushaf",
+	ar: "مصحف",
+	tr: "Mushaf",
+	uz: "Mushaf",
+	tg: "Мусҳаф",
+	kk: "Мусхаф"
+});
+fill("hadith.paper.folio", {
+	ru: "Лист",
+	en: "Folio",
+	ar: "ورقة",
+	tr: "Yaprak",
+	uz: "Varaq",
+	tg: "Варақ",
+	kk: "Парақ"
+});
+fill("hadith.paper.night", {
+	ru: "Ночь",
+	en: "Night",
+	ar: "ليل",
+	tr: "Gece",
+	uz: "Tun",
+	tg: "Шаъ",
+	kk: "Түн"
+});
+fill("hadith.paper.vellum", {
+	ru: "Велень",
+	en: "Vellum",
+	ar: "رق",
+	tr: "Parşömen",
+	uz: "Pergament",
+	tg: "Пергамент",
+	kk: "Пергамент"
+});
+fill("hadith.font.naskh", {
+	ru: "Насх",
+	en: "Naskh",
+	ar: "نسخ",
+	tr: "Nesih",
+	uz: "Nasx",
+	tg: "Насх",
+	kk: "Нәсх"
+});
+fill("hadith.font.amiri", {
+	ru: "Амири",
+	en: "Amiri",
+	ar: "أميري",
+	tr: "Amiri",
+	uz: "Amiri",
+	tg: "Амирӣ",
+	kk: "Амири"
+});
+fill("hadith.font.kufi", {
+	ru: "Куфи",
+	en: "Kufi",
+	ar: "كوفي",
+	tr: "Kufi",
+	uz: "Kufiy",
+	tg: "Кӯфӣ",
+	kk: "Куфи"
+});
+fill("hadith.font.scheherazade", {
+	ru: "Шехерезада",
+	en: "Scheherazade",
+	ar: "شهرزاد",
+	tr: "Şehrazat",
+	uz: "Shahrazod",
+	tg: "Шаҳрзода",
+	kk: "Шаһразаде"
+});
+fill("hadith.font.mean.literata", {
+	ru: "Книга",
+	en: "Book",
+	ar: "كتاب",
+	tr: "Kitap",
+	uz: "Kitob",
+	tg: "Китоб",
+	kk: "Кітап"
+});
+fill("hadith.font.mean.fraunces", {
+	ru: "Антиква",
+	en: "Antique",
+	ar: "عتيق",
+	tr: "Antik",
+	uz: "Antikva",
+	tg: "Антиква",
+	kk: "Антиква"
+});
+fill("hadith.font.mean.newsreader", {
+	ru: "Газета",
+	en: "News",
+	ar: "صحيفة",
+	tr: "Gazete",
+	uz: "Gazeta",
+	tg: "Рӯзнома",
+	kk: "Газет"
+});
+fill("hadith.font.mean.plex", {
+	ru: "Гротеск",
+	en: "Sans",
+	ar: "sans",
+	tr: "Sans",
+	uz: "Sans",
+	tg: "Гротеск",
+	kk: "Гротеск"
+});
+fill("hadith.listen", {
+	ru: "Слушать",
+	en: "Listen",
+	ar: "استمع",
+	tr: "Dinle",
+	uz: "Tingla",
+	tg: "Шунав",
+	kk: "Тыңда"
+});
+fill("hadith.stop", {
+	ru: "Стоп",
+	en: "Stop",
+	ar: "قف",
+	tr: "Dur",
+	uz: "To‘xta",
+	tg: "Ист",
+	kk: "Тоқта"
+});
+fill("set.font.family", {
+	ru: "Шрифт",
+	en: "Typeface",
+	ar: "الخط",
+	tr: "Yazı tipi",
+	uz: "Shrift",
+	tg: "Ҳуруф",
+	kk: "Қаріп"
+});
+fill("set.font.theme", {
+	ru: "Как в оформлении",
+	en: "Follow theme",
+	ar: "حسب المظهر",
+	tr: "Temaya göre",
+	uz: "Mavzuga qarab",
+	tg: "Мувофиқи намуд",
+	kk: "Без бойынша"
+});
+fill("set.font.fraunces", {
+	ru: "Антиква",
+	en: "Antique serif",
+	ar: "serif",
+	tr: "Antik serif",
+	uz: "Antikva",
+	tg: "Антиква",
+	kk: "Антиква"
+});
+fill("set.font.literata", {
+	ru: "Книга",
+	en: "Book",
+	ar: "كتاب",
+	tr: "Kitap",
+	uz: "Kitob",
+	tg: "Китоб",
+	kk: "Кітап"
+});
+fill("set.font.newsreader", {
+	ru: "Газета",
+	en: "News",
+	ar: "صحيفة",
+	tr: "Gazete",
+	uz: "Gazeta",
+	tg: "Рӯзнома",
+	kk: "Газет"
+});
+fill("set.font.serif", {
+	ru: "Классика",
+	en: "Classic",
+	ar: "كلاسيكي",
+	tr: "Klasik",
+	uz: "Klassik",
+	tg: "Классикӣ",
+	kk: "Классика"
+});
+fill("set.font.plex", {
+	ru: "Гротеск",
+	en: "Sans",
+	ar: "sans",
+	tr: "Sans",
+	uz: "Sans",
+	tg: "Гротеск",
+	kk: "Гротеск"
+});
+fill("set.font.mono", {
+	ru: "Узкий",
+	en: "Narrow",
+	ar: "ضيق",
+	tr: "Dar",
+	uz: "Tor",
+	tg: "Танг",
+	kk: "Тар"
+});
+fill("set.nav.bottom", {
+	ru: "Снизу",
+	en: "Bottom",
+	ar: "أسفل",
+	tr: "Altta",
+	uz: "Pastda",
+	tg: "Поён",
+	kk: "Төменде"
+});
+fill("set.nav.top", {
+	ru: "Сверху",
+	en: "Top",
+	ar: "أعلى",
+	tr: "Üstte",
+	uz: "Tepada",
+	tg: "Боло",
+	kk: "Жоғарыда"
+});
+fill("set.nav.rail", {
+	ru: "Только значки",
+	en: "Icons only",
+	ar: "أيقونات فقط",
+	tr: "Yalnız simgeler",
+	uz: "Faqat belgi",
+	tg: "Танҳо нишона",
+	kk: "Тек белгі"
+});
+fill("set.nav.sidebar", {
+	ru: "Сбоку",
+	en: "Side",
+	ar: "جانب",
+	tr: "Yanda",
+	uz: "Yonida",
+	tg: "Паҳлӯ",
+	kk: "Жақта"
+});
+fill("room.names", {
+	ru: "99 имён",
+	en: "99 names",
+	ar: "الأسماء الحسنى",
+	tr: "99 isim",
+	uz: "99 ism",
+	tg: "99 ном",
+	kk: "99 есім"
+});
+fill("room.nawawi", {
+	ru: "40 хадисов ан-Навави",
+	en: "40 Hadith of an-Nawawi",
+	ar: "الأربعون النووية",
+	tr: "Nevevî’nin 40 hadisi",
+	uz: "Navaviy 40 hadis",
+	tg: "40 ҳадиси Навави",
+	kk: "Навауидің 40 хадисі"
+});
+fill("room.index", {
+	ru: "Указатели",
+	en: "Indexes",
+	ar: "الفهارس",
+	tr: "Dizinler",
+	uz: "Ko‘rsatkichlar",
+	tg: "Нишондиҳандаҳо",
+	kk: "Көрсеткіштер"
+});
+fill("room.alphabet", {
+	ru: "Алфавит",
+	en: "Alphabet",
+	ar: "الحروف",
+	tr: "Alfabe",
+	uz: "Alifbo",
+	tg: "Алифбо",
+	kk: "Әліпби"
+});
+fill("room.quiz", {
+	ru: "Викторина",
+	en: "Quiz",
+	ar: "اختبار",
+	tr: "Quiz",
+	uz: "Viktorina",
+	tg: "Викторина",
+	kk: "Викторина"
+});
+fill("room.dict", {
+	ru: "Словарь",
+	en: "Dictionary",
+	ar: "المعجم",
+	tr: "Sözlük",
+	uz: "Lug‘at",
+	tg: "Луғат",
+	kk: "Сөздік"
+});
+fill("room.reminder", {
+	ru: "Напоминание",
+	en: "Reminder",
+	ar: "التذكير",
+	tr: "Hatırlatma",
+	uz: "Eslatma",
+	tg: "Ёдрас",
+	kk: "Еске салу"
+});
+fill("room.wisdom", {
+	ru: "Мудрость",
+	en: "Wisdom",
+	ar: "حكمة",
+	tr: "Hikmet",
+	uz: "Hikmat",
+	tg: "Ҳикмат",
+	kk: "Даналық"
+});
+fill("room.calendar", {
+	ru: "Календарь",
+	en: "Calendar",
+	ar: "التقويم",
+	tr: "Takvim",
+	uz: "Taqvim",
+	tg: "Тақвим",
+	kk: "Күнтізбе"
+});
+fill("room.recite", {
+	ru: "Красивое чтение",
+	en: "Recitation",
+	ar: "التلاوة",
+	tr: "Tilavet",
+	uz: "Qiroat",
+	tg: "Қироат",
+	kk: "Қирағат"
+});
+fill("room.tajweed", {
+	ru: "Таджвид",
+	en: "Tajweed",
+	ar: "التجويد",
+	tr: "Tecvid",
+	uz: "Tajvid",
+	tg: "Таҷвид",
+	kk: "Тәжуид"
+});
+fill("room.books", {
+	ru: "9 сборников",
+	en: "9 collections",
+	ar: "تسعة كتب",
+	tr: "9 eser",
+	uz: "9 to‘plam",
+	tg: "9 маҷмӯа",
+	kk: "9 жинақ"
+});
+fill("room.mecca", {
+	ru: "Мекканские суры",
+	en: "Meccan surahs",
+	ar: "السور المكية",
+	tr: "Mekkî sureler",
+	uz: "Makka suralari",
+	tg: "Сураҳои Макка",
+	kk: "Мекке сүрелері"
+});
+fill("room.madina", {
+	ru: "Мединские суры",
+	en: "Medinan surahs",
+	ar: "السور المدنية",
+	tr: "Medenî sureler",
+	uz: "Madina suralari",
+	tg: "Сураҳои Мадина",
+	kk: "Мәдина сүрелері"
+});
+fill("room.index.note", {
+	ru: "Три указателя дома: суры, 40 хадисов, имена.",
+	en: "Three indexes: surahs, 40 hadiths, names.",
+	ar: "ثلاثة فهارس: السور والأربعون والأسماء.",
+	tr: "Üç dizin: sureler, 40 hadis, isimler.",
+	uz: "Uch ko‘rsatkich: suralar, 40 hadis, ismlar.",
+	tg: "Се нишондиҳанда: сураҳо, 40 ҳадис, номҳо.",
+	kk: "Үш көрсеткіш: сүрелер, 40 хадис, есімдер."
+});
+fill("room.alphabet.note", {
+	ru: "28 букв. Урок — во вкладке Учить.",
+	en: "28 letters. The lesson is in Learn.",
+	ar: "٢٨ حرفاً. الدرس في تبويب تعلّم.",
+	tr: "28 harf. Ders Öğren sekmesinde.",
+	uz: "28 harf. Dars — O‘rganish varag‘ida.",
+	tg: "28 ҳарф. Дарс дар варақаи Омӯхтан.",
+	kk: "28 әріп. Сабақ — Оқу қойындысында."
+});
+fill("room.quiz.note", {
+	ru: "Имя по смыслу.",
+	en: "Name by meaning.",
+	ar: "الاسم بالمعنى.",
+	tr: "Anlama göre isim.",
+	uz: "Ma’noga ko‘ra ism.",
+	tg: "Ном аз рӯи маъно.",
+	kk: "Мағынасы бойынша есім."
+});
+fill("room.dict.note", {
+	ru: "Короткий список коранических слов дома.",
+	en: "A short list of Quranic words.",
+	ar: "قائمة قصيرة من كلمات القرآن.",
+	tr: "Kısa bir Kur’an kelime listesi.",
+	uz: "Qur’on so‘zlarining qisqa ro‘yxati.",
+	tg: "Рӯйхати кӯтоҳи калимаҳои Қуръон.",
+	kk: "Құран сөздерінің қысқа тізімі."
+});
+fill("room.recite.note", {
+	ru: "Чтецы дома.",
+	en: "Reciters in the house.",
+	ar: "قرّاء البيت.",
+	tr: "Evdeki okuyucular.",
+	uz: "Uydagi qorilar.",
+	tg: "Қориҳои хона.",
+	kk: "Үйдегі қарилар."
+});
+fill("room.tajweed.note", {
+	ru: "Карточки правил. Не иджаза.",
+	en: "Rule cards. Not an ijazah.",
+	ar: "بطاقات القواعد. ليست إجازة.",
+	tr: "Kural kartları. İcazet değildir.",
+	uz: "Qoida kartochkalari. Ijoza emas.",
+	tg: "Корти қоидаҳо. Иҷоза нест.",
+	kk: "Ереже карточкалары. Иджаза емес."
+});
+fill("room.books.note", {
+	ru: "Каталог известных сборников. Полный текст «40 хадисов ан-Навави» — в доме.",
+	en: "Catalogue of well-known collections. The full Forty Hadith is in the house.",
+	ar: "فهرس الكتب المشهورة. الأربعون كاملة في البيت.",
+	tr: "Meşhur eserlerin kataloğu. Kırk hadis evde tam.",
+	uz: "Mashhur to‘plamlar. 40 hadis uyda to‘liq.",
+	tg: "Феҳристи маҷмӯаҳои машҳур. 40 ҳадис дар хона пурра.",
+	kk: "Белгілі жинақтар каталогы. 40 хадис үйде толық."
+});
+function translate(locale, key) {
+	return PACKS[locale][key] ?? PACKS.ru[key] ?? key;
+}
+var createSsrRpc = (functionId) => {
+	const url = "/_serverFn/" + functionId;
+	const serverFnMeta = { id: functionId };
+	const fn = async (...args) => {
+		return (await getServerFnById(functionId, { origin: "server" }))(...args);
+	};
+	return Object.assign(fn, {
+		url,
+		serverFnMeta,
+		[TSS_SERVER_FUNCTION]: true
+	});
+};
+var speakMale = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("e65b42a77c6a45af9ae12e2154647b3ad5ef2db9414dcd60b75174db8dfdcf0d"));
+var FACTOR = 10n ** BigInt(8);
+var Q0 = 0n;
+var DecimalError = class extends Error {
+	code;
+	constructor(message, code) {
+		super(message);
+		this.name = "DecimalError";
+		this.code = code;
+	}
+};
+function fail(code, message) {
+	throw new DecimalError(message, code);
+}
+function qInt(n) {
+	if (typeof n === "bigint") return n * FACTOR;
+	if (!Number.isFinite(n) || !Number.isInteger(n)) fail("not_int", "Ожидалось целое число");
+	return BigInt(n) * FACTOR;
+}
+var SPACE_RE = /[\s\u00a0\u202f\u2009\u2007\u00ad]/g;
+/**
+* Accepts Russian (1 000,50) and English (1,000.50) grouping without treating
+* a missing value as 0. Empty → error. Scientific notation rejected.
+*/
+function parseDecimal(raw, opts = {}) {
+	const field = opts.field ?? "значение";
+	if (raw === null || raw === void 0) return {
+		ok: false,
+		code: "empty",
+		error: `Поле «${field}» не заполнено`
+	};
+	if (typeof raw === "number") {
+		if (!Number.isFinite(raw)) return {
+			ok: false,
+			code: "nonfinite",
+			error: `Поле «${field}» не является конечным числом`
+		};
+		return parseDecimal(String(raw), opts);
+	}
+	let s = String(raw).trim().replace(SPACE_RE, "");
+	if (s === "") return {
+		ok: false,
+		code: "empty",
+		error: `Поле «${field}» не заполнено`
+	};
+	if (/[eE]/.test(s)) return {
+		ok: false,
+		code: "scientific",
+		error: `Поле «${field}»: научная запись не принимается`
+	};
+	if (s === "+" || s === "-" || s === "." || s === "," || s === "-." || s === "-,") return {
+		ok: false,
+		code: "invalid",
+		error: `Поле «${field}»: некорректное число`
+	};
+	let neg = false;
+	if (s.startsWith("-")) {
+		neg = true;
+		s = s.slice(1);
+	} else if (s.startsWith("+")) s = s.slice(1);
+	if (neg && !opts.allowNegative) return {
+		ok: false,
+		code: "negative",
+		error: `Поле «${field}»: отрицательное значение недопустимо`
+	};
+	const lastComma = s.lastIndexOf(",");
+	const lastDot = s.lastIndexOf(".");
+	let decimalSep = null;
+	if (lastComma >= 0 && lastDot >= 0) decimalSep = lastComma > lastDot ? "," : ".";
+	else if (lastComma >= 0) {
+		const after = s.length - lastComma - 1;
+		decimalSep = after > 0 && after !== 3 && after <= 8 ? "," : after > 0 && after <= 2 ? "," : null;
+	} else if (lastDot >= 0) {
+		const after = s.length - lastDot - 1;
+		decimalSep = after > 0 && after <= 8 ? "." : after > 8 ? "." : null;
+	}
+	let intPart;
+	let fracPart;
+	if (decimalSep) {
+		const i = s.lastIndexOf(decimalSep);
+		const head = s.slice(0, i);
+		const tail = s.slice(i + 1);
+		if (/[.,]/.test(tail)) return {
+			ok: false,
+			code: "invalid",
+			error: `Поле «${field}»: лишний десятичный разделитель`
+		};
+		intPart = head.replace(/[.,]/g, "");
+		fracPart = tail;
+	} else {
+		intPart = s.replace(/[.,]/g, "");
+		fracPart = "";
+	}
+	if (intPart === "") intPart = "0";
+	if (!/^\d+$/.test(intPart) || fracPart !== "" && !/^\d+$/.test(fracPart)) return {
+		ok: false,
+		code: "invalid",
+		error: `Поле «${field}»: некорректное число`
+	};
+	if (intPart.length > 16) return {
+		ok: false,
+		code: "too_large",
+		error: `Поле «${field}»: слишком большое число`
+	};
+	if (fracPart.length > 8) {
+		const extra = fracPart.slice(8);
+		fracPart = fracPart.slice(0, 8);
+		if (extra[0] && extra[0] >= "5") {
+			const padded = (BigInt(intPart + fracPart) + 1n).toString().padStart(9, "0");
+			intPart = padded.slice(0, padded.length - 8) || "0";
+			fracPart = padded.slice(padded.length - 8);
+		}
+	}
+	fracPart = fracPart.padEnd(8, "0").slice(0, 8);
+	const units = BigInt(intPart) * FACTOR + BigInt(fracPart);
+	if (neg && units === 0n) {}
+	const qty = neg ? -units : units;
+	return {
+		ok: true,
+		qty,
+		normalized: formatPlain(qty)
+	};
+}
+function add(a, b) {
+	return a + b;
+}
+function sub(a, b) {
+	return a - b;
+}
+function cmp(a, b) {
+	return a < b ? -1 : a > b ? 1 : 0;
+}
+function isZero(a) {
+	return a === 0n;
+}
+/** a * b / FACTOR (both scaled). */
+function mul(a, b) {
+	return a * b / FACTOR;
+}
+/** a * num / den, all exact. */
+function mulRatio(a, num, den) {
+	const n = typeof num === "bigint" ? num : BigInt(num);
+	const d = typeof den === "bigint" ? den : BigInt(den);
+	if (d === 0n) fail("div0", "Деление на ноль");
+	const prod = a * n;
+	const q = prod / d;
+	const r = prod % d;
+	const twice = r < 0n ? -r * 2n : r * 2n;
+	const ad = d < 0n ? -d : d;
+	if (twice > ad || twice === ad && q % 2n !== 0n) return q + (prod < 0n !== d < 0n ? -1n : 1n);
+	return q;
+}
+/** Half-up to `decimals` fractional digits (default 2 for money). */
+function roundTo(a, decimals = 2) {
+	if (decimals < 0 || decimals > 8) fail("scale", "Неверный порядок округления");
+	const drop = 8 - decimals;
+	const div = 10n ** BigInt(drop);
+	const sign = a < 0n ? -1n : 1n;
+	const v = a < 0n ? -a : a;
+	return (v / div + (v % div * 2n >= div ? 1n : 0n)) * div * sign;
+}
+function formatPlain(a, decimals = 8) {
+	const sign = a < 0n ? "-" : "";
+	const v = a < 0n ? -a : a;
+	const int = v / FACTOR;
+	const frac = (v % FACTOR).toString().padStart(8, "0").slice(0, decimals);
+	if (decimals === 0) return `${sign}${int.toString()}`;
+	const trimmed = frac.replace(/0+$/, "");
+	return trimmed ? `${sign}${int.toString()}.${trimmed}` : `${sign}${int.toString()}`;
+}
+function formatFixed(a, decimals = 2) {
+	const rounded = roundTo(a, decimals);
+	const sign = rounded < 0n ? "-" : "";
+	const v = rounded < 0n ? -rounded : rounded;
+	const int = v / FACTOR;
+	const frac = (v % FACTOR).toString().padStart(8, "0").slice(0, decimals);
+	return `${sign}${int.toString()}.${frac}`;
+}
+function formatMoney(a, currency, locale = "ru-RU") {
+	const rounded = roundTo(a, currencyDecimals(currency));
+	const sign = rounded < 0n ? -1 : 1;
+	const v = rounded < 0n ? -rounded : rounded;
+	const int = v / FACTOR;
+	const dec = currencyDecimals(currency);
+	const frac = (v % FACTOR).toString().padStart(8, "0").slice(0, dec);
+	const n = Number(`${int.toString()}.${frac || "0"}`) * sign;
+	try {
+		return new Intl.NumberFormat(locale, {
+			style: "currency",
+			currency,
+			minimumFractionDigits: dec,
+			maximumFractionDigits: dec
+		}).format(n);
+	} catch {
+		return `${formatFixed(rounded, dec)} ${currency}`;
+	}
+}
+function currencyDecimals(code) {
+	if ((/* @__PURE__ */ new Set([
+		"JPY",
+		"KRW",
+		"VND",
+		"CLP"
+	])).has(code.toUpperCase())) return 0;
+	return 2;
+}
+/** Whole non-negative count (people, heads of livestock). */
+function parseCount(raw, field) {
+	const p = parseDecimal(raw, { field });
+	if (!p.ok) return p;
+	if (p.qty < 0n) return {
+		ok: false,
+		code: "negative",
+		error: `Поле «${field}»: отрицательное значение недопустимо`
+	};
+	if (p.qty % FACTOR !== 0n) return {
+		ok: false,
+		code: "not_int",
+		error: `Поле «${field}»: требуется целое число`
+	};
+	const count = Number(p.qty / FACTOR);
+	if (!Number.isSafeInteger(count)) return {
+		ok: false,
+		code: "too_large",
+		error: `Поле «${field}»: слишком большое число`
+	};
+	return {
+		...p,
+		count
+	};
+}
+function d$1(kind, count, labelRu) {
+	return {
+		kind,
+		count,
+		labelRu
+	};
+}
+function empty(ruleId, range) {
+	return {
+		due: [],
+		ruleId,
+		range
+	};
+}
+/** Sheep / goats (ghanam). 40–120 inclusive = 1 sheep. 120 is NOT 2 or 3. */
+function sheepZakat(n) {
+	if (!Number.isInteger(n) || n < 0) throw new Error("sheep: integer >= 0 required");
+	if (n < 40) return empty("rule.sheep.bukhari1454", "0–39");
+	if (n <= 120) return {
+		due: [d$1("sheep", 1, "1 овца")],
+		ruleId: "rule.sheep.bukhari1454",
+		range: "40–120"
+	};
+	if (n <= 200) return {
+		due: [d$1("sheep", 2, "2 овцы")],
+		ruleId: "rule.sheep.bukhari1454",
+		range: "121–200"
+	};
+	if (n <= 300) return {
+		due: [d$1("sheep", 3, "3 овцы")],
+		ruleId: "rule.sheep.bukhari1454",
+		range: "201–300"
+	};
+	const count = Math.floor(n / 100);
+	return {
+		due: [d$1("sheep", count, `${count} овец`)],
+		ruleId: "rule.sheep.bukhari1454",
+		range: `≥301 (по 1 на каждые 100; ${n} → ${count})`
+	};
+}
+function camelCombo(n) {
+	const found = [];
+	for (let h = 0; h <= Math.floor(n / 50) + 1; h++) for (let b = 0; b <= Math.floor(n / 40) + 1; b++) {
+		const v = 50 * h + 40 * b;
+		if (v >= 120 && n >= v && n <= v + 9) found.push({
+			h,
+			b,
+			v
+		});
+	}
+	found.sort((a, c) => c.v - a.v);
+	const bestV = found[0]?.v;
+	return found.filter((x) => x.v === bestV);
+}
+function camelLabel(h, b) {
+	const items = [];
+	if (b) items.push(d$1("camel_bint_labun", b, `${b} бинт лабун (2 года)`));
+	if (h) items.push(d$1("camel_hiqqa", h, `${h} хикка (3 года)`));
+	return items;
+}
+function camelZakat(n) {
+	if (!Number.isInteger(n) || n < 0) throw new Error("camels: integer >= 0 required");
+	const ruleId = "rule.camel.bukhari1454";
+	if (n < 5) return empty(ruleId, "0–4");
+	if (n <= 9) return {
+		due: [d$1("sheep", 1, "1 овца")],
+		ruleId,
+		range: "5–9"
+	};
+	if (n <= 14) return {
+		due: [d$1("sheep", 2, "2 овцы")],
+		ruleId,
+		range: "10–14"
+	};
+	if (n <= 19) return {
+		due: [d$1("sheep", 3, "3 овцы")],
+		ruleId,
+		range: "15–19"
+	};
+	if (n <= 24) return {
+		due: [d$1("sheep", 4, "4 овцы")],
+		ruleId,
+		range: "20–24"
+	};
+	if (n <= 35) return {
+		due: [d$1("camel_bint_makhad", 1, "1 бинт махад (1 год)")],
+		ruleId,
+		range: "25–35"
+	};
+	if (n <= 45) return {
+		due: [d$1("camel_bint_labun", 1, "1 бинт лабун (2 года)")],
+		ruleId,
+		range: "36–45"
+	};
+	if (n <= 60) return {
+		due: [d$1("camel_hiqqa", 1, "1 хикка (3 года)")],
+		ruleId,
+		range: "46–60"
+	};
+	if (n <= 75) return {
+		due: [d$1("camel_jadhah", 1, "1 джазаʿ (4 года)")],
+		ruleId,
+		range: "61–75"
+	};
+	if (n <= 90) return {
+		due: [d$1("camel_bint_labun", 2, "2 бинт лабун (2 года)")],
+		ruleId,
+		range: "76–90"
+	};
+	if (n <= 120) return {
+		due: [d$1("camel_hiqqa", 2, "2 хикки (3 года)")],
+		ruleId,
+		range: "91–120"
+	};
+	const combos = camelCombo(n);
+	if (combos.length === 0) {
+		const h = Math.floor(n / 50);
+		const rest = n - h * 50;
+		return {
+			due: camelLabel(h, Math.floor(rest / 40)),
+			ruleId,
+			range: `>120 (комбинация 40/50)`
+		};
+	}
+	const primary = camelLabel(combos[0].h, combos[0].b);
+	const alts = combos.slice(1).map((c) => camelLabel(c.h, c.b));
+	return {
+		due: primary,
+		alternatives: alts.length ? alts : void 0,
+		ruleId,
+		range: `${combos[0].v}–${combos[0].v + 9}`
+	};
+}
+function cattleCombo(n) {
+	const found = [];
+	for (let m = 0; m <= Math.floor(n / 40) + 1; m++) for (let t = 0; t <= Math.floor(n / 30) + 1; t++) {
+		const v = 30 * t + 40 * m;
+		if (v >= 30 && n >= v && n < v + 10) found.push({
+			t,
+			m,
+			v
+		});
+	}
+	found.sort((a, c) => c.v - a.v);
+	const bestV = found[0]?.v;
+	return found.filter((x) => x.v === bestV);
+}
+function cattleLabel(t, m) {
+	const items = [];
+	if (t) items.push(d$1("cattle_tabi", t, `${t} табиʿ / табиʿа (1 год)`));
+	if (m) items.push(d$1("cattle_musinna", m, `${m} мусинна (2 года)`));
+	return items;
+}
+function cattleZakat(n) {
+	if (!Number.isInteger(n) || n < 0) throw new Error("cattle: integer >= 0 required");
+	const ruleId = "rule.cattle.abudawud1576";
+	if (n < 30) return empty(ruleId, "0–29");
+	if (n < 40) return {
+		due: [d$1("cattle_tabi", 1, "1 табиʿ / табиʿа (1 год)")],
+		ruleId,
+		range: "30–39"
+	};
+	if (n < 60) return {
+		due: [d$1("cattle_musinna", 1, "1 мусинна (2 года)")],
+		ruleId,
+		range: "40–59"
+	};
+	const combos = cattleCombo(n);
+	if (combos.length === 0) return {
+		due: cattleLabel(Math.floor(n / 30), 0),
+		ruleId,
+		range: `≥60`
+	};
+	const primary = cattleLabel(combos[0].t, combos[0].m);
+	const alts = combos.slice(1).map((c) => cattleLabel(c.t, c.m));
+	return {
+		due: primary,
+		alternatives: alts.length ? alts : void 0,
+		ruleId,
+		range: `${combos[0].v}–${combos[0].v + 9}`
+	};
+}
+var PROFILES = [
+	{
+		id: "hanafi",
+		name: "Ханафитский профиль",
+		school: "hanafi",
+		version: "2026.09.1",
+		nisabGoldGrams: "87.48",
+		nisabSilverGrams: "612.36",
+		nisabMode: "silver",
+		combineGoldSilverByValue: true,
+		jewelryPersonalZakatable: true,
+		livestockCashOk: true,
+		cropCashOk: true,
+		fitrCashOk: true,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: false,
+		notes: "Деньги и товары часто оценивают по серебряному нисабу. Украшения облагаются. Соединение золота и серебра по стоимости — позиция Абу Ханифы, не иджмаʿ. Массы 87,48/612,36 — метрология IR, не текст хадиса; 85/595 доступны в ZFA-профиле.",
+		sourceIds: [
+			"bukhari.1454",
+			"ir.nisab.2026",
+			"fiqh.jewelry.ikhtilaf",
+			"fiqh.nisab.combine",
+			"math.rate.1_40"
+		],
+		review: "translation_checked"
+	},
+	{
+		id: "maliki",
+		name: "Маликитский профиль",
+		school: "maliki",
+		version: "2026.09.1",
+		nisabGoldGrams: "85",
+		nisabSilverGrams: "595",
+		nisabMode: "gold",
+		combineGoldSilverByValue: false,
+		jewelryPersonalZakatable: false,
+		livestockCashOk: false,
+		cropCashOk: false,
+		fitrCashOk: false,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: false,
+		notes: "Личные носимые украшения, как правило, не облагаются. Нисаб денежных активов — золотой эквивалент (современная практика). Скот и урожай — в натуре, если не оговорено иное. Полные маликитские таблицы условий выпаса не исчерпаны.",
+		sourceIds: [
+			"bukhari.1454",
+			"metrology.dinar.85",
+			"fiqh.jewelry.ikhtilaf",
+			"fiqh.nisab.combine"
+		],
+		review: "translation_checked"
+	},
+	{
+		id: "shafii",
+		name: "Шафиитский профиль",
+		school: "shafii",
+		version: "2026.09.1",
+		nisabGoldGrams: "85",
+		nisabSilverGrams: "595",
+		nisabMode: "separate",
+		combineGoldSilverByValue: false,
+		jewelryPersonalZakatable: false,
+		livestockCashOk: false,
+		cropCashOk: false,
+		fitrCashOk: false,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: false,
+		notes: "Ан-Навави: золото и серебро не дополняют нисаб друг друга. Украшения для ношения — обычно изъятие. Фитр — ṣāʿ продукта, не деньги (денежная замена не разрешена этим профилем).",
+		sourceIds: [
+			"bukhari.1454",
+			"bukhari.1503",
+			"fiqh.nisab.combine",
+			"fiqh.jewelry.ikhtilaf",
+			"metrology.dinar.85"
+		],
+		review: "translation_checked"
+	},
+	{
+		id: "hanbali",
+		name: "Ханбалитский профиль",
+		school: "hanbali",
+		version: "2026.09.1",
+		nisabGoldGrams: "85",
+		nisabSilverGrams: "595",
+		nisabMode: "separate",
+		combineGoldSilverByValue: false,
+		jewelryPersonalZakatable: false,
+		livestockCashOk: false,
+		cropCashOk: false,
+		fitrCashOk: false,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: false,
+		notes: "Близок к шафиитскому в вопросах соединения металлов и украшений. Денежная замена фитра и скота этим профилем не разрешается.",
+		sourceIds: [
+			"bukhari.1454",
+			"fiqh.nisab.combine",
+			"fiqh.jewelry.ikhtilaf",
+			"metrology.dinar.85"
+		],
+		review: "translation_checked"
+	},
+	{
+		id: "islamic-relief-silver",
+		name: "Islamic Relief (серебряный нисаб)",
+		school: "institutional",
+		version: "2026.09.1-public-pages",
+		nisabGoldGrams: "87.48",
+		nisabSilverGrams: "612.36",
+		nisabMode: "silver",
+		combineGoldSilverByValue: true,
+		jewelryPersonalZakatable: true,
+		livestockCashOk: true,
+		cropCashOk: true,
+		fitrCashOk: true,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: true,
+		notes: "Публичные страницы IR 2026: 87,48 г / 612,36 г, рекомендация серебра. Полный внутренний manual не сверен. 25 % proxy доступен только как явная оценка, не как скрытое правило IR.",
+		sourceIds: [
+			"ir.nisab.2026",
+			"ir.uk.calculator",
+			"math.rate.1_40",
+			"nzf.proxy25.unverified"
+		],
+		review: "institutional_page_checked"
+	},
+	{
+		id: "zfa-gold-85",
+		name: "Золотой нисаб 85 г (ZFA-стиль)",
+		school: "institutional",
+		version: "2026.09.1",
+		nisabGoldGrams: "85",
+		nisabSilverGrams: "595",
+		nisabMode: "gold",
+		combineGoldSilverByValue: false,
+		jewelryPersonalZakatable: true,
+		livestockCashOk: true,
+		cropCashOk: true,
+		fitrCashOk: true,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: true,
+		notes: "85 г золота — распространённый институциональный перевод 20 динаров. Ярлык «Zakat Foundation» исходного файла не заменяет отсутствующий первичный PDF; профиль назван по метрологии, не как сертификация ZFA.",
+		sourceIds: [
+			"metrology.dinar.85",
+			"metrology.dirham.595",
+			"math.rate.1_40"
+		],
+		review: "institutional_page_checked"
+	},
+	{
+		id: "custom",
+		name: "Пользовательский профиль",
+		school: "custom",
+		version: "2026.09.1",
+		nisabGoldGrams: "85",
+		nisabSilverGrams: "595",
+		nisabMode: "gold",
+		combineGoldSilverByValue: false,
+		jewelryPersonalZakatable: true,
+		livestockCashOk: true,
+		cropCashOk: true,
+		fitrCashOk: true,
+		debtsDeductImmediate: true,
+		tradeAtMarket: true,
+		proxy25Allowed: true,
+		notes: "Параметры нисаба и режим задаёт пользователь. Не является мазхабом. Все выбранные числа маркируются как ручной ввод.",
+		sourceIds: ["metrology.dinar.85"],
+		review: "unverified"
+	}
+];
+function getProfile(id) {
+	const p = PROFILES.find((x) => x.id === id);
+	if (!p) throw new Error(`Unknown profile ${id}`);
+	return p;
+}
+function resolveNisabGrams(profile, override) {
+	return {
+		gold: override?.goldGrams || profile.nisabGoldGrams,
+		silver: override?.silverGrams || profile.nisabSilverGrams,
+		mode: override?.mode || profile.nisabMode
+	};
+}
+function mustQty(raw, field) {
+	const p = parseDecimal(raw, { field });
+	if (!p.ok) throw new Error(p.error);
+	return p.qty;
+}
+var HUNDRED = mustQty("100", "100");
+var THOUSAND = mustQty("1000", "1000");
+function q(raw, field) {
+	return parseDecimal(raw, { field });
+}
+function moneyQuote(quotes, from, to) {
+	if (from === to) return {
+		id: `fx:${from}:${to}`,
+		asset: from,
+		base: from,
+		quote: to,
+		unit: "1",
+		rate: "1",
+		marketTime: null,
+		fetchedAt: "",
+		source: "identity",
+		status: "live"
+	};
+	return quotes.find((x) => x.asset === from && x.quote === to && (x.unit === "fx" || x.unit === "1"));
+}
+function metalQuote(quotes, metal, currency) {
+	const code = metal === "gold" ? "XAU_G" : "XAG_G";
+	return quotes.find((x) => x.asset === code && x.quote === currency);
+}
+function convert(amount, from, to, quotes, missing, label) {
+	if (from === to) return amount;
+	const fx = moneyQuote(quotes, from, to);
+	if (!fx || fx.status === "missing") {
+		missing.push(`Нет курса ${from}→${to} для «${label}». Сумма не посчитана: не ноль и не «бесплатно».`);
+		return null;
+	}
+	const rate = q(fx.rate, `курс ${from}/${to}`);
+	if (!rate.ok || rate.qty === 0n) {
+		missing.push(`Некорректный курс ${from}→${to}.`);
+		return null;
+	}
+	return mul(amount, rate.qty);
+}
+function animalNatural(items) {
+	return items.map((a) => ({
+		unit: a.kind,
+		count: String(a.count),
+		label: a.labelRu
+	}));
+}
+function cat(partial) {
+	const included = partial.included ?? partial.status === "due";
+	return {
+		...partial,
+		included
+	};
+}
+function share(amount, pctRaw, field) {
+	const p = q(pctRaw || "100", field);
+	if (!p.ok) return {
+		qty: Q0,
+		missing: [p.error]
+	};
+	if (p.qty > HUNDRED) return {
+		qty: Q0,
+		missing: [`${field}: доля больше 100 %`]
+	};
+	return {
+		qty: mulRatio(amount, p.qty, HUNDRED),
+		missing: []
+	};
+}
+function calculate(input) {
+	const profile = getProfile(input.profileId);
+	const missing = [];
+	const warnings = [];
+	const categories = [];
+	const quotes = input.quotes.quotes;
+	const base = input.baseCurrency;
+	const nisabSpec = resolveNisabGrams(profile, input.nisabOverride);
+	const goldG = q(nisabSpec.gold, "нисаб золота, г");
+	const silverG = q(nisabSpec.silver, "нисаб серебра, г");
+	if (!goldG.ok) missing.push(goldG.error);
+	if (!silverG.ok) missing.push(silverG.error);
+	const goldPx = metalQuote(quotes, "gold", base);
+	const silverPx = metalQuote(quotes, "silver", base);
+	let goldValue = null;
+	let silverValue = null;
+	if (goldG.ok && goldPx) {
+		const p = q(goldPx.rate, "цена золота");
+		if (p.ok) goldValue = mul(goldG.qty, p.qty);
+		else missing.push(p.error);
+	} else if (!goldPx) missing.push("Нет цены золота за грамм — нисаб по золоту не посчитан.");
+	if (silverG.ok && silverPx) {
+		const p = q(silverPx.rate, "цена серебра");
+		if (p.ok) silverValue = mul(silverG.qty, p.qty);
+		else missing.push(p.error);
+	} else if (!silverPx) missing.push("Нет цены серебра за грамм — нисаб по серебру не посчитан.");
+	let threshold = null;
+	if (nisabSpec.mode === "gold") threshold = goldValue;
+	else if (nisabSpec.mode === "silver") threshold = silverValue;
+	else if (nisabSpec.mode === "lower") {
+		if (goldValue !== null && silverValue !== null) threshold = goldValue < silverValue ? goldValue : silverValue;
+		else threshold = goldValue ?? silverValue;
+	} else if (nisabSpec.mode === "higher") {
+		if (goldValue !== null && silverValue !== null) threshold = goldValue > silverValue ? goldValue : silverValue;
+		else threshold = goldValue ?? silverValue;
+	} else threshold = goldValue;
+	const nisab = {
+		goldGrams: goldG.ok ? goldG.qty : Q0,
+		silverGrams: silverG.ok ? silverG.qty : Q0,
+		goldValue,
+		silverValue,
+		threshold,
+		mode: nisabSpec.mode,
+		ruleId: "rule.nisab.profile",
+		missing: []
+	};
+	const separateMetals = !profile.combineGoldSilverByValue || nisabSpec.mode === "separate";
+	categories.push(calcMoney(input, quotes, base));
+	const metals = calcMetals(input, profile, quotes, base, {
+		separate: separateMetals,
+		goldNisabG: goldG.ok ? goldG.qty : null,
+		silverNisabG: silverG.ok ? silverG.qty : null,
+		hawl: input.hawlConfirmed
+	});
+	categories.push(metals);
+	categories.push(calcTrade(input, quotes, base));
+	categories.push(calcInvestments(input, profile, quotes, base, warnings));
+	categories.push(calcRealEstate(input, quotes, base));
+	categories.push(calcCrypto(input, quotes, base, warnings));
+	categories.push(calcReceivables(input, quotes, base));
+	const debts = calcDebts(input, profile, quotes, base);
+	categories.push(debts);
+	const moneyLikeIds = separateMetals ? [
+		"money",
+		"trade",
+		"investments",
+		"real_estate",
+		"crypto",
+		"receivables"
+	] : [
+		"money",
+		"metals",
+		"trade",
+		"investments",
+		"real_estate",
+		"crypto",
+		"receivables"
+	];
+	const moneyLike = categories.filter((c) => moneyLikeIds.includes(c.id));
+	let gross = Q0;
+	let moneyIncomplete = false;
+	for (const c of moneyLike) {
+		if (c.status === "incomplete") moneyIncomplete = true;
+		if (c.baseMoney) gross = add(gross, c.baseMoney);
+	}
+	const deduct = debts.baseMoney ?? 0n;
+	let net = sub(gross, deduct);
+	if (net < 0n) {
+		warnings.push("Допустимые долги превышают денежную базу. Закят с имущества не отрицательный — денежная часть 0. Другие категории считаются отдельно.");
+		net = Q0;
+	}
+	const hawl = input.hawlConfirmed;
+	let malStatus = "not_entered";
+	let malZakat = Q0;
+	const malMissing = [];
+	const malSteps = [
+		{
+			id: "gross",
+			label: separateMetals ? "Денежная база без металлов (профиль не соединяет Au/Ag)" : "Денежная база до вычетов",
+			output: formatMoney(gross, base)
+		},
+		{
+			id: "deduct",
+			label: "Вычеты (немедленные долги)",
+			output: formatMoney(deduct, base)
+		},
+		{
+			id: "net",
+			label: "Нетто",
+			output: formatMoney(net, base)
+		}
+	];
+	if (!moneyLike.some((c) => c.status !== "not_entered") && isZero(gross) && !moneyIncomplete) malStatus = "not_entered";
+	else if (threshold === null) {
+		malStatus = "incomplete";
+		malMissing.push("Нисаб не посчитан — нет цены металла.");
+	} else if (cmp(net, threshold) < 0) {
+		malStatus = "below_nisab";
+		malSteps.push({
+			id: "nisab",
+			label: "Сравнение с нисабом",
+			output: `${formatMoney(net, base)} < ${formatMoney(threshold, base)} — ставка 1/40 не применяется`,
+			ruleId: "rule.nisab.profile"
+		});
+	} else if (hawl === null) {
+		malStatus = "incomplete";
+		malMissing.push("Хауль для денежных активов не подтверждён. Это не равно «не обязан».");
+	} else if (hawl === false) {
+		malStatus = "exempt";
+		malSteps.push({
+			id: "hawl",
+			label: "Хауль не подтверждён пользователем",
+			output: "денежная ставка 1/40 не применена"
+		});
+	} else {
+		malStatus = "due";
+		malZakat = mulRatio(net, 1n, 40n);
+		malSteps.push({
+			id: "rate",
+			label: "Ставка 1/40 (Бухари 1454 для серебра; для денег — аналогия выбранного профиля)",
+			output: formatMoney(malZakat, base),
+			ruleId: "rule.money.1_40"
+		});
+	}
+	categories.push(cat({
+		id: "mal_net",
+		title: separateMetals ? "Закят с денежных активов (металлы отдельно)" : "Закят с денежных активов (после нисаба и хауля)",
+		status: malStatus,
+		included: malStatus === "due",
+		reasons: [`Профиль: ${profile.name}. Нисаб: режим ${nisabSpec.mode}. Соединение золота и серебра: ${profile.combineGoldSilverByValue ? "по стоимости (не иджмаʿ)" : "нет, каждый металл со своим нисабом"}.`, "Ставка 1/40 для серебра — Бухари 1454. Распространение на фиат и крипто — современная аналогия, не текст хадиса."],
+		missing: malMissing,
+		baseMoney: net,
+		zakatMoney: malZakat,
+		ruleIds: ["rule.money.1_40", "rule.nisab.profile"],
+		sourceIds: ["bukhari.1454", "math.rate.1_40"],
+		steps: malSteps
+	}));
+	categories.push(calcLivestock(input, profile, quotes, base));
+	categories.push(calcCrops(input, profile, quotes, base, warnings));
+	categories.push(calcRikaz(input, quotes, base));
+	categories.push(calcFitr(input, profile, quotes, base, warnings));
+	const natural = [];
+	let total = Q0;
+	for (const c of categories) {
+		if (c.zakatMoney && c.included) total = add(total, c.zakatMoney);
+		if (c.natural) natural.push(...c.natural);
+	}
+	const anyDue = categories.some((c) => c.status === "due" && c.included);
+	const anyIncomplete = categories.some((c) => c.status === "incomplete");
+	const anyUnverified = categories.some((c) => c.status === "unverified_rule");
+	const anyBelow = categories.some((c) => c.status === "below_nisab");
+	let overall;
+	if (anyDue && anyIncomplete) overall = "mixed";
+	else if (anyDue) overall = "due";
+	else if (anyBelow) overall = "not_due_confirmed";
+	else if (anyIncomplete || anyUnverified) overall = "incomplete";
+	else if (categories.some((c) => c.status === "below_nisab" || c.status === "exempt" || c.status === "not_entered")) {
+		overall = "not_due_confirmed";
+		if (categories.every((c) => c.status === "not_entered" || c.status === "not_applicable")) overall = "incomplete";
+	} else overall = "incomplete";
+	warnings.push("Это программа, не фетва. Учёный этот расчёт не заверял.");
+	const special = input.special ?? {
+		minorOwner: false,
+		inherited: false,
+		incompleteOwnership: false,
+		prepaid: false,
+		overduePeriods: ""
+	};
+	if (special.minorOwner) {
+		warnings.push("Несовершеннолетний владелец: применимость закята зависит от мазхаба и не рассчитана автоматически.");
+		missing.push("Несовершеннолетний владелец: автоматический хукм не выведен.");
+	}
+	if (special.inherited) {
+		warnings.push("Наследованные активы: момент начала хауля и доли наследников не рассчитаны автоматически.");
+		missing.push("Наследование: хауль и доли не рассчитаны автоматически.");
+	}
+	if (special.incompleteOwnership) {
+		warnings.push("Неполное владение отмечено: используйте поле доли собственника. Автоматический хукм не выводится.");
+		missing.push("Неполное владение требует явной доли; общий хукм не выведен.");
+	}
+	if (special.prepaid) warnings.push("Авансовая уплата отмечена справочно и не уменьшает рассчитанную обязанность автоматически.");
+	if (special.overduePeriods?.trim()) {
+		warnings.push(`Просроченные периоды («${special.overduePeriods}») отмечены справочно и не умножают итог автоматически.`);
+		missing.push("Просроченные периоды не разложены по годам автоматически.");
+	}
+	const completeness = missing.length === 0 && !anyIncomplete ? "complete" : "partial";
+	return {
+		schemaVersion: 1,
+		inputId: input.id,
+		profileId: profile.id,
+		profileVersion: profile.version,
+		asOfDate: input.asOfDate,
+		baseCurrency: base,
+		quotes: input.quotes,
+		nisab,
+		categories,
+		totalMoneyExact: total,
+		totalMoneyRounded: roundTo(total, 2),
+		natural,
+		completeness,
+		overallStatus: overall,
+		warnings,
+		missing: [.../* @__PURE__ */ new Set([
+			...missing,
+			...malMissing,
+			...categories.flatMap((c) => c.missing)
+		])],
+		computedAt: (/* @__PURE__ */ new Date()).toISOString()
+	};
+}
+function calcMoney(input, quotes, base) {
+	const steps = [];
+	let total = Q0;
+	const miss = [];
+	if (input.money.length === 0) return cat({
+		id: "money",
+		title: "Деньги и валюты",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.money.1_40"],
+		sourceIds: ["bukhari.1454"],
+		steps
+	});
+	let anyAmount = false;
+	for (const line of input.money) {
+		const a = q(line.amount, line.label || "сумма");
+		if (!a.ok) {
+			if (a.code === "empty") continue;
+			miss.push(a.error);
+			continue;
+		}
+		anyAmount = true;
+		const sh = share(a.qty, line.ownerSharePct || "100", `доля «${line.label}»`);
+		miss.push(...sh.missing);
+		const conv = convert(sh.qty, line.currency, base, quotes, miss, line.label || line.currency);
+		if (conv === null) continue;
+		total = add(total, conv);
+		steps.push({
+			id: line.id,
+			label: `${line.label || line.currency} ${line.joint ? "(совместно)" : ""}`,
+			input: `${formatPlain(a.qty)} ${line.currency} × доля ${line.ownerSharePct || 100}%`,
+			output: formatMoney(conv, base)
+		});
+	}
+	if (!anyAmount && miss.length === 0) return cat({
+		id: "money",
+		title: "Деньги и валюты",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.money.1_40"],
+		sourceIds: ["bukhari.1454"],
+		steps
+	});
+	return cat({
+		id: "money",
+		title: "Деньги и валюты",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["Входят в денежную базу. Закят считается на этапе «денежные активы» после нисаба и хауля."],
+		missing: miss,
+		baseMoney: total,
+		ruleIds: ["rule.money.1_40"],
+		sourceIds: ["bukhari.1454", "math.rate.1_40"],
+		steps
+	});
+}
+function calcMetals(input, profile, quotes, base, opts) {
+	const steps = [];
+	const miss = [];
+	let goldFine = Q0;
+	let silverFine = Q0;
+	let goldVal = Q0;
+	let silverVal = Q0;
+	if (input.metals.length === 0) return cat({
+		id: "metals",
+		title: "Золото и серебро",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.metals.purity"],
+		sourceIds: ["bukhari.1454"],
+		steps
+	});
+	for (const line of input.metals) {
+		const g = q(line.grams, "граммы");
+		const pur = q(line.purityPerMille || "1000", "проба");
+		if (!g.ok) {
+			if (g.code !== "empty") miss.push(g.error);
+			continue;
+		}
+		if (!pur.ok) {
+			miss.push(pur.error);
+			continue;
+		}
+		const fine = mulRatio(g.qty, pur.qty, THOUSAND);
+		if (!profile.jewelryPersonalZakatable && line.form === "jewelry" && line.use === "personal_wear") {
+			steps.push({
+				id: line.id,
+				label: `${line.metal} украшение (личное ношение)`,
+				output: "исключено профилем",
+				ruleId: "rule.jewelry.profile"
+			});
+			continue;
+		}
+		if (line.metal === "gold") goldFine = add(goldFine, fine);
+		else silverFine = add(silverFine, fine);
+		const px = metalQuote(quotes, line.metal, base);
+		if (!px) {
+			miss.push(`Нет цены ${line.metal} за грамм. ${formatPlain(fine)} г чистого металла не оценены как 0.`);
+			steps.push({
+				id: line.id,
+				label: `${line.metal} ${formatPlain(g.qty)} г, проба ${formatPlain(pur.qty)} → чистое ${formatPlain(fine)} г`,
+				output: "нет цены"
+			});
+			continue;
+		}
+		const p = q(px.rate, "цена металла");
+		if (!p.ok) {
+			miss.push(p.error);
+			continue;
+		}
+		const val = mul(fine, p.qty);
+		if (line.metal === "gold") goldVal = add(goldVal, val);
+		else silverVal = add(silverVal, val);
+		steps.push({
+			id: line.id,
+			label: `${line.metal} ${formatPlain(g.qty)} г × проба ${formatPlain(pur.qty)}/1000 = ${formatPlain(fine)} г чистого`,
+			output: formatMoney(val, base),
+			ruleId: "rule.metals.purity"
+		});
+	}
+	const combined = add(goldVal, silverVal);
+	if (!opts.separate) {
+		const kept = !isZero(combined) || miss.length > 0;
+		return cat({
+			id: "metals",
+			title: "Золото и серебро",
+			status: miss.length ? "incomplete" : kept ? "due" : "exempt",
+			included: false,
+			reasons: ["Чистое вещество = масса × проба/1000. Украшения зависят от профиля. В этом профиле стоимость входит в общую денежную базу."],
+			missing: miss,
+			baseMoney: combined,
+			ruleIds: ["rule.metals.purity", "rule.jewelry.profile"],
+			sourceIds: ["bukhari.1454", "fiqh.jewelry.ikhtilaf"],
+			steps
+		});
+	}
+	if (isZero(goldFine) && isZero(silverFine) && miss.length === 0) return cat({
+		id: "metals",
+		title: "Золото и серебро (раздельно)",
+		status: "exempt",
+		reasons: ["Все введённые металлы исключены выбранным профилем (например, носимые украшения)."],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.metals.purity", "rule.jewelry.profile"],
+		sourceIds: ["bukhari.1454", "fiqh.jewelry.ikhtilaf"],
+		steps
+	});
+	let zakat = Q0;
+	let status = "not_entered";
+	if (opts.hawl === null) miss.push("Хауль металлов не подтверждён (денежный флажок). Для раздельного профиля это не «не обязан».");
+	if (opts.hawl === false) return cat({
+		id: "metals",
+		title: "Золото и серебро (раздельно)",
+		status: "exempt",
+		reasons: ["Хауль не подтверждён. Металлы не соединяются с деньгами в этом профиле."],
+		missing: miss,
+		baseMoney: combined,
+		ruleIds: ["rule.metals.purity", "rule.jewelry.profile"],
+		sourceIds: ["bukhari.1454", "fiqh.nisab.combine"],
+		steps
+	});
+	if (opts.goldNisabG && !isZero(goldFine)) {
+		if (cmp(goldFine, opts.goldNisabG) < 0) {
+			steps.push({
+				id: "gold-nisab",
+				label: `Чистое золото ${formatPlain(goldFine)} г < нисаба ${formatPlain(opts.goldNisabG)} г`,
+				output: "ниже нисаба золота"
+			});
+			if (status === "not_entered") status = "below_nisab";
+		} else if (opts.hawl === true) {
+			const z = mulRatio(goldVal, 1n, 40n);
+			zakat = add(zakat, z);
+			status = "due";
+			steps.push({
+				id: "gold-zakat",
+				label: "Золото отдельно ≥ нисаба, 1/40",
+				output: formatMoney(z, base)
+			});
+		}
+	}
+	if (opts.silverNisabG && !isZero(silverFine)) {
+		if (cmp(silverFine, opts.silverNisabG) < 0) {
+			steps.push({
+				id: "silver-nisab",
+				label: `Чистое серебро ${formatPlain(silverFine)} г < нисаба ${formatPlain(opts.silverNisabG)} г`,
+				output: "ниже нисаба серебра"
+			});
+			if (status === "not_entered") status = "below_nisab";
+		} else if (opts.hawl === true) {
+			const z = mulRatio(silverVal, 1n, 40n);
+			zakat = add(zakat, z);
+			status = "due";
+			steps.push({
+				id: "silver-zakat",
+				label: "Серебро отдельно ≥ нисаба, 1/40",
+				output: formatMoney(z, base)
+			});
+		}
+	}
+	if (miss.length) status = "incomplete";
+	if (status === "not_entered" && (!isZero(goldFine) || !isZero(silverFine))) status = "below_nisab";
+	return cat({
+		id: "metals",
+		title: "Золото и серебро (раздельно)",
+		status,
+		included: status === "due",
+		reasons: ["Ан-Навави и близкие позиции: золото и серебро не дополняют нисаб друг друга. Это не иджмаʿ.", "Чистое вещество = масса × проба/1000."],
+		missing: miss,
+		baseMoney: combined,
+		zakatMoney: status === "due" ? zakat : void 0,
+		ruleIds: ["rule.metals.purity", "rule.jewelry.profile"],
+		sourceIds: [
+			"bukhari.1454",
+			"fiqh.nisab.combine",
+			"fiqh.jewelry.ikhtilaf"
+		],
+		steps
+	});
+}
+function calcTrade(input, quotes, base) {
+	const t = input.trade;
+	const miss = [];
+	const steps = [];
+	const parts = [
+		[
+			"inventory",
+			t.inventory,
+			"товар на складе"
+		],
+		[
+			"businessCash",
+			t.businessCash,
+			"деньги бизнеса"
+		],
+		[
+			"receivables",
+			t.receivables,
+			"вам должны"
+		]
+	];
+	let gross = Q0;
+	let any = false;
+	for (const [id, raw, label] of parts) {
+		const a = q(raw, label);
+		if (!a.ok) {
+			if (a.code !== "empty") miss.push(a.error);
+			continue;
+		}
+		any = true;
+		const conv = convert(a.qty, t.currency || base, base, quotes, miss, label);
+		if (conv === null) continue;
+		gross = add(gross, conv);
+		steps.push({
+			id,
+			label,
+			output: formatMoney(conv, base)
+		});
+	}
+	const pay = q(t.payables, "обязательства бизнеса");
+	if (pay.ok) {
+		any = true;
+		const conv = convert(pay.qty, t.currency || base, base, quotes, miss, "обязательства бизнеса");
+		if (conv !== null) {
+			gross = sub(gross, conv);
+			steps.push({
+				id: "payables",
+				label: "обязательства бизнеса (−)",
+				output: formatMoney(conv, base)
+			});
+		}
+	} else if (pay.code !== "empty") miss.push(pay.error);
+	const sh = share(gross < 0n ? Q0 : gross, t.ownerSharePct || "100", "доля в бизнесе");
+	miss.push(...sh.missing);
+	const val = gross < 0n ? Q0 : sh.qty;
+	if (!any) return cat({
+		id: "trade",
+		title: "Торговые активы",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.trade.market"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+	return cat({
+		id: "trade",
+		title: "Торговые активы",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["ʿUrūḍ al-tijārah: рыночная стоимость. Доля собственника применяется к нетто."],
+		missing: miss,
+		baseMoney: val,
+		ruleIds: ["rule.trade.market"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+}
+function calcInvestments(input, profile, quotes, base, warnings) {
+	const miss = [];
+	const steps = [];
+	let total = Q0;
+	if (input.investments.length === 0) return cat({
+		id: "investments",
+		title: "Инвестиции",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.invest.modes"],
+		sourceIds: ["nzf.proxy25.unverified"],
+		steps
+	});
+	for (const line of input.investments) {
+		const a = q(line.marketValue, line.label || "инвестиции");
+		if (!a.ok) {
+			if (a.code !== "empty") miss.push(a.error);
+			continue;
+		}
+		const conv = convert(a.qty, line.currency, base, quotes, miss, line.label);
+		if (conv === null) continue;
+		let baseAmt = conv;
+		if (line.mode === "trade_100") {
+			baseAmt = conv;
+			steps.push({
+				id: line.id,
+				label: `${line.label} 100 % рыночной стоимости (торговля)`,
+				output: formatMoney(baseAmt, base)
+			});
+		} else if (line.mode === "asset_fraction") {
+			if (!line.assetFractionPct) {
+				miss.push(`Для «${line.label}» режим доли активов требует ввода доли. 25 % не подставляется.`);
+				continue;
+			}
+			const sh = share(conv, line.assetFractionPct, `доля закятооблагаемых активов «${line.label}»`);
+			miss.push(...sh.missing);
+			baseAmt = sh.qty;
+			steps.push({
+				id: line.id,
+				label: `${line.label} × ${line.assetFractionPct} % закятооблагаемых активов`,
+				output: formatMoney(baseAmt, base)
+			});
+		} else {
+			if (!profile.proxy25Allowed) {
+				miss.push(`Режим 25 % proxy не включён в профиль «${profile.name}». Укажите долю активов или полную стоимость.`);
+				continue;
+			}
+			baseAmt = share(conv, "25", "proxy 25%").qty;
+			warnings.push(`«${line.label}»: 25 % — оценочная методика, не текст Корана/Сунны (source nzf.proxy25.unverified).`);
+			steps.push({
+				id: line.id,
+				label: `${line.label} оценка 25 % (помечено)`,
+				output: formatMoney(baseAmt, base),
+				ruleId: "rule.invest.proxy25"
+			});
+		}
+		const own = share(baseAmt, line.ownerSharePct || "100", "доля владельца");
+		miss.push(...own.missing);
+		total = add(total, own.qty);
+	}
+	return cat({
+		id: "investments",
+		title: "Инвестиции (акции, фонды, сукук, пенсия)",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["Три режима разделены: 100 %, явная доля, помеченный 25 % proxy."],
+		missing: miss,
+		baseMoney: total,
+		ruleIds: ["rule.invest.modes"],
+		sourceIds: ["nzf.proxy25.unverified", "ir.uk.calculator"],
+		steps
+	});
+}
+function calcRealEstate(input, quotes, base) {
+	const miss = [];
+	const steps = [];
+	let total = Q0;
+	if (input.realEstate.length === 0) return cat({
+		id: "real_estate",
+		title: "Недвижимость",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.property.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+	for (const line of input.realEstate) {
+		if (line.purpose === "personal") {
+			steps.push({
+				id: line.id,
+				label: `${line.label} (личное пользование)`,
+				output: "не в базе закята имущества"
+			});
+			continue;
+		}
+		if (line.purpose === "rental") {
+			const rent = q(line.annualRent, `аренда «${line.label}»`);
+			if (!rent.ok) {
+				if (rent.code !== "empty") miss.push(rent.error);
+				else miss.push(`Для арендной недвижимости «${line.label}» нужна величина дохода, не стоимость объекта как таковая.`);
+				continue;
+			}
+			const conv = convert(rent.qty, line.currency, base, quotes, miss, line.label);
+			if (conv === null) continue;
+			total = add(total, conv);
+			steps.push({
+				id: line.id,
+				label: `${line.label} доход (не стоимость объекта)`,
+				output: formatMoney(conv, base)
+			});
+			continue;
+		}
+		const val = q(line.propertyValue, `стоимость «${line.label}»`);
+		if (!val.ok) {
+			if (val.code !== "empty") miss.push(val.error);
+			else miss.push(`Торговая недвижимость «${line.label}» требует рыночной стоимости.`);
+			continue;
+		}
+		const conv = convert(val.qty, line.currency, base, quotes, miss, line.label);
+		if (conv === null) continue;
+		total = add(total, conv);
+		steps.push({
+			id: line.id,
+			label: `${line.label} торговая стоимость`,
+			output: formatMoney(conv, base)
+		});
+	}
+	const onlyPersonal = input.realEstate.every((l) => l.purpose === "personal");
+	return cat({
+		id: "real_estate",
+		title: "Недвижимость",
+		status: miss.length ? "incomplete" : onlyPersonal || isZero(total) ? "exempt" : "due",
+		included: false,
+		reasons: ["Личное пользование исключается. Аренда — доход. Торговля — стоимость объекта."],
+		missing: miss,
+		baseMoney: total,
+		ruleIds: ["rule.property.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+}
+function calcCrypto(input, quotes, base, warnings) {
+	const miss = [];
+	const steps = [];
+	let total = Q0;
+	if (input.crypto.length === 0) return cat({
+		id: "crypto",
+		title: "Криптоактивы",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.crypto.ijtihad"],
+		sourceIds: ["crypto.screening.opinions"],
+		steps
+	});
+	warnings.push("Криптоактивы: нет прямого хадиса. Оценка — иджтихад. Панель источников — мнения, не хукм.");
+	for (const line of input.crypto) {
+		const qty = q(line.quantity, line.symbol || "количество");
+		const px = q(line.price, `цена ${line.symbol}`);
+		if (!qty.ok) {
+			if (qty.code !== "empty") miss.push(qty.error);
+			continue;
+		}
+		if (!px.ok) {
+			miss.push(px.error || `Нет цены ${line.symbol}; сумма не подставлена нулём.`);
+			continue;
+		}
+		if (line.availability !== "liquid") {
+			miss.push(`${line.symbol}: доступность «${line.availability}» — право собственности и возможность изъятия не подтверждены. Не включается молча.`);
+			steps.push({
+				id: line.id,
+				label: `${line.symbol} (${line.availability})`,
+				output: "не включено до разбора права"
+			});
+			continue;
+		}
+		const conv = convert(mul(qty.qty, px.qty), line.priceCurrency || base, base, quotes, miss, line.symbol);
+		if (conv === null) continue;
+		total = add(total, conv);
+		steps.push({
+			id: line.id,
+			label: `${line.symbol} ${formatPlain(qty.qty)} × ${formatPlain(px.qty)} ${line.priceCurrency}`,
+			output: formatMoney(conv, base)
+		});
+	}
+	return cat({
+		id: "crypto",
+		title: "Криптоактивы",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["Ликвидные токены входят в денежную базу по рыночной цене. Стейкинг/DeFi/лок — отдельно и неполное, пока не ясна собственность."],
+		missing: miss,
+		baseMoney: total,
+		ruleIds: ["rule.crypto.ijtihad"],
+		sourceIds: ["crypto.screening.opinions"],
+		steps
+	});
+}
+function calcReceivables(input, quotes, base) {
+	const miss = [];
+	const steps = [];
+	let total = Q0;
+	const rec = input.debts.filter((d) => d.kind === "receivable");
+	if (rec.length === 0) return cat({
+		id: "receivables",
+		title: "Вам должны",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.debts.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+	for (const line of rec) {
+		if (line.collectible !== "yes") {
+			steps.push({
+				id: line.id,
+				label: line.label,
+				output: "получить нельзя / неизвестно — не в базе"
+			});
+			if (line.collectible === "unknown") miss.push(`«${line.label}»: не сказано, можно ли получить этот долг.`);
+			continue;
+		}
+		const a = q(line.amount, line.label);
+		if (!a.ok) {
+			if (a.code !== "empty") miss.push(a.error);
+			continue;
+		}
+		const conv = convert(a.qty, line.currency, base, quotes, miss, line.label);
+		if (conv === null) continue;
+		total = add(total, conv);
+		steps.push({
+			id: line.id,
+			label: line.label,
+			output: formatMoney(conv, base)
+		});
+	}
+	return cat({
+		id: "receivables",
+		title: "Вам должны",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["В базу входят только те долги, которые реально можно получить."],
+		missing: miss,
+		baseMoney: total,
+		ruleIds: ["rule.debts.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+}
+function calcDebts(input, profile, quotes, base) {
+	const miss = [];
+	const steps = [];
+	let total = Q0;
+	const pay = input.debts.filter((d) => d.kind === "payable");
+	if (pay.length === 0) return cat({
+		id: "debts",
+		title: "Ваши обязательства",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		baseMoney: Q0,
+		ruleIds: ["rule.debts.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+	for (const line of pay) {
+		if (!profile.debtsDeductImmediate) continue;
+		if (line.timing !== "immediate") {
+			steps.push({
+				id: line.id,
+				label: line.label,
+				output: "долгосрочное — не вычитается в этом профиле автоматически"
+			});
+			continue;
+		}
+		const a = q(line.amount, line.label);
+		if (!a.ok) {
+			if (a.code !== "empty") miss.push(a.error);
+			continue;
+		}
+		const conv = convert(a.qty, line.currency, base, quotes, miss, line.label);
+		if (conv === null) continue;
+		total = add(total, conv);
+		steps.push({
+			id: line.id,
+			label: `вычет «${line.label}»`,
+			output: formatMoney(conv, base)
+		});
+	}
+	return cat({
+		id: "debts",
+		title: "Ваши обязательства",
+		status: miss.length ? "incomplete" : "due",
+		included: false,
+		reasons: ["Вычитаются только немедленные реальные обязательства выбранного профиля. Нет отрицательного закята."],
+		missing: miss,
+		baseMoney: total,
+		zakatMoney: Q0,
+		ruleIds: ["rule.debts.split"],
+		sourceIds: ["ir.uk.calculator"],
+		steps
+	});
+}
+function calcLivestock(input, profile, quotes, base) {
+	const miss = [];
+	const steps = [];
+	const natural = [];
+	const L = input.livestock;
+	if (![
+		L.sheep,
+		L.camels,
+		L.cattle
+	].some((x) => x && String(x).trim() !== "" && String(x) !== "0")) return cat({
+		id: "livestock",
+		title: "Скот",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		ruleIds: ["rule.sheep.bukhari1454"],
+		sourceIds: ["bukhari.1454", "abudawud.1576"],
+		steps
+	});
+	if (L.grazing === null) miss.push("Не указано, является ли скот саимой (выпасной). Условие таблиц — пасущийся скот.");
+	if (L.grazing === false) return cat({
+		id: "livestock",
+		title: "Скот",
+		status: "exempt",
+		reasons: ["Таблицы Бухари 1454 / Абу Дауд 1576 относятся к саиме. Кормовой скот этим правилом не рассчитан."],
+		missing: [],
+		ruleIds: ["rule.sheep.bukhari1454"],
+		sourceIds: ["bukhari.1454", "abudawud.1576"],
+		steps
+	});
+	if (L.hawlConfirmed === null) miss.push("Хауль скота не подтверждён. Не переносится автоматически с денежного флажка.");
+	if (L.hawlConfirmed === false) return cat({
+		id: "livestock",
+		title: "Скот",
+		status: "exempt",
+		reasons: ["Хауль скота не подтверждён пользователем."],
+		missing: [],
+		ruleIds: ["rule.sheep.bukhari1454"],
+		sourceIds: ["bukhari.1454"],
+		steps
+	});
+	const apply = (raw, label, fn) => {
+		if (!raw || String(raw).trim() === "") return;
+		const c = parseCount(raw, label);
+		if (!c.ok) {
+			miss.push(c.error);
+			return;
+		}
+		const n = c.count ?? 0;
+		const br = fn(n);
+		steps.push({
+			id: label,
+			label: `${label}: ${n}, диапазон ${br.range}`,
+			output: br.due.length ? br.due.map((d) => d.labelRu).join(", ") : "ниже порога",
+			ruleId: br.ruleId
+		});
+		natural.push(...animalNatural(br.due));
+		if (br.alternatives?.length) steps.push({
+			id: `${label}-alt`,
+			label: "допустимые варианты",
+			output: br.alternatives.map((a) => a.map((x) => x.labelRu).join("+")).join(" | ")
+		});
+	};
+	apply(L.sheep, "овцы/козы", sheepZakat);
+	apply(L.camels, "верблюды", camelZakat);
+	apply(L.cattle, "КРС", cattleZakat);
+	let zakatMoney;
+	if (profile.livestockCashOk && L.cashSubstitute) {
+		const priceMap = {
+			sheep: L.priceSheep,
+			camel_bint_makhad: L.priceCamel,
+			camel_bint_labun: L.priceCamel,
+			camel_hiqqa: L.priceCamel,
+			camel_jadhah: L.priceCamel,
+			cattle_tabi: L.priceCattle,
+			cattle_musinna: L.priceCattle
+		};
+		let sum = Q0;
+		let ok = true;
+		for (const n of natural) {
+			const pr = priceMap[n.unit];
+			const p = q(pr, `цена ${n.label}`);
+			if (!p.ok) {
+				miss.push(`Денежный эквивалент скота: нет цены для ${n.label}. Натуральное обязательство сохранено.`);
+				ok = false;
+				continue;
+			}
+			const countQ = qInt(Number(n.count));
+			const conv = convert(mul(p.qty, countQ), L.currency || base, base, quotes, miss, n.label);
+			if (conv === null) {
+				ok = false;
+				continue;
+			}
+			sum = add(sum, conv);
+		}
+		if (ok && !isZero(sum)) zakatMoney = sum;
+	}
+	const due = natural.length > 0;
+	return cat({
+		id: "livestock",
+		title: "Скот",
+		status: miss.length ? "incomplete" : due ? "due" : "below_nisab",
+		included: due,
+		reasons: ["Натуральные обязательства отделены от денег. 120 овец = 1 овца (Бухари 1454), не floor(120/40).", "КРС — Абу Дауд 1576, не Бухари 1454."],
+		missing: miss,
+		zakatMoney,
+		natural,
+		ruleIds: [
+			"rule.sheep.bukhari1454",
+			"rule.camel.bukhari1454",
+			"rule.cattle.abudawud1576"
+		],
+		sourceIds: ["bukhari.1454", "abudawud.1576"],
+		steps
+	});
+}
+function calcCrops(input, profile, quotes, base, warnings) {
+	const miss = [];
+	const steps = [];
+	const natural = [];
+	let money = Q0;
+	if (input.crops.length === 0) return cat({
+		id: "crops",
+		title: "Урожай",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		ruleIds: ["rule.crops.bukhari1483"],
+		sourceIds: [
+			"bukhari.1483",
+			"bukhari.1447",
+			"quran.6.141"
+		],
+		steps
+	});
+	warnings.push("Хауль для урожая не требуется (6:141 — день сбора). Порог 5 васков (Бухари 1447) в кг не переводится универсально без вида культуры.");
+	for (const line of input.crops) {
+		const mass = q(line.massKg, `масса «${line.cropType || "урожай"}»`);
+		if (!mass.ok) {
+			if (mass.code !== "empty") miss.push(mass.error);
+			continue;
+		}
+		if (line.irrigation === "unknown") {
+			miss.push(`Полив «${line.cropType}» не указан. Не назначена единая ставка наугад.`);
+			continue;
+		}
+		if (line.irrigation === "mixed") {
+			const sharePct = q(line.mixedNaturalSharePct, "доля естественного полива");
+			if (!sharePct.ok) {
+				miss.push(`Смешанный полив «${line.cropType}»: нужна доля естественного орошения. Единая ставка не назначается.`);
+				continue;
+			}
+			const nat = mulRatio(mass.qty, sharePct.qty, HUNDRED);
+			const cost = sub(mass.qty, nat);
+			const dueAmt = add(mulRatio(nat, 1n, 10n), mulRatio(cost, 1n, 20n));
+			natural.push({
+				unit: "kg",
+				count: formatPlain(dueAmt),
+				label: `${line.cropType}: ${formatPlain(dueAmt)} кг (смешанный полив)`
+			});
+			steps.push({
+				id: line.id,
+				label: `${line.cropType} смешанный: 10 % × ${formatPlain(nat)} кг + 5 % × ${formatPlain(cost)} кг`,
+				output: `${formatPlain(dueAmt)} кг`,
+				ruleId: "rule.crops.mixed.user_share"
+			});
+			const price = q(line.pricePerKg, "цена урожая");
+			if (price.ok && profile.cropCashOk) {
+				const conv = convert(mul(dueAmt, price.qty), line.currency || base, base, quotes, miss, line.cropType);
+				if (conv) money = add(money, conv);
+			}
+			continue;
+		}
+		const rate = line.irrigation === "natural" ? 10n : 20n;
+		const dueAmt = mulRatio(mass.qty, 1n, rate);
+		natural.push({
+			unit: "kg",
+			count: formatPlain(dueAmt),
+			label: `${line.cropType || "урожай"}: ${formatPlain(dueAmt)} кг (${rate === 10n ? "10 %" : "5 %"})`
+		});
+		steps.push({
+			id: line.id,
+			label: `${formatPlain(mass.qty)} кг × ${rate === 10n ? "1/10" : "1/20"} (Бухари 1483)`,
+			output: `${formatPlain(dueAmt)} кг`,
+			ruleId: "rule.crops.bukhari1483"
+		});
+		const price = q(line.pricePerKg, "цена урожая");
+		if (price.ok) {
+			if (!profile.cropCashOk) steps.push({
+				id: `${line.id}-cash`,
+				label: "денежная оценка справочно",
+				output: "профиль не разрешает замену натуры деньгами"
+			});
+			else {
+				const conv = convert(mul(dueAmt, price.qty), line.currency || base, base, quotes, miss, line.cropType);
+				if (conv) {
+					money = add(money, conv);
+					steps.push({
+						id: `${line.id}-cash`,
+						label: "денежный эквивалент (профиль допускает)",
+						output: formatMoney(conv, base)
+					});
+				}
+			}
+		}
+	}
+	const due = natural.length > 0;
+	return cat({
+		id: "crops",
+		title: "Урожай",
+		status: miss.length ? "incomplete" : due ? "due" : "not_entered",
+		included: due,
+		reasons: ["1 т при 10 % = 100 кг, не 10 ₽. Деньги только при цене и разрешённом профиле."],
+		missing: miss,
+		zakatMoney: profile.cropCashOk && !isZero(money) ? money : void 0,
+		natural,
+		ruleIds: ["rule.crops.bukhari1483"],
+		sourceIds: [
+			"bukhari.1483",
+			"bukhari.1447",
+			"quran.6.141"
+		],
+		steps
+	});
+}
+function calcRikaz(input, quotes, base) {
+	const r = input.rikaz;
+	const steps = [];
+	const miss = [];
+	const amt = q(r.amount, "риказ");
+	if (!amt.ok) return cat({
+		id: "rikaz",
+		title: "Риказ",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		ruleIds: ["rule.rikaz.bukhari6912"],
+		sourceIds: ["bukhari.6912"],
+		steps
+	});
+	if (r.classifiedAsRikaz !== true) return cat({
+		id: "rikaz",
+		title: "Риказ",
+		status: r.classifiedAsRikaz === false ? "not_applicable" : "incomplete",
+		reasons: ["Обычная находка не классифицируется как риказ автоматически. Нужно подтверждение, что это риказ в смысле Бухари 6912."],
+		missing: r.classifiedAsRikaz === null ? ["Классификация как риказ не подтверждена."] : [],
+		ruleIds: ["rule.rikaz.bukhari6912"],
+		sourceIds: ["bukhari.6912"],
+		steps
+	});
+	const conv = convert(amt.qty, r.currency || base, base, quotes, miss, "риказ");
+	if (conv === null) return cat({
+		id: "rikaz",
+		title: "Риказ",
+		status: "incomplete",
+		reasons: [],
+		missing: miss,
+		ruleIds: ["rule.rikaz.bukhari6912"],
+		sourceIds: ["bukhari.6912"],
+		steps
+	});
+	const zakat = mulRatio(conv, 1n, 5n);
+	steps.push({
+		id: "rikaz",
+		label: "1/5 (Бухари 6912)",
+		input: formatMoney(conv, base),
+		output: formatMoney(zakat, base),
+		ruleId: "rule.rikaz.bukhari6912"
+	});
+	return cat({
+		id: "rikaz",
+		title: "Риказ",
+		status: "due",
+		included: true,
+		reasons: ["Ставка 1/5. Хауль не применяется. Не смешивается с 2,5 % имущества без пометки."],
+		missing: miss,
+		baseMoney: conv,
+		zakatMoney: zakat,
+		ruleIds: ["rule.rikaz.bukhari6912"],
+		sourceIds: ["bukhari.6912"],
+		steps
+	});
+}
+function calcFitr(input, profile, quotes, base, warnings) {
+	const f = input.fitr;
+	const steps = [];
+	const miss = [];
+	const people = parseCount(f.people, "число людей для фитра");
+	if (!people.ok || !people.count) return cat({
+		id: "fitr",
+		title: "Закят аль-фитр",
+		status: "not_entered",
+		reasons: [],
+		missing: [],
+		ruleIds: ["rule.fitr.bukhari1503"],
+		sourceIds: ["bukhari.1503"],
+		steps
+	});
+	const n = people.count;
+	if (f.mode === "food_sa") {
+		const sa = n;
+		steps.push({
+			id: "fitr-sa",
+			label: `${n} чел. × 1 ṣāʿ (${f.product})`,
+			output: `${sa} ṣāʿ`,
+			ruleId: "rule.fitr.bukhari1503"
+		});
+		warnings.push("Перевод ṣāʿ в килограммы в хадисе не задан. Пометка «≈3 кг» на sunnah.com — пояснение издания, не текст хадиса.");
+		return cat({
+			id: "fitr",
+			title: "Закят аль-фитр",
+			status: "due",
+			included: true,
+			reasons: ["Бухари 1503: 1 ṣāʿ фиников или ячменя на каждого мусульманина до праздничной молитвы."],
+			missing: miss,
+			natural: [{
+				unit: "sa",
+				count: String(sa),
+				label: `${sa} ṣāʿ (${f.product})`
+			}],
+			ruleIds: ["rule.fitr.bukhari1503"],
+			sourceIds: ["bukhari.1503", "bukhari.1506"],
+			steps
+		});
+	}
+	if (!profile.fitrCashOk) return cat({
+		id: "fitr",
+		title: "Закят аль-фитр",
+		status: "incomplete",
+		reasons: [`Профиль «${profile.name}» не разрешает денежную замену фитра. Укажите выдачу ṣāʿ продукта.`],
+		missing: ["Денежный эквивалент фитра не разрешён выбранным профилем."],
+		natural: [{
+			unit: "sa",
+			count: String(n),
+			label: `${n} ṣāʿ (натура, профиль без замены)`
+		}],
+		ruleIds: ["rule.fitr.bukhari1503"],
+		sourceIds: ["bukhari.1503"],
+		steps
+	});
+	const per = q(f.cashPerPerson, "денежный эквивалент фитра на человека");
+	if (!per.ok) return cat({
+		id: "fitr",
+		title: "Закят аль-фитр",
+		status: "incomplete",
+		reasons: ["Для денежного режима нужна местная норма на человека. Тестовые 300 — не норма региона."],
+		missing: [per.error],
+		ruleIds: ["rule.fitr.cash.local"],
+		sourceIds: ["bukhari.1503"],
+		steps
+	});
+	const conv = convert(mul(per.qty, qInt(n)), f.currency || base, base, quotes, miss, "фитр");
+	if (conv === null) return cat({
+		id: "fitr",
+		title: "Закят аль-фитр",
+		status: "incomplete",
+		reasons: [],
+		missing: miss,
+		ruleIds: ["rule.fitr.cash.local"],
+		sourceIds: ["bukhari.1503"],
+		steps
+	});
+	steps.push({
+		id: "fitr-cash",
+		label: `${n} × ${formatPlain(per.qty)} ${f.currency || base} (местная методика, не хадис${f.region ? `, ${f.region}` : ""}${f.year ? ` ${f.year}` : ""})`,
+		output: formatMoney(conv, base),
+		ruleId: "rule.fitr.cash.local"
+	});
+	return cat({
+		id: "fitr",
+		title: "Закят аль-фитр",
+		status: "due",
+		included: true,
+		reasons: ["Денежная сумма — местный эквивалент, допущенный профилем. Не норма из хадиса."],
+		missing: miss,
+		zakatMoney: conv,
+		ruleIds: ["rule.fitr.cash.local"],
+		sourceIds: ["bukhari.1503"],
+		steps
+	});
+}
+function emptyInput(partial) {
+	return {
+		schemaVersion: 1,
+		id: partial?.id ?? `calc_${Date.now()}`,
+		title: partial?.title ?? "Черновик",
+		asOfDate: partial?.asOfDate ?? (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
+		baseCurrency: partial?.baseCurrency ?? "RUB",
+		profileId: partial?.profileId ?? "islamic-relief-silver",
+		hawlConfirmed: partial?.hawlConfirmed ?? null,
+		hawlStartDate: partial?.hawlStartDate ?? "",
+		calendar: partial?.calendar ?? "hijri_lunar",
+		money: partial?.money ?? [{
+			id: "m_main",
+			label: "Основной счёт",
+			currency: partial?.baseCurrency ?? "RUB",
+			amount: "",
+			ownerSharePct: "100",
+			joint: false
+		}],
+		metals: partial?.metals ?? [],
+		trade: partial?.trade ?? {
+			inventory: "",
+			businessCash: "",
+			receivables: "",
+			payables: "",
+			currency: partial?.baseCurrency ?? "RUB",
+			ownerSharePct: "100"
+		},
+		investments: partial?.investments ?? [],
+		realEstate: partial?.realEstate ?? [],
+		crypto: partial?.crypto ?? [],
+		debts: partial?.debts ?? [],
+		livestock: partial?.livestock ?? {
+			grazing: null,
+			hawlConfirmed: null,
+			sheep: "",
+			camels: "",
+			cattle: "",
+			cashSubstitute: false,
+			priceSheep: "",
+			priceCamel: "",
+			priceCattle: "",
+			currency: partial?.baseCurrency ?? "RUB"
+		},
+		crops: partial?.crops ?? [],
+		rikaz: partial?.rikaz ?? {
+			classifiedAsRikaz: null,
+			amount: "",
+			currency: partial?.baseCurrency ?? "RUB",
+			note: ""
+		},
+		fitr: partial?.fitr ?? {
+			people: "",
+			mode: "cash_equivalent",
+			product: "dates",
+			cashPerPerson: "",
+			currency: partial?.baseCurrency ?? "RUB",
+			region: "",
+			year: ""
+		},
+		special: partial?.special ?? {
+			minorOwner: false,
+			inherited: false,
+			incompleteOwnership: false,
+			prepaid: false,
+			overduePeriods: ""
+		},
+		quotes: partial?.quotes ?? {
+			asOfDate: "",
+			fetchedAt: "",
+			quotes: []
+		},
+		nisabOverride: partial?.nisabOverride
+	};
+}
+var S = "shadcn-ui/ui";
+var B = "twbs/bootstrap";
+function t(partial) {
+	return {
+		...partial,
+		sourceRepo: partial.basedOn === "S" ? S : B
+	};
+}
+var THEMES = [
+	t({
+		id: "mizan-emerald",
+		name: "Mizan Emerald",
+		nameRu: "Изумруд и золото",
+		family: "cabinet",
+		nav: "bottom",
+		density: "regular",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "fraunces",
+		basedOn: "S",
+		sourceRef: "sidebar-07 / blocks",
+		tokens: {
+			"--bg": "#04100c",
+			"--bg-elev": "#071813",
+			"--surface": "#0b2e23",
+			"--fg": "#f8f4e9",
+			"--muted": "#a8b6ae",
+			"--accent": "#f0cf7a",
+			"--accent-fg": "#04100c",
+			"--line": "rgba(240,207,122,0.16)",
+			"--ok": "#6ee1ae",
+			"--danger": "#ff8b82"
+		},
+		notes: "Исходный бренд Мизан: изумруд, золото, весы. Нижняя навигация."
+	}),
+	t({
+		id: "ivory-ledger",
+		name: "Ivory Ledger",
+		nameRu: "Слоновая ведомость",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "sm",
+		shadow: "none",
+		mode: "light",
+		fonts: "newsreader",
+		basedOn: "B",
+		sourceRef: "examples/cheatsheet",
+		tokens: {
+			"--bg": "#f6f1e6",
+			"--bg-elev": "#fffaf1",
+			"--surface": "#fffdf8",
+			"--fg": "#2a2418",
+			"--muted": "#6e6658",
+			"--accent": "#5b4a32",
+			"--accent-fg": "#f6f1e6",
+			"--line": "rgba(42,36,24,0.12)",
+			"--ok": "#3f6b4a",
+			"--danger": "#9b3d32"
+		},
+		notes: "Светлая редакционная страница, антиква, тонкие разделители."
+	}),
+	t({
+		id: "graphite-desk",
+		name: "Graphite Desk",
+		nameRu: "Графитовый стол",
+		family: "table",
+		nav: "top",
+		density: "compact",
+		radius: "sm",
+		shadow: "sm",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "S",
+		sourceRef: "dashboard-01",
+		tokens: {
+			"--bg": "#121417",
+			"--bg-elev": "#1a1d22",
+			"--surface": "#22262c",
+			"--fg": "#e8eaed",
+			"--muted": "#9aa3ad",
+			"--accent": "#b7c4d6",
+			"--accent-fg": "#121417",
+			"--line": "rgba(232,234,237,0.12)",
+			"--ok": "#8fbf9a",
+			"--danger": "#d98989"
+		},
+		notes: "Плотная таблица, моноширинные цифры."
+	}),
+	t({
+		id: "pearl-focus",
+		name: "Pearl Focus",
+		nameRu: "Жемчужный мастер",
+		family: "wizard",
+		nav: "steps",
+		density: "airy",
+		radius: "xl",
+		shadow: "md",
+		mode: "light",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "form-wizard pattern",
+		tokens: {
+			"--bg": "#f4f1ec",
+			"--bg-elev": "#fffcf8",
+			"--surface": "#ffffff",
+			"--fg": "#1f2430",
+			"--muted": "#6b7380",
+			"--accent": "#3d5a73",
+			"--accent-fg": "#f4f1ec",
+			"--line": "rgba(31,36,48,0.1)",
+			"--ok": "#3e7a5b",
+			"--danger": "#b05454"
+		},
+		notes: "Один этап на экране, мягкая глубина."
+	}),
+	t({
+		id: "obsidian-command",
+		name: "Obsidian Command",
+		nameRu: "Обсидиановая команда",
+		family: "cabinet",
+		nav: "sidebar",
+		density: "compact",
+		radius: "none",
+		shadow: "none",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "sidebar-05",
+		tokens: {
+			"--bg": "#070708",
+			"--bg-elev": "#101113",
+			"--surface": "#17181c",
+			"--fg": "#f2f2f0",
+			"--muted": "#8b8d93",
+			"--accent": "#d2d2cc",
+			"--accent-fg": "#070708",
+			"--line": "rgba(242,242,240,0.12)",
+			"--ok": "#8cba9a",
+			"--danger": "#d27c76"
+		},
+		notes: "Почти чёрный фон, прямые карточки."
+	}),
+	t({
+		id: "sand-notebook",
+		name: "Sand Notebook",
+		nameRu: "Песочная тетрадь",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "md",
+		shadow: "sm",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "B",
+		sourceRef: "docs/examples/blog",
+		tokens: {
+			"--bg": "#efe4d0",
+			"--bg-elev": "#f7edd9",
+			"--surface": "#fbf4e6",
+			"--fg": "#3b2e1d",
+			"--muted": "#7a6a52",
+			"--accent": "#8a5a32",
+			"--accent-fg": "#fbf4e6",
+			"--line": "rgba(59,46,29,0.12)",
+			"--ok": "#4d6b3d",
+			"--danger": "#a24a3a"
+		},
+		notes: "Тёплый бумажный фон, пометки источников."
+	}),
+	t({
+		id: "sapphire-grid",
+		name: "Sapphire Grid",
+		nameRu: "Сапфировая сетка",
+		family: "cards",
+		nav: "none",
+		density: "regular",
+		radius: "md",
+		shadow: "md",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "card grid blocks",
+		tokens: {
+			"--bg": "#0b1220",
+			"--bg-elev": "#121c30",
+			"--surface": "#18243c",
+			"--fg": "#e7eef8",
+			"--muted": "#93a4bf",
+			"--accent": "#7ea2d6",
+			"--accent-fg": "#0b1220",
+			"--line": "rgba(126,162,214,0.22)",
+			"--ok": "#7dcea6",
+			"--danger": "#e09090"
+		},
+		notes: "Карточный обзор с переходом в редактор."
+	}),
+	t({
+		id: "mint-journey",
+		name: "Mint Journey",
+		nameRu: "Мятный путь",
+		family: "wizard",
+		nav: "steps",
+		density: "airy",
+		radius: "xl",
+		shadow: "sm",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "examples/checkout",
+		tokens: {
+			"--bg": "#eef7f3",
+			"--bg-elev": "#f7fcfa",
+			"--surface": "#ffffff",
+			"--fg": "#173028",
+			"--muted": "#5d736b",
+			"--accent": "#2f6f5e",
+			"--accent-fg": "#f7fcfa",
+			"--line": "rgba(23,48,40,0.1)",
+			"--ok": "#2f6f5e",
+			"--danger": "#b15b55"
+		},
+		notes: "Воздушный мастер, короткие подсказки."
+	}),
+	t({
+		id: "bronze-ledger",
+		name: "Bronze Ledger",
+		nameRu: "Бронзовая книга",
+		family: "table",
+		nav: "none",
+		density: "compact",
+		radius: "sm",
+		shadow: "sm",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "S",
+		sourceRef: "table dense",
+		tokens: {
+			"--bg": "#1a140f",
+			"--bg-elev": "#241c16",
+			"--surface": "#2c231b",
+			"--fg": "#f0e6d8",
+			"--muted": "#b3a394",
+			"--accent": "#c08a54",
+			"--accent-fg": "#1a140f",
+			"--line": "rgba(192,138,84,0.22)",
+			"--ok": "#8fbf8a",
+			"--danger": "#d98980"
+		},
+		notes: "Бухгалтерская иерархия, тёплый металл."
+	}),
+	t({
+		id: "midnight-research",
+		name: "Midnight Research",
+		nameRu: "Полночное исследование",
+		family: "research",
+		nav: "split",
+		density: "regular",
+		radius: "md",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "resizable two-pane",
+		tokens: {
+			"--bg": "#0c1018",
+			"--bg-elev": "#141a24",
+			"--surface": "#1b2230",
+			"--fg": "#e9eef6",
+			"--muted": "#9aa7bb",
+			"--accent": "#9bb4d9",
+			"--accent-fg": "#0c1018",
+			"--line": "rgba(155,180,217,0.18)",
+			"--ok": "#86c5a4",
+			"--danger": "#d99292"
+		},
+		notes: "Расчёт слева, библиотека доводов справа."
+	}),
+	t({
+		id: "white-atlas",
+		name: "White Atlas",
+		nameRu: "Белый атлас",
+		family: "cards",
+		nav: "none",
+		density: "airy",
+		radius: "lg",
+		shadow: "none",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "examples/album",
+		tokens: {
+			"--bg": "#f7f7f5",
+			"--bg-elev": "#ffffff",
+			"--surface": "#ffffff",
+			"--fg": "#1c1c1a",
+			"--muted": "#6f6f6a",
+			"--accent": "#2c2c2a",
+			"--accent-fg": "#f7f7f5",
+			"--line": "rgba(28,28,26,0.1)",
+			"--ok": "#3d6b4f",
+			"--danger": "#a33d3d"
+		},
+		notes: "Минимум рамок, модульная сетка."
+	}),
+	t({
+		id: "cedar-columns",
+		name: "Cedar Columns",
+		nameRu: "Кедровые колонны",
+		family: "cabinet",
+		nav: "sidebar",
+		density: "regular",
+		radius: "xl",
+		shadow: "md",
+		mode: "light",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "sidebar-03",
+		tokens: {
+			"--bg": "#f3eee6",
+			"--bg-elev": "#faf6f0",
+			"--surface": "#fffdf9",
+			"--fg": "#2c3a30",
+			"--muted": "#6b7a70",
+			"--accent": "#3f6b52",
+			"--accent-fg": "#faf6f0",
+			"--line": "rgba(44,58,48,0.12)",
+			"--ok": "#3f6b52",
+			"--danger": "#a4544a"
+		},
+		notes: "Три области: навигация, расчёт, источники."
+	}),
+	t({
+		id: "silver-lines",
+		name: "Silver Lines",
+		nameRu: "Серебряные линии",
+		family: "table",
+		nav: "top",
+		density: "compact",
+		radius: "none",
+		shadow: "none",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "examples/dashboard",
+		tokens: {
+			"--bg": "#eef0f2",
+			"--bg-elev": "#f7f8f9",
+			"--surface": "#ffffff",
+			"--fg": "#1b1f24",
+			"--muted": "#66707a",
+			"--accent": "#4a5560",
+			"--accent-fg": "#ffffff",
+			"--line": "rgba(27,31,36,0.14)",
+			"--ok": "#3d6e55",
+			"--danger": "#a14040"
+		},
+		notes: "Монохром, линейные таблицы, без теней."
+	}),
+	t({
+		id: "ink-reader",
+		name: "Ink Reader",
+		nameRu: "Чернильный читатель",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "sm",
+		shadow: "none",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "S",
+		sourceRef: "typography block",
+		tokens: {
+			"--bg": "#fbfaf6",
+			"--bg-elev": "#ffffff",
+			"--surface": "#ffffff",
+			"--fg": "#161616",
+			"--muted": "#5c5c5c",
+			"--accent": "#1a1a1a",
+			"--accent-fg": "#fbfaf6",
+			"--line": "rgba(22,22,22,0.12)",
+			"--ok": "#2f5d3a",
+			"--danger": "#8f2f2f"
+		},
+		notes: "Документ со сносками, контраст заголовков."
+	}),
+	t({
+		id: "dawn-ribbon",
+		name: "Dawn Ribbon",
+		nameRu: "Лента рассвета",
+		family: "editorial",
+		nav: "top",
+		density: "regular",
+		radius: "none",
+		shadow: "sm",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "examples/navbars",
+		tokens: {
+			"--bg": "#f6f3ee",
+			"--bg-elev": "#fff8ef",
+			"--surface": "#ffffff",
+			"--fg": "#2b2420",
+			"--muted": "#74685e",
+			"--accent": "#c46b3a",
+			"--accent-fg": "#fff8ef",
+			"--line": "rgba(43,36,32,0.1)",
+			"--ok": "#4a6d45",
+			"--danger": "#b04a40"
+		},
+		notes: "Верхняя лента, широкая одноколоночная форма."
+	}),
+	t({
+		id: "teal-workspace",
+		name: "Teal Workspace",
+		nameRu: "Бирюзовое пространство",
+		family: "cabinet",
+		nav: "sidebar",
+		density: "regular",
+		radius: "lg",
+		shadow: "sm",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "sidebar-08",
+		tokens: {
+			"--bg": "#0b1c1c",
+			"--bg-elev": "#122626",
+			"--surface": "#173131",
+			"--fg": "#e7f2f1",
+			"--muted": "#90b0ad",
+			"--accent": "#5fa8a0",
+			"--accent-fg": "#0b1c1c",
+			"--line": "rgba(95,168,160,0.22)",
+			"--ok": "#5fa8a0",
+			"--danger": "#d98b86"
+		},
+		notes: "Сворачиваемое меню, вкладки расчётов."
+	}),
+	t({
+		id: "velvet-cards",
+		name: "Velvet Cards",
+		nameRu: "Бархатные карты",
+		family: "cards",
+		nav: "none",
+		density: "airy",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "card + dialog",
+		tokens: {
+			"--bg": "#140f16",
+			"--bg-elev": "#1d1722",
+			"--surface": "#261f2c",
+			"--fg": "#f3ecf6",
+			"--muted": "#b3a3bb",
+			"--accent": "#d4c4a8",
+			"--accent-fg": "#140f16",
+			"--line": "rgba(212,196,168,0.18)",
+			"--ok": "#8fbf9e",
+			"--danger": "#d9899a"
+		},
+		notes: "Одна активная категория, крупные радиусы."
+	}),
+	t({
+		id: "slate-audit",
+		name: "Slate Audit",
+		nameRu: "Сланцевый аудит",
+		family: "table",
+		nav: "split",
+		density: "compact",
+		radius: "none",
+		shadow: "none",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "S",
+		sourceRef: "table + inspector",
+		tokens: {
+			"--bg": "#15171a",
+			"--bg-elev": "#1c1f24",
+			"--surface": "#23262c",
+			"--fg": "#dfe3ea",
+			"--muted": "#8b929c",
+			"--accent": "#9aa7b8",
+			"--accent-fg": "#15171a",
+			"--line": "rgba(223,227,234,0.12)",
+			"--ok": "#87b598",
+			"--danger": "#c97c7c"
+		},
+		notes: "Формулы в инспекторе, минимум декора."
+	}),
+	t({
+		id: "alabaster-gallery",
+		name: "Alabaster Gallery",
+		nameRu: "Алебастровая галерея",
+		family: "cards",
+		nav: "none",
+		density: "airy",
+		radius: "xl",
+		shadow: "sm",
+		mode: "light",
+		fonts: "serif-plex",
+		basedOn: "B",
+		sourceRef: "examples/album masonry",
+		tokens: {
+			"--bg": "#f4f0ea",
+			"--bg-elev": "#fbf8f3",
+			"--surface": "#ffffff",
+			"--fg": "#2a2622",
+			"--muted": "#726a62",
+			"--accent": "#5a5148",
+			"--accent-fg": "#fbf8f3",
+			"--line": "rgba(42,38,34,0.1)",
+			"--ok": "#456348",
+			"--danger": "#a14b43"
+		},
+		notes: "Асимметрия, крупные заголовки."
+	}),
+	t({
+		id: "olive-journal",
+		name: "Olive Journal",
+		nameRu: "Оливковый журнал",
+		family: "editorial",
+		nav: "toc",
+		density: "regular",
+		radius: "md",
+		shadow: "sm",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "B",
+		sourceRef: "examples/blog numbered",
+		tokens: {
+			"--bg": "#eef0e6",
+			"--bg-elev": "#f6f7ef",
+			"--surface": "#fcfdf7",
+			"--fg": "#2a3324",
+			"--muted": "#66705a",
+			"--accent": "#5b6b3a",
+			"--accent-fg": "#fcfdf7",
+			"--line": "rgba(42,51,36,0.12)",
+			"--ok": "#5b6b3a",
+			"--danger": "#a05040"
+		},
+		notes: "Последовательные записи, квитанция в конце."
+	}),
+	t({
+		id: "onyx-dock",
+		name: "Onyx Dock",
+		nameRu: "Ониксовый док",
+		family: "cabinet",
+		nav: "bottom",
+		density: "compact",
+		radius: "md",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "mobile dock pattern",
+		tokens: {
+			"--bg": "#0b0c0e",
+			"--bg-elev": "#141518",
+			"--surface": "#1c1d22",
+			"--fg": "#f0f1f3",
+			"--muted": "#8e929a",
+			"--accent": "#cfd3da",
+			"--accent-fg": "#0b0c0e",
+			"--line": "rgba(207,211,218,0.16)",
+			"--ok": "#86c49a",
+			"--danger": "#d58a86"
+		},
+		notes: "Нижняя навигация, боковой лист редактора."
+	}),
+	t({
+		id: "sky-studio",
+		name: "Sky Studio",
+		nameRu: "Небесная студия",
+		family: "research",
+		nav: "top",
+		density: "regular",
+		radius: "md",
+		shadow: "sm",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "tabs + split",
+		tokens: {
+			"--bg": "#eef4f8",
+			"--bg-elev": "#f7fbfe",
+			"--surface": "#ffffff",
+			"--fg": "#1c2a36",
+			"--muted": "#5d7386",
+			"--accent": "#3c7ca8",
+			"--accent-fg": "#f7fbfe",
+			"--line": "rgba(28,42,54,0.1)",
+			"--ok": "#3c7a5c",
+			"--danger": "#b05454"
+		},
+		notes: "Светло-голубой акцент, открытые поверхности."
+	}),
+	t({
+		id: "taupe-summary",
+		name: "Taupe Summary",
+		nameRu: "Тауповый итог",
+		family: "research",
+		nav: "none",
+		density: "regular",
+		radius: "sm",
+		shadow: "sm",
+		mode: "light",
+		fonts: "newsreader",
+		basedOn: "B",
+		sourceRef: "examples/pricing two-col",
+		tokens: {
+			"--bg": "#ebe6df",
+			"--bg-elev": "#f4f0ea",
+			"--surface": "#fbf8f4",
+			"--fg": "#2e2a26",
+			"--muted": "#6f6860",
+			"--accent": "#6a5e52",
+			"--accent-fg": "#fbf8f4",
+			"--line": "rgba(46,42,38,0.12)",
+			"--ok": "#4d6750",
+			"--danger": "#9c4d45"
+		},
+		notes: "Форма слева, высокий чек справа."
+	}),
+	t({
+		id: "cobalt-matrix",
+		name: "Cobalt Matrix",
+		nameRu: "Кобальтовая матрица",
+		family: "table",
+		nav: "none",
+		density: "compact",
+		radius: "sm",
+		shadow: "none",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "S",
+		sourceRef: "data table inline edit",
+		tokens: {
+			"--bg": "#0b1630",
+			"--bg-elev": "#122044",
+			"--surface": "#182a54",
+			"--fg": "#e4ecff",
+			"--muted": "#9aacd4",
+			"--accent": "#7ea2ff",
+			"--accent-fg": "#0b1630",
+			"--line": "rgba(126,162,255,0.22)",
+			"--ok": "#7dcea6",
+			"--danger": "#e090a0"
+		},
+		notes: "Плотная сетка, правки в строках."
+	}),
+	t({
+		id: "moon-dialogue",
+		name: "Moon Dialogue",
+		nameRu: "Лунный диалог",
+		family: "research",
+		nav: "split",
+		density: "regular",
+		radius: "xl",
+		shadow: "md",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "chat + cards",
+		tokens: {
+			"--bg": "#101218",
+			"--bg-elev": "#181b24",
+			"--surface": "#20242f",
+			"--fg": "#eef0f5",
+			"--muted": "#a3a9b8",
+			"--accent": "#c9c3b0",
+			"--accent-fg": "#101218",
+			"--line": "rgba(201,195,176,0.16)",
+			"--ok": "#8fbfa8",
+			"--danger": "#d98989"
+		},
+		notes: "Помощник рядом с карточками, форма полностью доступна."
+	}),
+	t({
+		id: "linen-review",
+		name: "Linen Review",
+		nameRu: "Льняной обзор",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "md",
+		shadow: "none",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "B",
+		sourceRef: "docs typography",
+		tokens: {
+			"--bg": "#f3efe6",
+			"--bg-elev": "#faf7f0",
+			"--surface": "#fffcf6",
+			"--fg": "#2c291f",
+			"--muted": "#6e6a5c",
+			"--accent": "#4d5340",
+			"--accent-fg": "#fffcf6",
+			"--line": "rgba(44,41,31,0.1)",
+			"--ok": "#4d5340",
+			"--danger": "#9a4a40"
+		},
+		notes: "CSS-текстура льна, широкие поля."
+	}),
+	t({
+		id: "forest-console",
+		name: "Forest Console",
+		nameRu: "Лесная консоль",
+		family: "cabinet",
+		nav: "sidebar",
+		density: "compact",
+		radius: "sm",
+		shadow: "sm",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "S",
+		sourceRef: "tree sidebar",
+		tokens: {
+			"--bg": "#0a1610",
+			"--bg-elev": "#102017",
+			"--surface": "#16281d",
+			"--fg": "#e5f0e8",
+			"--muted": "#8eaa96",
+			"--accent": "#8fbf9a",
+			"--accent-fg": "#0a1610",
+			"--line": "rgba(143,191,154,0.2)",
+			"--ok": "#8fbf9a",
+			"--danger": "#d98980"
+		},
+		notes: "Дерево категорий, нижний журнал формул."
+	}),
+	t({
+		id: "quartz-balance",
+		name: "Quartz Balance",
+		nameRu: "Кварцевый баланс",
+		family: "research",
+		nav: "split",
+		density: "regular",
+		radius: "lg",
+		shadow: "sm",
+		mode: "light",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "two-pane",
+		tokens: {
+			"--bg": "#f2f1f4",
+			"--bg-elev": "#faf9fb",
+			"--surface": "#ffffff",
+			"--fg": "#26222a",
+			"--muted": "#6c6672",
+			"--accent": "#5a4e63",
+			"--accent-fg": "#faf9fb",
+			"--line": "rgba(38,34,42,0.1)",
+			"--ok": "#3f6b52",
+			"--danger": "#a4545c"
+		},
+		notes: "Две равные области: активы и условия."
+	}),
+	t({
+		id: "copper-steps",
+		name: "Copper Steps",
+		nameRu: "Медные ступени",
+		family: "wizard",
+		nav: "steps",
+		density: "regular",
+		radius: "lg",
+		shadow: "md",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "stepper",
+		tokens: {
+			"--bg": "#1a120e",
+			"--bg-elev": "#241811",
+			"--surface": "#2d1f16",
+			"--fg": "#f6eadf",
+			"--muted": "#c0a794",
+			"--accent": "#d08a55",
+			"--accent-fg": "#1a120e",
+			"--line": "rgba(208,138,85,0.24)",
+			"--ok": "#8fbf8a",
+			"--danger": "#e08b84"
+		},
+		notes: "Вертикальная шкала этапов, медный акцент."
+	}),
+	t({
+		id: "monochrome-essential",
+		name: "Monochrome Essential",
+		nameRu: "Монохромная основа",
+		family: "editorial",
+		nav: "top",
+		density: "airy",
+		radius: "none",
+		shadow: "none",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "examples/starter",
+		tokens: {
+			"--bg": "#ffffff",
+			"--bg-elev": "#f4f4f4",
+			"--surface": "#ffffff",
+			"--fg": "#111111",
+			"--muted": "#5a5a5a",
+			"--accent": "#111111",
+			"--accent-fg": "#ffffff",
+			"--line": "rgba(17,17,17,0.16)",
+			"--ok": "#1f6b3a",
+			"--danger": "#9b1c1c"
+		},
+		notes: "Высокая читаемость, крупные цели касания, минимум движения."
+	}),
+	t({
+		id: "kufic-night",
+		name: "Kufic Night",
+		nameRu: "Куфи ночь",
+		family: "cabinet",
+		nav: "bottom",
+		density: "regular",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "fraunces",
+		basedOn: "S",
+		sourceRef: "sidebar-07",
+		tokens: {
+			"--bg": "#05080f",
+			"--bg-elev": "#0a101c",
+			"--surface": "#121a2c",
+			"--fg": "#e8eef8",
+			"--muted": "#8d9bb0",
+			"--accent": "#c9a46a",
+			"--accent-fg": "#05080f",
+			"--line": "rgba(201,164,106,0.18)",
+			"--ok": "#6ec8a8",
+			"--danger": "#e09088"
+		},
+		notes: "Тёмный кабинет, куфическое золото."
+	}),
+	t({
+		id: "madinah-stone",
+		name: "Madinah Stone",
+		nameRu: "Камень Медины",
+		family: "editorial",
+		nav: "top",
+		density: "airy",
+		radius: "md",
+		shadow: "sm",
+		mode: "light",
+		fonts: "newsreader",
+		basedOn: "B",
+		sourceRef: "blog",
+		tokens: {
+			"--bg": "#f4efe6",
+			"--bg-elev": "#fffaf3",
+			"--surface": "#ebe3d6",
+			"--fg": "#2b241c",
+			"--muted": "#6f6558",
+			"--accent": "#7a4e32",
+			"--accent-fg": "#fffaf3",
+			"--line": "rgba(43,36,28,0.12)",
+			"--ok": "#3d6b4f",
+			"--danger": "#9b3b32"
+		},
+		notes: "Светлый камень, спокойная редакция."
+	}),
+	t({
+		id: "andalus-lime",
+		name: "Andalus Lime",
+		nameRu: "Андалусская известь",
+		family: "cards",
+		nav: "bottom",
+		density: "regular",
+		radius: "lg",
+		shadow: "md",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "S",
+		sourceRef: "cards",
+		tokens: {
+			"--bg": "#f7f4ea",
+			"--bg-elev": "#fffcf4",
+			"--surface": "#ece7d8",
+			"--fg": "#1f2a22",
+			"--muted": "#5d6a60",
+			"--accent": "#2f6f57",
+			"--accent-fg": "#f7f4ea",
+			"--line": "rgba(47,111,87,0.16)",
+			"--ok": "#2f6f57",
+			"--danger": "#b4564a"
+		},
+		notes: "Известь и сад Андалусии."
+	}),
+	t({
+		id: "bukhara-silk",
+		name: "Bukhara Silk",
+		nameRu: "Бухарский шёлк",
+		family: "cabinet",
+		nav: "sidebar",
+		density: "compact",
+		radius: "md",
+		shadow: "md",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "dashboard-01",
+		tokens: {
+			"--bg": "#1a1016",
+			"--bg-elev": "#24151e",
+			"--surface": "#331f2b",
+			"--fg": "#f6e8ef",
+			"--muted": "#b798a6",
+			"--accent": "#d4a0b4",
+			"--accent-fg": "#1a1016",
+			"--line": "rgba(212,160,180,0.18)",
+			"--ok": "#8fbf9a",
+			"--danger": "#e08b84"
+		},
+		notes: "Тёмная ткань, боковая колонка."
+	}),
+	t({
+		id: "cairo-ink",
+		name: "Cairo Ink",
+		nameRu: "Каирские чернила",
+		family: "research",
+		nav: "toc",
+		density: "compact",
+		radius: "sm",
+		shadow: "none",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "B",
+		sourceRef: "dashboard",
+		tokens: {
+			"--bg": "#0c0d10",
+			"--bg-elev": "#14161c",
+			"--surface": "#1c1f28",
+			"--fg": "#e7eadf",
+			"--muted": "#8b9084",
+			"--accent": "#e2c36b",
+			"--accent-fg": "#0c0d10",
+			"--line": "rgba(226,195,107,0.16)",
+			"--ok": "#7dba8c",
+			"--danger": "#d97a72"
+		},
+		notes: "Чернила и бумага ночного кабинета."
+	}),
+	t({
+		id: "fez-terracotta",
+		name: "Fez Terracotta",
+		nameRu: "Терракота Феса",
+		family: "wizard",
+		nav: "steps",
+		density: "regular",
+		radius: "lg",
+		shadow: "sm",
+		mode: "light",
+		fonts: "fraunces",
+		basedOn: "B",
+		sourceRef: "checkout",
+		tokens: {
+			"--bg": "#f6ebe3",
+			"--bg-elev": "#fff6f0",
+			"--surface": "#ead7cc",
+			"--fg": "#3a241c",
+			"--muted": "#7a5a4e",
+			"--accent": "#c45c32",
+			"--accent-fg": "#fff6f0",
+			"--line": "rgba(196,92,50,0.18)",
+			"--ok": "#4d7a4a",
+			"--danger": "#b33a32"
+		},
+		notes: "Мастер по ступеням, глина Феса."
+	}),
+	t({
+		id: "samarkand-tile",
+		name: "Samarkand Tile",
+		nameRu: "Плитка Самарканда",
+		family: "cards",
+		nav: "bottom",
+		density: "airy",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "literata",
+		basedOn: "S",
+		sourceRef: "cards",
+		tokens: {
+			"--bg": "#07151c",
+			"--bg-elev": "#0c1f29",
+			"--surface": "#12303c",
+			"--fg": "#e4f4f2",
+			"--muted": "#8aaeab",
+			"--accent": "#3ec7c2",
+			"--accent-fg": "#07151c",
+			"--line": "rgba(62,199,194,0.18)",
+			"--ok": "#6ee1ae",
+			"--danger": "#ff8b82"
+		},
+		notes: "Бирюзовая плитка, карточки."
+	}),
+	t({
+		id: "hijaz-sand",
+		name: "Hijaz Sand",
+		nameRu: "Песок Хиджаза",
+		family: "editorial",
+		nav: "top",
+		density: "airy",
+		radius: "sm",
+		shadow: "none",
+		mode: "light",
+		fonts: "newsreader",
+		basedOn: "B",
+		sourceRef: "cheatsheet",
+		tokens: {
+			"--bg": "#f3ead6",
+			"--bg-elev": "#fbf4e4",
+			"--surface": "#e7d9bc",
+			"--fg": "#3b2e1c",
+			"--muted": "#7a6a4e",
+			"--accent": "#9a6b2f",
+			"--accent-fg": "#fbf4e4",
+			"--line": "rgba(154,107,47,0.2)",
+			"--ok": "#4f7344",
+			"--danger": "#a33e32"
+		},
+		notes: "Песчаная редакция, широкие поля."
+	}),
+	t({
+		id: "yemen-qamari",
+		name: "Yemen Qamari",
+		nameRu: "Йеменский камари",
+		family: "cabinet",
+		nav: "bottom",
+		density: "regular",
+		radius: "md",
+		shadow: "md",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "sidebar-07",
+		tokens: {
+			"--bg": "#0e1114",
+			"--bg-elev": "#171c22",
+			"--surface": "#222a32",
+			"--fg": "#e8eef2",
+			"--muted": "#8a97a3",
+			"--accent": "#d8dde3",
+			"--accent-fg": "#0e1114",
+			"--line": "rgba(216,221,227,0.14)",
+			"--ok": "#7dba8c",
+			"--danger": "#d97a72"
+		},
+		notes: "Белый камень на ночи."
+	}),
+	t({
+		id: "maghreb-blue",
+		name: "Maghreb Blue",
+		nameRu: "Синь Магриба",
+		family: "table",
+		nav: "sidebar",
+		density: "compact",
+		radius: "sm",
+		shadow: "sm",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "dashboard",
+		tokens: {
+			"--bg": "#071018",
+			"--bg-elev": "#0c1a26",
+			"--surface": "#13283a",
+			"--fg": "#e6f0f8",
+			"--muted": "#7f99ad",
+			"--accent": "#4ea3e0",
+			"--accent-fg": "#071018",
+			"--line": "rgba(78,163,224,0.2)",
+			"--ok": "#5ec8a4",
+			"--danger": "#e08b84"
+		},
+		notes: "Таблица на синем, боковое меню."
+	}),
+	t({
+		id: "ottoman-ivory",
+		name: "Ottoman Ivory",
+		nameRu: "Османская слоновая",
+		family: "wizard",
+		nav: "steps",
+		density: "airy",
+		radius: "xl",
+		shadow: "md",
+		mode: "light",
+		fonts: "fraunces",
+		basedOn: "S",
+		sourceRef: "stepper",
+		tokens: {
+			"--bg": "#f8f1e3",
+			"--bg-elev": "#fffaf0",
+			"--surface": "#eee4d0",
+			"--fg": "#2c2418",
+			"--muted": "#726752",
+			"--accent": "#8a1e2b",
+			"--accent-fg": "#fffaf0",
+			"--line": "rgba(138,30,43,0.16)",
+			"--ok": "#3f6b45",
+			"--danger": "#8a1e2b"
+		},
+		notes: "Слоновая кость и кармин."
+	}),
+	t({
+		id: "tatar-green",
+		name: "Tatar Green",
+		nameRu: "Татарский зелёный",
+		family: "cards",
+		nav: "bottom",
+		density: "regular",
+		radius: "lg",
+		shadow: "md",
+		mode: "dark",
+		fonts: "plex",
+		basedOn: "S",
+		sourceRef: "cards",
+		tokens: {
+			"--bg": "#0a140f",
+			"--bg-elev": "#102018",
+			"--surface": "#183226",
+			"--fg": "#e7f3ea",
+			"--muted": "#8eaa96",
+			"--accent": "#8fd19a",
+			"--accent-fg": "#0a140f",
+			"--line": "rgba(143,209,154,0.18)",
+			"--ok": "#8fd19a",
+			"--danger": "#e08b84"
+		},
+		notes: "Зелень и нижняя навигация."
+	}),
+	t({
+		id: "persian-nasta",
+		name: "Persian Nasta",
+		nameRu: "Персидский наста",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "md",
+		shadow: "sm",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "B",
+		sourceRef: "blog",
+		tokens: {
+			"--bg": "#f6efe8",
+			"--bg-elev": "#fff9f4",
+			"--surface": "#eadfd4",
+			"--fg": "#2a1f28",
+			"--muted": "#6e5d68",
+			"--accent": "#6b2d5b",
+			"--accent-fg": "#fff9f4",
+			"--line": "rgba(107,45,91,0.16)",
+			"--ok": "#3f6b45",
+			"--danger": "#9b3b32"
+		},
+		notes: "Светлая редакция, чернила насты."
+	}),
+	t({
+		id: "malay-gold",
+		name: "Malay Gold",
+		nameRu: "Малайское золото",
+		family: "cabinet",
+		nav: "split",
+		density: "regular",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "fraunces",
+		basedOn: "S",
+		sourceRef: "resizable",
+		tokens: {
+			"--bg": "#120e08",
+			"--bg-elev": "#1c160c",
+			"--surface": "#2a2112",
+			"--fg": "#f7eed8",
+			"--muted": "#b3a27a",
+			"--accent": "#e0b24a",
+			"--accent-fg": "#120e08",
+			"--line": "rgba(224,178,74,0.2)",
+			"--ok": "#7dba8c",
+			"--danger": "#d97a72"
+		},
+		notes: "Раздвоенная колонка, тёплое золото."
+	}),
+	t({
+		id: "sahel-dusk",
+		name: "Sahel Dusk",
+		nameRu: "Сумерки Сахеля",
+		family: "research",
+		nav: "none",
+		density: "compact",
+		radius: "none",
+		shadow: "none",
+		mode: "dark",
+		fonts: "plex-mono",
+		basedOn: "B",
+		sourceRef: "starter",
+		tokens: {
+			"--bg": "#16110d",
+			"--bg-elev": "#211a14",
+			"--surface": "#2c241c",
+			"--fg": "#f0e6d8",
+			"--muted": "#a89884",
+			"--accent": "#e07a3d",
+			"--accent-fg": "#16110d",
+			"--line": "rgba(224,122,61,0.2)",
+			"--ok": "#8fbf8a",
+			"--danger": "#e08b84"
+		},
+		notes: "Исследование без рамки, закат."
+	}),
+	t({
+		id: "bosnia-frost",
+		name: "Bosnia Frost",
+		nameRu: "Боснийский иней",
+		family: "table",
+		nav: "top",
+		density: "compact",
+		radius: "sm",
+		shadow: "sm",
+		mode: "light",
+		fonts: "plex",
+		basedOn: "B",
+		sourceRef: "dashboard",
+		tokens: {
+			"--bg": "#eef2f4",
+			"--bg-elev": "#ffffff",
+			"--surface": "#e2e8ec",
+			"--fg": "#1c2428",
+			"--muted": "#5c6b72",
+			"--accent": "#2b5f73",
+			"--accent-fg": "#ffffff",
+			"--line": "rgba(43,95,115,0.16)",
+			"--ok": "#2f6b4a",
+			"--danger": "#9b3b32"
+		},
+		notes: "Холодная таблица, верхнее меню."
+	}),
+	t({
+		id: "kashmir-saffron",
+		name: "Kashmir Saffron",
+		nameRu: "Кашмирский шафран",
+		family: "cards",
+		nav: "bottom",
+		density: "airy",
+		radius: "lg",
+		shadow: "md",
+		mode: "light",
+		fonts: "newsreader",
+		basedOn: "S",
+		sourceRef: "cards",
+		tokens: {
+			"--bg": "#fbf3e4",
+			"--bg-elev": "#fff9ee",
+			"--surface": "#f0e2c8",
+			"--fg": "#2e2416",
+			"--muted": "#7a6848",
+			"--accent": "#c47b12",
+			"--accent-fg": "#fff9ee",
+			"--line": "rgba(196,123,18,0.2)",
+			"--ok": "#4d7a4a",
+			"--danger": "#b33a32"
+		},
+		notes: "Шафран на бумаге, карточки."
+	}),
+	t({
+		id: "nile-papyrus",
+		name: "Nile Papyrus",
+		nameRu: "Нильский папирус",
+		family: "editorial",
+		nav: "toc",
+		density: "airy",
+		radius: "md",
+		shadow: "none",
+		mode: "light",
+		fonts: "literata",
+		basedOn: "B",
+		sourceRef: "blog",
+		tokens: {
+			"--bg": "#efe6c9",
+			"--bg-elev": "#f7f0d8",
+			"--surface": "#e4d8b4",
+			"--fg": "#2a2718",
+			"--muted": "#6b6548",
+			"--accent": "#4a5c32",
+			"--accent-fg": "#f7f0d8",
+			"--line": "rgba(42,39,24,0.14)",
+			"--ok": "#4a5c32",
+			"--danger": "#9b3b32"
+		},
+		notes: "Папирус, оглавление слева."
+	}),
+	t({
+		id: "atlas-cedar",
+		name: "Atlas Cedar",
+		nameRu: "Кедр Атласа",
+		family: "wizard",
+		nav: "steps",
+		density: "regular",
+		radius: "lg",
+		shadow: "md",
+		mode: "dark",
+		fonts: "serif-plex",
+		basedOn: "S",
+		sourceRef: "stepper",
+		tokens: {
+			"--bg": "#10160f",
+			"--bg-elev": "#181f16",
+			"--surface": "#243022",
+			"--fg": "#e8f0e4",
+			"--muted": "#93a48c",
+			"--accent": "#c4b48a",
+			"--accent-fg": "#10160f",
+			"--line": "rgba(196,180,138,0.18)",
+			"--ok": "#7dba8c",
+			"--danger": "#d97a72"
+		},
+		notes: "Кедр и шаги мастера."
+	}),
+	t({
+		id: "haram-quiet",
+		name: "Haram Quiet",
+		nameRu: "Тишина харама",
+		family: "cabinet",
+		nav: "bottom",
+		density: "regular",
+		radius: "xl",
+		shadow: "lg",
+		mode: "dark",
+		fonts: "fraunces",
+		basedOn: "S",
+		sourceRef: "sidebar-07",
+		tokens: {
+			"--bg": "#0b1210",
+			"--bg-elev": "#121a18",
+			"--surface": "#1b2924",
+			"--fg": "#f2efe6",
+			"--muted": "#9aa89f",
+			"--accent": "#d7c49a",
+			"--accent-fg": "#0b1210",
+			"--line": "rgba(215,196,154,0.16)",
+			"--ok": "#6ee1ae",
+			"--danger": "#ff8b82"
+		},
+		notes: "Тихий изумруд, нижний док."
+	})
+];
+var DEFAULT_THEME_ID = "mizan-emerald";
+function getTheme(id) {
+	return THEMES.find((t) => t.id === id) ?? THEMES[0];
+}
+var LAYOUT_LABEL = {
+	cabinet: "Кабинет",
+	editorial: "Редакция",
+	wizard: "Мастер",
+	table: "Таблица",
+	cards: "Карточки",
+	research: "Исследование"
+};
+function cn(...inputs) {
+	return twMerge(clsx(inputs));
+}
+function uid(prefix = "id") {
+	return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+}
+function todayISO() {
+	const d = /* @__PURE__ */ new Date();
+	const z = (n) => String(n).padStart(2, "0");
+	return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+}
+var INPUT_KEY = "mizan.v1.input";
+var SETTINGS_KEY = "mizan.v1.settings";
+var HISTORY_KEY = "mizan.v1.history";
+var UI_KEY = "mizan.v1.ui";
+var defaultSettings = {
+	themeId: DEFAULT_THEME_ID,
+	favorites: [],
+	reducedMotion: false,
+	densityOverride: "theme",
+	colorScheme: "theme",
+	fontScale: 1,
+	fontPair: "theme",
+	hadithPaper: "night",
+	hadithArFont: "naskh",
+	hadithMeanFont: "literata",
+	locale: "ru",
+	navLayout: "bottom",
+	sabrNotify: true,
+	sabrHour: 8,
+	startTab: "home",
+	showMeaning: true,
+	keepLastTab: true,
+	homeSize: "compact",
+	showHijri: true,
+	favFirst: true,
+	autoPlayAyah: false,
+	highContrast: false,
+	largeTap: false,
+	voiceGender: "male",
+	voiceRate: "normal"
+};
+function persistSettings(s) {
+	try {
+		localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+	} catch {}
+}
+function persistInput(i) {
+	try {
+		if (typeof window !== "undefined") {
+			window.clearTimeout(persistInput.t);
+			persistInput.t = window.setTimeout(() => {
+				try {
+					localStorage.setItem(INPUT_KEY, JSON.stringify(i));
+				} catch {}
+			}, 180);
+			return;
+		}
+		localStorage.setItem(INPUT_KEY, JSON.stringify(i));
+	} catch {}
+}
+function persistHistory(h) {
+	try {
+		localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+	} catch {}
+}
+function persistUi(s) {
+	try {
+		localStorage.setItem(UI_KEY, JSON.stringify({
+			appTab: s.appTab,
+			zakatOpen: s.zakatOpen,
+			detailsOpen: s.detailsOpen,
+			openZakatSection: s.openZakatSection,
+			houseRoom: s.houseRoom,
+			houseHadith: s.houseHadith,
+			houseHadithFrom: s.houseHadithFrom
+		}));
+	} catch {}
+}
+function houseHash(room, hadith) {
+	if (!room) return "#home";
+	if (room === "nawawi" && hadith != null) return `#house/nawawi/${hadith}`;
+	return `#house/${room}`;
+}
+function loadJson(key, fallback) {
+	try {
+		const raw = localStorage.getItem(key);
+		if (!raw) return fallback;
+		return JSON.parse(raw);
+	} catch {
+		return fallback;
+	}
+}
+var initialInput = emptyInput({
+	id: uid("calc"),
+	asOfDate: todayISO()
+});
+var useMizan = create((set, get) => ({
+	input: initialInput,
+	settings: defaultSettings,
+	history: [],
+	previewThemeId: null,
+	settingsOpen: false,
+	designsOpen: false,
+	wizardStep: 0,
+	activeSection: "",
+	lastResult: null,
+	quotesStatus: "idle",
+	quotesError: "",
+	appTab: "home",
+	zakatOpen: false,
+	detailsOpen: false,
+	openZakatSection: null,
+	hisnChapterId: null,
+	houseRoom: null,
+	houseHadith: null,
+	houseHadithFrom: "list",
+	setInput: (patch) => {
+		const prev = get().input;
+		const next = typeof patch === "function" ? patch(prev) : {
+			...prev,
+			...patch
+		};
+		persistInput(next);
+		set({
+			input: next,
+			lastResult: calculate(next)
+		});
+	},
+	setSettings: (patch) => {
+		const next = {
+			...get().settings,
+			...patch
+		};
+		persistSettings(next);
+		set({ settings: next });
+	},
+	setPreviewTheme: (id) => set({ previewThemeId: id }),
+	applyTheme: (id) => {
+		const next = {
+			...get().settings,
+			themeId: id
+		};
+		persistSettings(next);
+		set({
+			settings: next,
+			previewThemeId: null,
+			designsOpen: false
+		});
+	},
+	revertTheme: () => set({ previewThemeId: null }),
+	toggleFavorite: (id) => {
+		const fav = get().settings.favorites.includes(id) ? get().settings.favorites.filter((x) => x !== id) : [...get().settings.favorites, id];
+		get().setSettings({ favorites: fav });
+	},
+	setSettingsOpen: (v) => set({
+		settingsOpen: v,
+		designsOpen: false
+	}),
+	setDesignsOpen: (v) => set({
+		designsOpen: v,
+		settingsOpen: v ? true : get().settingsOpen
+	}),
+	setWizardStep: (n) => set({ wizardStep: n }),
+	setActiveSection: (id) => set({ activeSection: id }),
+	setAppTab: (appTab) => {
+		const cur = get();
+		if (cur.appTab === appTab && cur.houseRoom == null && cur.houseHadith == null) return;
+		set({
+			appTab,
+			houseRoom: null,
+			houseHadith: null
+		});
+		persistUi(get());
+		if (typeof window !== "undefined") {
+			const map = {
+				home: "#home",
+				zakat: "#zakat",
+				quran: "#quran",
+				hisn: "#hisn",
+				learn: "#learn"
+			};
+			if (!location.hash.startsWith("#quran/") && !location.hash.startsWith("#learn/") && !location.hash.startsWith("#hisn/")) history.replaceState(null, "", map[appTab]);
+		}
+	},
+	setZakatOpen: (zakatOpen) => {
+		set({ zakatOpen });
+		persistUi(get());
+	},
+	setDetailsOpen: (detailsOpen) => {
+		set({ detailsOpen });
+		persistUi(get());
+	},
+	setOpenZakatSection: (openZakatSection) => {
+		set({
+			openZakatSection,
+			activeSection: openZakatSection ?? get().activeSection
+		});
+		persistUi(get());
+	},
+	setHisnChapter: (hisnChapterId) => {
+		set({
+			hisnChapterId,
+			appTab: hisnChapterId != null ? "hisn" : get().appTab,
+			houseRoom: hisnChapterId != null ? null : get().houseRoom,
+			houseHadith: hisnChapterId != null ? null : get().houseHadith
+		});
+		persistUi(get());
+		if (typeof window !== "undefined" && hisnChapterId != null) history.replaceState(null, "", `#hisn/${hisnChapterId}`);
+	},
+	setHouseRoom: (houseRoom) => {
+		get().setHouseNav(houseRoom, null);
+	},
+	setHouseNav: (houseRoom, hadith = null, from = "list") => {
+		const houseHadith = houseRoom === "nawawi" ? hadith : null;
+		set({
+			houseRoom,
+			houseHadith,
+			houseHadithFrom: from,
+			appTab: "home"
+		});
+		persistUi(get());
+		if (typeof window !== "undefined") history.replaceState(null, "", houseHash(houseRoom, houseHadith));
+	},
+	recompute: () => {
+		const result = calculate(get().input);
+		set({ lastResult: result });
+		return result;
+	},
+	saveDraft: (title) => {
+		const input = {
+			...get().input,
+			title: title || get().input.title,
+			id: get().input.id
+		};
+		const result = calculate(input);
+		const item = {
+			id: input.id,
+			title: input.title,
+			createdAt: (/* @__PURE__ */ new Date()).toISOString(),
+			updatedAt: (/* @__PURE__ */ new Date()).toISOString(),
+			input,
+			result
+		};
+		const history = [item, ...get().history.filter((h) => h.id !== item.id)].slice(0, 40);
+		persistHistory(history);
+		persistInput(input);
+		set({
+			history,
+			input,
+			lastResult: result
+		});
+	},
+	loadSaved: (id) => {
+		const item = get().history.find((h) => h.id === id);
+		if (!item) return;
+		persistInput(item.input);
+		set({
+			input: item.input,
+			lastResult: item.result
+		});
+	},
+	duplicate: (id) => {
+		const item = get().history.find((h) => h.id === id);
+		if (!item) return;
+		const copy = {
+			...structuredClone(item.input),
+			id: uid("calc"),
+			title: `${item.title} (копия)`
+		};
+		persistInput(copy);
+		set({
+			input: copy,
+			lastResult: calculate(copy)
+		});
+	},
+	deleteSaved: (id) => {
+		const history = get().history.filter((h) => h.id !== id);
+		persistHistory(history);
+		set({ history });
+	},
+	importJson: (raw) => {
+		try {
+			const data = JSON.parse(raw);
+			if (!data.input || data.input.schemaVersion !== 1) return {
+				ok: false,
+				error: "Этот файл Мизан не узнаёт. Текущий расчёт не тронут."
+			};
+			const input = {
+				...data.input,
+				id: uid("calc")
+			};
+			persistInput(input);
+			set({
+				input,
+				lastResult: calculate(input)
+			});
+			return { ok: true };
+		} catch {
+			return {
+				ok: false,
+				error: "Файл не открылся. Текущий расчёт на месте."
+			};
+		}
+	},
+	resetInput: () => {
+		const input = emptyInput({
+			id: uid("calc"),
+			asOfDate: todayISO()
+		});
+		persistInput(input);
+		set({
+			input,
+			lastResult: calculate(input)
+		});
+	},
+	setQuotesStatus: (s, err) => set({
+		quotesStatus: s,
+		quotesError: err ?? ""
+	})
+}));
+function hydrateMizan() {
+	if (typeof window === "undefined") return;
+	const settings = loadJson(SETTINGS_KEY, defaultSettings);
+	const input = loadJson(INPUT_KEY, initialInput);
+	const history = loadJson(HISTORY_KEY, []);
+	const ui = loadJson(UI_KEY, {});
+	useMizan.setState({
+		settings: {
+			...defaultSettings,
+			...settings
+		},
+		input,
+		history,
+		lastResult: calculate(input),
+		appTab: ui.appTab ?? "home",
+		zakatOpen: ui.zakatOpen ?? false,
+		detailsOpen: ui.detailsOpen ?? false,
+		openZakatSection: ui.openZakatSection ?? null,
+		houseRoom: ui.houseRoom ?? null,
+		houseHadith: ui.houseHadith ?? null,
+		houseHadithFrom: ui.houseHadithFrom ?? "list"
+	});
+}
+function Ctor() {
+	if (typeof window === "undefined") return null;
+	const w = window;
+	return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
+}
+function voiceAvailable() {
+	return Ctor() !== null;
+}
+function speakAvailable() {
+	return typeof window !== "undefined";
+}
+function listenRu(onText, lang = "ru-RU") {
+	const Cls = Ctor();
+	if (!Cls) return () => void 0;
+	const rec = new Cls();
+	rec.lang = lang;
+	rec.interimResults = true;
+	rec.continuous = false;
+	rec.onresult = (ev) => {
+		const last = ev.results[ev.results.length - 1];
+		if (!last) return;
+		onText(last[0].transcript, last.isFinal);
+	};
+	rec.onerror = () => void 0;
+	rec.start();
+	return () => rec.stop();
+}
+var FEMALE = /female|woman|girl|milena|irina|oksana|tatyana|tatiana|svetlana|daria|dariya|alena|elena|kate|katya|zira|susan|samantha|hazel|karen|moira|fiona|veena|tessa|siri|jane|anna|kendra|joanna|ivy|salli|nicole|raveena|aditi|lupa|natalia|paulina|salma|jenny|emel/i;
+var MALE = /male|dmitry|dmitri|yuri|yury|pavel|filipp|zahar|ermil|andrei|alexandr|shakir|daniel|david|mark|george|fred|arthur|guy|ahmet|google uk english male/i;
+var BROWSER_RATE = {
+	slow: .84,
+	normal: 1,
+	fast: 1.18
+};
+function voicePrefs() {
+	try {
+		const s = useMizan.getState().settings;
+		return {
+			gender: s.voiceGender === "female" ? "female" : "male",
+			rate: s.voiceRate === "slow" || s.voiceRate === "fast" ? s.voiceRate : "normal"
+		};
+	} catch {
+		return {
+			gender: "male",
+			rate: "normal"
+		};
+	}
+}
+function pickVoice(lang, gender) {
+	if (typeof window === "undefined") return null;
+	const pool = window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith(lang.slice(0, 2).toLowerCase()));
+	if (gender === "female") return pool.find((v) => FEMALE.test(v.name)) ?? pool[0] ?? null;
+	return pool.find((v) => MALE.test(v.name) && !FEMALE.test(v.name)) ?? pool.find((v) => !FEMALE.test(v.name) && /male/i.test(v.name)) ?? pool[0] ?? null;
+}
+function speakBrowser(text, lang, gender, rate) {
+	if (typeof window === "undefined") return Promise.resolve();
+	const voice = pickVoice(lang, gender);
+	const u = new SpeechSynthesisUtterance(text);
+	u.lang = lang;
+	if (voice) u.voice = voice;
+	u.rate = BROWSER_RATE[rate];
+	u.pitch = gender === "female" ? 1.04 : .92;
+	return new Promise((resolve) => {
+		u.onend = () => resolve();
+		u.onerror = () => resolve();
+		window.speechSynthesis.speak(u);
+	});
+}
+function chunkText(s, max = 640) {
+	if (s.length <= max) return [s];
+	const out = [];
+	let rest = s;
+	while (rest.length > max) {
+		const window = rest.slice(0, max);
+		let cut = Math.max(window.lastIndexOf("۔"), window.lastIndexOf("."), window.lastIndexOf("!"), window.lastIndexOf("?"), window.lastIndexOf("،"), window.lastIndexOf(","), window.lastIndexOf(" "));
+		if (cut < max * .4) cut = max;
+		out.push(rest.slice(0, cut).trim());
+		rest = rest.slice(cut).trim();
+	}
+	if (rest) out.push(rest);
+	return out;
+}
+async function speakText(text, lang = "ru-RU") {
+	if (typeof window === "undefined") return;
+	const clean = text.replace(/[ʿʾ*#_]/g, "").replace(/\s+/g, " ").trim();
+	if (!clean) return;
+	stopSpeak();
+	const mine = seq;
+	const { gender, rate } = voicePrefs();
+	const chunks = chunkText(clean);
+	for (const chunk of chunks) {
+		if (mine !== seq) return;
+		try {
+			const res = await speakMale({ data: {
+				text: chunk,
+				lang: lang.slice(0, 2),
+				gender,
+				rate
+			} });
+			if (mine !== seq) return;
+			if (res.ok) {
+				const bin = Uint8Array.from(atob(res.b64), (c) => c.charCodeAt(0));
+				const blob = new Blob([bin], { type: res.mime });
+				objectUrl = URL.createObjectURL(blob);
+				player = new Audio(objectUrl);
+				await new Promise((resolve) => {
+					if (!player) {
+						resolve();
+						return;
+					}
+					player.onended = () => resolve();
+					player.onerror = () => resolve();
+					player.play().catch(() => resolve());
+				});
+				continue;
+			}
+		} catch {}
+		if (mine !== seq) return;
+		await speakBrowser(chunk, lang, gender, rate);
+	}
+}
+var player = null;
+var objectUrl = null;
+var seq = 0;
+function stopSpeak() {
+	seq += 1;
+	if (typeof window === "undefined") return;
+	window.speechSynthesis?.cancel();
+	if (player) {
+		player.pause();
+		player.removeAttribute("src");
+		player = null;
+	}
+	if (objectUrl) {
+		URL.revokeObjectURL(objectUrl);
+		objectUrl = null;
+	}
+}
+var PAPERS = [
+	{
+		id: "mushaf",
+		key: "hadith.paper.mushaf"
+	},
+	{
+		id: "folio",
+		key: "hadith.paper.folio"
+	},
+	{
+		id: "night",
+		key: "hadith.paper.night"
+	},
+	{
+		id: "vellum",
+		key: "hadith.paper.vellum"
+	}
+];
+var AR_FONTS = [
+	{
+		id: "naskh",
+		key: "hadith.font.naskh"
+	},
+	{
+		id: "amiri",
+		key: "hadith.font.amiri"
+	},
+	{
+		id: "kufi",
+		key: "hadith.font.kufi"
+	},
+	{
+		id: "scheherazade",
+		key: "hadith.font.scheherazade"
+	}
+];
+var MEAN_FONTS = [
+	{
+		id: "literata",
+		key: "hadith.font.mean.literata"
+	},
+	{
+		id: "fraunces",
+		key: "hadith.font.mean.fraunces"
+	},
+	{
+		id: "newsreader",
+		key: "hadith.font.mean.newsreader"
+	},
+	{
+		id: "plex",
+		key: "hadith.font.mean.plex"
+	}
+];
+function HadithReader() {
+	const n = useMizan((s) => s.houseHadith) ?? 1;
+	const from = useMizan((s) => s.houseHadithFrom);
+	const setNav = useMizan((s) => s.setHouseNav);
+	const locale = useMizan((s) => s.settings.locale);
+	const paper = useMizan((s) => s.settings.hadithPaper);
+	const arFont = useMizan((s) => s.settings.hadithArFont);
+	const meanFont = useMizan((s) => s.settings.hadithMeanFont) ?? "literata";
+	const setSettings = useMizan((s) => s.setSettings);
+	const [speaking, setSpeaking] = (0, import_react.useState)(null);
+	const t = (k) => translate(locale, k);
+	const h = NAWAWI.find((x) => x.n === n) ?? NAWAWI[0];
+	const meaning = hadithMeaning(h, locale);
+	const title = hadithTitle(h, locale);
+	const i = NAWAWI.findIndex((x) => x.n === h.n);
+	const prev = i > 0 ? NAWAWI[i - 1] : null;
+	const next = i < NAWAWI.length - 1 ? NAWAWI[i + 1] : null;
+	(0, import_react.useEffect)(() => {
+		return () => stopSpeak();
+	}, []);
+	(0, import_react.useEffect)(() => {
+		stopSpeak();
+		setSpeaking(null);
+	}, [h.n]);
+	function back() {
+		stopSpeak();
+		if (from === "home") setNav(null);
+		else setNav("nawawi", null);
+	}
+	function go(other) {
+		stopSpeak();
+		setSpeaking(null);
+		setNav("nawawi", other, from);
+	}
+	async function play(kind) {
+		if (speaking) {
+			stopSpeak();
+			setSpeaking(null);
+			if (speaking === kind) return;
+		}
+		if (!kind) return;
+		setSpeaking(kind);
+		try {
+			if (kind === "ar" || kind === "all") await speakText(h.ar, "ar-SA");
+			if (kind === "mean" || kind === "all") {
+				const text = meaning || title;
+				if (text) await speakText(text, speakLang(locale));
+			}
+		} finally {
+			setSpeaking(null);
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "book-page",
+		"data-paper": paper,
+		"data-arfont": arFont,
+		"data-meanfont": meanFont,
+		"data-go": "hadith-reader",
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-label": title,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "book-bar",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "book-icon",
+						onClick: back,
+						"aria-label": t("hadith.back"),
+						"data-go": "hadith-back",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "book-kicker",
+						children: [
+							t("hadith.n"),
+							" ",
+							h.n,
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "opacity-50",
+								children: [" / ", NAWAWI.length]
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-11" })
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "book-sheet",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "book-title",
+						children: title
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "book-ar gold-flow",
+						lang: "ar",
+						children: h.ar
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChipRow, {
+						items: AR_FONTS.map((f) => ({
+							id: f.id,
+							label: t(f.key)
+						})),
+						value: arFont,
+						onChange: (id) => setSettings({ hadithArFont: id })
+					}),
+					meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "book-mean",
+						children: meaning
+					}) : null,
+					meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChipRow, {
+						items: MEAN_FONTS.map((f) => ({
+							id: f.id,
+							label: t(f.key)
+						})),
+						value: meanFont,
+						onChange: (id) => setSettings({ hadithMeanFont: id })
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "book-ref",
+						children: hadithRef(h, locale)
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChipRow, {
+						items: PAPERS.map((p) => ({
+							id: p.id,
+							label: t(p.key)
+						})),
+						value: paper,
+						onChange: (id) => setSettings({ hadithPaper: id })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "book-listen",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ListenBtn, {
+								active: speaking === "ar",
+								label: t("hadith.listen.ar"),
+								onClick: () => void play("ar")
+							}),
+							meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ListenBtn, {
+								active: speaking === "mean",
+								label: t("hadith.listen.mean"),
+								onClick: () => void play("mean")
+							}) : null,
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ListenBtn, {
+								active: speaking === "all",
+								label: t("hadith.listen.all"),
+								onClick: () => void play("all")
+							})
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
+				className: "book-pager",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "book-page-btn",
+					disabled: !prev,
+					onClick: () => prev && go(prev.n),
+					"aria-label": t("hadith.prev"),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: prev ? `${prev.n}` : "·" })]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "book-page-btn",
+					disabled: !next,
+					onClick: () => next && go(next.n),
+					"aria-label": t("hadith.next"),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: next ? `${next.n}` : "·" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })]
+				})]
+			})
+		]
+	});
+}
+function ListenBtn({ active, label, onClick }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		type: "button",
+		className: cn("book-listen-btn", active && "is-on"),
+		onClick,
+		"data-go": "hadith-listen",
+		children: [active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), label]
+	});
+}
+function ChipRow({ items, value, onChange }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "book-chips",
+		children: items.map((it) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+			type: "button",
+			className: cn("book-chip", value === it.id && "is-on"),
+			onClick: () => onChange(it.id),
+			children: it.label
+		}, it.id))
+	});
+}
+function Button({ className, variant = "primary", type = "button", ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+		type,
+		className: cn("inline-flex min-h-11 items-center justify-center gap-2 px-4 text-sm font-medium", "transition-[transform,box-shadow,opacity] duration-150 ease-out active:not-disabled:scale-[0.96]", "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]", "disabled:opacity-50 disabled:pointer-events-none", variant === "primary" && "bg-[var(--accent)] text-[var(--accent-fg)]", variant === "secondary" && "border border-[var(--line)] bg-[var(--surface)] text-[var(--fg)]", variant === "ghost" && "text-[var(--fg)] hover:bg-[var(--bg-elev)]", variant === "danger" && "bg-[var(--danger)] text-[var(--bg)]", variant === "glow" && "btn-glow min-h-12 px-6 font-semibold", className),
+		...props
+	});
+}
+function Field({ label, hint, error, children }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+		className: "grid gap-1.5 min-w-0",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--muted)]",
+				children: label
+			}),
+			children,
+			hint ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-xs text-[var(--muted)]",
+				children: hint
+			}) : null,
+			error ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-xs text-[var(--danger)]",
+				children: error
+			}) : null
+		]
+	});
+}
+var control = "min-h-11 w-full max-w-full min-w-0 border border-[var(--line)] bg-[var(--bg)] px-3 text-[var(--fg)] placeholder:text-[var(--muted)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]";
+function TextInput({ className, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+		className: cn(control, className),
+		...props
+	});
+}
+function Select({ className, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("select", {
+		className: cn(control, className),
+		...props
+	});
+}
+function TextArea({ className, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		className: cn(control, "py-2", className),
+		...props
+	});
+}
+var HISN_COLLECTIONS = [
+	{
+		id: "morning",
+		labelKey: "hisn.col.morning",
+		chapterIds: [27]
+	},
+	{
+		id: "prayer",
+		labelKey: "hisn.col.prayer",
+		chapterIds: [25]
+	},
+	{
+		id: "sleep",
+		labelKey: "hisn.col.sleep",
+		chapterIds: [28]
+	},
+	{
+		id: "wake",
+		labelKey: "hisn.col.wake",
+		chapterIds: [1]
+	},
+	{
+		id: "home",
+		labelKey: "hisn.col.home",
+		chapterIds: [10, 11]
+	},
+	{
+		id: "mosque",
+		labelKey: "hisn.col.mosque",
+		chapterIds: [
+			12,
+			13,
+			14,
+			15
+		]
+	},
+	{
+		id: "food",
+		labelKey: "hisn.col.food",
+		chapterIds: [69, 70]
+	},
+	{
+		id: "travel",
+		labelKey: "hisn.col.travel",
+		chapterIds: [95, 96]
+	},
+	{
+		id: "dhikr",
+		labelKey: "hisn.col.dhikr",
+		chapterIds: [130, 131]
+	},
+	{
+		id: "tawba",
+		labelKey: "hisn.col.tawba",
+		chapterIds: [129]
+	}
+];
+var cache$1 = null;
+var pending$1 = null;
+function loadHisn() {
+	if (cache$1) return Promise.resolve(cache$1);
+	if (!pending$1) pending$1 = fetch(`/hisn/book.json?v=3`).then((r) => {
+		if (!r.ok) throw new Error("hisn");
+		return r.json();
+	}).then((data) => {
+		cache$1 = data;
+		return data;
+	}).catch((err) => {
+		pending$1 = null;
+		throw err;
+	});
+	return pending$1;
+}
+function chapterOfDay(book, date = /* @__PURE__ */ new Date()) {
+	const start = Date.UTC(date.getFullYear(), 0, 0);
+	const day = Math.floor((date.getTime() - start) / 864e5);
+	return book.chapters[(day - 1) % book.chapters.length] ?? book.chapters[0];
+}
+function morningChapter(book) {
+	return book.chapters.find((c) => c.id === 27) ?? book.chapters[0];
+}
+var MEM_FAIL = /MYMEMORY|WARNING: YOU USED ALL|USAGE LIMITS/i;
+function looksForeignFor(locale, text) {
+	if (!text || MEM_FAIL.test(text)) return true;
+	const latin = (text.match(/[A-Za-z]/g) || []).length;
+	const cyr = (text.match(/[А-Яа-яЁёІіҒғҚқҢңҮүҰұҺһӮӯҶҷҲҳ]/g) || []).length;
+	const arab = (text.match(/[\u0600-\u06FF]/g) || []).length;
+	if (locale === "en") return false;
+	if (locale === "ar") return latin > 8 && latin > arab;
+	if (locale === "tr" || locale === "uz") {
+		if (MEM_FAIL.test(text)) return true;
+		return latin > 40 && /the |and |you |what to say/i.test(text);
+	}
+	return latin >= 8 && latin > cyr;
+}
+function clean(text) {
+	return text.replace(/^Смысл:\s*/i, "").replace(/\s+/g, " ").trim();
+}
+function chapterTitle(chapter, locale) {
+	if (locale === "en") return chapter.titleEn;
+	if (locale === "ar") return "";
+	if (locale === "tr") {
+		const tr = chapter.titleTr ?? "";
+		if (tr && !looksForeignFor("tr", tr)) return tr;
+		return chapter.titleRu ?? "";
+	}
+	const ru = chapter.titleRu ?? "";
+	if (ru && !looksForeignFor("ru", ru)) return ru;
+	return "";
+}
+function duaMeaning(dua, locale) {
+	if (locale === "en") return clean(dua.en || "");
+	if (locale === "ar") return "";
+	if (locale === "tr") {
+		const tr = clean(dua.tr || "");
+		if (tr && !looksForeignFor("tr", tr)) return tr;
+		const ru = clean(dua.ru || "");
+		if (ru && !looksForeignFor("ru", ru)) return ru;
+		return "";
+	}
+	const ru = clean(dua.ru || "");
+	if (ru && !looksForeignFor("ru", ru)) return ru;
+	return "";
+}
+var KEY$2 = "mizan.v1.hisn";
+function today() {
+	return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+}
+function ck(day, chapterId, duaId) {
+	return `${day}:${chapterId}:${duaId}`;
+}
+function persist$2() {
+	try {
+		const s = useHisn.getState();
+		localStorage.setItem(KEY$2, JSON.stringify({
+			counts: s.counts,
+			favorites: s.favorites,
+			arabicScale: s.arabicScale,
+			showEn: s.showEn,
+			day: s.day
+		}));
+	} catch {}
+}
+var useHisn = create((set, get) => ({
+	counts: {},
+	favorites: [
+		27,
+		25,
+		28
+	],
+	arabicScale: 1,
+	showEn: true,
+	duaIndex: 0,
+	day: today(),
+	setDuaIndex: (n) => set({ duaIndex: Math.max(0, n) }),
+	tap: (chapterId, duaId, max) => {
+		const day = today();
+		const key = ck(day, chapterId, duaId);
+		const cur = get().counts[key] ?? 0;
+		if (cur >= max) return;
+		set({
+			counts: {
+				...get().counts,
+				[key]: cur + 1
+			},
+			day
+		});
+		persist$2();
+	},
+	resetChapter: (chapterId, duaIds) => {
+		const day = today();
+		const counts = { ...get().counts };
+		for (const id of duaIds) delete counts[ck(day, chapterId, id)];
+		set({
+			counts,
+			duaIndex: 0,
+			day
+		});
+		persist$2();
+	},
+	toggleFav: (chapterId) => {
+		set({ favorites: get().favorites.includes(chapterId) ? get().favorites.filter((x) => x !== chapterId) : [...get().favorites, chapterId] });
+		persist$2();
+	},
+	setArabicScale: (n) => {
+		set({ arabicScale: Math.min(1.6, Math.max(.85, n)) });
+		persist$2();
+	},
+	setShowEn: (showEn) => {
+		set({ showEn });
+		persist$2();
+	},
+	countOf: (chapterId, duaId) => get().counts[ck(get().day === today() ? get().day : today(), chapterId, duaId)] ?? 0,
+	chapterProgress: (ch) => {
+		const day = today();
+		let have = 0;
+		let need = 0;
+		let done = 0;
+		for (const d of ch.duas) {
+			const n = Math.min(get().counts[ck(day, ch.id, d.id)] ?? 0, d.repeat);
+			have += n;
+			need += d.repeat;
+			if (n >= d.repeat) done += 1;
+		}
+		return {
+			have,
+			need,
+			done,
+			total: ch.duas.length
+		};
+	}
+}));
+function hydrateHisn() {
+	if (typeof window === "undefined") return;
+	try {
+		const raw = localStorage.getItem(KEY$2);
+		if (!raw) {
+			useHisn.setState({ day: today() });
+			return;
+		}
+		const data = JSON.parse(raw);
+		const day = today();
+		useHisn.setState({
+			counts: data.counts ?? {},
+			favorites: data.favorites ?? [
+				27,
+				25,
+				28
+			],
+			arabicScale: data.arabicScale ?? 1,
+			showEn: data.showEn ?? true,
+			day
+		});
+	} catch {
+		useHisn.setState({ day: today() });
+	}
+}
+function useBook() {
+	const [book, setBook] = (0, import_react.useState)(null);
+	const [error, setError] = (0, import_react.useState)("");
+	(0, import_react.useEffect)(() => {
+		loadHisn().then(setBook).catch(() => setError("Не удалось открыть снимок Хисн."));
+	}, []);
+	return {
+		book,
+		error
+	};
+}
+function useHisnAudio() {
+	const audio = (0, import_react.useRef)(null);
+	const [playing, setPlaying] = (0, import_react.useState)(null);
+	(0, import_react.useEffect)(() => {
+		audio.current = new Audio();
+		const el = audio.current;
+		const onEnd = () => setPlaying(null);
+		el.addEventListener("ended", onEnd);
+		return () => {
+			el.pause();
+			el.removeEventListener("ended", onEnd);
+		};
+	}, []);
+	function toggle(url) {
+		const el = audio.current;
+		if (!el || !url) return;
+		if (playing === url) {
+			el.pause();
+			setPlaying(null);
+			return;
+		}
+		el.src = url;
+		el.play().then(() => setPlaying(url)).catch(() => setPlaying(null));
+	}
+	return {
+		playing,
+		toggle
+	};
+}
+function Counter({ n, max, onTap }) {
+	const locale = useMizan((s) => s.settings.locale);
+	const done = n >= max;
+	const pct = max > 0 ? Math.min(1, n / max) : 1;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		type: "button",
+		className: cn("hisn-count", done && "is-done"),
+		onClick: onTap,
+		"aria-label": `${n}/${max}`,
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "hisn-count-ring",
+			style: { ["--p"]: String(pct) }
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "tabular-nums",
+			children: done ? translate(locale, "hisn.done") : `${n}/${max}`
+		})]
+	});
+}
+function HisnReader({ book, chapter }) {
+	const setStored = useMizan((s) => s.setHisnChapter);
+	const idx = useHisn((s) => s.duaIndex);
+	const setIdx = useHisn((s) => s.setDuaIndex);
+	const tap = useHisn((s) => s.tap);
+	const reset = useHisn((s) => s.resetChapter);
+	const counts = useHisn((s) => s.counts);
+	const day = useHisn((s) => s.day);
+	const fav = useHisn((s) => s.favorites.includes(chapter.id));
+	const toggleFav = useHisn((s) => s.toggleFav);
+	const scale = useHisn((s) => s.arabicScale);
+	const setScale = useHisn((s) => s.setArabicScale);
+	const showMeaning = useMizan((s) => s.settings.showMeaning);
+	const setShowMeaning = (v) => useMizan.getState().setSettings({ showMeaning: v });
+	const locale = useMizan((s) => s.settings.locale);
+	const t = (k) => translate(locale, k);
+	const progress = (0, import_react.useMemo)(() => useHisn.getState().chapterProgress(chapter), [
+		counts,
+		day,
+		chapter
+	]);
+	const { playing, toggle } = useHisnAudio();
+	const title = chapterTitle(chapter, locale);
+	const i = Math.min(idx, chapter.duas.length - 1);
+	const dua = chapter.duas[i];
+	const n = dua ? counts[`${day}:${chapter.id}:${dua.id}`] ?? 0 : 0;
+	const meaning = dua ? duaMeaning(dua, locale) : "";
+	(0, import_react.useEffect)(() => {
+		setIdx(0);
+		const first = chapter.duas.findIndex((d) => (useHisn.getState().counts[`${useHisn.getState().day}:${chapter.id}:${d.id}`] ?? 0) < d.repeat);
+		if (first >= 0) setIdx(first);
+	}, [chapter.id]);
+	if (!dua) return null;
+	function bump() {
+		if (!dua) return;
+		tap(chapter.id, dua.id, dua.repeat);
+		if ((useHisn.getState().counts[`${useHisn.getState().day}:${chapter.id}:${dua.id}`] ?? 0) >= dua.repeat && i < chapter.duas.length - 1) window.setTimeout(() => setIdx(i + 1), 280);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "hisn-reader",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]",
+						onClick: () => setStored(null),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }),
+							" ",
+							t("hisn.book")
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "min-w-0 flex-1 text-center",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "truncate text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+							children: [
+								i + 1,
+								"/",
+								chapter.duas.length,
+								" · ",
+								progress.have,
+								"/",
+								progress.need
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "grid size-11 place-items-center",
+						"aria-label": t("hisn.fav"),
+						onClick: () => toggleFav(chapter.id),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { className: cn("size-5", fav && "fill-[var(--accent)] text-[var(--accent)]") })
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "text-center",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "ayah-ar text-2xl",
+					lang: "ar",
+					children: chapter.titleAr
+				}), title ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-xs text-[var(--muted)]",
+					children: title
+				}) : null]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "hisn-progress",
+				"aria-hidden": true,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", { style: { width: `${progress.need ? 100 * progress.have / progress.need : 0}%` } })
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+				className: "hisn-card",
+				onClick: bump,
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "hisn-ar",
+					lang: "ar",
+					style: { fontSize: `calc(1.7rem * ${scale})` },
+					children: dua.ar
+				}), showMeaning && meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "hisn-en",
+					children: meaning
+				}) : null]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill size-11 p-0",
+						disabled: i === 0,
+						onClick: () => setIdx(i - 1),
+						"aria-label": "prev",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Counter, {
+						n,
+						max: dua.repeat,
+						onTap: bump
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill size-11 p-0",
+						disabled: i >= chapter.duas.length - 1,
+						onClick: () => setIdx(i + 1),
+						"aria-label": "next",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-wrap items-center justify-center gap-2",
+				children: [
+					dua.audio ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "secondary",
+						className: "pill",
+						onClick: () => toggle(dua.audio),
+						children: [
+							playing === dua.audio ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+							" ",
+							t("hisn.listen")
+						]
+					}) : null,
+					chapter.audio ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => toggle(chapter.audio),
+						children: [
+							playing === chapter.audio ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+							" ",
+							t("hisn.chapter")
+						]
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => setShowMeaning(!showMeaning),
+						children: showMeaning ? t("hisn.hide") : t("hisn.show")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => setScale(scale - .1),
+						"aria-label": "-",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Type, { className: "size-3.5" }), "−"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => setScale(scale + .1),
+						"aria-label": "+",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Type, { className: "size-4" }), "+"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => reset(chapter.id, chapter.duas.map((d) => d.id)),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { className: "size-4" }),
+							" ",
+							t("hisn.reset")
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-[11px] text-[var(--muted)]",
+				children: t("hisn.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-[11px] text-[var(--muted)]",
+				children: t("hisn.meaning.src")
+			})
+		]
+	});
+}
+function ChapterRow({ chapter, locale, extra, onOpen }) {
+	const title = chapterTitle(chapter, locale);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		type: "button",
+		className: "hisn-row",
+		onClick: () => onOpen(chapter.id),
+		"data-go": `hisn-${chapter.id}`,
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "w-8 shrink-0 text-[11px] tabular-nums text-[var(--muted)]",
+			children: chapter.id
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+			className: "min-w-0 flex-1",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "ayah-ar block truncate text-right text-lg",
+				lang: "ar",
+				children: chapter.titleAr
+			}), title ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "block truncate text-[11px] text-[var(--muted)]",
+				children: [title, extra ? ` · ${extra}` : ""]
+			}) : extra ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "block truncate text-[11px] text-[var(--muted)]",
+				children: extra
+			}) : null]
+		})]
+	});
+}
+function HisnHome({ book }) {
+	const setStored = useMizan((s) => s.setHisnChapter);
+	const locale = useMizan((s) => s.settings.locale);
+	const favFirst = useMizan((s) => s.settings.favFirst);
+	const favorites = useHisn((s) => s.favorites);
+	useHisn((s) => s.counts);
+	const progressFn = useHisn((s) => s.chapterProgress);
+	const [q, setQ] = (0, import_react.useState)("");
+	const [allCh, setAllCh] = (0, import_react.useState)(true);
+	const morning = morningChapter(book);
+	const daily = chapterOfDay(book);
+	const morningP = morning ? progressFn(morning) : null;
+	const t = (k) => translate(locale, k);
+	const filtered = (0, import_react.useMemo)(() => {
+		const needle = q.trim().toLowerCase();
+		let list = book.chapters;
+		if (needle.length >= 2) list = book.chapters.filter((c) => c.titleAr.includes(q.trim()) || chapterTitle(c, locale).toLowerCase().includes(needle) || locale === "en" && (c.titleEn ?? "").toLowerCase().includes(needle) || String(c.id) === needle);
+		else if (favFirst) list = [...book.chapters].sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)));
+		return list;
+	}, [
+		book,
+		q,
+		locale,
+		favFirst,
+		favorites
+	]);
+	const favCh = book.chapters.filter((c) => favorites.includes(c.id));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "hisn-home",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "min-w-0 overflow-hidden px-1 text-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "bismillah break-words",
+						lang: "ar",
+						children: book.titleAr
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "font-display mt-1 max-w-full text-xl leading-tight break-words",
+						children: t("hisn.fortress")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "mt-2 max-w-full text-sm leading-snug break-words text-[var(--muted)]",
+						children: [
+							book.author,
+							". ",
+							book.chapters.length,
+							" ",
+							t("hisn.chapters"),
+							" · ",
+							book.chapters.reduce((n, c) => n + c.duas.length, 0),
+							" ",
+							t("hisn.duas")
+						]
+					})
+				]
+			}),
+			morning ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "hisn-hero",
+				onClick: () => setStored(morning.id),
+				"data-go": "hisn-morning",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+						children: t("hisn.wird")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar mt-1 block text-lg leading-snug",
+						lang: "ar",
+						children: morning.titleAr
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "mt-1 block text-sm text-[var(--muted)]",
+						children: chapterTitle(morning, locale)
+					}),
+					morningP ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "mt-3 block text-sm tabular-nums",
+						children: [
+							t("hisn.today"),
+							" ",
+							morningP.have,
+							" / ",
+							morningP.need
+						]
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "hisn-progress mt-3",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", { style: { width: `${morningP && morningP.need ? 100 * morningP.have / morningP.need : 0}%` } })
+					})
+				]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "hisn-list",
+				children: HISN_COLLECTIONS.filter((c) => c.id !== "morning").map((col) => {
+					const first = book.chapters.find((ch) => ch.id === col.chapterIds[0]);
+					const title = first ? chapterTitle(first, locale) : "";
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "hisn-row",
+						onClick: () => first && setStored(first.id),
+						"data-go": `hisn-col-${col.id}`,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "min-w-0 flex-1 overflow-hidden text-start",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "block text-[11px] uppercase tracking-[0.12em] text-[var(--muted)]",
+									children: t(col.labelKey)
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "ayah-ar mt-0.5 block break-words text-base leading-snug",
+									lang: "ar",
+									children: first?.titleAr
+								}),
+								title ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "mt-0.5 block text-sm text-[var(--muted)]",
+									children: title
+								}) : null
+							]
+						})
+					}, col.id);
+				})
+			}),
+			daily && daily.id !== morning?.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "door",
+				onClick: () => setStored(daily.id),
+				"data-go": "hisn-day",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+						children: t("hisn.daych")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar block text-xl",
+						lang: "ar",
+						children: daily.titleAr
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-sm text-[var(--muted)]",
+						children: chapterTitle(daily, locale)
+					})
+				]
+			}) : null,
+			favCh.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("hisn.fav")
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-1",
+				children: favCh.map((c) => {
+					const p = progressFn(c);
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "hisn-row",
+						onClick: () => setStored(c.id),
+						"data-go": `hisn-fav-${c.id}`,
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { className: "size-4 shrink-0 fill-[var(--accent)] text-[var(--accent)]" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "min-w-0 flex-1",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "ayah-ar block truncate text-right text-base",
+									lang: "ar",
+									children: c.titleAr
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "block truncate text-[11px] text-[var(--muted)]",
+									children: chapterTitle(c, locale)
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "shrink-0 text-xs tabular-nums text-[var(--muted)]",
+								children: [
+									p.have,
+									"/",
+									p.need
+								]
+							})
+						]
+					}, c.id);
+				})
+			})] }) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+				placeholder: t("hisn.find"),
+				value: q,
+				onChange: (e) => setQ(e.target.value)
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("hisn.all")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "grid gap-1",
+				children: (q.trim().length >= 2 || allCh ? filtered : filtered.slice(0, 24)).map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChapterRow, {
+					chapter: c,
+					locale,
+					extra: String(c.duas.length),
+					onOpen: setStored
+				}) }, c.id))
+			}),
+			q.trim().length < 2 && !allCh && filtered.length > 24 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "text-sm text-[var(--muted)]",
+				onClick: () => setAllCh(true),
+				children: [
+					t("hisn.more"),
+					" · ",
+					filtered.length - 24
+				]
+			}) : null
+		]
+	});
+}
+function HisnView() {
+	const { book, error } = useBook();
+	const stored = useMizan((s) => s.hisnChapterId);
+	if (error) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto max-w-2xl px-4 pt-6",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: error }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-2 text-sm text-[var(--muted)]",
+			children: "Книга: сохранённый снимок hisnmuslim.com."
+		})]
+	});
+	if (!book) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+		className: "page-pad px-4 pt-6 text-sm text-[var(--muted)]",
+		children: "Открываю Хисн…"
+	});
+	const open = stored ? book.chapters.find((c) => c.id === stored) ?? null : null;
+	if (open) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HisnReader, {
+		book,
+		chapter: open
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HisnHome, { book });
+}
+var HOUSE_MAIN = [
+	{
+		id: "names",
+		label: "Имена",
+		icon: Badge,
+		room: "names"
+	},
+	{
+		id: "quran",
+		label: "Коран",
+		icon: BookOpen,
+		tab: "quran"
+	},
+	{
+		id: "hisn",
+		label: "Крепость",
+		icon: Shield,
+		tab: "hisn",
+		hisn: true
+	},
+	{
+		id: "nawawi",
+		label: "40 хадисов",
+		icon: Landmark,
+		room: "nawawi"
+	},
+	{
+		id: "index",
+		label: "Указатели",
+		icon: Signpost,
+		room: "index"
+	},
+	{
+		id: "zakat",
+		label: "Закят",
+		icon: Scale,
+		tab: "zakat"
+	}
+];
+var HOUSE_MORE = [
+	{
+		id: "alphabet",
+		label: "Алфавит",
+		icon: Languages,
+		room: "alphabet"
+	},
+	{
+		id: "quiz",
+		label: "Викторина",
+		icon: CircleHelp,
+		room: "quiz"
+	},
+	{
+		id: "dict",
+		label: "Словарь",
+		icon: MessagesSquare,
+		room: "dict"
+	},
+	{
+		id: "reminder",
+		label: "Напоминание",
+		icon: Bell,
+		room: "reminder"
+	},
+	{
+		id: "wisdom",
+		label: "Мудрость",
+		icon: Lightbulb,
+		room: "wisdom"
+	},
+	{
+		id: "calendar",
+		label: "Календарь",
+		icon: CalendarDays,
+		room: "calendar"
+	},
+	{
+		id: "recite",
+		label: "Красивое чтение",
+		icon: Headphones,
+		room: "recite"
+	},
+	{
+		id: "tajweed",
+		label: "Таджвид",
+		icon: Sparkles,
+		room: "tajweed"
+	},
+	{
+		id: "tafsir",
+		label: "Тафсир",
+		icon: ScrollText,
+		tab: "quran"
+	},
+	{
+		id: "books",
+		label: "9 сборников",
+		icon: Library,
+		room: "books"
+	},
+	{
+		id: "mecca",
+		label: "Мекка",
+		icon: Landmark,
+		room: "mecca"
+	},
+	{
+		id: "madina",
+		label: "Медина",
+		icon: Building2,
+		room: "madina"
+	},
+	{
+		id: "learn",
+		label: "Учить",
+		icon: GraduationCap,
+		tab: "learn"
+	}
+];
+var HADITH_BOOKS = [
+	{
+		id: "bukhari",
+		ar: "صحيح البخاري",
+		ru: "Сахих аль-Бухари",
+		href: "https://sunnah.com/bukhari"
+	},
+	{
+		id: "muslim",
+		ar: "صحيح مسلم",
+		ru: "Сахих Муслим",
+		href: "https://sunnah.com/muslim"
+	},
+	{
+		id: "abudawud",
+		ar: "سنن أبي داود",
+		ru: "Сунан Абу Дауд",
+		href: "https://sunnah.com/abudawud"
+	},
+	{
+		id: "tirmidhi",
+		ar: "جامع الترمذي",
+		ru: "Джами ат-Тирмизи",
+		href: "https://sunnah.com/tirmidhi"
+	},
+	{
+		id: "nasai",
+		ar: "سنن النسائي",
+		ru: "Сунан ан-Насаи",
+		href: "https://sunnah.com/nasai"
+	},
+	{
+		id: "ibnmajah",
+		ar: "سنن ابن ماجه",
+		ru: "Сунан Ибн Маджа",
+		href: "https://sunnah.com/ibnmajah"
+	},
+	{
+		id: "malik",
+		ar: "موطأ مالك",
+		ru: "Муватта Малик",
+		href: "https://sunnah.com/malik"
+	},
+	{
+		id: "ahmad",
+		ar: "مسند أحمد",
+		ru: "Муснад Ахмад",
+		href: "https://sunnah.com/ahmad"
+	},
+	{
+		id: "darimi",
+		ar: "سنن الدارمي",
+		ru: "Сунан ад-Дарими",
+		href: "https://sunnah.com/darimi"
+	}
+];
+var DICT = [
+	{
+		ar: "ٱللَّه",
+		ru: "Аллах",
+		note: "Имя Бога в Коране"
+	},
+	{
+		ar: "رَبّ",
+		ru: "Господь",
+		note: "Господин, воспитатель"
+	},
+	{
+		ar: "رَحْمَٰن",
+		ru: "Милостивый",
+		note: "аль-Фатиха 1:1"
+	},
+	{
+		ar: "رَحِيم",
+		ru: "Милосердный",
+		note: "аль-Фатиха 1:1"
+	},
+	{
+		ar: "صِرَاط",
+		ru: "Путь",
+		note: "аль-Фатиха 1:6"
+	},
+	{
+		ar: "نِعْمَة",
+		ru: "Благо",
+		note: "аль-Фатиха 1:7"
+	},
+	{
+		ar: "إِيمَان",
+		ru: "Вера",
+		note: "корень أ م ن"
+	},
+	{
+		ar: "صَلَاة",
+		ru: "Молитва",
+		note: "столп ислама"
+	},
+	{
+		ar: "زَكَاة",
+		ru: "Закят",
+		note: "очищение имущества"
+	},
+	{
+		ar: "صَوْم",
+		ru: "Пост",
+		note: "столп ислама"
+	},
+	{
+		ar: "حَجّ",
+		ru: "Хадж",
+		note: "столп ислама"
+	},
+	{
+		ar: "تَوْحِيد",
+		ru: "Единобожие",
+		note: "основа религии"
+	}
+];
+var LETTERS = [
+	{
+		ar: "ا",
+		name: "Алиф",
+		nameAr: "أَلِف",
+		group: 1,
+		joins: false
+	},
+	{
+		ar: "ب",
+		name: "Ба",
+		nameAr: "بَاء",
+		group: 1,
+		joins: true
+	},
+	{
+		ar: "ت",
+		name: "Та",
+		nameAr: "تَاء",
+		group: 1,
+		joins: true
+	},
+	{
+		ar: "ث",
+		name: "Са",
+		nameAr: "ثَاء",
+		group: 1,
+		joins: true
+	},
+	{
+		ar: "ج",
+		name: "Джим",
+		nameAr: "جِيم",
+		group: 2,
+		joins: true
+	},
+	{
+		ar: "ح",
+		name: "Ха",
+		nameAr: "حَاء",
+		group: 2,
+		joins: true
+	},
+	{
+		ar: "خ",
+		name: "Ха (тяжёлая)",
+		nameAr: "خَاء",
+		group: 2,
+		joins: true
+	},
+	{
+		ar: "د",
+		name: "Даль",
+		nameAr: "دَال",
+		group: 2,
+		joins: false
+	},
+	{
+		ar: "ذ",
+		name: "Заль",
+		nameAr: "ذَال",
+		group: 2,
+		joins: false
+	},
+	{
+		ar: "ر",
+		name: "Ра",
+		nameAr: "رَاء",
+		group: 3,
+		joins: false
+	},
+	{
+		ar: "ز",
+		name: "Зай",
+		nameAr: "زَاي",
+		group: 3,
+		joins: false
+	},
+	{
+		ar: "س",
+		name: "Син",
+		nameAr: "سِين",
+		group: 3,
+		joins: true
+	},
+	{
+		ar: "ش",
+		name: "Шин",
+		nameAr: "شِين",
+		group: 3,
+		joins: true
+	},
+	{
+		ar: "ص",
+		name: "Сад",
+		nameAr: "صَاد",
+		group: 3,
+		joins: true
+	},
+	{
+		ar: "ض",
+		name: "Дад",
+		nameAr: "ضَاد",
+		group: 4,
+		joins: true
+	},
+	{
+		ar: "ط",
+		name: "Та (тяжёлая)",
+		nameAr: "طَاء",
+		group: 4,
+		joins: true
+	},
+	{
+		ar: "ظ",
+		name: "За (тяжёлая)",
+		nameAr: "ظَاء",
+		group: 4,
+		joins: true
+	},
+	{
+		ar: "ع",
+		name: "Айн",
+		nameAr: "عَيْن",
+		group: 4,
+		joins: true
+	},
+	{
+		ar: "غ",
+		name: "Гайн",
+		nameAr: "غَيْن",
+		group: 4,
+		joins: true
+	},
+	{
+		ar: "ف",
+		name: "Фа",
+		nameAr: "فَاء",
+		group: 5,
+		joins: true
+	},
+	{
+		ar: "ق",
+		name: "Каф",
+		nameAr: "قَاف",
+		group: 5,
+		joins: true
+	},
+	{
+		ar: "ك",
+		name: "Кяф",
+		nameAr: "كَاف",
+		group: 5,
+		joins: true
+	},
+	{
+		ar: "ل",
+		name: "Лям",
+		nameAr: "لَام",
+		group: 5,
+		joins: true
+	},
+	{
+		ar: "م",
+		name: "Мим",
+		nameAr: "مِيم",
+		group: 5,
+		joins: true
+	},
+	{
+		ar: "ن",
+		name: "Нун",
+		nameAr: "نُون",
+		group: 6,
+		joins: true
+	},
+	{
+		ar: "ه",
+		name: "Ха (лёгкая)",
+		nameAr: "هَاء",
+		group: 6,
+		joins: true
+	},
+	{
+		ar: "و",
+		name: "Вав",
+		nameAr: "وَاو",
+		group: 6,
+		joins: false
+	},
+	{
+		ar: "ي",
+		name: "Йа",
+		nameAr: "يَاء",
+		group: 6,
+		joins: true
+	}
+];
+var HEAVY = /* @__PURE__ */ new Set([
+	"خ",
+	"ص",
+	"ض",
+	"غ",
+	"ط",
+	"ق",
+	"ظ"
+]);
+var HARAKAT = [
+	{
+		mark: "َ",
+		name: "Фатха",
+		sound: "а"
+	},
+	{
+		mark: "ِ",
+		name: "Кясра",
+		sound: "и"
+	},
+	{
+		mark: "ُ",
+		name: "Дамма",
+		sound: "у"
+	},
+	{
+		mark: "ْ",
+		name: "Сукун",
+		sound: "стоп"
+	},
+	{
+		mark: "ً",
+		name: "Фатхатан",
+		sound: "ан"
+	},
+	{
+		mark: "ٍ",
+		name: "Кясратан",
+		sound: "ин"
+	},
+	{
+		mark: "ٌ",
+		name: "Дамматан",
+		sound: "ун"
+	},
+	{
+		mark: "ّ",
+		name: "Шадда",
+		sound: "удвоение"
+	}
+];
+var TAJWEED_CARDS = [
+	{
+		id: "izhar",
+		title: "Изхар",
+		rule: "Нун сакин / танвин + а, ħ, ʻ, h, ġ, hāʼ (ء ه ع ح غ خ) — буква читается ясно, без гунны.",
+		example: "مِنْ خَوْفٍ"
+	},
+	{
+		id: "idgham",
+		title: "Идгам",
+		rule: "Нун сакин / танвин + ي ر م ل و ن. С гунной: ي ن م و. Без гунны: ل ر.",
+		example: "مِن رَّبِّهِمْ"
+	},
+	{
+		id: "iqlab",
+		title: "Икляб",
+		rule: "Нун сакин / танвин + ب → звук переходит в мим с гунной.",
+		example: "مِنۢ بَعْدِ"
+	},
+	{
+		id: "ikhfa",
+		title: "Ихфа",
+		rule: "Нун сакин / танвин + остальные 15 букв — скрытие с гунной.",
+		example: "إِنَّ الْإِنسَانَ"
+	},
+	{
+		id: "qalqala",
+		title: "Калькаля",
+		rule: "ق ط ب ج د со сукуном — отскок. Кубра на вакфе.",
+		example: "أَحَدٌ"
+	},
+	{
+		id: "madd",
+		title: "Мадд",
+		rule: "Табиʻи 2 харфа. Муттасыль 4–5. Мунфасыль 4–5. Лязим 6. ʻАрид 2–4–6.",
+		example: "الضَّآلِّينَ"
+	},
+	{
+		id: "ghunna",
+		title: "Гунна",
+		rule: "Нун и мим с шаддой — 2 харфа носового звука.",
+		example: "إِنَّ"
+	},
+	{
+		id: "ra",
+		title: "Ра: тафхим / таркик",
+		rule: "Тафхим при фатхе и дамме, таркик при кясре. Исключения на вакфе по предшествующей.",
+		example: "رَبِّ"
+	}
+];
+var RECITERS = [
+	{
+		id: "ar.husary",
+		name: "Махмуд Халиль аль-Хусари",
+		nameAr: "محمود خليل الحصري",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Husary_128kbps",
+		qdc: 6,
+		blurb: "Эталон каттабов Аль-Азхара. Медленный ясный таджвид Хафс — так учат читать."
+	},
+	{
+		id: "ar.husarymuallim",
+		name: "Хусари — муаллим",
+		nameAr: "الحصري معلم",
+		style: "муаллим",
+		bitrate: 128,
+		everyayah: "Husary_Muallim_128kbps",
+		qdc: 12,
+		blurb: "Учебное чтение: паузы, ясность, слово за словом. Голос для иткана и хифза."
+	},
+	{
+		id: "ar.abuhajar",
+		name: "Абу Хаджр аль-Ираки",
+		nameAr: "أبو هاجر العراقي",
+		style: "муджаввад",
+		bitrate: 128,
+		kind: "surah",
+		surahFiles: {
+			3: "https://archive.org/download/20250511_20250511_1505/%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A2%D9%84%20%D8%B9%D9%85%D8%B1%D8%A7%D9%86.mp3",
+			8: "https://archive.org/download/20250511_20250511_1505/%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%81%D8%A7%D9%84.mp3",
+			9: "https://archive.org/download/20250511_20250511_1505/%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D9%88%D8%A8%D8%A9.mp3"
+		},
+		blurb: "Абу Хаджр (Абу Хаджер) аль-Ираки. На открытом архиве — суры 3, 8 и 9 целиком. Аятного мусхафа на зеркалах нет."
+	},
+	{
+		id: "ar.minshawi",
+		name: "Мухаммад Сиддик аль-Миншави",
+		nameAr: "محمد صدّيق المنشاوي",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Minshawy_Murattal_128kbps",
+		qdc: 9,
+		blurb: "Мягкий египетский муратталь, второй столп обучения слуху."
+	},
+	{
+		id: "ar.abdulbasitmurattal",
+		name: "Абдуль-Басит Абдус-Самад",
+		nameAr: "عبد الباسط عبد الصمد",
+		style: "муратталь",
+		bitrate: 192,
+		everyayah: "Abdul_Basit_Murattal_192kbps",
+		qdc: 2,
+		blurb: "Классика XX века. Для закрепления маддов и дыхания."
+	},
+	{
+		id: "ar.abdulbasitmujawwad",
+		name: "Абдуль-Басит — муджаввад",
+		nameAr: "عبد الباسط مجود",
+		style: "муджаввад",
+		bitrate: 128,
+		everyayah: "Abdul_Basit_Mujawwad_128kbps",
+		qdc: 1,
+		blurb: "Певчий муджаввад Абдуль-Басита. Для слуха, не для первого разбора букв."
+	},
+	{
+		id: "ar.hudhaify",
+		name: "Али ибн Абдуррахман аль-Хузайфи",
+		nameAr: "علي بن عبد الرحمن الحذيفي",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Hudhaify_128kbps",
+		blurb: "Имам Масджид ан-Набави. Ровная мединская школа."
+	},
+	{
+		id: "ar.alafasy",
+		name: "Мишари Рашид аль-Афаси",
+		nameAr: "مشاري راشد العفاسي",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Alafasy_128kbps",
+		qdc: 7,
+		blurb: "Современный ясный голос, удобен для ежедневного вирда."
+	},
+	{
+		id: "ar.shatri",
+		name: "Абу Бакр аш-Шатри",
+		nameAr: "أبو بكر الشاطري",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Abu_Bakr_Ash-Shaatree_128kbps",
+		qdc: 4,
+		blurb: "Спокойный йеменский муратталь. Хорошо садится на подсветку слов."
+	},
+	{
+		id: "ar.mahermuaiqly",
+		name: "Махир аль-Муайкли",
+		nameAr: "ماهر المعيقلي",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "MaherAlMuaiqly128kbps",
+		blurb: "Имам аль-Харам. Спокойный хиджазский ритм."
+	},
+	{
+		id: "ar.sudais",
+		name: "Абдуррахман ас-Судейс",
+		nameAr: "عبد الرحمن السديس",
+		style: "муратталь",
+		bitrate: 192,
+		everyayah: "Abdurrahmaan_As-Sudais_192kbps",
+		qdc: 3,
+		blurb: "Имам аль-Харам. Для слушания длинных сур."
+	},
+	{
+		id: "ar.musazemmouri",
+		name: "Муса аз-Зиммури",
+		nameAr: "موسى الزموري",
+		style: "муджаввад",
+		bitrate: 128,
+		kind: "surah",
+		surahFiles: { 29: "https://archive.org/download/CAGEBr.Musa/CAGE%20-%20Br.%20Musa.mp3" },
+		blurb: "Муса аз-Зиммури (Zemmouri). На архиве — отрывок суры 29. Полного мусхафа на зеркалах нет."
+	},
+	{
+		id: "ar.mansourmohiuddin",
+		name: "Мансур Мухиддин",
+		nameAr: "منصور محي الدين",
+		style: "муджаввад",
+		bitrate: 128,
+		kind: "surah",
+		surahFiles: {},
+		blurb: "Мансур Мухиддин (Mansour Mohieddine). Аятного мусхафа на islamic.network и mp3quran нет — чужой голос не подставляю."
+	}
+];
+var DEFAULT_RECITER = RECITERS[0];
+function reciterById(id) {
+	return RECITERS.find((r) => r.id === id) ?? DEFAULT_RECITER;
+}
+function ayahAudioUrl(reciter, global, surah, ayah) {
+	const surahFile = reciter.surahFiles?.[surah];
+	if (surahFile) return surahFile;
+	return `https://cdn.islamic.network/quran/audio/${reciter.bitrate}/${reciter.id}/${global}.mp3`;
+}
+function reciterSurahs(reciter) {
+	if (!reciter.surahFiles) return null;
+	const keys = Object.keys(reciter.surahFiles);
+	if (!keys.length) return null;
+	return keys.map(Number).sort((a, b) => a - b);
+}
+function ayahAudioFallback(reciter, global, surah, ayah) {
+	const surahFile = reciter.surahFiles?.[surah];
+	if (surahFile) return surahFile;
+	if (reciter.everyayah) {
+		const s = String(surah).padStart(3, "0");
+		const a = String(ayah).padStart(3, "0");
+		return `https://everyayah.com/data/${reciter.everyayah}/${s}${a}.mp3`;
+	}
+	return `https://cdn.alquran.cloud/media/audio/ayah/${reciter.id}/${global}`;
+}
+var QURAN_API = "https://api.quran.com/api/v4";
+var WBW_CDN = "https://audio.qurancdn.com/";
+var cache = /* @__PURE__ */ new Map();
+function splitAyahWords(ar) {
+	return ar.split(/\s+/).filter(Boolean).map((w, i) => ({
+		i,
+		ar: w,
+		tr: "",
+		gloss: "",
+		audio: ""
+	}));
+}
+function estimateSegs(words, durationMs) {
+	if (!words.length || durationMs <= 0) return [];
+	const weights = words.map((w) => {
+		const letters = w.ar.replace(/[^\u0621-\u064A\u0670\u0671\u06D5]/g, "");
+		let wgt = Math.max(2, letters.length);
+		if (/[اآويىٰ]/.test(w.ar)) wgt += 2;
+		return wgt;
+	});
+	const total = weights.reduce((a, b) => a + b, 0) || 1;
+	const lead = durationMs * .03;
+	const usable = durationMs * .94;
+	let t = lead;
+	return words.map((w, i) => {
+		const start = t;
+		t += weights[i] / total * usable;
+		return {
+			i: w.i,
+			start,
+			end: t
+		};
+	});
+}
+function wordIndexAt(segs, ms) {
+	if (!segs.length) return -1;
+	let idx = -1;
+	for (let i = 0; i < segs.length; i++) {
+		if (ms + 50 >= segs[i].start) idx = i;
+		if (ms >= segs[i].start && ms < segs[i].end) return i;
+	}
+	if (ms >= segs[segs.length - 1].end) return segs.length - 1;
+	return idx;
+}
+function parseSegs(raw, wordCount) {
+	if (!Array.isArray(raw)) return [];
+	const out = [];
+	for (const row of raw) {
+		if (!Array.isArray(row)) continue;
+		const nums = row.map(Number).filter((n) => Number.isFinite(n));
+		if (nums.length < 3) continue;
+		let i;
+		let start;
+		let end;
+		if (nums.length >= 4) {
+			i = nums[0];
+			start = nums[2];
+			end = nums[3];
+		} else {
+			i = nums[0];
+			start = nums[1];
+			end = nums[2];
+		}
+		if (i < 0 || i >= wordCount) continue;
+		if (end > start) out.push({
+			i,
+			start,
+			end
+		});
+	}
+	return out;
+}
+function resolveVerseAudioUrl(url) {
+	if (!url) return "";
+	if (url.startsWith("http")) return url;
+	if (url.startsWith("//")) return `https:${url}`;
+	return `https://verses.quran.com/${url.replace(/^\//, "")}`;
+}
+async function loadAyahSync(surah, ayah, rec, localAr) {
+	const key = `${rec.qdc ?? "w"}:${surah}:${ayah}`;
+	const hit = cache.get(key);
+	if (hit) return hit;
+	const localWords = splitAyahWords(localAr);
+	const fallback = {
+		surah,
+		ayah,
+		words: localWords,
+		segs: [],
+		audioUrl: "",
+		exact: false
+	};
+	try {
+		const url = `${QURAN_API}/verses/by_key/${surah}:${ayah}?words=true&word_fields=text_uthmani,audio_url,translation,transliteration${rec.qdc ? `&audio=${rec.qdc}` : ""}`;
+		const r = await fetch(url, { headers: { Accept: "application/json" } });
+		if (!r.ok) throw new Error("sync");
+		const data = await r.json();
+		const rawWords = (data.verse?.words ?? []).filter((w) => w.char_type_name !== "end");
+		const words = rawWords.length ? rawWords.map((w, i) => ({
+			i,
+			ar: w.text_uthmani || w.text || localWords[i]?.ar || "",
+			tr: w.transliteration?.text || "",
+			gloss: w.translation?.text || "",
+			audio: w.audio_url ? `${WBW_CDN}${w.audio_url}` : ""
+		})) : localWords;
+		const segs = parseSegs(data.verse?.audio?.segments, words.length);
+		const sync = {
+			surah,
+			ayah,
+			words,
+			segs,
+			audioUrl: resolveVerseAudioUrl(data.verse?.audio?.url || ""),
+			exact: segs.length > 0
+		};
+		cache.set(key, sync);
+		return sync;
+	} catch {
+		return fallback;
+	}
+}
+function prefetchAyahSync(surah, ayah, rec, localAr) {
+	loadAyahSync(surah, ayah, rec, localAr);
+}
+var KEY$1 = "mizan.v1.quran";
+var audio = null;
+var fallbackUsed = false;
+var raf = 0;
+var gapTimer = 0;
+var loadGen = 0;
+var pendingWord = null;
+var holdUntil = 0;
+var currentSegs = [];
+var currentSync = null;
+function clearGap() {
+	if (gapTimer) {
+		window.clearTimeout(gapTimer);
+		gapTimer = 0;
+	}
+}
+function stopTick() {
+	if (raf) {
+		cancelAnimationFrame(raf);
+		raf = 0;
+	}
+}
+function startTick() {
+	if (raf) return;
+	const loop = () => {
+		const el = audio;
+		const st = useQuran.getState();
+		if (!el || el.paused || !st.playing) {
+			raf = 0;
+			return;
+		}
+		const ms = el.currentTime * 1e3;
+		if (holdUntil > 0 && ms >= holdUntil - 25) {
+			el.pause();
+			try {
+				el.currentTime = holdUntil / 1e3;
+			} catch {}
+			raf = 0;
+			useQuran.setState({
+				playing: false,
+				waiting: true,
+				audioMs: holdUntil,
+				wordIndex: wordIndexAt(currentSegs, holdUntil - 15)
+			});
+			return;
+		}
+		const idx = st.follow ? wordIndexAt(currentSegs, ms) : st.wordIndex;
+		const dur = (el.duration || 0) * 1e3;
+		if (idx !== st.wordIndex || Math.abs(ms - st.audioMs) > 40) useQuran.setState({
+			wordIndex: st.follow ? idx : st.wordIndex,
+			audioMs: ms,
+			durationMs: dur || st.durationMs
+		});
+		raf = requestAnimationFrame(loop);
+	};
+	raf = requestAnimationFrame(loop);
+}
+function onEnded() {
+	const s = useQuran.getState();
+	const rec = reciterById(s.reciterId);
+	stopTick();
+	if (s.learnMode === "echo" || s.learnMode === "word") {
+		useQuran.setState({
+			playing: false,
+			waiting: true,
+			wordIndex: Math.max(0, currentSegs.length - 1),
+			audioMs: s.durationMs
+		});
+		return;
+	}
+	if (rec.kind === "surah") {
+		const list = reciterSurahs(rec) ?? [];
+		const i = list.indexOf(s.surah);
+		if (s.repeat === "surah" || s.repeat === "ayah") {
+			fallbackUsed = false;
+			audio.currentTime = 0;
+			audio.play().then(() => startTick());
+			return;
+		}
+		if (i >= 0 && i < list.length - 1) {
+			s.playAt(list[i + 1], 1, null);
+			return;
+		}
+		useQuran.setState({ playing: false });
+		return;
+	}
+	const afterGap = () => {
+		if (s.repeat === "ayah") {
+			fallbackUsed = false;
+			if (audio) {
+				audio.currentTime = 0;
+				audio.play().then(() => {
+					useQuran.setState({
+						playing: true,
+						waiting: false
+					});
+					startTick();
+				});
+			}
+			return;
+		}
+		s.next();
+	};
+	if (s.gapMs > 0) {
+		useQuran.setState({ playing: false });
+		clearGap();
+		gapTimer = window.setTimeout(afterGap, s.gapMs);
+		return;
+	}
+	afterGap();
+}
+function onError() {
+	const s = useQuran.getState();
+	const rec = reciterById(s.reciterId);
+	const g = refToGlobal(s.surah, s.ayah);
+	if (!fallbackUsed) {
+		fallbackUsed = true;
+		audio.src = ayahAudioFallback(rec, g, s.surah, s.ayah);
+		audio.play().catch(() => {
+			useQuran.setState({
+				lastError: "Аудио недоступно",
+				playing: false
+			});
+		});
+	} else useQuran.setState({
+		lastError: "Аудио недоступно",
+		playing: false
+	});
+}
+function applyPendingSeek(el) {
+	const st = useQuran.getState();
+	const idx = pendingWord ?? (st.learnMode === "word" && holdUntil === 0 ? 0 : null);
+	if (idx == null || !currentSegs[idx]) return;
+	const seg = currentSegs[idx];
+	try {
+		el.currentTime = seg.start / 1e3;
+	} catch {}
+	if (st.learnMode === "word") holdUntil = seg.end;
+	useQuran.setState({
+		wordIndex: idx,
+		audioMs: seg.start
+	});
+	pendingWord = null;
+}
+function onMeta() {
+	const el = audio;
+	if (!el) return;
+	const dur = (el.duration || 0) * 1e3;
+	if (reciterById(useQuran.getState().reciterId).kind !== "surah" && dur > 0 && currentSync && !currentSync.exact && currentSync.words.length) {
+		currentSegs = estimateSegs(currentSync.words, dur);
+		currentSync = {
+			...currentSync,
+			segs: currentSegs
+		};
+	}
+	useQuran.setState({ durationMs: dur });
+	applyPendingSeek(el);
+}
+function getAudio() {
+	if (typeof window === "undefined") return null;
+	if (!audio) {
+		audio = new Audio();
+		audio.preload = "metadata";
+		audio.setAttribute("playsinline", "");
+		audio.addEventListener("ended", onEnded);
+		audio.addEventListener("error", onError);
+		audio.addEventListener("loadedmetadata", onMeta);
+	}
+	return audio;
+}
+function persist$1(partial) {
+	try {
+		const cur = useQuran.getState();
+		localStorage.setItem(KEY$1, JSON.stringify({
+			reciterId: partial.reciterId ?? cur.reciterId,
+			surah: partial.surah ?? cur.surah,
+			ayah: partial.ayah ?? cur.ayah,
+			repeat: partial.repeat ?? cur.repeat,
+			bookmarks: partial.bookmarks ?? cur.bookmarks,
+			follow: partial.follow ?? cur.follow,
+			wbw: partial.wbw ?? cur.wbw,
+			learnMode: partial.learnMode ?? cur.learnMode,
+			speed: partial.speed ?? cur.speed,
+			gapMs: partial.gapMs ?? cur.gapMs
+		}));
+	} catch {}
+}
+function loadSrc(surah, ayah, reciterId, preferred = "") {
+	const el = getAudio();
+	if (!el) return false;
+	const rec = reciterById(reciterId);
+	if (rec.kind === "surah") {
+		const file = rec.surahFiles?.[surah];
+		if (!file) {
+			useQuran.setState({
+				playing: false,
+				lastError: `${rec.name}: на открытых зеркалах этого файла нет.`
+			});
+			return false;
+		}
+		fallbackUsed = true;
+		el.preload = "metadata";
+		el.src = file;
+		return true;
+	}
+	const g = refToGlobal(surah, ayah);
+	if (preferred) {
+		fallbackUsed = false;
+		el.preload = "metadata";
+		el.src = preferred;
+		return true;
+	}
+	fallbackUsed = false;
+	el.preload = "metadata";
+	el.src = ayahAudioUrl(rec, g, surah, ayah);
+	return true;
+}
+async function playNow() {
+	const { surah, ayah, reciterId, learnMode, speed } = useQuran.getState();
+	const rec = reciterById(reciterId);
+	const gen = ++loadGen;
+	clearGap();
+	stopTick();
+	holdUntil = 0;
+	const local = await loadAyah(surah, ayah);
+	if (gen !== loadGen) return;
+	const sync = await loadAyahSync(surah, ayah, rec, local?.ar ?? "");
+	if (gen !== loadGen) return;
+	currentSync = sync;
+	currentSegs = sync.segs;
+	useQuran.setState({
+		words: sync.words,
+		exactSync: sync.exact,
+		waiting: false,
+		wordIndex: pendingWord ?? (learnMode === "word" || useQuran.getState().follow ? 0 : -1),
+		audioMs: 0
+	});
+	if (!loadSrc(surah, ayah, reciterId, rec.kind === "surah" ? "" : sync.audioUrl)) return;
+	const el = getAudio();
+	if (!el) return;
+	el.playbackRate = speed;
+	if (learnMode === "word" && pendingWord == null) pendingWord = 0;
+	if (el.readyState >= 1) applyPendingSeek(el);
+	el.play().then(() => {
+		if (gen !== loadGen) return;
+		useQuran.setState({
+			playing: true,
+			session: true,
+			lastError: "",
+			waiting: false
+		});
+		startTick();
+	}, () => useQuran.setState({
+		lastError: "Не удалось начать чтение",
+		playing: false
+	}));
+	if (ayah < surahOf(surah).ayahs) loadAyah(surah, ayah + 1).then((a) => {
+		if (a) prefetchAyahSync(surah, ayah + 1, rec, a.ar);
+	});
+}
+var useQuran = create((set, get) => ({
+	reciterId: DEFAULT_RECITER.id,
+	surah: 1,
+	ayah: 1,
+	playing: false,
+	session: false,
+	repeat: "off",
+	bookmarks: [],
+	rangeTo: null,
+	lastError: "",
+	tafsirOn: false,
+	tafsirBook: 170,
+	follow: true,
+	wbw: false,
+	learnMode: "listen",
+	speed: 1,
+	gapMs: 0,
+	wordIndex: -1,
+	audioMs: 0,
+	durationMs: 0,
+	waiting: false,
+	exactSync: false,
+	words: [],
+	setReciter: (id) => {
+		persist$1({ reciterId: id });
+		set({ reciterId: id });
+		if (get().playing || get().session) get().play();
+	},
+	setRef: (surah, ayah) => {
+		persist$1({
+			surah,
+			ayah
+		});
+		set({
+			surah,
+			ayah,
+			wordIndex: -1,
+			waiting: false
+		});
+	},
+	openTafsir: (surah = 12, ayah = 1) => {
+		persist$1({
+			surah,
+			ayah
+		});
+		set({
+			surah,
+			ayah,
+			tafsirOn: true
+		});
+	},
+	closeTafsir: () => set({ tafsirOn: false }),
+	setTafsirBook: (id) => set({ tafsirBook: id }),
+	setRepeat: (repeat) => {
+		persist$1({ repeat });
+		set({ repeat });
+	},
+	setFollow: (follow) => {
+		persist$1({ follow });
+		set({ follow });
+	},
+	toggleFollow: () => {
+		const follow = !get().follow;
+		persist$1({ follow });
+		set({
+			follow,
+			wordIndex: follow ? get().wordIndex : -1
+		});
+	},
+	toggleWbw: () => {
+		const wbw = !get().wbw;
+		persist$1({ wbw });
+		set({ wbw });
+	},
+	setLearnMode: (learnMode) => {
+		persist$1({ learnMode });
+		set({
+			learnMode,
+			waiting: false
+		});
+		if (get().playing) get().play();
+	},
+	setSpeed: (speed) => {
+		persist$1({ speed });
+		set({ speed });
+		const el = getAudio();
+		if (el) el.playbackRate = speed;
+	},
+	setGapMs: (gapMs) => {
+		persist$1({ gapMs });
+		set({ gapMs });
+	},
+	toggleBookmark: () => {
+		const { surah, ayah, bookmarks } = get();
+		const next = bookmarks.some((b) => b.surah === surah && b.ayah === ayah) ? bookmarks.filter((b) => !(b.surah === surah && b.ayah === ayah)) : [{
+			surah,
+			ayah
+		}, ...bookmarks].slice(0, 80);
+		persist$1({ bookmarks: next });
+		set({ bookmarks: next });
+	},
+	play: () => {
+		playNow();
+	},
+	playAt: (surah, ayah, to = null) => {
+		persist$1({
+			surah,
+			ayah
+		});
+		pendingWord = null;
+		set({
+			surah,
+			ayah,
+			rangeTo: to,
+			session: true,
+			waiting: false,
+			wordIndex: -1
+		});
+		get().play();
+	},
+	playWord: (surah, ayah, index) => {
+		persist$1({
+			surah,
+			ayah
+		});
+		pendingWord = index;
+		const mode = get().learnMode === "listen" ? "listen" : get().learnMode;
+		set({
+			surah,
+			ayah,
+			session: true,
+			waiting: false,
+			follow: true
+		});
+		if (mode === "word") holdUntil = 0;
+		get().play();
+	},
+	continueLearn: () => {
+		const { learnMode, wordIndex, surah, ayah, words } = get();
+		if (learnMode === "word") {
+			const next = wordIndex + 1;
+			if (next < (currentSegs.length || words.length)) {
+				get().playWord(surah, ayah, next);
+				return;
+			}
+		}
+		get().next();
+	},
+	replayUnit: () => {
+		const { learnMode, wordIndex, surah, ayah } = get();
+		if (learnMode === "word") get().playWord(surah, ayah, Math.max(0, wordIndex));
+		else get().play();
+	},
+	pause: () => {
+		clearGap();
+		stopTick();
+		getAudio()?.pause();
+		set({ playing: false });
+	},
+	toggle: () => {
+		if (get().waiting) {
+			get().continueLearn();
+			return;
+		}
+		if (get().playing) get().pause();
+		else get().play();
+	},
+	next: () => {
+		const list = reciterSurahs(reciterById(get().reciterId));
+		if (list?.length) {
+			const { surah } = get();
+			const i = list.indexOf(surah);
+			const ns = i >= 0 && i < list.length - 1 ? list[i + 1] : list[0];
+			get().playAt(ns, 1, null);
+			return;
+		}
+		const { surah, ayah, repeat, rangeTo } = get();
+		const meta = surahOf(surah);
+		let ns = surah;
+		let na = ayah + 1;
+		if (rangeTo && ayah >= rangeTo) {
+			if (repeat === "surah") na = ayah;
+		}
+		if (na > meta.ayahs) {
+			if (repeat === "surah") na = 1;
+			else if (surah >= 114) {
+				get().pause();
+				return;
+			} else {
+				ns = surah + 1;
+				na = 1;
+			}
+		}
+		if (rangeTo && ayah >= rangeTo && repeat !== "surah") {
+			get().pause();
+			return;
+		}
+		persist$1({
+			surah: ns,
+			ayah: na
+		});
+		pendingWord = get().learnMode === "word" ? 0 : null;
+		set({
+			surah: ns,
+			ayah: na,
+			waiting: false,
+			wordIndex: -1
+		});
+		get().play();
+	},
+	prev: () => {
+		const list = reciterSurahs(reciterById(get().reciterId));
+		if (list?.length) {
+			const { surah } = get();
+			const i = list.indexOf(surah);
+			const ns = i > 0 ? list[i - 1] : list[list.length - 1];
+			get().playAt(ns, 1, null);
+			return;
+		}
+		const { surah, ayah, learnMode, wordIndex } = get();
+		if (learnMode === "word" && wordIndex > 0) {
+			get().playWord(surah, ayah, wordIndex - 1);
+			return;
+		}
+		let ns = surah;
+		let na = ayah - 1;
+		if (na < 1) {
+			if (surah <= 1) return;
+			ns = surah - 1;
+			na = surahOf(ns).ayahs;
+		}
+		persist$1({
+			surah: ns,
+			ayah: na
+		});
+		set({
+			surah: ns,
+			ayah: na,
+			waiting: false,
+			wordIndex: -1
+		});
+		if (get().playing || get().session) get().play();
+	},
+	seekRatio: (r) => {
+		const el = getAudio();
+		if (!el || !el.duration) return;
+		const t = Math.min(1, Math.max(0, r)) * el.duration;
+		el.currentTime = t;
+		const ms = t * 1e3;
+		useQuran.setState({
+			audioMs: ms,
+			wordIndex: get().follow ? wordIndexAt(currentSegs, ms) : get().wordIndex,
+			waiting: false
+		});
+		if (get().learnMode === "word") {
+			const idx = wordIndexAt(currentSegs, ms);
+			holdUntil = currentSegs[idx]?.end ?? 0;
+		}
+	}
+}));
+function hydrateQuran() {
+	if (typeof window === "undefined") return;
+	try {
+		const raw = localStorage.getItem(KEY$1);
+		if (!raw) return;
+		const data = JSON.parse(raw);
+		useQuran.setState({
+			reciterId: data.reciterId ?? DEFAULT_RECITER.id,
+			surah: data.surah ?? 1,
+			ayah: data.ayah ?? 1,
+			repeat: data.repeat ?? "off",
+			bookmarks: data.bookmarks ?? [],
+			follow: data.follow ?? true,
+			wbw: data.wbw ?? false,
+			learnMode: data.learnMode ?? "listen",
+			speed: data.speed ?? 1,
+			gapMs: data.gapMs ?? 0
+		});
+	} catch {}
+}
+function HouseRoom({ id }) {
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	const locale = useMizan((s) => s.settings.locale);
+	const hadith = useMizan((s) => s.houseHadith);
+	if (id === "nawawi" && hadith != null) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-2xl gap-4 px-4 pt-2",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: "grid size-11 place-items-center",
+					onClick: () => setRoom(null),
+					"aria-label": translate(locale, "hadith.back"),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "font-display text-2xl leading-tight",
+					children: translate(locale, `room.${id}`)
+				})]
+			}),
+			id === "names" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NamesRoom, {}) : null,
+			id === "nawawi" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NawawiRoom, {}) : null,
+			id === "index" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IndexRoom, {}) : null,
+			id === "alphabet" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AlphabetRoom, {}) : null,
+			id === "quiz" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuizRoom, {}) : null,
+			id === "dict" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DictRoom, {}) : null,
+			id === "reminder" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReminderRoom, {}) : null,
+			id === "wisdom" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WisdomRoom, {}) : null,
+			id === "calendar" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CalendarRoom, {}) : null,
+			id === "recite" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReciteRoom, {}) : null,
+			id === "tajweed" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TajweedRoom, {}) : null,
+			id === "books" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BooksRoom, {}) : null,
+			id === "mecca" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlaceRoom, { place: "M" }) : null,
+			id === "madina" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlaceRoom, { place: "D" }) : null
+		]
+	});
+}
+function NamesRoom() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-2",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-xs text-[var(--muted)]",
+			children: NAMES_META.source
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+			className: "grid gap-1",
+			children: NAMES.map((n) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+				className: "list-item flex items-center gap-3 rounded-2xl border border-[var(--line)] px-3 py-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "w-6 shrink-0 text-[11px] tabular-nums text-[var(--muted)]",
+						children: n.n
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar flex-1 text-right text-xl",
+						lang: "ar",
+						children: n.ar
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "w-28 shrink-0 text-right text-xs",
+						children: [n.ru, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-0.5 block text-[10px] text-[var(--muted)]",
+							children: n.tr
+						})]
+					})
+				]
+			}, n.n))
+		})]
+	});
+}
+function NawawiRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setNav = useMizan((s) => s.setHouseNav);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "grid gap-2",
+		children: NAWAWI.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "flex min-h-12 w-full items-center gap-3 rounded-2xl border border-[var(--line)] px-3 py-2.5 text-left",
+			onClick: () => setNav("nawawi", h.n, "list"),
+			"data-go": `hadith-${h.n}`,
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "w-6 shrink-0 text-[11px] tabular-nums text-[var(--muted)]",
+				children: h.n
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "flex-1 font-medium leading-snug",
+				children: hadithTitle(h, locale)
+			})]
+		}, h.n))
+	});
+}
+function IndexRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	const setNav = useMizan((s) => s.setHouseNav);
+	const setRef = useQuran((s) => s.setRef);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, "room.index.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: translate(locale, "nav.quran")
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-2 grid max-h-64 gap-1 overflow-y-auto",
+				children: SURAHS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "flex w-full items-center justify-between rounded-xl px-2 py-2 text-sm",
+					onClick: () => {
+						setRef(s.n, 1);
+						setTab("quran");
+						setRoom(null);
+					},
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+						s.n,
+						". ",
+						s.ru
+					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar",
+						lang: "ar",
+						children: s.ar
+					})]
+				}) }, s.n))
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: translate(locale, "tile.nawawi")
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-2 grid gap-1",
+				children: NAWAWI.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "w-full rounded-xl px-2 py-2 text-left text-sm",
+					onClick: () => setNav("nawawi", h.n, "list"),
+					children: [
+						h.n,
+						". ",
+						hadithTitle(h, locale)
+					]
+				}) }, h.n))
+			})] })
+		]
+	});
+}
+function AlphabetRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, "room.alphabet.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid grid-cols-4 gap-2",
+				children: LETTERS.map((l) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-2xl border border-[var(--line)] py-3 text-center",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "ayah-ar text-3xl",
+						lang: "ar",
+						children: l.ar
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] text-[var(--muted)]",
+						children: l.name
+					})]
+				}, l.ar))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex flex-wrap gap-2",
+				children: HARAKAT.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "rounded-full border border-[var(--line)] px-3 py-1 text-xs",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							lang: "ar",
+							children: h.mark
+						}),
+						" ",
+						h.name
+					]
+				}, h.name))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "glow",
+				onClick: () => {
+					setRoom(null);
+					setTab("learn");
+				},
+				children: translate(locale, "tile.learn")
+			})
+		]
+	});
+}
+function QuizRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const [i, setI] = (0, import_react.useState)(0);
+	const [picked, setPicked] = (0, import_react.useState)(null);
+	const q = (0, import_react.useMemo)(() => {
+		const n = NAMES[i % NAMES.length];
+		return {
+			n,
+			opts: [n, ...NAMES.filter((x) => x.n !== n.n).slice(i * 3 % 90, i * 3 % 90 + 3)].sort((a, b) => a.n - b.n)
+		};
+	}, [i]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, "room.quiz.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "ayah-ar text-center text-4xl",
+				lang: "ar",
+				children: q.n.ar
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-2",
+				children: q.opts.map((o) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: () => setPicked(o.ru),
+					className: cn("min-h-12 rounded-2xl border px-3 text-sm", picked && o.n === q.n.n && "border-[var(--ok)] text-[var(--ok)]", picked && o.ru === picked && o.n !== q.n.n && "border-[var(--danger)]", !picked && "border-[var(--line)]"),
+					children: o.ru
+				}, o.n))
+			}),
+			picked ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "secondary",
+				onClick: () => {
+					setPicked(null);
+					setI(i + 1);
+				},
+				children: translate(locale, "hadith.next")
+			}) : null
+		]
+	});
+}
+function DictRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const [q, setQ] = (0, import_react.useState)("");
+	const list = DICT.filter((d) => !q || d.ar.includes(q) || d.ru.toLowerCase().includes(q.toLowerCase()));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, "room.dict.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+				className: "min-h-11 rounded-full border border-[var(--line)] bg-transparent px-4",
+				placeholder: translate(locale, "hisn.find"),
+				value: q,
+				onChange: (e) => setQ(e.target.value)
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "grid gap-2",
+				children: list.map((d) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+					className: "rounded-2xl border border-[var(--line)] px-3 py-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ayah-ar text-xl",
+							lang: "ar",
+							children: d.ar
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ms-3",
+							children: d.ru
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[11px] text-[var(--muted)]",
+							children: d.note
+						})
+					]
+				}, d.ar))
+			})
+		]
+	});
+}
+function ReminderRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setHisn = useMizan((s) => s.setHisnChapter);
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	const setRef = useQuran((s) => s.setRef);
+	const ref = sabrOfDay();
+	const [ru, setRu] = (0, import_react.useState)("");
+	const [ar, setAr] = (0, import_react.useState)("");
+	(0, import_react.useEffect)(() => {
+		loadAyah(ref.surah, ref.ayah).then((a) => {
+			setRu(a?.ru ?? "");
+			setAr(a?.ar ?? "");
+		});
+	}, [ref.surah, ref.ayah]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+			className: "ayah-card",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] uppercase tracking-[0.14em] text-[var(--accent)]",
+					children: translate(locale, "hadith.day")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "ayah-ar mt-2 text-xl",
+					lang: "ar",
+					children: ar
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm",
+					children: ru
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-[11px] text-[var(--muted)]",
+					children: formatRef(ref.surah, ref.ayah)
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					className: "mt-3",
+					onClick: () => {
+						setRef(ref.surah, ref.ayah);
+						setRoom(null);
+						setTab("quran");
+					},
+					children: translate(locale, "tile.quran")
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+			type: "button",
+			className: "door",
+			onClick: () => {
+				setHisn(27);
+				setRoom(null);
+				setTab("hisn");
+			},
+			children: translate(locale, "hisn.col.morning")
+		})]
+	});
+}
+function WisdomRoom() {
+	const h = NAWAWI[dayIndex(NAWAWI.length)];
+	const n = NAMES[dayIndex(NAMES.length)];
+	const locale = useMizan((s) => s.settings.locale);
+	const setNav = useMizan((s) => s.setHouseNav);
+	const meaning = hadithMeaning(h, locale);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "rounded-2xl border border-[var(--line)] p-4 text-left",
+			onClick: () => setNav("nawawi", h.n, "list"),
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: [
+						translate(locale, "hadith.day"),
+						" · ",
+						h.n
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "mt-2 font-display text-xl",
+					children: hadithTitle(h, locale)
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "book-ar gold-flow mt-3 text-center text-2xl",
+					lang: "ar",
+					children: h.core
+				}),
+				meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-3 text-sm text-[var(--muted)]",
+					children: meaning
+				}) : null,
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-[11px] text-[var(--muted)]",
+					children: locale === "en" ? h.ref.replace(/^sunnah\.com\/nawawi40:/, "an-Nawawi ") : h.refRu
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+			className: "rounded-2xl border border-[var(--line)] p-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: translate(locale, "tile.names")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "ayah-ar mt-2 text-3xl",
+					lang: "ar",
+					children: n.ar
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+					n.ru,
+					" · ",
+					n.tr
+				] })
+			]
+		})]
+	});
+}
+function CalendarRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const { hijri, greg } = hijriLabel(/* @__PURE__ */ new Date(), locale);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "font-display text-3xl",
+			children: hijri
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-sm text-[var(--muted)]",
+			children: greg
+		})]
+	});
+}
+function ReciteRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setReciter = useQuran((s) => s.setReciter);
+	const playAt = useQuran((s) => s.playAt);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-2",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-xs text-[var(--muted)]",
+			children: translate(locale, "room.recite.note")
+		}), RECITERS.map((r) => {
+			const files = reciterSurahs(r);
+			const dead = r.kind === "surah" && !files?.length;
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "door",
+				onClick: () => {
+					setReciter(r.id);
+					setRoom(null);
+					setTab("quran");
+					if (dead) return;
+					const first = files?.[0] ?? 1;
+					playAt(first, 1, r.kind === "surah" ? null : 7);
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "font-medium",
+						children: r.name
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar block",
+						lang: "ar",
+						children: r.nameAr
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-xs text-[var(--muted)]",
+						children: r.blurb
+					})
+				]
+			}, r.id);
+		})]
+	});
+}
+function TajweedRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-2",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-xs text-[var(--muted)]",
+			children: translate(locale, "room.tajweed.note")
+		}), TAJWEED_CARDS.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+			className: "rounded-2xl border border-[var(--line)] p-3",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "font-display text-xl",
+					children: c.title
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm",
+					children: c.rule
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "ayah-ar mt-2",
+					lang: "ar",
+					children: c.example
+				})
+			]
+		}, c.id))]
+	});
+}
+function BooksRoom() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setNav = useMizan((s) => s.setHouseNav);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-2",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, "room.books.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: "door",
+				onClick: () => setNav("nawawi"),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "block font-medium",
+					children: translate(locale, "tile.nawawi")
+				})
+			}),
+			HADITH_BOOKS.map((b, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+				href: b.href,
+				target: "_blank",
+				rel: "noreferrer",
+				className: "door",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "text-[11px] text-[var(--muted)]",
+						children: i + 1
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "block font-medium",
+						children: b.ru
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar",
+						lang: "ar",
+						children: b.ar
+					})
+				]
+			}, b.id))
+		]
+	});
+}
+function PlaceRoom({ place }) {
+	const setRef = useQuran((s) => s.setRef);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setRoom = useMizan((s) => s.setHouseRoom);
+	const list = SURAHS.filter((s) => s.place === place);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "grid gap-2",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+			className: "grid gap-1",
+			children: list.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "flex w-full items-center justify-between rounded-xl px-2 py-2 text-sm",
+				onClick: () => {
+					setRef(s.n, 1);
+					setRoom(null);
+					setTab("quran");
+				},
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+					s.n,
+					". ",
+					s.ru
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "ayah-ar",
+					lang: "ar",
+					children: s.ar
+				})]
+			}) }, s.n))
+		})
+	});
+}
+var RETRIEVED = "2026-09-09";
+var SOURCES = [
+	{
+		sourceId: "quran.2.43",
+		type: "quran",
+		title: "Коран 2:43",
+		author: "Откровение",
+		url: "https://quran.com/2/43",
+		locator: "сура 2 аль-Бакара, аят 43",
+		language: "ar",
+		translator: "Э. Кулиев (рус.); Saheeh International (en)",
+		retrievedAt: RETRIEVED,
+		terms: "текст Корана; перевод — мнение переводчика",
+		review: "primary_text_checked",
+		arabic: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
+		translationRu: "И совершайте намаз, выплачивайте закят и кланяйтесь вместе с кланяющимися.",
+		translationEn: "And establish prayer and give zakah and bow with those who bow [in worship and obedience].",
+		notes: "Общее предписание закята. Не задаёт ставки, нисаб, виды имущества и не говорит о криптоактивах."
+	},
+	{
+		sourceId: "quran.9.60",
+		type: "quran",
+		title: "Коран 9:60",
+		author: "Откровение",
+		url: "https://quran.com/9/60",
+		locator: "сура 9 ат-Тауба, аят 60",
+		language: "ar",
+		translator: "Э. Кулиев; Saheeh International",
+		retrievedAt: RETRIEVED,
+		terms: "текст Корана",
+		review: "primary_text_checked",
+		arabic: "إِنَّمَا الصَّدَقَاتُ لِلْفُقَرَاءِ وَالْمَسَاكِينِ وَالْعَامِلِينَ عَلَيْهَا وَالْمُؤَلَّفَةِ قُلُوبُهُمْ وَفِي الرِّقَابِ وَالْغَارِمِينَ وَفِي سَبِيلِ اللَّهِ وَابْنِ السَّبِيلِ فَرِيضَةً مِنَ اللَّهِ وَاللَّهُ عَلِيمٌ حَكِيمٌ",
+		translationRu: "Пожертвования предназначены для бедных, нищих, тех, кто занимается (сбором и раздачей) закята, тех, чьи сердца хотят привлечь к исламу, для выкупа рабов, для должников, для трат на пути Аллаха и для путников. Так предписано Аллахом. Аллах — Знающий, Мудрый.",
+		notes: "Восемь категорий получателей. Калькулятор не переводит средства и не назначает получателя автоматически."
+	},
+	{
+		sourceId: "quran.9.103",
+		type: "quran",
+		title: "Коран 9:103",
+		author: "Откровение",
+		url: "https://quran.com/9/103",
+		locator: "сура 9 ат-Тауба, аят 103",
+		language: "ar",
+		translator: "Э. Кулиев; Saheeh International",
+		retrievedAt: RETRIEVED,
+		terms: "текст Корана",
+		review: "primary_text_checked",
+		arabic: "خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا وَصَلِّ عَلَيْهِمْ إِنَّ صَلَاتَكَ سَكَنٌ لَّهُمْ وَاللَّهُ سَمِيعٌ عَلِيمٌ",
+		translationRu: "Бери из их имущества милостыню, которой ты очистишь и возвысишь их…",
+		notes: "Предписание брать садаку из имущества. Не фиксирует 2,5 % и не описывает современные инструменты."
+	},
+	{
+		sourceId: "quran.6.141",
+		type: "quran",
+		title: "Коран 6:141",
+		author: "Откровение",
+		url: "https://quran.com/6/141",
+		locator: "сура 6 аль-Анʿам, аят 141",
+		language: "ar",
+		translator: "Э. Кулиев; Saheeh International",
+		retrievedAt: RETRIEVED,
+		terms: "текст Корана",
+		review: "primary_text_checked",
+		arabic: "وَآتُوا حَقَّهُ يَوْمَ حَصَادِهِ",
+		translationRu: "…и отдавайте должное в день сбора урожая…",
+		notes: "Указывает на выплату при сборе урожая (без хауля). Ставка 10/5 % берётся не из этого аята, а из хадиса."
+	},
+	{
+		sourceId: "bukhari.1454",
+		type: "hadith",
+		title: "Сахих аль-Бухари 1454",
+		author: "аль-Бухари; передатчик Анас, письмо Абу Бакра",
+		url: "https://sunnah.com/bukhari:1454",
+		locator: "Kitāb al-Zakāt, Bāb zakāt al-ghanam; номер 1454 (нумерация sunnah.com)",
+		language: "ar/en",
+		translator: "Muhsin Khan (en, sunnah.com)",
+		retrievedAt: RETRIEVED,
+		edition: "Сахих; оценка сборника",
+		terms: "текст хадиса; пояснения переводчика в скобках не являются арабским текстом",
+		review: "primary_text_checked",
+		arabic: void 0,
+		translationEn: "Sheep: 40–120 → one sheep; 121–200 → two; 201–300 → three; over 300 → one sheep per extra hundred. Camels: detailed age brackets. Silver: one-fortieth; below 200 dirhams none.",
+		notes: "Таблицы овец и верблюдов и ставка серебра 1/40 при 200 дирхемах. Золото, современные деньги, КРС и крипто в этом хадисе не описаны. На границе 120 овец — одна овца, не две и не floor(n/40)."
+	},
+	{
+		sourceId: "bukhari.1447",
+		type: "hadith",
+		title: "Сахих аль-Бухари 1447",
+		author: "аль-Бухари; Абу Саʿид аль-Худри",
+		url: "https://sunnah.com/bukhari:1447",
+		locator: "Kitāb al-Zakāt; 1447",
+		language: "ar/en",
+		translator: "Muhsin Khan — скобки переводчика не часть арабского текста",
+		retrievedAt: RETRIEVED,
+		edition: "Сахих",
+		terms: "арабский текст хадиса vs. пояснения издания",
+		review: "primary_text_checked",
+		arabic: "لَيْسَ فِيمَا دُونَ خَمْسِ ذَوْدٍ صَدَقَةٌ مِنَ الإِبِلِ، وَلَيْسَ فِيمَا دُونَ خَمْسِ أَوَاقٍ صَدَقَةٌ، وَلَيْسَ فِيمَا دُونَ خَمْسَةِ أَوْسُقٍ صَدَقَةٌ",
+		translationEn: "No zakat on less than five camels; no zakat on less than five awāq (silver); no zakat on less than five awsuq.",
+		notes: "Арабский текст не называет 20 динаров. Упоминание золота в английском издании — пояснение переводчика, не хадис. 1 wasq = 60 ṣāʿ в комментарии издания; перевод ṣāʿ в килограммы зависит от вида продукции и не универсален."
+	},
+	{
+		sourceId: "bukhari.1483",
+		type: "hadith",
+		title: "Сахих аль-Бухари 1483",
+		author: "аль-Бухари; Ибн Умар",
+		url: "https://sunnah.com/bukhari:1483",
+		locator: "Kitāb al-Zakāt; 1483",
+		language: "ar/en",
+		translator: "Muhsin Khan",
+		retrievedAt: RETRIEVED,
+		edition: "Сахих",
+		terms: "текст хадиса",
+		review: "primary_text_checked",
+		arabic: "فِيمَا سَقَتِ السَّمَاءُ وَالْعُيُونُ أَوْ كَانَ عَثَرِيًّا الْعُشْرُ، وَمَا سُقِيَ بِالنَّضْحِ نِصْفُ الْعُشْرِ",
+		translationEn: "On that which is watered by rain, springs or ʿatharī: one-tenth; on that which is watered by a well (naḍḥ): half of one-tenth.",
+		translationRu: "С того, что полито дождём, родниками или самотёком — десятая часть; с того, что полито из колодца — половина десятины.",
+		notes: "Ставки 10 % и 5 %. Порог 5 васков — из 1447, не из 1483. Смешанный полив этим хадисом не решён."
+	},
+	{
+		sourceId: "bukhari.1503",
+		type: "hadith",
+		title: "Сахих аль-Бухари 1503",
+		author: "аль-Бухари; Ибн Умар",
+		url: "https://sunnah.com/bukhari:1503",
+		locator: "Kitāb al-Zakāt; 1503",
+		language: "ar/en",
+		translator: "Muhsin Khan — «1 ṣāʿ ≈ 3 кг» в скобках издания не является текстом хадиса",
+		retrievedAt: RETRIEVED,
+		edition: "Сахих",
+		terms: "текст хадиса",
+		review: "primary_text_checked",
+		arabic: "فَرَضَ رَسُولُ اللَّهِ صلى الله عليه وسلم زَكَاةَ الْفِطْرِ صَاعًا مِنْ تَمْرٍ، أَوْ صَاعًا مِنْ شَعِيرٍ عَلَى الْعَبْدِ وَالْحُرِّ، وَالذَّكَرِ وَالأُنْثَى، وَالصَّغِيرِ وَالْكَبِيرِ مِنَ الْمُسْلِمِينَ، وَأَمَرَ بِهَا أَنْ تُؤَدَّى قَبْلَ خُرُوجِ النَّاسِ إِلَى الصَّلاَةِ",
+		translationEn: "One ṣāʿ of dates or barley on every Muslim, before the ʿĪd prayer.",
+		notes: "Норма — 1 ṣāʿ фиников или ячменя. Денежный эквивалент и перевод в кг — местная методика, не текст хадиса. Срок — до праздничной молитвы."
+	},
+	{
+		sourceId: "bukhari.1506",
+		type: "hadith",
+		title: "Сахих аль-Бухари 1506 / 1507",
+		author: "аль-Бухари",
+		url: "https://sunnah.com/bukhari:1506",
+		locator: "Kitāb al-Zakāt; 1506–1507",
+		language: "ar/en",
+		retrievedAt: RETRIEVED,
+		terms: "текст хадиса",
+		review: "primary_text_checked",
+		notes: "Дополнительные риваяты фитра. Используются вместе с 1503. Не фиксируют рублёвую сумму."
+	},
+	{
+		sourceId: "bukhari.6912",
+		type: "hadith",
+		title: "Сахих аль-Бухари 6912",
+		author: "аль-Бухари; Абу Хурайра",
+		url: "https://sunnah.com/bukhari:6912",
+		locator: "Kitāb al-Diyāt; 6912",
+		language: "ar/en",
+		translator: "Muhsin Khan",
+		retrievedAt: RETRIEVED,
+		edition: "Сахих",
+		terms: "текст хадиса",
+		review: "primary_text_checked",
+		arabic: "وَفِي الرِّكَازِ الْخُمُسُ",
+		translationEn: "And in rikāz (buried treasure) there is one-fifth.",
+		translationRu: "И в риказе — пятая часть.",
+		notes: "Риказ — клад доисламского/скрытого сокровища в классическом смысле, не любая находка и не любая добыча. Ставка 1/5 применяется только при подтверждённой классификации."
+	},
+	{
+		sourceId: "abudawud.1576",
+		type: "hadith",
+		title: "Сунан Аби Дауд 1576 (ср. ат-Тирмизи 623)",
+		author: "Абу Дауд; Муʿаз ибн Джабаль",
+		url: "https://sunnah.com/abudawud:1576",
+		locator: "Kitāb al-Zakāt, Bāb fī zakāt al-sāʾima; 1576",
+		language: "ar/en",
+		translator: "sunnah.com; оценка аль-Албани: сахих (для близкого 1578)",
+		retrievedAt: RETRIEVED,
+		edition: "Сунан Аби Дауд",
+		terms: "КРС отсутствует в Бухари 1454",
+		review: "primary_text_checked",
+		translationEn: "For every 30 cattle a tabīʿ/tabīʿah (1 year); for every 40 a musinnah (2 years). Pasturing animals (sāʾima).",
+		notes: "Таблица КРС. Условие выпаса (саима) и хауль исследуются в фикхе отдельно. Не floor(n/30) как универсальная формула для всех стад."
+	},
+	{
+		sourceId: "fiqh.jewelry.ikhtilaf",
+		type: "fiqh",
+		title: "Расхождение о женских украшениях",
+		author: "четыре мазхаба (сводка)",
+		url: "https://islamqa.info/en/answers/59864",
+		locator: "ханафи: облагается; шафии/малики/ханбали: носимые украшения, как правило, не облагаются при условиях",
+		language: "ru/en/ar",
+		retrievedAt: RETRIEVED,
+		terms: "не выдавать одно мнение за иджмаʿ",
+		review: "translation_checked",
+		notes: "Ханафиты облагают золото и серебро в любом виде. Другие школы освобождают личные украшения при отсутствии накопления/торговли. Профиль выбирает правило явно."
+	},
+	{
+		sourceId: "fiqh.nisab.combine",
+		type: "fiqh",
+		title: "Соединение золота и серебра для нисаба",
+		author: "ан-Навави, аль-Маджмуʿ 5/504; исламQA 144734",
+		url: "https://islamqa.info/en/answers/144734",
+		locator: "большинство: не соединять; Абу Ханифа и ряд иракцев: соединять по стоимости",
+		language: "en/ar",
+		retrievedAt: RETRIEVED,
+		terms: "ихтиляф",
+		review: "translation_checked",
+		notes: "Шафии/ханбали: золото и серебро не дополняют нисаб друг друга. Ханафи: соединение. Для современных денег — отдельная аналогия, не текст хадиса."
+	},
+	{
+		sourceId: "metrology.dinar.85",
+		type: "metrology",
+		title: "Современный перевод 20 динаров ≈ 85 г",
+		author: "распространённая метрология (4,25 г × 20)",
+		url: "https://islamicrelief.org.au/our-work/islamic-giving/zakat/zakat-on-gold/",
+		locator: "не хадис; расчёт массы динара",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		terms: "метрология, не откровение",
+		review: "institutional_page_checked",
+		notes: "Хадис говорит о динарах/дирхемах. 85 г — современный перевод веса динара. Не единственный: 87,48 г использует другой вес."
+	},
+	{
+		sourceId: "metrology.dirham.595",
+		type: "metrology",
+		title: "Современный перевод 200 дирхемов ≈ 595 г",
+		author: "распространённая метрология (≈2,975 г × 200)",
+		url: "https://islamicrelief.org.au/our-work/islamic-giving/zakat/zakat-on-gold/",
+		locator: "не хадис",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		terms: "метрология",
+		review: "institutional_page_checked",
+		notes: "200 дирхемов из Бухари 1454/1447. 595 г — один из современных переводов. 612,36 г — другой (Islamic Relief)."
+	},
+	{
+		sourceId: "ir.nisab.2026",
+		type: "institutional",
+		title: "Islamic Relief: нисаб 87,48 г Au / 612,36 г Ag",
+		author: "Islamic Relief Canada / UK (публичные страницы, 2026)",
+		url: "https://www.islamicreliefcanada.org/our-work/zakat/nisab",
+		locator: "страница Nisab; UK calculator 2026-09-09",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		edition: "публичная веб-страница, не полный внутренний manual",
+		terms: "методика организации, не иджмаʿ",
+		review: "institutional_page_checked",
+		notes: "IR рекомендует серебряный нисаб (ханафитская практика, чтобы порог был ниже). Другие мазхабы — золотой. Полный внутренний документ IR 2026 в ходе этой работы не получен. Не заявляется как AAOIFI."
+	},
+	{
+		sourceId: "ir.uk.calculator",
+		type: "institutional",
+		title: "Islamic Relief UK Zakat calculator (описание шагов)",
+		author: "Islamic Relief UK",
+		url: "https://www.islamic-relief.org.uk/giving/islamic-giving/zakat/zakat-calculator/",
+		locator: "How is Zakat calculated in 2026; ставка 2,5 % от нетто",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		terms: "институциональная методика",
+		review: "institutional_page_checked",
+		notes: "Активы минус допустимые обязательства, 2,5 %. Не покрывает таблицы скота в исходном HTML."
+	},
+	{
+		sourceId: "aaoifi.ss35.unverified",
+		type: "institutional",
+		title: "AAOIFI Shariah Standard 35 (Zakah) — полный текст не сверен",
+		author: "AAOIFI",
+		url: "https://aaoifi.com/",
+		locator: "SS 35; публичный полный текст в этой среде не открыт",
+		language: "en/ar",
+		retrievedAt: RETRIEVED,
+		terms: "не заявлять соответствие AAOIFI",
+		review: "unverified",
+		notes: "Упоминание AAOIFI в исходном HTML не подтверждено сверкой стандарта. Ветвь не считается реализованной как «соответствует AAOIFI»."
+	},
+	{
+		sourceId: "kuwait.house.unverified",
+		type: "institutional",
+		title: "«Kuwait House» 85 г — ярлык исходного файла, первичный документ не найден",
+		author: "не подтверждено",
+		url: "",
+		locator: "mizan-v3 original",
+		language: "ru",
+		retrievedAt: RETRIEVED,
+		terms: "не использовать как подтверждённый профиль",
+		review: "unverified",
+		notes: "В исходнике был пункт kwh: 85 г. Первичный документ организации не найден; профиль не включён как проверенный."
+	},
+	{
+		sourceId: "nzf.proxy25.unverified",
+		type: "institutional",
+		title: "Оценочный коэффициент 25 % для инвестиций с неизвестной структурой",
+		author: "встречается в ряде современных западных методик (в т.ч. упоминания NZF); полный первичный текст в этой среде не сверен",
+		url: "",
+		locator: "только при явном выборе пользователем",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		terms: "оценка, не хукм Корана/Сунны",
+		review: "unverified",
+		notes: "25 % не универсальная истина. Применяется исключительно как помеченная оценка в профилях, где пользователь явно выбрал режим proxy_25."
+	},
+	{
+		sourceId: "troy.ounce",
+		type: "metrology",
+		title: "Тройская унция = 31,1034768 г",
+		author: "SI / NIST convention",
+		url: "https://www.nist.gov/",
+		locator: "1 troy ounce = 31.1034768 grams",
+		language: "en",
+		retrievedAt: RETRIEVED,
+		terms: "метрология рынка металлов",
+		review: "primary_text_checked",
+		notes: "Нужна для перевода котировок XAU/XAG за унцию в цену за грамм. Не религиозный довод."
+	},
+	{
+		sourceId: "math.rate.1_40",
+		type: "math",
+		title: "Ставка 1/40 (2,5 %) для серебра и денежной аналогии",
+		author: "Бухари 1454 (серебро); кийас на деньги — фикх/институты",
+		url: "https://sunnah.com/bukhari:1454",
+		locator: "«for silver the Zakat is one-fortieth»",
+		language: "en/ar",
+		retrievedAt: RETRIEVED,
+		terms: "для серебра — хадис; для фиатных денег — аналогия",
+		review: "primary_text_checked",
+		notes: "Точная доля 1/40, не 0.025 с двоичной погрешностью float. Для урожая и риказа другие ставки."
+	},
+	{
+		sourceId: "crypto.screening.opinions",
+		type: "institutional",
+		title: "Панель мнений о криптоактивах (не хукм)",
+		author: "сторонние списки и боты",
+		url: "https://app.practicalislamicfinance.com/reports/crypto",
+		locator: "PIF, CryptoUmmah, MRHB, A7kem, CryptoHalal и др.",
+		language: "en/ru",
+		retrievedAt: RETRIEVED,
+		terms: "мнения, не окончательный хукм",
+		review: "unverified",
+		notes: "Источники для справки: cryptohalal_bot, MuslimBit_cryptobot, t.me/A7kem, t.me/MRHB_Shariah_Forum, cryptoummah.com/halal-crypto-list, practicalislamicfinance.com, t.me/CrypoIslam, CryptoGulfHalal_Bot. Коран и Сунна не содержат тикеров. Стейкинг/DeFi/лок требуют отдельного разбора права собственности."
+	}
+];
+var SOURCE_BY_ID = Object.fromEntries(SOURCES.map((s) => [s.sourceId, s]));
+function getSources(ids) {
+	return ids.map((id) => SOURCE_BY_ID[id]).filter(Boolean);
+}
+var CRYPTO_OPINION_LINKS = [
+	{
+		name: "@cryptohalal_bot",
+		url: "https://t.me/cryptohalal_bot"
+	},
+	{
+		name: "@MuslimBit_cryptobot",
+		url: "https://t.me/MuslimBit_cryptobot"
+	},
+	{
+		name: "t.me/A7kem",
+		url: "https://t.me/A7kem"
+	},
+	{
+		name: "MRHB Shariah Forum",
+		url: "https://t.me/MRHB_Shariah_Forum"
+	},
+	{
+		name: "CryptoUmmah Halal list",
+		url: "https://cryptoummah.com/halal-crypto-list"
+	},
+	{
+		name: "Practical Islamic Finance",
+		url: "https://app.practicalislamicfinance.com/reports/crypto"
+	},
+	{
+		name: "t.me/CrypoIslam",
+		url: "https://t.me/CrypoIslam"
+	},
+	{
+		name: "@CryptoGulfHalal_Bot",
+		url: "https://t.me/CryptoGulfHalal_Bot"
+	}
+];
+var askEvidence = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("c79d736cf8c8ad84ac0d7ed204369c9302dfe1c9478061d78d5c79f733b98813"));
+var CORE_IDS = [
+	"bukhari.1454",
+	"bukhari.1447",
+	"quran.9.60",
+	"ir.nisab.2026",
+	"math.rate.1_40",
+	"fiqh.nisab.combine",
+	"fiqh.jewelry.ikhtilaf"
+];
+function localSourceSearch(question) {
+	const q = question.toLowerCase();
+	const hits = SOURCES.filter((s) => {
+		const blob = `${s.title} ${s.notes} ${s.locator} ${s.translationRu ?? ""} ${s.translationEn ?? ""}`.toLowerCase();
+		return q.split(/\s+/).some((w) => w.length > 3 && blob.includes(w));
+	});
+	const core = SOURCES.filter((s) => CORE_IDS.includes(s.sourceId));
+	const seen = /* @__PURE__ */ new Set();
+	const out = [];
+	for (const s of [...hits, ...core]) {
+		if (seen.has(s.sourceId)) continue;
+		seen.add(s.sourceId);
+		out.push(s);
+		if (out.length >= 10) break;
+	}
+	return out;
+}
+function localTeach(course, question) {
+	const q = question.toLowerCase();
+	if (q.includes("иджаз")) return `Мир тебе. Иджазу даёт живой учитель, не это окно. Я веду шаг метода и проверяю ответ. Всё.`;
+	if (!course) {
+		if (/(как учить|метод|заучив|хифз)/.test(q)) return `Мир тебе. Четыре рабочих пути, без выдумки.\nНурания — шейх Нур Мухаммад Хаккани: сначала буква и огласовка, потом сура.\n3+10+1 — практика каттаба: три раза слух Хусари, десять раз сами, один раз вчерашнее. Не хадис.\nДжуз Амма — суры 78–114 первыми, потому что короткие.\nМураджаʿа — новое и несколько старых каждый день.\nНажми карточку или скажи, с какого пути начнём.`;
+		return `Мир тебе. Я учитель. Учу Корану и арабскому по методу, не с потолка. Шейх — на закят, я — на урок.\nСкажи «буквы», «нурания», «заучивать» или нажми карточку.`;
+	}
+	if (course.id === "nuraniyah" || course.id === "arabic") return `Мир тебе. Метод: ${course.name}. ${course.inventor} Сейчас не сура. Назови букву, которую видишь, или скажи «дай букву». Тренажёр — в зале под окном.`;
+	if (course.id === "three-ten-one") return `Мир тебе. 3+10+1: три раза слух Хусари, десять раз сами, один раз вчерашняя сура. Это практика каттаба, не хадис. Какую суру из 78–114 берём?`;
+	if (course.id === "murajaa") return `Мир тебе. Мураджаʿа: сегодняшняя сура и пять предыдущих. Без старого новое не держится. Какую повторяешь сегодня?`;
+	if (course.id === "juz-amma" || course.id === "hifz") return `Мир тебе. Джуз Амма — суры 78–114. Открой суру, послушай Хусари, прочитай мне. Какую берём?`;
+	return `Мир тебе. Мы в зале «${course.name}». ${course.how} Скажи, на чём остановился — продолжим с этого места.`;
+}
+var askTeacher = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("8482dd5fd80555ac81baabf2d5c5849150cc20cdf5eccb8879b596b231de4a62"));
+function SheikhSheet({ open, seed, onClose }) {
+	const result = useMizan((s) => s.lastResult);
+	const input = useMizan((s) => s.input);
+	const [q, setQ] = (0, import_react.useState)("");
+	const [log, setLog] = (0, import_react.useState)([]);
+	const [busy, setBusy] = (0, import_react.useState)(false);
+	const [listening, setListening] = (0, import_react.useState)(false);
+	const [modelNote, setModelNote] = (0, import_react.useState)("");
+	const seeded = (0, import_react.useRef)("");
+	const scroller = (0, import_react.useRef)(null);
+	const stopVoice = (0, import_react.useRef)(null);
+	const [canVoice, setCanVoice] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		setCanVoice(voiceAvailable());
+	}, []);
+	(0, import_react.useEffect)(() => {
+		if (!open) {
+			seeded.current = "";
+			stopVoice.current?.();
+			setListening(false);
+			stopSpeak();
+			return;
+		}
+		if (seed && seed !== seeded.current) {
+			seeded.current = seed;
+			send(seed);
+		}
+	}, [open, seed]);
+	(0, import_react.useEffect)(() => {
+		scroller.current?.scrollTo({
+			top: scroller.current.scrollHeight,
+			behavior: "smooth"
+		});
+	}, [log, busy]);
+	function toggleMic() {
+		if (listening) {
+			stopVoice.current?.();
+			stopVoice.current = null;
+			setListening(false);
+			return;
+		}
+		setListening(true);
+		stopVoice.current = listenRu((t, fin) => {
+			setQ(t);
+			if (fin) {
+				setListening(false);
+				stopVoice.current = null;
+			}
+		});
+	}
+	async function send(raw) {
+		const question = (raw ?? q).trim();
+		if (!question || busy) return;
+		setQ("");
+		setLog((l) => [...l, {
+			role: "user",
+			text: question
+		}]);
+		setBusy(true);
+		const local = localSourceSearch(question);
+		const excerpts = (local.length ? local : SOURCES.slice(0, 6)).map((s) => ({
+			id: s.sourceId,
+			title: s.title,
+			locator: s.locator,
+			notes: s.notes,
+			arabic: s.arabic
+		}));
+		const payload = {
+			question,
+			profileId: input.profileId,
+			profileName: getProfile(input.profileId).name,
+			anonymized: {
+				overallStatus: result?.overallStatus ?? "unknown",
+				completeness: result?.completeness ?? "partial",
+				categories: (result?.categories ?? []).map((c) => ({
+					id: c.id,
+					status: c.status,
+					zakat: c.zakatMoney !== void 0 ? formatPlain(c.zakatMoney) : void 0,
+					natural: c.natural?.map((n) => n.label)
+				})),
+				missing: result?.missing ?? []
+			},
+			sourceExcerpts: excerpts
+		};
+		try {
+			const res = await askEvidence({ data: payload });
+			if (res.ok) {
+				setModelNote("шейх");
+				setLog((l) => [...l, {
+					role: "sheikh",
+					text: res.text
+				}]);
+				speakText(res.text);
+			} else {
+				const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
+				setModelNote("источники");
+				const text = `Мир тебе. Живая модель сейчас молчит — ниже только сохранённый реестр, без выдумки.\n\n${fallback}`;
+				setLog((l) => [...l, {
+					role: "sheikh",
+					text
+				}]);
+				speakText("Мир тебе. Живая модель сейчас молчит. Читай источники на экране.");
+			}
+		} catch {
+			setLog((l) => [...l, {
+				role: "sheikh",
+				text: "Сейчас без сети. Откройте закят, Коран или Хисн — я не ушёл."
+			}]);
+		} finally {
+			setBusy(false);
+		}
+	}
+	if (!open) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "sheikh-sheet",
+		role: "presentation",
+		onClick: onClose,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "sheikh-sheet-card glass",
+			role: "dialog",
+			"aria-labelledby": "sheikh-title",
+			onClick: (e) => e.stopPropagation(),
+			onMouseLeave: (e) => {
+				if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) return;
+			},
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-3 flex items-center justify-between gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-3",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							src: "/brand/sheikh-seal.jpg",
+							alt: "",
+							className: "sheikh-seal sheikh-seal-sm",
+							width: 44,
+							height: 44
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							id: "sheikh-title",
+							className: "font-display text-xl leading-none",
+							children: "Шейх"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "mt-1 text-xs text-[var(--muted)]",
+							children: ["Мир тебе", modelNote ? ` · ${modelNote}` : ""]
+						})] })]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill size-11 p-0",
+						onClick: onClose,
+						"aria-label": "Закрыть",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-5" })
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					ref: scroller,
+					className: "min-h-0 overflow-y-auto pr-1 text-sm leading-relaxed",
+					children: [
+						log.length === 0 && !busy ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[var(--muted)]",
+							children: "Спроси про закят, нисаб, вирд или с чего начать Коран. Говори в микрофон или пиши."
+						}) : null,
+						log.map((m, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: m.role === "user" ? "mb-2 ml-8 rounded-2xl bg-[var(--bg-elev)] px-3 py-2" : "mb-3 mr-4 border-l-2 border-[var(--accent)] pl-3",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "whitespace-pre-wrap",
+								children: m.text
+							})
+						}, i)),
+						busy ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-[var(--muted)]",
+							children: "Шейх смотрит источники…"
+						}) : null
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+					className: "ask-full mt-3",
+					onSubmit: (e) => {
+						e.preventDefault();
+						send();
+					},
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextArea, {
+						rows: 5,
+						value: q,
+						placeholder: "Пиши сюда полностью. Или нажми микрофон.",
+						onChange: (e) => setQ(e.target.value),
+						onKeyDown: (e) => {
+							if (e.key === "Enter" && !e.shiftKey) {
+								e.preventDefault();
+								send();
+							}
+						}
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-2 flex gap-2",
+						children: [canVoice ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							type: "button",
+							variant: listening ? "glow" : "secondary",
+							className: "pill size-11 p-0",
+							onClick: toggleMic,
+							"aria-label": "Говорить",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, { className: "size-4" })
+						}) : null, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							type: "submit",
+							disabled: busy,
+							variant: "glow",
+							className: "pill flex-1",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Send, { className: "size-4" }), " Сказать шейху"]
+						})]
+					})]
+				})
+			]
+		})
+	});
+}
+var MET_KEY = "mizan.v1.sheikhMet";
+function alreadyMet() {
+	try {
+		return localStorage.getItem(MET_KEY) === "1";
+	} catch {
+		return false;
+	}
+}
+function markMet() {
+	try {
+		localStorage.setItem(MET_KEY, "1");
+	} catch {}
+}
+function go(t) {
+	const setTab = useMizan.getState().setAppTab;
+	const setRoom = useMizan.getState().setHouseRoom;
+	const setHisn = useMizan.getState().setHisnChapter;
+	if (t.id === "tafsir") {
+		useQuran.getState().openTafsir(12, 1);
+		setTab("quran");
+		return;
+	}
+	if (t.tab) {
+		if (t.hisn) setHisn(null);
+		setRoom(null);
+		setTab(t.tab);
+		return;
+	}
+	if (t.room) setRoom(t.room);
+}
+function Tile({ t }) {
+	const locale = useMizan((s) => s.settings.locale);
+	const Icon = t.icon;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		type: "button",
+		className: "home-tile",
+		onClick: () => go(t),
+		"data-go": t.id,
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "home-tile-icon",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {})
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "home-tile-label",
+			children: translate(locale, `tile.${t.id}`)
+		})]
+	});
+}
+function HadithDay() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setNav = useMizan((s) => s.setHouseNav);
+	const h = hadithOfDay();
+	const meaning = hadithMeaning(h, locale);
+	const [speaking, setSpeaking] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => () => stopSpeak(), []);
+	async function play(e) {
+		e.stopPropagation();
+		if (speaking) {
+			stopSpeak();
+			setSpeaking(false);
+			return;
+		}
+		setSpeaking(true);
+		try {
+			await speakText(h.ar, "ar-SA");
+			if (meaning) await speakText(meaning, speakLang(locale));
+		} finally {
+			setSpeaking(false);
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "hadith-day",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "hadith-day-open",
+			onClick: () => setNav("nawawi", h.n, "home"),
+			"data-go": "hadith-day",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "hadith-day-kicker",
+					children: [
+						translate(locale, "hadith.day"),
+						" · ",
+						h.n
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "hadith-day-ar gold-flow",
+					lang: "ar",
+					children: h.core
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "hadith-day-title",
+					children: hadithTitle(h, locale)
+				}),
+				meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "hadith-day-mean",
+					children: meaning
+				}) : null
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: cn("hadith-day-listen", speaking && "is-on"),
+			onClick: (e) => void play(e),
+			"aria-label": translate(locale, "hadith.listen"),
+			"data-go": "hadith-day-listen",
+			children: [speaking ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), translate(locale, speaking ? "hadith.stop" : "hadith.listen")]
+		})]
+	});
+}
+function SabrCard() {
+	const locale = useMizan((s) => s.settings.locale);
+	const setTab = useMizan((s) => s.setAppTab);
+	const setRef = useQuran((s) => s.setRef);
+	const sabrOn = useMizan((s) => s.settings.sabrNotify);
+	const sabrHour = useMizan((s) => s.settings.sabrHour);
+	const setSettings = useMizan((s) => s.setSettings);
+	const ref = sabrOfDay();
+	const [ayah, setAyah] = (0, import_react.useState)(null);
+	const [perm, setPerm] = (0, import_react.useState)("");
+	const [status, setStatus] = (0, import_react.useState)(translate(locale, "hadith.day"));
+	(0, import_react.useEffect)(() => {
+		loadAyah(ref.surah, ref.ayah).then(setAyah);
+		setStatus(`${translate(locale, "hadith.day")} · ${nextSabrLabel(sabrHour)}`);
+	}, [
+		ref.surah,
+		ref.ayah,
+		sabrHour,
+		locale
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+		className: "ayah-card",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-[11px] uppercase tracking-[0.14em] text-[var(--accent)]",
+				children: status
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-1 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: translate(locale, "tile.quran")
+			}),
+			ayah ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "ayah-ar mt-2 text-xl",
+					lang: "ar",
+					children: ayah.ar
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm leading-relaxed",
+					children: ayah.ru
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-[11px] text-[var(--muted)]",
+					children: formatRef(ref.surah, ref.ayah)
+				})
+			] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--muted)]",
+				children: "…"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-3 flex flex-wrap gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "pill min-h-11 rounded-full border border-[var(--line)] px-4 text-sm",
+						onClick: () => {
+							setRef(ref.surah, ref.ayah);
+							setTab("quran");
+						},
+						children: translate(locale, "tile.quran")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "pill min-h-11 rounded-full border border-[var(--line)] px-4 text-sm",
+						onClick: () => {
+							useQuran.getState().openTafsir(12, ref.surah === 12 ? ref.ayah : 1);
+							setTab("quran");
+						},
+						children: translate(locale, "tile.tafsir")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "pill min-h-11 rounded-full border border-[var(--line)] px-4 text-sm",
+						onClick: async () => {
+							const r = await requestNotify();
+							if (r === "granted") {
+								setSettings({ sabrNotify: true });
+								await bootNotify(true, sabrHour);
+								await showSabrNow();
+								setPerm(translate(locale, "set.notify"));
+								setStatus(`${translate(locale, "hadith.day")} · ${nextSabrLabel(sabrHour)}`);
+							} else if (r === "unsupported") setPerm(translate(locale, "set.notify"));
+							else setPerm(translate(locale, "set.notify"));
+						},
+						children: sabrOn ? translate(locale, "hadith.day") : translate(locale, "set.notify")
+					})
+				]
+			}),
+			perm ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-[11px] text-[var(--muted)]",
+				children: perm
+			}) : null
+		]
+	});
+}
+function HomeView() {
+	const room = useMizan((s) => s.houseRoom);
+	const locale = useMizan((s) => s.settings.locale);
+	const showHijri = useMizan((s) => s.settings.showHijri);
+	const homeSize = useMizan((s) => s.settings.homeSize);
+	const [returning, setReturning] = (0, import_react.useState)(false);
+	const [ask, setAsk] = (0, import_react.useState)("");
+	const [sheetOpen, setSheetOpen] = (0, import_react.useState)(false);
+	const [seed, setSeed] = (0, import_react.useState)("");
+	const [listening, setListening] = (0, import_react.useState)(false);
+	const [mic, setMic] = (0, import_react.useState)(false);
+	const hijri = hijriLabel(/* @__PURE__ */ new Date(), locale);
+	(0, import_react.useEffect)(() => {
+		setReturning(alreadyMet());
+		markMet();
+		setMic(voiceAvailable());
+	}, []);
+	function openSheikh(question) {
+		setSeed(question ?? "");
+		setSheetOpen(true);
+	}
+	if (room) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HouseRoom, { id: room });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: cn("page-pad home-compact mx-auto grid max-w-lg gap-3 px-4 pt-1", homeSize === "roomy" && "home-roomy"),
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "grid justify-items-center text-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "bismillah",
+						lang: "ar",
+						children: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheikhSeal, {
+						size: 56,
+						onClick: () => openSheikh()
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "salam-ar mt-1",
+						lang: "ar",
+						children: "السلام عليكم"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "home-hero",
+						children: [translate(locale, "peace.ru"), returning ? "" : ""]
+					}),
+					showHijri ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] text-[var(--muted)]",
+						children: hijri.hijri
+					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] text-[var(--muted)]",
+						children: hijri.greg
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				className: "ask-mini glass",
+				onSubmit: (e) => {
+					e.preventDefault();
+					const t = ask.trim();
+					setAsk("");
+					openSheikh(t || void 0);
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						className: "min-h-11 flex-1 bg-transparent text-sm outline-none placeholder:text-[var(--muted)]",
+						value: ask,
+						placeholder: translate(locale, "ask.ph"),
+						onChange: (e) => setAsk(e.target.value)
+					}),
+					mic ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: cn("grid size-10 place-items-center", listening && "text-[var(--accent)]"),
+						"aria-label": translate(locale, "ask.ph"),
+						onClick: () => {
+							if (listening) {
+								setListening(false);
+								return;
+							}
+							setListening(true);
+							listenRu((t, fin) => {
+								setAsk(t);
+								if (fin) setListening(false);
+							});
+						},
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, { className: "size-4" })
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "submit",
+						variant: "glow",
+						className: "pill h-10 px-4",
+						"aria-label": translate(locale, "sheikh"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Send, { className: "size-4" })
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(HadithDay, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "home-grid",
+				children: HOUSE_MAIN.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tile, { t }, t.id))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SabrCard, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+				children: translate(locale, "more")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "home-grid",
+				children: HOUSE_MORE.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tile, { t }, t.id))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheikhSheet, {
+				open: sheetOpen,
+				seed,
+				onClose: () => setSheetOpen(false)
+			})
+		]
+	});
+}
+var PHASE_RU = {
+	nuraniyah: "Нурания",
+	tajweed: "Таджвид Хафс",
+	hifz: "Хифз джуз Амма",
+	tafsir: "Смысл Кулиева"
+};
+function d(n, title, minutes, task, extra = {}) {
+	return {
+		d: n,
+		title,
+		minutes,
+		task,
+		...extra
+	};
+}
+function week(n, phase, title, goal, days, listen, kuliev, checkpoint, letters) {
+	return {
+		n,
+		phase,
+		title,
+		goal,
+		days,
+		listen,
+		kuliev,
+		checkpoint,
+		letters
+	};
+}
+var WEEKS = [
+	week(1, "nuraniyah", "Буквы ا ب ت ث", "Узнать и назвать четыре буквы, отличить точки.", [
+		d(1, "Истиʻаза и намерение", 20, "Выучить أعوذ بالله من الشيطان الرجيم. Посмотреть артикуляцию алифа.", { drill: "letters" }),
+		d(2, "Алиф и ба", 25, "Изолированные ا ب. Рот открыт на алифе, губы смыкаются на ба.", { drill: "letters" }),
+		d(3, "Та и са", 25, "ت ث — две и три точки. Не путать с ба.", { drill: "letters" }),
+		d(4, "Диктант", 20, "Назвать букву с карточки за 2 секунды. 20 повторов.", { drill: "letters" }),
+		d(5, "Басмаля глазами", 20, "Найти алиф, ба, та в بسم الله. Пока не читать слитно.", {
+			surah: 1,
+			from: 1,
+			to: 1,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Прочитать перевод Кулиева суры «Открывающая» целиком — понять, чему учимся.", "Назвать ا ب ت ث без подсказки и показать точки.", [
+		"ا",
+		"ب",
+		"ت",
+		"ث"
+	]),
+	week(2, "nuraniyah", "Буквы ج ح خ د ذ", "Различить джим, две ха и даль/заль.", [
+		d(1, "Джим", 20, "ج — средняя часть языка к нёбу. Не дж как в русском «джин».", { drill: "letters" }),
+		d(2, "Ха лёгкая и тяжёлая", 25, "ح из середины горла, خ с хрипом. Зеркало.", { drill: "letters" }),
+		d(3, "Даль и заль", 20, "د ذ не соединяются влево. Кончик языка.", { drill: "letters" }),
+		d(4, "Смесь 1–2", 25, "Все 9 букв вперемешку.", { drill: "letters" }),
+		d(5, "Поиск в Фатихе", 20, "Найти джим нет, ха в الرحمن, даль нет. Учим глаз.", {
+			surah: 1,
+			from: 1,
+			to: 3,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Ещё раз Кулиев, 1:1–4. Запомнить смысл «Господь миров».", "Отличить ح от خ на слух и на письме.", [
+		"ج",
+		"ح",
+		"خ",
+		"د",
+		"ذ"
+	]),
+	week(3, "nuraniyah", "Буквы ر ز س ش ص", "Ра, зай, свистящие и сад.", [
+		d(1, "Ра", 20, "ر — кончик языка, не русское «р». Пока без тафхима.", { drill: "letters" }),
+		d(2, "Зай и син", 20, "ز س. Звонкая / глухая.", { drill: "letters" }),
+		d(3, "Шин", 20, "ش — растекание воздуха. Три точки.", { drill: "letters" }),
+		d(4, "Сад", 25, "ص — тяжёлая, корень языка поднят. Не син.", { drill: "letters" }),
+		d(5, "Смесь", 25, "Все буквы 1–3.", { drill: "letters" })
+	], {
+		surah: 112,
+		from: 1,
+		to: 4
+	}, "Кулиев, «Искренность». Четыре аята — смысл таухида.", "Произнести ص и س подряд, слыша разницу.", [
+		"ر",
+		"ز",
+		"س",
+		"ش",
+		"ص"
+	]),
+	week(4, "nuraniyah", "Буквы ض ط ظ ع غ", "Тяжёлые и горловые.", [
+		d(1, "Дад", 25, "ض — бок языка к коренным. Буква арабов.", { drill: "letters" }),
+		d(2, "Та и за тяжёлые", 25, "ط ظ. Не путать с ت ذ.", { drill: "letters" }),
+		d(3, "Айн", 20, "ع из середины горла. Не хамза.", { drill: "letters" }),
+		d(4, "Гайн", 20, "غ — хрип из той же точки, что خ, но звонкий.", { drill: "letters" }),
+		d(5, "Смесь 3–4", 25, "Карточки тяжёлых букв.", { drill: "letters" })
+	], {
+		surah: 1,
+		from: 6,
+		to: 7
+	}, "Кулиев 1:6–7. Смысл «прямого пути» и тех, кто под гневом.", "Показать место ع и غ на себе.", [
+		"ض",
+		"ط",
+		"ظ",
+		"ع",
+		"غ"
+	]),
+	week(5, "nuraniyah", "Буквы ف ق ك ل م", "Губные и нёбные.", [
+		d(1, "Фа", 15, "ف — верхние зубы на нижней губе.", { drill: "letters" }),
+		d(2, "Каф", 20, "ق — корень языка, самая задняя. Не кяф.", { drill: "letters" }),
+		d(3, "Кяф", 20, "ك ближе к джиму. Сравнить ق / ك.", { drill: "letters" }),
+		d(4, "Лям и мим", 20, "ل م. Мим — губы, гунна позже.", { drill: "letters" }),
+		d(5, "Смесь", 25, "Все 1–5.", { drill: "letters" })
+	], {
+		surah: 108,
+		from: 1,
+		to: 3
+	}, "Кулиев, «Изобилие». Три аята.", "Различить ق и ك в словах قل / كل.", [
+		"ف",
+		"ق",
+		"ك",
+		"ل",
+		"م"
+	]),
+	week(6, "nuraniyah", "Буквы ن ه و ي + хамза", "Закрыть алфавит.", [
+		d(1, "Нун", 15, "ن. Точка. Гунна — следующая ступень.", { drill: "letters" }),
+		d(2, "Ха лёгкая", 20, "ه конец горла. Не ح.", { drill: "letters" }),
+		d(3, "Вав и йа", 20, "و ي как буквы и как мадд.", { drill: "letters" }),
+		d(4, "Хамза", 20, "ء не буква хиджы, но звук. Не ʻайн.", { drill: "letters" }),
+		d(5, "Весь алфавит", 30, "28 букв по порядку и вразброс.", { drill: "letters" })
+	], {
+		surah: 112,
+		from: 1,
+		to: 4
+	}, "Повторить Кулиева 112. Каждое слово — один смысл.", "Прочитать алфавит целиком без листа.", [
+		"ن",
+		"ه",
+		"و",
+		"ي"
+	]),
+	week(7, "nuraniyah", "Соединения", "Начальная, срединная, конечная формы.", [
+		d(1, "Кто не соединяется влево", 20, "ا د ذ ر ز و — запомнить шесть.", { drill: "connect" }),
+		d(2, "Ба-та-са в слове", 25, "بتث в начале, середине, конце.", { drill: "connect" }),
+		d(3, "Лям-алиф", 20, "لا отдельная лигатура.", { drill: "connect" }),
+		d(4, "Чтение слогов", 25, "ба-та, бу-ту, би-ти пока без огласовок-имён — только формы.", { drill: "connect" }),
+		d(5, "Фатиха как пазл", 25, "Разобрать 1:2 по буквам, не спеша.", {
+			surah: 1,
+			from: 2,
+			to: 2,
+			drill: "connect"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Кулиев 1:1–7 ещё раз. Сопоставить слово и смысл.", "Собрать слово رب из букв."),
+	week(8, "nuraniyah", "Огласовки, танвин, сукун, шадда, мадд", "Прочитать Фатиху по слогам.", [
+		d(1, "Фатха кясра дамма", 25, "بَ بِ بُ на всех выученных.", { drill: "harakat" }),
+		d(2, "Танвин", 20, "بًا بٍ بٌ. Звук н в конце.", { drill: "harakat" }),
+		d(3, "Сукун", 20, "ْ стоп. Не тянуть.", { drill: "harakat" }),
+		d(4, "Шадда и мадд табиʻи", 25, "ّ удвоение. ا و ي как 2 харфа.", { drill: "harakat" }),
+		d(5, "Фатиха медленно", 30, "Читать за Хусари, останавливаясь на каждом слове.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Закрыть Нуранию: перевод Фатихи наизусть по-русски своими словами.", "Прочитать 1:1–3 вслух без грубых ошибок."),
+	week(9, "tajweed", "Нун сакин: изхар и идгам", "Два из четырёх правил нун сакин.", [
+		d(1, "Карта горла", 20, "Шесть букв изхара: ء ه ع ح غ خ.", { drill: "tajweed" }),
+		d(2, "Изхар в Фатихе нет — ищем в Коране", 25, "Примеры من خوف, من آمن.", { drill: "tajweed" }),
+		d(3, "Идгам с гунной", 25, "ينمو. Два харфа гунны.", { drill: "tajweed" }),
+		d(4, "Идгам без гунны", 20, "ل ر. Полное слияние.", { drill: "tajweed" }),
+		d(5, "Слух Хусари", 25, "Слушать 1:7 الضالين — мадд, не нун. Потом 2:2 فيه.", {
+			surah: 2,
+			from: 1,
+			to: 5,
+			drill: "listen"
+		})
+	], {
+		surah: 2,
+		from: 1,
+		to: 5
+	}, "Кулиев 2:1–5. Смысл муттакин.", "Услышать идгам в من ربهم."),
+	week(10, "tajweed", "Икляб и ихфа", "Закрыть нун сакин.", [
+		d(1, "Икляб", 20, "ن + ب = мим с гунной. من بعد.", { drill: "tajweed" }),
+		d(2, "Ихфа — 15 букв", 30, "Список. Скрыть, не слить.", { drill: "tajweed" }),
+		d(3, "Практика ихфа", 25, "الإنسان, كنت, أنتم.", { drill: "tajweed" }),
+		d(4, "Четыре правила вразброс", 25, "Карточки: какое правило?", { drill: "tajweed" }),
+		d(5, "Слух", 25, "Хусари, 78:1–10. Искать нун сакин.", {
+			surah: 78,
+			from: 1,
+			to: 10,
+			drill: "listen"
+		})
+	], {
+		surah: 78,
+		from: 1,
+		to: 16
+	}, "Кулиев, «Весть», начало. Тема Судного дня.", "Назвать все четыре правила нун сакин."),
+	week(11, "tajweed", "Мим сакин", "Ихфа шафави, идгам шафави, изхар шафави.", [
+		d(1, "Идгам шафави", 20, "م + م. Гунна.", { drill: "tajweed" }),
+		d(2, "Ихфа шафави", 20, "م + ب. Скрыть на губах.", { drill: "tajweed" }),
+		d(3, "Изхар шафави", 20, "Мим + всё остальное — ясно, губы не сжимать лишнее.", { drill: "tajweed" }),
+		d(4, "Гунна шадды", 20, "إِنَّ  ثُمَّ — два харфа.", { drill: "tajweed" }),
+		d(5, "Слух 112", 20, "Хусари, Ихлас. Шадда на ن و.", {
+			surah: 112,
+			from: 1,
+			to: 4,
+			drill: "listen"
+		})
+	], {
+		surah: 112,
+		from: 1,
+		to: 4
+	}, "Кулиев 112 по словам: Ахад, Самад, не родил, нет равного.", "Показать идгам шафави в примере."),
+	week(12, "tajweed", "Калькаля", "Пять букв قطب جد.", [
+		d(1, "Буквы", 15, "ق ط ب ج د. Сукун — отскок.", { drill: "tajweed" }),
+		d(2, "Сугра", 20, "В середине слова: يقطعون.", { drill: "tajweed" }),
+		d(3, "Кубра", 20, "На вакфе: أحدْ.", { drill: "tajweed" }),
+		d(4, "Ихлас и Фалак", 25, "Практика вакфа.", {
+			surah: 112,
+			from: 1,
+			to: 4,
+			drill: "hifz"
+		}),
+		d(5, "Слух", 20, "Хусари 112–114.", {
+			surah: 113,
+			from: 1,
+			to: 5,
+			drill: "listen"
+		})
+	], {
+		surah: 114,
+		from: 1,
+		to: 6
+	}, "Кулиев 113–114. Смысл двух защит.", "Прочитать 112 с калькалей на вакфе."),
+	week(13, "tajweed", "Мадд: табиʻи, муттасыль, мунфасыль", "Считать харфы.", [
+		d(1, "Табиʻи — 2", 20, "ا و ي после соответствующей огласовки.", { drill: "tajweed" }),
+		d(2, "Муттасыль — 4–5", 25, "Мадд + хамза в одном слове: جاء.", { drill: "tajweed" }),
+		d(3, "Мунфасыль — 4–5", 25, "Мадд в конце, хамза в следующем: يا أيها.", { drill: "tajweed" }),
+		d(4, "Фатиха мадды", 25, "العالمين الرحمن الرحيم. Считать.", {
+			surah: 1,
+			from: 1,
+			to: 4,
+			drill: "listen"
+		}),
+		d(5, "Слух Хусари", 25, "Он тянет ровно. Подражать, не петь.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Повторить Кулиева Фатихи. Каждое мадд-слово.", "Показать муттасыль и мунфасыль на примере."),
+	week(14, "tajweed", "Мадд лязим, ʻарид, лин", "Шесть харф на лязиме.", [
+		d(1, "Лязим кальими", 25, "الضالين — 6 харф. Обязательный.", { drill: "tajweed" }),
+		d(2, "Лязим харфи (мукаттаʻа)", 20, "الم  — лам 6, мим 6.", {
+			surah: 2,
+			from: 1,
+			to: 2,
+			drill: "listen"
+		}),
+		d(3, "ʻАрид лис-сукун", 20, "На вакфе 2/4/6. Выбрать одно и держать.", { drill: "tajweed" }),
+		d(4, "Лин", 20, "وَاو/يَاء сакин после фатхи на вакфе.", { drill: "tajweed" }),
+		d(5, "Сводка маддов", 25, "Таблица на память.", { drill: "tajweed" })
+	], {
+		surah: 2,
+		from: 1,
+		to: 5
+	}, "Кулиев 2:1–5 ещё раз.", "Прочитать الضالين на 6 харф."),
+	week(15, "tajweed", "Тафхим и таркик", "Ра, лям, буквы истиʻля.", [
+		d(1, "Семь тяжёлых", 20, "خص ضغط قظ. Всегда тафхим.", { drill: "tajweed" }),
+		d(2, "Ра", 25, "Фатха/дамма — тяжёлая, кясра — лёгкая.", { drill: "tajweed" }),
+		d(3, "Лям в Аллах", 20, "После фатхи/даммы тяжёлая, после кясры лёгкая.", { drill: "tajweed" }),
+		d(4, "Практика Фатихи", 25, "ربِّ  الرحمن  مالك.", {
+			surah: 1,
+			from: 1,
+			to: 4,
+			drill: "listen"
+		}),
+		d(5, "Слух", 20, "Хусари 1. Сверить ра.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Кулиев: имена Господа в Фатихе.", "Прочитать الله после وَ и после بِ."),
+	week(16, "tajweed", "Вакф и Фатиха целиком", "Прочитать Открывающую с таджвидом.", [
+		d(1, "Знаки вакфа", 20, "م  لا  ج  صلى  قلى. Не выдумывать смыслы знаков сверх их функции.", { drill: "tajweed" }),
+		d(2, "Истиʻаза и басмаля", 20, "Между сурами четыре способа. Для учёбы — с басмалей, кроме 9.", { drill: "listen" }),
+		d(3, "Фатиха под Хусари", 30, "Аят за аятом, повтор 7 раз.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "hifz"
+		}),
+		d(4, "Без записи", 25, "Прочитать самому, затем сверить.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "hifz"
+		}),
+		d(5, "Зачёт Нурании+таджвида", 30, "Фатиха + назвать 8 правил.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "tajweed"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Кулиев Фатихи наизусть своими словами.", "Фатиха вслух: мадды, гунна, калькаля на вакфе."),
+	week(17, "hifz", "Нас, Фалак, Ихлас", "Три суры конца Корана наизусть.", [
+		d(1, "Ихлас", 25, "Слушать Хусари 10 раз, затем закрыть.", {
+			surah: 112,
+			from: 1,
+			to: 4,
+			drill: "hifz"
+		}),
+		d(2, "Фалак", 25, "По аятам. Смысл Кулиева до заучивания.", {
+			surah: 113,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		}),
+		d(3, "Нас", 25, "Шестой аят — вакф.", {
+			surah: 114,
+			from: 1,
+			to: 6,
+			drill: "hifz"
+		}),
+		d(4, "Связка", 25, "114→113→112 как в намазе наоборот? Учим в порядке мусхафа с конца.", { drill: "hifz" }),
+		d(5, "Сдача", 20, "Три суры без подсказки.", { drill: "hifz" })
+	], {
+		surah: 112,
+		from: 1,
+		to: 4
+	}, "Кулиев 112–114. Таухид и две защиты.", "Три суры наизусть с таджвидом."),
+	week(18, "hifz", "Масад, Наср, Кафирун", "Ещё три коротких.", [
+		d(1, "Кафирун", 25, "Повтор «ля ʻабуду» — не сбиться.", {
+			surah: 109,
+			from: 1,
+			to: 6,
+			drill: "hifz"
+		}),
+		d(2, "Наср", 20, "Три аята. Смысл победы.", {
+			surah: 110,
+			from: 1,
+			to: 3,
+			drill: "hifz"
+		}),
+		d(3, "Масад", 20, "Имена — не путать.", {
+			surah: 111,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		}),
+		d(4, "Повтор 112–114", 20, "Старое не бросать.", { drill: "hifz" }),
+		d(5, "Сдача 109–114", 25, "Шесть сур.", { drill: "hifz" })
+	], {
+		surah: 109,
+		from: 1,
+		to: 6
+	}, "Кулиев 109–111.", "109–114 наизусть."),
+	week(19, "hifz", "Каусар, Маун, Курайш, Фил", "Очень короткие, связать смыслом.", [
+		d(1, "Каусар", 15, "Три аята. Мадд на каусар.", {
+			surah: 108,
+			from: 1,
+			to: 3,
+			drill: "hifz"
+		}),
+		d(2, "Маун", 20, "Семь аятов. Смысл мелочи.", {
+			surah: 107,
+			from: 1,
+			to: 7,
+			drill: "hifz"
+		}),
+		d(3, "Курайш и Фил", 25, "Связка двух сур.", {
+			surah: 105,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		}),
+		d(4, "Повтор 109–114", 20, "Старый блок. Не бросать хвост джуза.", { drill: "hifz" }),
+		d(5, "Сдача", 25, "105–114.", { drill: "hifz" })
+	], {
+		surah: 105,
+		from: 1,
+		to: 5
+	}, "Кулиев 105–108. Слон, Курайш, подаяние, каусар.", "105–114 наизусть."),
+	week(20, "hifz", "Хумаза, Аср, Такасур, Кариʻа", "Нравоучительные короткие.", [
+		d(1, "Аср", 20, "Три аята — стержень. Выучить первым.", {
+			surah: 103,
+			from: 1,
+			to: 3,
+			drill: "hifz"
+		}),
+		d(2, "Хумаза", 20, "Девять аятов.", {
+			surah: 104,
+			from: 1,
+			to: 9,
+			drill: "hifz"
+		}),
+		d(3, "Такасур", 20, "Восемь аятов.", {
+			surah: 102,
+			from: 1,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(4, "Кариʻа", 20, "Одиннадцать аятов.", {
+			surah: 101,
+			from: 1,
+			to: 11,
+			drill: "hifz"
+		}),
+		d(5, "Повтор + сдача", 30, "101–104 + старое.", { drill: "hifz" })
+	], {
+		surah: 103,
+		from: 1,
+		to: 3
+	}, "Кулиев 101–104. Время, хула, соперничество, поражающее.", "Аср без запинки + остальные четыре."),
+	week(21, "hifz", "Адият, Залзала, Баййина", "Баййина длиннее — режем.", [
+		d(1, "Адият", 20, "11 аятов, ритм клятв.", {
+			surah: 100,
+			from: 1,
+			to: 11,
+			drill: "hifz"
+		}),
+		d(2, "Залзала", 20, "8 аятов.", {
+			surah: 99,
+			from: 1,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(3, "Баййина 1–4", 25, "Первая половина.", {
+			surah: 98,
+			from: 1,
+			to: 4,
+			drill: "hifz"
+		}),
+		d(4, "Баййина 5–8", 25, "Вторая половина.", {
+			surah: 98,
+			from: 5,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(5, "Связка 98–100", 25, "Три суры.", { drill: "hifz" })
+	], {
+		surah: 98,
+		from: 1,
+		to: 8
+	}, "Кулиев 98–100. Ясное знамение, сотрясение, скачущие.", "98–100 наизусть."),
+	week(22, "hifz", "Кадр, Алак, Тин", "Алак — первые пять аятов Откровения.", [
+		d(1, "Кадр", 20, "Пять аятов. Мадд на кадр.", {
+			surah: 97,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		}),
+		d(2, "Алак 1–5", 25, "Первое откровение. Икра.", {
+			surah: 96,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		}),
+		d(3, "Алак 6–19", 25, "Вторая часть, саджда в конце.", {
+			surah: 96,
+			from: 6,
+			to: 19,
+			drill: "hifz"
+		}),
+		d(4, "Тин", 20, "Восемь аятов.", {
+			surah: 95,
+			from: 1,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(5, "Сдача 95–97", 25, "Три суры.", { drill: "hifz" })
+	], {
+		surah: 96,
+		from: 1,
+		to: 5
+	}, "Кулиев 95–97. Смоковница, сгусток, ночь могущества.", "96:1–5 наизусть идеально + остальные."),
+	week(23, "hifz", "Шарх, Духа, Ляйль", "Утешение Пророка ﷺ.", [
+		d(1, "Шарх", 20, "Восемь коротких.", {
+			surah: 94,
+			from: 1,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(2, "Духа", 20, "Одиннадцать.", {
+			surah: 93,
+			from: 1,
+			to: 11,
+			drill: "hifz"
+		}),
+		d(3, "Ляйль 1–10", 25, "Первая половина.", {
+			surah: 92,
+			from: 1,
+			to: 10,
+			drill: "hifz"
+		}),
+		d(4, "Ляйль 11–21", 25, "Вторая.", {
+			surah: 92,
+			from: 11,
+			to: 21,
+			drill: "hifz"
+		}),
+		d(5, "Связка 92–94", 25, "Три суры утешения.", { drill: "hifz" })
+	], {
+		surah: 93,
+		from: 1,
+		to: 11
+	}, "Кулиев 92–94. Не оставлял тебя Господь.", "92–94 наизусть."),
+	week(24, "hifz", "Шамс и Балад", "Две средние суры джуза.", [
+		d(1, "Шамс 1–8", 25, "Клятвы.", {
+			surah: 91,
+			from: 1,
+			to: 8,
+			drill: "hifz"
+		}),
+		d(2, "Шамс 9–15", 20, "Самуд.", {
+			surah: 91,
+			from: 9,
+			to: 15,
+			drill: "hifz"
+		}),
+		d(3, "Балад 1–10", 25, "Город.", {
+			surah: 90,
+			from: 1,
+			to: 10,
+			drill: "hifz"
+		}),
+		d(4, "Балад 11–20", 25, "Преграда.", {
+			surah: 90,
+			from: 11,
+			to: 20,
+			drill: "hifz"
+		}),
+		d(5, "Повтор хвоста джуза", 30, "90–114 прогон.", { drill: "hifz" })
+	], {
+		surah: 91,
+		from: 1,
+		to: 15
+	}, "Кулиев 90–91.", "90–91 наизусть."),
+	week(25, "hifz", "Фаджр", "Одна сура — 30 аятов. Режем на три.", [
+		d(1, "1–10", 25, "Клятвы и ʻад.", {
+			surah: 89,
+			from: 1,
+			to: 10,
+			drill: "hifz"
+		}),
+		d(2, "11–20", 25, "Самуд, фараон, человек.", {
+			surah: 89,
+			from: 11,
+			to: 20,
+			drill: "hifz"
+		}),
+		d(3, "21–30", 25, "Конец — душа умиротворённая.", {
+			surah: 89,
+			from: 21,
+			to: 30,
+			drill: "hifz"
+		}),
+		d(4, "Сборка", 25, "Вся сура.", {
+			surah: 89,
+			from: 1,
+			to: 30,
+			drill: "hifz"
+		}),
+		d(5, "С Хусари", 25, "Не спешить.", {
+			surah: 89,
+			from: 1,
+			to: 30,
+			drill: "listen"
+		})
+	], {
+		surah: 89,
+		from: 1,
+		to: 30
+	}, "Кулиев 89. Душа, которой сказано «вернись».", "Фаджр наизусть."),
+	week(26, "hifz", "Гашия и Аʻля", "Две суры намаза пятницы/праздника.", [
+		d(1, "Аʻля 1–10", 25, "Всевышний.", {
+			surah: 87,
+			from: 1,
+			to: 10,
+			drill: "hifz"
+		}),
+		d(2, "Аʻля 11–19", 20, "Свитки Ибрахима и Мусы.", {
+			surah: 87,
+			from: 11,
+			to: 19,
+			drill: "hifz"
+		}),
+		d(3, "Гашия 1–16", 25, "Лица.", {
+			surah: 88,
+			from: 1,
+			to: 16,
+			drill: "hifz"
+		}),
+		d(4, "Гашия 17–26", 20, "Верблюдица, небо.", {
+			surah: 88,
+			from: 17,
+			to: 26,
+			drill: "hifz"
+		}),
+		d(5, "Связка", 25, "87–88.", { drill: "hifz" })
+	], {
+		surah: 87,
+		from: 1,
+		to: 19
+	}, "Кулиев 87–88.", "87–88 наизусть."),
+	week(27, "hifz", "Тарик и Бурудж", "Звёзды и ров.", [
+		d(1, "Тарик", 25, "17 аятов.", {
+			surah: 86,
+			from: 1,
+			to: 17,
+			drill: "hifz"
+		}),
+		d(2, "Бурудж 1–9", 25, "Ров.", {
+			surah: 85,
+			from: 1,
+			to: 9,
+			drill: "hifz"
+		}),
+		d(3, "Бурудж 10–22", 25, "Скрижаль.", {
+			surah: 85,
+			from: 10,
+			to: 22,
+			drill: "hifz"
+		}),
+		d(4, "Сборка", 25, "85–86.", { drill: "hifz" }),
+		d(5, "Прогон 85–114", 30, "Слабые места выписать.", { drill: "hifz" })
+	], {
+		surah: 85,
+		from: 1,
+		to: 22
+	}, "Кулиев 85–86. Люди рва.", "85–86 наизусть."),
+	week(28, "hifz", "Иншикак и Мутаффифин", "Мутаффифин — самая длинная на этом отрезке.", [
+		d(1, "Иншикак 1–15", 25, "Раскол неба.", {
+			surah: 84,
+			from: 1,
+			to: 15,
+			drill: "hifz"
+		}),
+		d(2, "Иншикак 16–25", 20, "Клятвы.", {
+			surah: 84,
+			from: 16,
+			to: 25,
+			drill: "hifz"
+		}),
+		d(3, "Мутаффифин 1–17", 30, "Обвешивающие.", {
+			surah: 83,
+			from: 1,
+			to: 17,
+			drill: "hifz"
+		}),
+		d(4, "Мутаффифин 18–36", 30, "Силлин и иллиян.", {
+			surah: 83,
+			from: 18,
+			to: 36,
+			drill: "hifz"
+		}),
+		d(5, "Сборка", 25, "83–84.", { drill: "hifz" })
+	], {
+		surah: 83,
+		from: 1,
+		to: 36
+	}, "Кулиев 83–84. Мера и весы — к закяту Мизана.", "83–84 наизусть."),
+	week(29, "hifz", "Инфитар и Таквир", "Картины часа.", [
+		d(1, "Инфитар", 25, "19 аятов.", {
+			surah: 82,
+			from: 1,
+			to: 19,
+			drill: "hifz"
+		}),
+		d(2, "Таквир 1–14", 25, "Когда солнце будет скручено.", {
+			surah: 81,
+			from: 1,
+			to: 14,
+			drill: "hifz"
+		}),
+		d(3, "Таквир 15–29", 25, "Посланник и шайтан.", {
+			surah: 81,
+			from: 15,
+			to: 29,
+			drill: "hifz"
+		}),
+		d(4, "Сборка", 25, "81–82.", { drill: "hifz" }),
+		d(5, "Повтор слабых", 30, "Список дыр с прошлой недели.", { drill: "hifz" })
+	], {
+		surah: 81,
+		from: 1,
+		to: 29
+	}, "Кулиев 81–82.", "81–82 наизусть."),
+	week(30, "hifz", "Абаса", "42 аята — три блока.", [
+		d(1, "1–16", 25, "Нахмурился.", {
+			surah: 80,
+			from: 1,
+			to: 16,
+			drill: "hifz"
+		}),
+		d(2, "17–32", 25, "Человек и пища.", {
+			surah: 80,
+			from: 17,
+			to: 32,
+			drill: "hifz"
+		}),
+		d(3, "33–42", 20, "День, когда человек убежит.", {
+			surah: 80,
+			from: 33,
+			to: 42,
+			drill: "hifz"
+		}),
+		d(4, "Сборка", 25, "Вся сура.", {
+			surah: 80,
+			from: 1,
+			to: 42,
+			drill: "hifz"
+		}),
+		d(5, "С Хусари", 25, "Темп эталона.", {
+			surah: 80,
+			from: 1,
+			to: 42,
+			drill: "listen"
+		})
+	], {
+		surah: 80,
+		from: 1,
+		to: 42
+	}, "Кулиев 80. Урок о внимании к слабому.", "Абаса наизусть."),
+	week(31, "hifz", "Назиʻат", "46 аятов.", [
+		d(1, "1–14", 25, "Клятвы ангелов.", {
+			surah: 79,
+			from: 1,
+			to: 14,
+			drill: "hifz"
+		}),
+		d(2, "15–26", 25, "Муса и фараон.", {
+			surah: 79,
+			from: 15,
+			to: 26,
+			drill: "hifz"
+		}),
+		d(3, "27–41", 25, "Небо и душа.", {
+			surah: 79,
+			from: 27,
+			to: 41,
+			drill: "hifz"
+		}),
+		d(4, "42–46 + сборка", 25, "О часе.", {
+			surah: 79,
+			from: 42,
+			to: 46,
+			drill: "hifz"
+		}),
+		d(5, "Прогон", 30, "79 + 80.", { drill: "hifz" })
+	], {
+		surah: 79,
+		from: 1,
+		to: 46
+	}, "Кулиев 79.", "Назиʻат наизусть."),
+	week(32, "hifz", "Наба — закрыть джуз Амма", "40 аятов и полный прогон 78–114.", [
+		d(1, "Наба 1–16", 25, "О вести.", {
+			surah: 78,
+			from: 1,
+			to: 16,
+			drill: "hifz"
+		}),
+		d(2, "Наба 17–30", 25, "День различения.", {
+			surah: 78,
+			from: 17,
+			to: 30,
+			drill: "hifz"
+		}),
+		d(3, "Наба 31–40", 25, "Богобоязненные.", {
+			surah: 78,
+			from: 31,
+			to: 40,
+			drill: "hifz"
+		}),
+		d(4, "Сборка 78", 25, "Вся сура.", {
+			surah: 78,
+			from: 1,
+			to: 40,
+			drill: "hifz"
+		}),
+		d(5, "Джуз Амма целиком", 40, "Прогон 78–114. Слабые — в список на год.", { drill: "hifz" })
+	], {
+		surah: 78,
+		from: 1,
+		to: 40
+	}, "Кулиев 78. Весть, которую отрицают.", "Джуз 30 прочитан наизусть с листа ошибок."),
+	week(33, "tafsir", "Фатиха по Кулиеву — слово за словом", "Не заучить перевод, а понять каждое слово.", [
+		d(1, "Басмаля", 20, "Имя, Милостивый, Милосердный. Разница рахман / рахим в примечании Кулиева.", {
+			surah: 1,
+			from: 1,
+			to: 1
+		}),
+		d(2, "Хвала и Господь миров", 20, "1:2. ʻАлямин.", {
+			surah: 1,
+			from: 2,
+			to: 2
+		}),
+		d(3, "Малик йаум ад-дин", 20, "1:3–4. Поклонение и помощь.", {
+			surah: 1,
+			from: 3,
+			to: 5
+		}),
+		d(4, "Прямой путь", 20, "1:6–7. Три группы.", {
+			surah: 1,
+			from: 6,
+			to: 7
+		}),
+		d(5, "Намаз", 25, "Прочитать Фатиху вслух, затем смысл по-русски без листа.", {
+			surah: 1,
+			from: 1,
+			to: 7,
+			drill: "listen"
+		})
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Весь перевод Фатихи Кулиева. Это не тафсир ат-Табари — смысловой перевод.", "Пересказать Фатиху по-русски, не подменяя хукм."),
+	week(34, "tafsir", "Аят аль-Курси", "2:255 — смысл и хифз.", [
+		d(1, "Слух Хусари", 20, "Только слушать, следить глазами.", {
+			surah: 2,
+			from: 255,
+			to: 255,
+			drill: "listen"
+		}),
+		d(2, "Кулиев по фразам", 25, "Живой, Вседержитель. Сон не берёт.", {
+			surah: 2,
+			from: 255,
+			to: 255
+		}),
+		d(3, "Курси наизусть 1-я треть", 25, "До «йаʻламу ма байна».", {
+			surah: 2,
+			from: 255,
+			to: 255,
+			drill: "hifz"
+		}),
+		d(4, "Вторая и третья", 25, "Курси и то, что за ними, Он объемлет.", { drill: "hifz" }),
+		d(5, "Сдача", 20, "Аят целиком + смысл.", {
+			surah: 2,
+			from: 255,
+			to: 255,
+			drill: "hifz"
+		})
+	], {
+		surah: 2,
+		from: 255,
+		to: 255
+	}, "Кулиев 2:255 полностью.", "Курси наизусть и пересказ."),
+	week(35, "tafsir", "Последние два аята Коровы", "2:285–286 — вирд на ночь.", [
+		d(1, "285 слух", 20, "Посланник уверовал.", {
+			surah: 2,
+			from: 285,
+			to: 285,
+			drill: "listen"
+		}),
+		d(2, "285 смысл", 20, "Не различаем между посланниками. Кулиев.", {
+			surah: 2,
+			from: 285,
+			to: 285
+		}),
+		d(3, "286 смысл", 25, "Не возлагает сверх возможности. Прощение.", {
+			surah: 2,
+			from: 286,
+			to: 286
+		}),
+		d(4, "Хифз", 30, "Два аята.", {
+			surah: 2,
+			from: 285,
+			to: 286,
+			drill: "hifz"
+		}),
+		d(5, "Курси + 285–286", 25, "Ночной вирд.", { drill: "hifz" })
+	], {
+		surah: 2,
+		from: 285,
+		to: 286
+	}, "Кулиев 2:285–286.", "Два аята наизусть."),
+	week(36, "tafsir", "Аль-Мульк", "Сура защиты. Не весь хифз — смысл и начало.", [
+		d(1, "1–5 слух и Кулиев", 25, "Благословен Тот, в Чьей руке власть.", {
+			surah: 67,
+			from: 1,
+			to: 5,
+			drill: "listen"
+		}),
+		d(2, "6–14", 25, "Предостережение.", {
+			surah: 67,
+			from: 6,
+			to: 14
+		}),
+		d(3, "15–24", 25, "Хождение по земле.", {
+			surah: 67,
+			from: 15,
+			to: 24
+		}),
+		d(4, "25–30", 20, "Конец суры.", {
+			surah: 67,
+			from: 25,
+			to: 30
+		}),
+		d(5, "Хифз 1–5", 25, "Начало наизусть.", {
+			surah: 67,
+			from: 1,
+			to: 5,
+			drill: "hifz"
+		})
+	], {
+		surah: 67,
+		from: 1,
+		to: 30
+	}, "Кулиев 67 целиком за неделю.", "Смысл суры + 1–5 наизусть."),
+	week(37, "tafsir", "Пещера — пятничный вирд", "18:1–10. Сунна чтения аль-Кахф в пятницу.", [
+		d(1, "1–5", 25, "Хвала и предупреждение.", {
+			surah: 18,
+			from: 1,
+			to: 5,
+			drill: "listen"
+		}),
+		d(2, "6–10", 20, "Отроки пещеры — завязка.", {
+			surah: 18,
+			from: 6,
+			to: 10
+		}),
+		d(3, "Смысл истории (обзор)", 25, "Прочитать Кулиева 18:9–26. Не выдумывать детали сверх перевода.", {
+			surah: 18,
+			from: 9,
+			to: 26
+		}),
+		d(4, "Хифз 1–10", 30, "Первые десять.", {
+			surah: 18,
+			from: 1,
+			to: 10,
+			drill: "hifz"
+		}),
+		d(5, "Пятничный ритуал", 20, "Поставить напоминание: слушать Хусари, сура 18.", {
+			surah: 18,
+			from: 1,
+			to: 10,
+			drill: "listen"
+		})
+	], {
+		surah: 18,
+		from: 1,
+		to: 10
+	}, "Кулиев 18:1–26. Пещера.", "18:1–10 наизусть, смысл истории."),
+	week(38, "tafsir", "Йа Син — сердце Корана, начало", "36:1–12. Не весь хифз за неделю.", [
+		d(1, "1–5", 25, "Мукаттаʻа. Клятва Кораном.", {
+			surah: 36,
+			from: 1,
+			to: 5,
+			drill: "listen"
+		}),
+		d(2, "6–12", 25, "Предупреждение и оживление мёртвых.", {
+			surah: 36,
+			from: 6,
+			to: 12
+		}),
+		d(3, "Кулиев дальше обзором", 25, "Прочитать 36:13–32 — посланные.", {
+			surah: 36,
+			from: 13,
+			to: 32
+		}),
+		d(4, "Хифз 1–12", 30, "Начало.", {
+			surah: 36,
+			from: 1,
+			to: 12,
+			drill: "hifz"
+		}),
+		d(5, "Слух Хусари всей суры", 40, "Не заучивать всё — слушать.", {
+			surah: 36,
+			from: 1,
+			to: 12,
+			drill: "listen"
+		})
+	], {
+		surah: 36,
+		from: 1,
+		to: 12
+	}, "Кулиев 36:1–32.", "36:1–12 наизусть."),
+	week(39, "tafsir", "Комнаты — нрав", "49:11–13. Запрет насмешки, дурного мнения, гордыни.", [
+		d(1, "49:10–12", 25, "Верующие — братья. Не высматривать.", {
+			surah: 49,
+			from: 10,
+			to: 12,
+			drill: "listen"
+		}),
+		d(2, "49:13", 20, "Народы и племена, чтобы знакомились. Кулиев.", {
+			surah: 49,
+			from: 13,
+			to: 13
+		}),
+		d(3, "Вся сура Кулиевым", 30, "18 аятов — прочитать перевод целиком.", {
+			surah: 49,
+			from: 1,
+			to: 18
+		}),
+		d(4, "Хифз 11–13", 25, "Три аята нрава.", {
+			surah: 49,
+			from: 11,
+			to: 13,
+			drill: "hifz"
+		}),
+		d(5, "Связь с закятом", 20, "Получатели 9:60 — не тема этой суры, но нрав дающего. Не смешивать хукмы.", {
+			surah: 9,
+			from: 60,
+			to: 60
+		})
+	], {
+		surah: 49,
+		from: 1,
+		to: 18
+	}, "Кулиев 49 целиком.", "49:11–13 наизусть + пересказ суры."),
+	week(40, "tafsir", "Вирд на всю жизнь", "Собрать программу в ежедневный ритуал.", [
+		d(1, "Утро: Фатиха + Ихлас + Фалак + Нас", 20, "Как в сунне утренних азкаров по смыслу защиты. Читать выученное.", { drill: "hifz" }),
+		d(2, "День: страница джуза Амма", 25, "Повтор слабого места из списка.", { drill: "hifz" }),
+		d(3, "Вечер: Курси + 2:285–286", 20, "Ночной вирд.", {
+			surah: 2,
+			from: 255,
+			to: 255,
+			drill: "hifz"
+		}),
+		d(4, "Пятница: Кахф 1–10 и слух Хусари", 30, "Поставить привычку.", {
+			surah: 18,
+			from: 1,
+			to: 10,
+			drill: "listen"
+		}),
+		d(5, "План следующего года", 20, "Джуз 29 или повтор Нурании с учеником. Иткан — мастерство, не диплом.", { drill: "listen" })
+	], {
+		surah: 1,
+		from: 1,
+		to: 7
+	}, "Вернуться к Кулиеву Фатихи. Это рамка всего Корана.", "Есть расписание вирда. Джуз 30 не рассыпался.")
+];
+function weekByN(n) {
+	return WEEKS[Math.min(Math.max(n, 1), 40) - 1];
+}
+function phaseLabel(p) {
+	return PHASE_RU[p];
+}
+var FACULTIES = [
+	{
+		id: "arabic",
+		name: "Арабский язык",
+		nameAr: "اللغة العربية"
+	},
+	{
+		id: "hifz",
+		name: "Хифз",
+		nameAr: "الحفظ"
+	},
+	{
+		id: "tajweed",
+		name: "Таджвид",
+		nameAr: "التجويد"
+	},
+	{
+		id: "quran",
+		name: "Мусхаф",
+		nameAr: "المصحف"
+	},
+	{
+		id: "wird",
+		name: "Вирд",
+		nameAr: "الورد"
+	}
+];
+var COURSES = [
+	{
+		id: "arabic",
+		faculty: "arabic",
+		name: "Арабский вход",
+		nameAr: "المدخل",
+		inventor: "Буквы и огласовки — общая база. Тренажёр в этом доме.",
+		origin: "Не учебник и не иджаза. 28 букв, связки, харакат.",
+		what: "Узнать букву, отличить точки, понять, соединяется ли она влево, прочитать ба с фатхой, касрой, даммой.",
+		how: "Три зала: буквы → связки → огласовки. Карточка, выбор, сразу проверка.",
+		honest: "Это тренажёр. Учителя он не заменяет.",
+		action: "arabic"
+	},
+	{
+		id: "nuraniyah",
+		faculty: "arabic",
+		name: "Аль-Каида ан-Нурания",
+		nameAr: "القاعدة النورانية",
+		inventor: "Шейх Нур Мухаммад Хаккани (Пакистан).",
+		origin: "Книга «Аль-Каида ан-Нурания»: сначала буквы и харакат, потом слитное чтение. Не хадис, учебный метод XX века.",
+		what: "Не открывать суру, пока буква и огласовка не узнаются с листа.",
+		how: "Буквы, связки, огласовки — здесь. Слитное чтение Фатихи — во вкладке Коран, слух Хусари.",
+		honest: "В доме нет скана учебника Хаккани. Есть тренажёр той же последовательности.",
+		action: "arabic"
+	},
+	{
+		id: "three-ten-one",
+		faculty: "hifz",
+		name: "3+10+1",
+		nameAr: "ثلاث · عشر · واحدة",
+		inventor: "Практика каттабов и программ хифза, не имя одного автора.",
+		origin: "Три раза слух, десять повторов вслух, один раз склеить со вчерашним. Так учат в школах, это не сунна и не хадис.",
+		what: "Новый отрывок держится ухом и языком, вчерашний не отпускается.",
+		how: "Выберите суру 78–114. Слушайте Хусари трижды, читайте десять, затем вчерашнюю суру один раз.",
+		honest: "Счёт повторов — ваш. Иджазу даёт шейх, не экран.",
+		action: "hifz"
+	},
+	{
+		id: "juz-amma",
+		faculty: "hifz",
+		name: "Сначала джуз Амма",
+		nameAr: "جزء عمّ",
+		inventor: "Обычный школьный порядок, не один изобретатель.",
+		origin: "Суры 78–114 короткие и читаются в намазе. Их ставят первыми во многих каттабах.",
+		what: "Выучить 37 коротких сур, потом длинные.",
+		how: "Список 78–114: открыть мусхаф, слух Хусари, скрыть перевод, повторить.",
+		honest: "Порядок удобный, не обязательный шариатом.",
+		action: "hifz"
+	},
+	{
+		id: "murajaa",
+		faculty: "hifz",
+		name: "Мураджаʿа",
+		nameAr: "المراجعة",
+		inventor: "Классическое правило учителей хифза: новое без старого уходит.",
+		origin: "Каждый день — новая страница и несколько старых. Так держат заученное в каттабах, в том числе в традиции Аль-Азхара.",
+		what: "Не копить новое, пока вчерашнее не повторено.",
+		how: "Сегодняшняя сура + пять предыдущих из джуз Амма. Слух Хусари на каждую.",
+		honest: "Приложение не следит за вашей мураджаʿа за вас. Это ваш вирд.",
+		action: "hifz"
+	},
+	{
+		id: "itqan",
+		faculty: "hifz",
+		name: "Иткан · 40 недель",
+		nameAr: "إتقان",
+		inventor: "План этого дома. Не сертификат Аль-Азхара.",
+		origin: "Нурания → таджвид Хафс → джуз Амма → смысл Кулиева. Слух — Махмуд Халиль аль-Хусари.",
+		what: "Год по неделям: пять учебных дней, день слушания, день повторения.",
+		how: "Откройте неделю. Есть цель, зачёт, слух и тренажёр букв.",
+		honest: "Программа учебная. Иджазу не выдаём.",
+		action: "itqan"
+	},
+	{
+		id: "tajweed",
+		faculty: "tajweed",
+		name: "Таджвид Хафс",
+		nameAr: "حفص عن عاصم",
+		inventor: "Риваят Хафс ан Асим. Карточки — учебные формулировки этого дома.",
+		origin: "Ихфа, идгам, калькаля, мадд — правила чтения. Сверяйте с мусх̣афом и учителем.",
+		what: "Узнать правило, услышать пример, не путать имена.",
+		how: "Карточка правила и пример. Слух — Хусари во вкладке Коран.",
+		honest: "Карточка не заменяет шейха по таджвиду.",
+		action: "tajweed"
+	},
+	{
+		id: "hifz",
+		faculty: "hifz",
+		name: "Зал хифза",
+		nameAr: "قاعة الحفظ",
+		inventor: "Текст — усмани / Кулиев. Слух — Хусари.",
+		origin: "Суры 78–114 в одном списке, без выбранного метода.",
+		what: "Открыть суру, слушать, читать.",
+		how: "Нажмите суру — мусхаф. Кнопка слуха — Хусари.",
+		honest: "Без метода это просто зал. Выберите 3+10+1 или мураджаʿа выше.",
+		action: "hifz"
+	},
+	{
+		id: "tafsir",
+		faculty: "quran",
+		name: "Тафсир Йусуф",
+		nameAr: "تفسير يوسف",
+		inventor: "Ас-Саʿди (рус. Quran.com 170) и Ибн Касир сокр. (англ. 169).",
+		origin: "Снимок api.quran.com на 2026-09-15. 111 аятов суры 12.",
+		what: "Читать аят, Кулиева и тафсир по группам аятов.",
+		how: "Открывает тафсир Йусуф. Не фетва.",
+		honest: "Других сур в этом снимке нет. Перевод тафсира — издание Quran.com.",
+		action: "tafsir"
+	},
+	{
+		id: "hisn",
+		faculty: "wird",
+		name: "Крепость мусульманина",
+		nameAr: "حصن المسلم",
+		inventor: "Саид ибн Али ибн Вахф аль-Кахтани.",
+		origin: "132 главы, 267 дуа. Снимок hisnmuslim.com: арабский и английский смысл.",
+		what: "Утренний и вечерний вирд, счёт повторов.",
+		how: "Открывает вкладку Хисн.",
+		honest: "Русского издания на этом источнике нет. Русский текст дуа здесь не выдумывается.",
+		action: "hisn"
+	}
+];
+function norm(s) {
+	return s.toLowerCase().replace(/ё/g, "е").replace(/[ъь'`ʼ\-]/g, "").replace(/[.,!?]/g, " ").replace(/\s+/g, " ").trim();
+}
+function matches(spoken, expect) {
+	const s = norm(spoken);
+	if (!s) return false;
+	return expect.some((a) => {
+		const n = norm(a);
+		if (n.length < 2) return s === n;
+		return s === n || s.includes(n) || n.length >= 4 && n.includes(s) && s.length >= 3;
+	});
+}
+function letterAliases(l) {
+	const base = l.name.toLowerCase().replace(/\(.*?\)/g, "").trim();
+	const extra = [];
+	if (base === "ба") extra.push("баа", "баъ");
+	if (base === "та") extra.push("таа");
+	if (base === "са") extra.push("саа", "са");
+	if (l.ar === "ح") extra.push("ха легкая", "хаа");
+	if (l.ar === "خ") extra.push("ха тяжелая", "хаа тяжелая");
+	if (l.ar === "ه") extra.push("ха круглая", "ха легкая");
+	if (base === "алиф") extra.push("алиф", "алеф");
+	return [
+		l.name,
+		base,
+		l.nameAr,
+		l.ar,
+		...extra
+	];
+}
+function letterPrompt(i) {
+	const l = LETTERS[i % LETTERS.length];
+	return {
+		kind: "letter",
+		ar: l.ar,
+		title: "Буква",
+		ask: `Смотри на букву. Как она называется?`,
+		expect: letterAliases(l),
+		hint: `${l.name} · ${l.nameAr}`
+	};
+}
+function joinPrompt(i) {
+	const l = LETTERS[i % LETTERS.length];
+	return {
+		kind: "join",
+		ar: l.ar,
+		title: "Связка",
+		ask: `Буква ${l.name}. Соединяется влево? Скажи «да» или «нет».`,
+		expect: l.joins ? [
+			"да",
+			"соединяется",
+			"идет влево",
+			"да соединяется"
+		] : [
+			"нет",
+			"не соединяется",
+			"не идет"
+		],
+		hint: l.joins ? "Да, пишется с хвостом влево." : "Нет: ا د ذ ر ز و не идут влево."
+	};
+}
+function harakaPrompt(i) {
+	const h = HARAKAT[i % HARAKAT.length];
+	return {
+		kind: "haraka",
+		ar: `ب${h.mark}`,
+		title: "Огласовка",
+		ask: `Ба с этой огласовкой. Как называется знак?`,
+		expect: [
+			h.name,
+			h.sound,
+			h.name.toLowerCase()
+		],
+		hint: `${h.name} · звук «${h.sound}»`
+	};
+}
+function hifzPrompt(surah) {
+	const s = SURAHS.find((x) => x.n === surah) ?? SURAHS[SURAHS.length - 1];
+	return {
+		kind: "hifz",
+		ar: s.ar,
+		title: `${s.n}. ${s.ru}`,
+		ask: "Три раза слух Хусари, потом прочитай. Когда прочитал — скажи «прочитал» или нажми кнопку.",
+		expect: [
+			"прочитал",
+			"прочёл",
+			"прочел",
+			"готово",
+			"повторил",
+			"выучил"
+		],
+		hint: `${s.ayahs} аятов. Слух — Хусари.`,
+		surah: s.n,
+		ayah: 1
+	};
+}
+function openLesson(course) {
+	if (!course) return {
+		line: "Мир тебе. Я учитель. Коран и арабский — по методу, не с потолка. Скажи «буквы», «нурания», «заучивать» или нажми карточку.",
+		prompt: null
+	};
+	if (course.action === "arabic") {
+		const p = letterPrompt(0);
+		return {
+			line: `Мир тебе. Метод: ${course.name}. Сначала буква, не сура. ${p.ask}`,
+			prompt: p
+		};
+	}
+	if (course.action === "tajweed") return {
+		line: `Мир тебе. Таджвид Хафс: карточки ниже. Спроси «что такое ихфа» — отвечу по правилу. Карточка не заменяет учителя по таджвиду.`,
+		prompt: null
+	};
+	if (course.action === "hifz") {
+		const p = hifzPrompt(course.id === "juz-amma" || course.id === "three-ten-one" || course.id === "murajaa" ? 114 : 78);
+		return {
+			line: `Мир тебе. ${course.id === "three-ten-one" ? "3+10+1: три раза слух, десять раз сами, один раз вчерашняя." : course.id === "murajaa" ? "Сегодняшняя и пять предыдущих." : "Джуз Амма, с коротких."} Берём ${p.title}. ${p.ask}`,
+			prompt: p
+		};
+	}
+	if (course.action === "itqan") return {
+		line: "Мир тебе. Иткан — 40 недель. Открой неделю ниже. Слух Хусари, потом тренажёр. Иджазу я не ставлю.",
+		prompt: letterPrompt(0)
+	};
+	return {
+		line: `Мир тебе. Зал «${course.name}». ${course.how} Скажи, с чего начнём.`,
+		prompt: null
+	};
+}
+function intentCourse(question) {
+	const s = norm(question);
+	if (!s) return null;
+	if (/(нуран|хаккан)/.test(s)) return "nuraniyah";
+	if (/(букв|арабск|алфавит|огласов)/.test(s)) return "arabic";
+	if (/(3\s*\+?\s*10|три плюс|заучив|хифз)/.test(s)) return "three-ten-one";
+	if (/(мурадж|повтор)/.test(s)) return "murajaa";
+	if (/(джуз|амма|коротк)/.test(s)) return "juz-amma";
+	if (/(таджвид|ихфа|идгам|калькал)/.test(s)) return "tajweed";
+	if (/(иткан|сорок недель)/.test(s)) return "itqan";
+	if (/(хисн|крепост|вирд|дуа)/.test(s)) return "hisn";
+	if (/(тафсир|йусуф|юсуф|кулиев|смысл|перевод)/.test(s)) return "tafsir";
+	return null;
+}
+function nextPrompt(course, current, ok) {
+	if (!course || !current) {
+		if (course?.action === "arabic") return letterPrompt(0);
+		return current;
+	}
+	if (!ok) return current;
+	if (current.kind === "letter") {
+		const n = LETTERS.findIndex((l) => l.ar === current.ar) + 1;
+		if (n >= LETTERS.length) return joinPrompt(0);
+		return letterPrompt(n);
+	}
+	if (current.kind === "join") {
+		const n = LETTERS.findIndex((l) => l.ar === current.ar) + 1;
+		if (n >= LETTERS.length) return harakaPrompt(0);
+		return joinPrompt(n);
+	}
+	if (current.kind === "haraka") return harakaPrompt(HARAKAT.findIndex((h) => current.ar.endsWith(h.mark)) + 1);
+	if (current.kind === "hifz" && current.surah) return hifzPrompt(current.surah <= 78 ? 114 : current.surah - 1);
+	return current;
+}
+var KEY = "mizan.v1.learn";
+function persist() {
+	try {
+		const s = useLearn.getState();
+		localStorage.setItem(KEY, JSON.stringify({
+			week: s.week,
+			track: s.track,
+			course: s.course,
+			completed: s.completed,
+			startedAt: s.startedAt,
+			lastStudy: s.lastStudy
+		}));
+	} catch {}
+}
+function key(week, day) {
+	return `${week}-${day}`;
+}
+var TOTAL_STUDY_DAYS = WEEKS.length * 5;
+var useLearn = create((set, get) => ({
+	week: 1,
+	track: "itqan",
+	course: null,
+	completed: {},
+	startedAt: "",
+	lastStudy: "",
+	setWeek: (n) => {
+		set({ week: Math.min(40, Math.max(1, n)) });
+		persist();
+	},
+	setTrack: (track) => {
+		set({ track });
+		persist();
+	},
+	setCourse: (course) => {
+		set({ course });
+		persist();
+	},
+	toggleDay: (week, day) => {
+		const k = key(week, day);
+		const completed = { ...get().completed };
+		if (completed[k]) delete completed[k];
+		else completed[k] = true;
+		const today = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+		set({
+			completed,
+			lastStudy: today,
+			startedAt: get().startedAt || today
+		});
+		persist();
+	},
+	isDone: (week, day) => Boolean(get().completed[key(week, day)]),
+	completedCount: () => Object.keys(get().completed).length
+}));
+function hydrateLearn() {
+	if (typeof window === "undefined") return;
+	try {
+		const raw = localStorage.getItem(KEY);
+		if (!raw) return;
+		const data = JSON.parse(raw);
+		useLearn.setState({
+			week: data.week ?? 1,
+			track: data.track ?? "itqan",
+			course: data.course ?? null,
+			completed: data.completed ?? {},
+			startedAt: data.startedAt ?? "",
+			lastStudy: data.lastStudy ?? ""
+		});
+	} catch {}
+}
+var STARTERS = [
+	{
+		q: "Как учить Коран?",
+		label: "Как учить"
+	},
+	{
+		q: "Буквы",
+		label: "Буквы"
+	},
+	{
+		q: "Нурания",
+		label: "Нурания"
+	},
+	{
+		q: "Заучивать 3+10+1",
+		label: "3+10+1"
+	}
+];
+function TeacherDesk({ course }) {
+	const setCourse = useLearn((s) => s.setCourse);
+	const playAt = useQuran((s) => s.playAt);
+	const [q, setQ] = (0, import_react.useState)("");
+	const [log, setLog] = (0, import_react.useState)([]);
+	const [busy, setBusy] = (0, import_react.useState)(false);
+	const [listening, setListening] = (0, import_react.useState)(false);
+	const [mic, setMic] = (0, import_react.useState)(false);
+	const [canSpeak, setCanSpeak] = (0, import_react.useState)(false);
+	const [prompt, setPrompt] = (0, import_react.useState)(null);
+	const [heard, setHeard] = (0, import_react.useState)(0);
+	const stopVoice = (0, import_react.useRef)(null);
+	const scroller = (0, import_react.useRef)(null);
+	const courseRef = (0, import_react.useRef)(course);
+	courseRef.current = course;
+	(0, import_react.useEffect)(() => {
+		setMic(voiceAvailable());
+		setCanSpeak(speakAvailable());
+	}, []);
+	(0, import_react.useEffect)(() => {
+		scroller.current?.scrollTo({
+			top: scroller.current.scrollHeight,
+			behavior: "smooth"
+		});
+	}, [log, busy]);
+	(0, import_react.useEffect)(() => {
+		stopSpeak();
+		const start = openLesson(course);
+		setPrompt(start.prompt);
+		setHeard(0);
+		setLog([{
+			role: "teacher",
+			text: start.line
+		}]);
+	}, [course?.id]);
+	function say(text, lang = "ru-RU") {
+		speakText(text, lang);
+	}
+	function toggleMic() {
+		if (listening) {
+			stopVoice.current?.();
+			stopVoice.current = null;
+			setListening(false);
+			return;
+		}
+		setListening(true);
+		stopVoice.current = listenRu((t, fin) => {
+			setQ(t);
+			if (fin) {
+				setListening(false);
+				stopVoice.current = null;
+				onHeard(t);
+			}
+		});
+	}
+	function onHeard(text) {
+		const t = text.trim();
+		if (!t) return;
+		const p = prompt;
+		if (p && matches(t, p.expect)) {
+			const nxt = nextPrompt(courseRef.current, p, true);
+			const line = p.kind === "hifz" ? `Мир тебе. Принял. Иджазу не ставлю — только шаг. Дальше: ${nxt?.title ?? "скажи, какую суру"}.` : `Верно. ${p.hint} Дальше. ${nxt?.ask ?? ""}`;
+			setPrompt(nxt);
+			setHeard(0);
+			setLog((l) => [
+				...l,
+				{
+					role: "user",
+					text: t
+				},
+				{
+					role: "teacher",
+					text: line
+				}
+			]);
+			setQ("");
+			say(line);
+			return;
+		}
+		send(t);
+	}
+	async function send(raw) {
+		const question = (raw ?? q).trim();
+		if (!question || busy) return;
+		const want = intentCourse(question);
+		if (!courseRef.current && want) {
+			setQ("");
+			if (want === "hisn") useMizan.getState().setAppTab("hisn");
+			if (want === "tafsir") {
+				useQuran.getState().openTafsir(12, 1);
+				useMizan.getState().setAppTab("quran");
+			}
+			setCourse(want);
+			return;
+		}
+		setQ("");
+		const p = prompt;
+		if (p && matches(question, p.expect)) {
+			onHeard(question);
+			return;
+		}
+		if (p && p.kind !== "hifz" && p.kind !== "talk" && question.split(/\s+/).length <= 3) {
+			const line = `Ещё раз. ${p.ask} Подсказка: ${p.hint}`;
+			setLog((l) => [
+				...l,
+				{
+					role: "user",
+					text: question
+				},
+				{
+					role: "teacher",
+					text: line
+				}
+			]);
+			say(line);
+			return;
+		}
+		const nextLog = [...log, {
+			role: "user",
+			text: question
+		}];
+		setLog(nextLog);
+		setBusy(true);
+		const payload = {
+			question,
+			course: courseRef.current ? {
+				id: courseRef.current.id,
+				name: courseRef.current.name,
+				nameAr: courseRef.current.nameAr,
+				inventor: courseRef.current.inventor,
+				origin: courseRef.current.origin,
+				what: courseRef.current.what,
+				how: courseRef.current.how,
+				honest: courseRef.current.honest
+			} : null,
+			history: nextLog.map((m) => ({
+				role: m.role === "user" ? "user" : "sheikh",
+				text: m.text
+			}))
+		};
+		try {
+			const res = await askTeacher({ data: payload });
+			const text = res.ok ? res.text : res.error || localTeach(payload.course, question);
+			setLog((l) => [...l, {
+				role: "teacher",
+				text
+			}]);
+			say(text);
+		} catch {
+			const text = localTeach(payload.course, question);
+			setLog((l) => [...l, {
+				role: "teacher",
+				text
+			}]);
+			say(text);
+		} finally {
+			setBusy(false);
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "rounded-[22px] border border-[var(--line)] bg-[var(--bg-elev)] p-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "grid size-12 shrink-0 place-items-center rounded-full border border-[var(--accent)] bg-[var(--bg)]",
+					"aria-hidden": true,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-ar text-lg leading-none",
+						lang: "ar",
+						children: "أ"
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "min-w-0",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]",
+							children: "Учитель · урок"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "font-display text-xl leading-tight",
+							children: course ? course.name : "Коран и арабский"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs text-[var(--muted)]",
+							children: "Слушает. Отвечает по методу. Иджазу не ставит."
+						})
+					]
+				})]
+			}),
+			prompt ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-3 rounded-2xl border border-[var(--line)] bg-[var(--bg)] px-3 py-3 text-center",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+						children: prompt.title
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "ayah-ar mt-1 text-4xl leading-none",
+						lang: "ar",
+						children: prompt.ar
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-2 text-sm",
+						children: prompt.ask
+					}),
+					prompt.kind === "hifz" && prompt.surah ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-2 flex flex-wrap justify-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							type: "button",
+							variant: "glow",
+							className: "pill",
+							onClick: () => {
+								useQuran.getState().setReciter("ar.husary");
+								const n = SURAHS.find((s) => s.n === prompt.surah)?.ayahs ?? 1;
+								playAt(prompt.surah, 1, n);
+								setHeard((n) => n + 1);
+							},
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+								" Хусари · ",
+								heard,
+								"/3"
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							type: "button",
+							variant: "secondary",
+							className: "pill",
+							onClick: () => onHeard("прочитал"),
+							children: "Прочитал"
+						})]
+					}) : null
+				]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				ref: scroller,
+				className: "mt-3 max-h-56 overflow-y-auto",
+				children: [log.map((m, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: m.role === "user" ? "mb-2 text-sm" : "mb-3 whitespace-pre-wrap text-sm leading-relaxed",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+						children: [
+							m.role === "user" ? "Вы" : "Учитель",
+							" ·",
+							" "
+						]
+					}), m.text]
+				}, i)), busy ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-[var(--muted)]",
+					children: "Слушаю…"
+				}) : null]
+			}),
+			!course ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-2 flex flex-wrap gap-2",
+				children: STARTERS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: "min-h-11 rounded-full border border-[var(--line)] px-3 text-xs",
+					onClick: () => void send(s.q),
+					children: s.label
+				}, s.q))
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				className: "mt-3 grid gap-2",
+				onSubmit: (e) => {
+					e.preventDefault();
+					send();
+				},
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+					rows: 2,
+					className: "min-h-14 w-full resize-none rounded-2xl border border-[var(--line)] bg-[var(--bg)] px-3 py-2 text-base outline-none",
+					value: q,
+					placeholder: listening ? "Говорите…" : "Ответьте учителю голосом или текстом",
+					onChange: (e) => setQ(e.target.value)
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex gap-2",
+					children: [
+						mic ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							type: "button",
+							variant: listening ? "glow" : "secondary",
+							className: "pill",
+							onClick: toggleMic,
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mic, { className: "size-4" }), listening ? "Стоп" : "Говорить"]
+						}) : null,
+						canSpeak ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							type: "button",
+							variant: "ghost",
+							className: "pill size-11 p-0",
+							"aria-label": "Повторить голосом",
+							onClick: () => {
+								const last = [...log].reverse().find((m) => m.role === "teacher");
+								if (last) say(last.text);
+							},
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" })
+						}) : null,
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							type: "submit",
+							variant: "glow",
+							className: "pill flex-1",
+							disabled: busy,
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Send, { className: "size-4" }), " Учителю"]
+						})
+					]
+				})]
+			})
+		]
+	});
+}
+function LettersDrill({ filter }) {
+	const pool = filter?.length ? LETTERS.filter((l) => filter.includes(l.ar)) : LETTERS;
+	const [idx, setIdx] = (0, import_react.useState)(0);
+	const [picked, setPicked] = (0, import_react.useState)(null);
+	const letter = pool[idx % pool.length];
+	const options = (0, import_react.useMemo)(() => {
+		const rest = LETTERS.filter((l) => l.ar !== letter.ar).sort(() => Math.random() - .5).slice(0, 3);
+		return [letter, ...rest].sort(() => Math.random() - .5);
+	}, [letter]);
+	const ok = picked === letter.name;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "ayah-ar text-center text-6xl",
+				lang: "ar",
+				children: letter.ar
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-xs text-[var(--muted)]",
+				children: letter.nameAr
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid grid-cols-2 gap-2",
+				children: options.map((o) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: () => setPicked(o.name),
+					className: cn("min-h-12 rounded-2xl border px-3 text-sm", picked && o.name === letter.name && "border-[var(--ok)] text-[var(--ok)]", picked && o.name === picked && o.name !== letter.name && "border-[var(--danger)] text-[var(--danger)]", !picked && "border-[var(--line)]"),
+					children: o.name
+				}, o.ar))
+			}),
+			picked ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "secondary",
+				className: "pill",
+				onClick: () => {
+					setPicked(null);
+					setIdx((i) => i + 1);
+				},
+				children: ok ? "Дальше" : "Ещё раз"
+			}) : null
+		]
+	});
+}
+function ConnectDrill() {
+	const [i, setI] = (0, import_react.useState)(0);
+	const [ans, setAns] = (0, import_react.useState)(null);
+	const letter = LETTERS[i % LETTERS.length];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "ayah-ar text-center text-5xl",
+				lang: "ar",
+				children: letter.ar
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-sm",
+				children: "Соединяется влево?"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid grid-cols-2 gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					variant: "secondary",
+					onClick: () => setAns(true),
+					children: "Да"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					variant: "secondary",
+					onClick: () => setAns(false),
+					children: "Нет"
+				})]
+			}),
+			ans !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: ans === letter.joins ? "text-[var(--ok)]" : "text-[var(--danger)]",
+				children: letter.joins ? "Да, пишется с хвостом." : "Нет: ا د ذ ر ز و не идут влево."
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				className: "pill",
+				variant: "ghost",
+				onClick: () => {
+					setAns(null);
+					setI((x) => x + 1);
+				},
+				children: "Следующая"
+			})] }) : null
+		]
+	});
+}
+function HarakatDrill() {
+	const base = "ب";
+	const [i, setI] = (0, import_react.useState)(0);
+	const [show, setShow] = (0, import_react.useState)(false);
+	const h = HARAKAT[i % HARAKAT.length];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3 text-center",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "ayah-ar text-6xl",
+				lang: "ar",
+				children: [base, h.mark]
+			}),
+			show ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+				h.name,
+				" · ",
+				h.sound
+			] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "secondary",
+				className: "pill",
+				onClick: () => setShow(true),
+				children: "Показать"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "ghost",
+				onClick: () => {
+					setShow(false);
+					setI((x) => x + 1);
+				},
+				children: "Дальше"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: ["Тяжёлые буквы истиʻля: ", [...HEAVY].join(" ")]
+			})
+		]
+	});
+}
+function TajweedDrill() {
+	const [i, setI] = (0, import_react.useState)(0);
+	const [open, setOpen] = (0, import_react.useState)(false);
+	const card = TAJWEED_CARDS[i % TAJWEED_CARDS.length];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "font-display text-2xl",
+				children: card.title
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "ayah-ar text-2xl",
+				lang: "ar",
+				children: card.example
+			}),
+			open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm leading-relaxed",
+				children: card.rule
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "secondary",
+				className: "pill",
+				onClick: () => setOpen(true),
+				children: "Правило"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "ghost",
+				onClick: () => {
+					setOpen(false);
+					setI((x) => x + 1);
+				},
+				children: "Следующая карточка"
+			})
+		]
+	});
+}
+function DrillPanel({ kind, letters }) {
+	if (kind === "letters") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LettersDrill, { filter: letters });
+	if (kind === "connect") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ConnectDrill, {});
+	if (kind === "harakat") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HarakatDrill, {});
+	if (kind === "tajweed") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TajweedDrill, {});
+	if (kind === "hifz") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+		className: "text-sm text-[var(--muted)]",
+		children: "Откройте аяты в мусхафе, скройте перевод, читайте, затем сверьте Кулиева."
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+		className: "text-sm text-[var(--muted)]",
+		children: "Включите Хусари в плеере и ведите пальцем по аяту."
+	});
+}
+function DayRow({ week, day }) {
+	const done = useLearn((s) => s.isDone(week, day.d));
+	const toggle = useLearn((s) => s.toggleDay);
+	const playAt = useQuran((s) => s.playAt);
+	const setTab = useMizan((s) => s.setAppTab);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "rounded-[22px] border border-[var(--line)] bg-[var(--surface)] p-4",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-start gap-3",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				"aria-pressed": done,
+				onClick: () => toggle(week, day.d),
+				className: cn("grid size-11 shrink-0 place-items-center rounded-full border", done ? "border-[var(--ok)] bg-[var(--ok)] text-[var(--accent-fg)]" : "border-[var(--line)]"),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" })
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "min-w-0 flex-1",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+						children: [
+							"День ",
+							day.d,
+							" · ",
+							day.minutes,
+							" мин"
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-medium",
+						children: day.title
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-1 text-sm text-[var(--muted)]",
+						children: day.task
+					}),
+					day.surah ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-3 flex flex-wrap gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "secondary",
+							className: "pill",
+							onClick: () => {
+								useQuran.getState().setReciter("ar.husary");
+								playAt(day.surah, day.from ?? 1, day.to ?? null);
+							},
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }), " Хусари"]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "ghost",
+							className: "pill",
+							onClick: () => {
+								useQuran.getState().setRef(day.surah, day.from ?? 1);
+								setTab("quran");
+							},
+							children: [
+								surahOf(day.surah).ru,
+								" ",
+								day.from ?? 1,
+								"–",
+								day.to ?? surahOf(day.surah).ayahs
+							]
+						})]
+					}) : null
+				]
+			})]
+		})
+	});
+}
+function LearnView() {
+	const weekN = useLearn((s) => s.week);
+	const setWeek = useLearn((s) => s.setWeek);
+	const courseId = useLearn((s) => s.course);
+	const setCourse = useLearn((s) => s.setCourse);
+	const count = useLearn((s) => s.completedCount());
+	const playAt = useQuran((s) => s.playAt);
+	const setTab = useMizan((s) => s.setAppTab);
+	const week = weekByN(weekN);
+	const [drill, setDrill] = (0, import_react.useState)(week.days.find((d) => d.drill)?.drill ?? "letters");
+	const pct = Math.round(count / TOTAL_STUDY_DAYS * 100);
+	const course = COURSES.find((c) => c.id === courseId) ?? null;
+	function openCourse(c) {
+		setCourse(c.id);
+		if (c.action === "hisn") {
+			setTab("hisn");
+			return;
+		}
+		if (c.action === "quran") setTab("quran");
+		if (c.action === "tafsir") {
+			useQuran.getState().openTafsir(12, 1);
+			setTab("quran");
+		}
+	}
+	if (!course) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]",
+					children: "جامعة · факультет"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "font-display mt-2 text-3xl tracking-tight",
+					children: "Обучение"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--muted)]",
+					children: "Учитель ведёт урок: слушает, отвечает, держит метод. Иджазу даёт живой шейх, не это окно."
+				})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TeacherDesk, { course: null }),
+			FACULTIES.map((f) => {
+				const list = COURSES.filter((c) => c.faculty === f.id);
+				if (!list.length) return null;
+				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "grid gap-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]",
+						children: [
+							f.nameAr,
+							" · ",
+							f.name
+						]
+					}), list.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "door text-start",
+						onClick: () => openCourse(c),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "ayah-ar block text-lg",
+								lang: "ar",
+								children: c.nameAr
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-display mt-1 block text-xl leading-tight",
+								children: c.name
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "mt-1 block text-sm text-[var(--muted)]",
+								children: c.inventor
+							})
+						]
+					}, c.id))]
+				}, f.id);
+			})
+		]
+	});
+	const showArabic = course.action === "arabic";
+	const showTajweed = course.action === "tajweed";
+	const showHifz = course.action === "hifz";
+	const showItqan = course.action === "itqan";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-3xl gap-5 px-4 pt-6",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]",
+				onClick: () => setCourse(null),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }), " Все методы"]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "ayah-ar text-2xl",
+						lang: "ar",
+						children: course.nameAr
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "font-display mt-2 text-3xl tracking-tight",
+						children: course.name
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "mt-3 text-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[var(--muted)]",
+							children: "Кто: "
+						}), course.inventor]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "mt-1 text-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[var(--muted)]",
+							children: "Откуда: "
+						}), course.origin]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-3 text-sm",
+						children: course.what
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-2 text-sm text-[var(--muted)]",
+						children: course.how
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-3 text-xs text-[var(--muted)]",
+						children: course.honest
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TeacherDesk, { course }),
+			showArabic ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+						children: "Зал арабского"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-3 flex flex-wrap gap-2",
+						children: [
+							"letters",
+							"connect",
+							"harakat"
+						].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setDrill(k),
+							className: cn("min-h-11 rounded-full border px-4 text-sm", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+							children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"
+						}, k))
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-4",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: drill === "tajweed" ? "letters" : drill ?? "letters" })
+					})
+				]
+			}) : null,
+			showTajweed ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+					children: "Карточки Хафс"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-4",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: "tajweed" })
+				})]
+			}) : null,
+			showHifz ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "grid gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-[var(--muted)]",
+					children: course.id === "three-ten-one" ? "Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя." : course.id === "murajaa" ? "Сегодняшняя сура и пять предыдущих." : "Джуз Амма, суры 78–114."
+				}), SURAHS.filter((s) => s.n >= 78).map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center justify-between gap-2 rounded-2xl border border-[var(--line)] px-3 py-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "min-w-0 text-left",
+						onClick: () => {
+							useQuran.getState().setRef(s.n, 1);
+							setTab("quran");
+						},
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ayah-ar block text-lg",
+							lang: "ar",
+							children: s.ar
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "text-xs text-[var(--muted)]",
+							children: [
+								s.n,
+								". ",
+								s.ru,
+								" · ",
+								s.ayahs,
+								" аятов"
+							]
+						})]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill shrink-0",
+						onClick: () => {
+							useQuran.getState().setReciter("ar.husary");
+							playAt(s.n, 1, s.ayahs);
+						},
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" })
+					})]
+				}, s.n))]
+			}) : null,
+			showItqan ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between gap-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+								children: "Прогресс"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "tabular-nums text-sm",
+								children: [pct, "%"]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "h-full rounded-full bg-[var(--accent)]",
+								style: { width: `${pct}%` }
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "mt-2 text-xs text-[var(--muted)]",
+							children: [
+								count,
+								" из ",
+								TOTAL_STUDY_DAYS,
+								" учебных дней · 40 недель"
+							]
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex items-center justify-between gap-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "secondary",
+							className: "pill size-11 p-0",
+							onClick: () => setWeek(weekN - 1),
+							"aria-label": "Предыдущая неделя",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "min-w-0 text-center",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+								children: [
+									"Неделя ",
+									week.n,
+									" · ",
+									phaseLabel(week.phase)
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "font-display text-xl leading-tight",
+								children: week.title
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "secondary",
+							className: "pill size-11 p-0",
+							onClick: () => setWeek(weekN + 1),
+							"aria-label": "Следующая неделя",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm",
+					children: week.goal
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-sm text-[var(--muted)]",
+					children: week.kuliev
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-xs text-[var(--muted)]",
+					children: ["Зачёт: ", week.checkpoint]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "glow",
+					onClick: () => {
+						useQuran.getState().setReciter("ar.husary");
+						playAt(week.listen.surah, week.listen.from, week.listen.to);
+					},
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+						" Слушание недели · ",
+						surahOf(week.listen.surah).ru,
+						" ",
+						week.listen.from,
+						"–",
+						week.listen.to
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "grid gap-3",
+					children: week.days.map((day) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DayRow, {
+						week: week.n,
+						day
+					}, day.d))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+							children: "Тренажёр"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-3 flex flex-wrap gap-2",
+							children: [
+								"letters",
+								"connect",
+								"harakat",
+								"tajweed"
+							].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								onClick: () => setDrill(k),
+								className: cn("min-h-11 rounded-full border px-3 py-2 text-xs", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+								children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"
+							}, k))
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-4",
+							children: drill ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, {
+								kind: drill,
+								letters: week.letters
+							}) : null
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex gap-2 overflow-x-auto pb-1",
+					children: WEEKS.map((w) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						onClick: () => setWeek(w.n),
+						className: cn("grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums", w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+						children: w.n
+					}, w.n))
+				})
+			] }) : null
+		]
+	});
+}
+function PlayerBar() {
+	const session = useQuran((s) => s.session);
+	const playing = useQuran((s) => s.playing);
+	const surah = useQuran((s) => s.surah);
+	const ayah = useQuran((s) => s.ayah);
+	const reciterId = useQuran((s) => s.reciterId);
+	const repeat = useQuran((s) => s.repeat);
+	const bookmarks = useQuran((s) => s.bookmarks);
+	const toggle = useQuran((s) => s.toggle);
+	const next = useQuran((s) => s.next);
+	const prev = useQuran((s) => s.prev);
+	const setRepeat = useQuran((s) => s.setRepeat);
+	const toggleBookmark = useQuran((s) => s.toggleBookmark);
+	const lastError = useQuran((s) => s.lastError);
+	const audioMs = useQuran((s) => s.audioMs);
+	const durationMs = useQuran((s) => s.durationMs);
+	const waiting = useQuran((s) => s.waiting);
+	const continueLearn = useQuran((s) => s.continueLearn);
+	const replayUnit = useQuran((s) => s.replayUnit);
+	const seekRatio = useQuran((s) => s.seekRatio);
+	const learnMode = useQuran((s) => s.learnMode);
+	if (!session) return null;
+	const meta = surahOf(surah);
+	const rec = reciterById(reciterId);
+	const marked = bookmarks.some((b) => b.surah === surah && b.ayah === ayah);
+	const ratio = durationMs > 0 ? Math.min(1, audioMs / durationMs) : 0;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "player-dock rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: "mb-2 block h-1.5 w-full overflow-hidden rounded-full bg-[var(--surface)]",
+				"aria-label": "Положение в аяте",
+				onClick: (e) => {
+					const box = e.currentTarget.getBoundingClientRect();
+					const x = (e.clientX - box.left) / Math.max(1, box.width);
+					const rtl = document.documentElement.dir === "rtl";
+					seekRatio(rtl ? 1 - x : x);
+				},
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "block h-full rounded-full bg-[var(--accent)]",
+					style: { width: `${ratio * 100}%` }
+				})
+			}),
+			waiting ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mb-2 flex gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: "min-h-10 flex-1 rounded-full border border-[var(--line)] text-xs",
+					onClick: replayUnit,
+					children: "Ещё раз"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					"data-learn-next": true,
+					className: "btn-glow min-h-10 flex-1 rounded-full text-xs",
+					onClick: continueLearn,
+					children: learnMode === "word" ? "Следующее слово" : "Дальше"
+				})]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "grid size-11 place-items-center",
+						onClick: prev,
+						"aria-label": "Предыдущий аят",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SkipBack, { className: "size-4" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "btn-glow grid size-12 place-items-center p-0",
+						onClick: toggle,
+						"aria-label": playing ? "Пауза" : waiting ? "Дальше" : "Слушать",
+						children: playing ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-5" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-5 translate-x-px" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "grid size-11 place-items-center",
+						onClick: next,
+						"aria-label": "Следующий аят",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SkipForward, { className: "size-4" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "min-w-0 flex-1",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "truncate text-sm font-medium",
+							children: [
+								meta.ru,
+								" ",
+								surah,
+								":",
+								ayah
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "truncate text-[11px] text-[var(--muted)]",
+							children: lastError || (waiting ? "Повтори" : rec.name)
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: cn("grid size-11 place-items-center", repeat !== "off" && "text-[var(--accent)]"),
+						onClick: () => setRepeat(repeat === "off" ? "ayah" : repeat === "ayah" ? "surah" : "off"),
+						"aria-label": "Повтор",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Repeat, { className: "size-4" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: cn("grid size-11 place-items-center", marked && "text-[var(--accent)]"),
+						onClick: toggleBookmark,
+						"aria-label": "Закладка",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: cn("size-4", marked && "fill-current") })
+					})
+				]
+			})
+		]
+	});
+}
+function AyahLine({ ayah, active }) {
+	const playing = useQuran((s) => s.playing);
+	const follow = useQuran((s) => s.follow);
+	const wbw = useQuran((s) => s.wbw);
+	const wordIndex = useQuran((s) => s.wordIndex);
+	const words = useQuran((s) => s.words);
+	const learnMode = useQuran((s) => s.learnMode);
+	const waiting = useQuran((s) => s.waiting);
+	const playWord = useQuran((s) => s.playWord);
+	const surah = useQuran((s) => s.surah);
+	const nowRef = (0, import_react.useRef)(null);
+	const live = active && (playing || waiting);
+	const display = active && words.length ? words : splitAyahWords(ayah.ar);
+	const hi = follow && live ? wordIndex : -1;
+	const veil = learnMode === "hifz" && active && follow;
+	(0, import_react.useEffect)(() => {
+		if (!active || hi < 0) return;
+		nowRef.current?.scrollIntoView({
+			block: "nearest",
+			inline: "nearest",
+			behavior: "smooth"
+		});
+	}, [active, hi]);
+	if (wbw && active && display.some((w) => w.tr || w.gloss)) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "ayah-wbw mt-2",
+		lang: "ar",
+		dir: "rtl",
+		children: display.map((w, i) => {
+			const now = hi === i;
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				ref: now ? (el) => {
+					nowRef.current = el;
+				} : void 0,
+				"data-ayah-word": i,
+				className: cn("ayah-wbw-cell", now && "ayah-word-now", hi > i && "ayah-word-done", veil && hi < i && "ayah-word-veil"),
+				onClick: (e) => {
+					e.stopPropagation();
+					playWord(surah, ayah.i, i);
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-word-text",
+						children: w.ar
+					}),
+					w.tr ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-tr",
+						children: w.tr
+					}) : null,
+					w.gloss ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "ayah-gloss",
+						children: w.gloss
+					}) : null
+				]
+			}, i);
+		})
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+		className: "ayah-ar mt-2",
+		lang: "ar",
+		children: display.map((w, i) => {
+			const now = hi === i;
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				ref: now ? (el) => {
+					nowRef.current = el;
+				} : void 0,
+				"data-ayah-word": i,
+				className: cn("ayah-word", now && "ayah-word-now", hi > i && "ayah-word-done", veil && hi < i && "ayah-word-veil"),
+				onClick: (e) => {
+					e.stopPropagation();
+					playWord(surah, ayah.i, i);
+				},
+				children: w.ar
+			}, i);
+		})
+	});
+}
+var TAFSIR_BOOKS = [{
+	id: 170,
+	slug: "ru-tafseer-al-saddi",
+	ru: "Ас-Саʿди",
+	lang: "ru"
+}, {
+	id: 169,
+	slug: "en-tafisr-ibn-kathir",
+	ru: "Ибн Касир",
+	lang: "en"
+}];
+var snap = null;
+var pending = null;
+function loadYusufTafsir() {
+	if (snap) return Promise.resolve(snap);
+	if (!pending) pending = fetch("/quran/tafsir-yusuf.json").then((r) => {
+		if (!r.ok) throw new Error("tafsir");
+		return r.json();
+	}).then((d) => {
+		snap = d;
+		return d;
+	}).catch((e) => {
+		pending = null;
+		throw e;
+	});
+	return pending;
+}
+function pieceAt(book, ayah) {
+	return book.pieces.find((p) => ayah >= p.from && ayah <= p.to);
+}
+function neighbor(book, ayah, dir) {
+	const i = book.pieces.findIndex((p) => ayah >= p.from && ayah <= p.to);
+	return (book.pieces[i + dir] ?? book.pieces[i])?.from ?? ayah;
+}
+function TafsirView() {
+	const surah = useQuran((s) => s.surah);
+	const ayah = useQuran((s) => s.ayah);
+	const setRef = useQuran((s) => s.setRef);
+	const playAt = useQuran((s) => s.playAt);
+	const close = useQuran((s) => s.closeTafsir);
+	const bookId = useQuran((s) => s.tafsirBook);
+	const setBook = useQuran((s) => s.setTafsirBook);
+	const [snap, setSnap] = (0, import_react.useState)(null);
+	const [err, setErr] = (0, import_react.useState)("");
+	const [ayahRow, setAyahRow] = (0, import_react.useState)(null);
+	(0, import_react.useEffect)(() => {
+		if (surah !== 12) setRef(12, 1);
+	}, [surah, setRef]);
+	(0, import_react.useEffect)(() => {
+		loadYusufTafsir().then(setSnap).catch(() => setErr("Не удалось открыть снимок тафсира Йусуф."));
+	}, []);
+	const n = surah === 12 ? ayah : 1;
+	(0, import_react.useEffect)(() => {
+		loadAyah(12, n).then(setAyahRow);
+	}, [n]);
+	const book = snap?.tafsirs.find((t) => t.id === bookId) ?? snap?.tafsirs[0];
+	const piece = book ? pieceAt(book, n) : void 0;
+	const meta = surahOf(12);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-2xl gap-4 px-4 pt-2",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]",
+					onClick: close,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }), " Мусхаф"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "min-w-0 flex-1 truncate text-center text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: ["Тафсир · ", meta.ru]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "text-center",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+					className: "font-display text-3xl",
+					children: [
+						meta.ru,
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ayah-ar text-2xl",
+							lang: "ar",
+							children: meta.ar
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-1 text-xs text-[var(--muted)]",
+					children: [
+						"Мекканская · 111 аятов. Снимок Quran.com ",
+						snap?.retrievedAt,
+						". Не фетва."
+					]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex flex-wrap justify-center gap-2",
+				children: TAFSIR_BOOKS.map((b) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					className: cn("rounded-full border px-3 py-2 text-sm", bookId === b.id ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+					onClick: () => setBook(b.id),
+					children: b.ru
+				}, b.id))
+			}),
+			err ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--danger)]",
+				children: err
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+				className: "ayah-card",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-[11px] tabular-nums text-[var(--muted)]",
+						children: [piece ? `${piece.from}–${piece.to}` : n, " / 111"]
+					}),
+					ayahRow ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "ayah-ar mt-2 text-2xl",
+							lang: "ar",
+							children: ayahRow.ar
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-sm leading-relaxed",
+							children: ayahRow.ru
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1 text-[11px] text-[var(--muted)]",
+							children: "Кулиев · смысловой перевод"
+						})
+					] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-2 text-sm text-[var(--muted)]",
+						children: "Мусхаф…"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						className: "mt-3 pill",
+						variant: "secondary",
+						onClick: () => playAt(12, n, piece?.to ?? n),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }), " Слушать"]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+				className: "rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: book?.name
+				}), piece?.text ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-3 grid gap-3 text-sm leading-relaxed whitespace-pre-wrap",
+					children: piece.text
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-3 text-sm text-[var(--muted)]",
+					children: "Открываю тафсир…"
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "ghost",
+					className: "pill",
+					disabled: !book || n <= 1,
+					onClick: () => book && setRef(12, neighbor(book, n, -1)),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }), " Назад"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "ghost",
+					className: "pill",
+					disabled: !book || n >= 111,
+					onClick: () => book && setRef(12, neighbor(book, n, 1)),
+					children: ["Дальше ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-4" })]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-center text-[11px] text-[var(--muted)]",
+				children: [
+					snap?.note,
+					" Источник: api.quran.com · ",
+					snap?.source
+				]
+			})
+		]
+	});
+}
+function QuranView() {
+	if (useQuran((s) => s.tafsirOn)) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TafsirView, {});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MushafView, {});
+}
+var MODES = [
+	{
+		id: "listen",
+		label: "Слушать",
+		hint: "Слово светится вместе с чтецом",
+		icon: Play
+	},
+	{
+		id: "echo",
+		label: "Повторяй",
+		hint: "Аят — стоп — ты повторяешь",
+		icon: Repeat1
+	},
+	{
+		id: "word",
+		label: "По словам",
+		hint: "Стоп на каждом слове",
+		icon: CirclePause
+	},
+	{
+		id: "hifz",
+		label: "Хифз",
+		hint: "Грядущие слова скрыты, пока чтец не дошёл",
+		icon: Type
+	}
+];
+var SPEEDS = [
+	.75,
+	1,
+	1.25
+];
+var GAPS = [
+	{
+		ms: 0,
+		label: "0"
+	},
+	{
+		ms: 1e3,
+		label: "1с"
+	},
+	{
+		ms: 2e3,
+		label: "2с"
+	},
+	{
+		ms: 3e3,
+		label: "3с"
+	}
+];
+function MushafView() {
+	const surah = useQuran((s) => s.surah);
+	const ayah = useQuran((s) => s.ayah);
+	const reciterId = useQuran((s) => s.reciterId);
+	const setReciter = useQuran((s) => s.setReciter);
+	const setRef = useQuran((s) => s.setRef);
+	const playAt = useQuran((s) => s.playAt);
+	const playing = useQuran((s) => s.playing);
+	const lastError = useQuran((s) => s.lastError);
+	const openTafsir = useQuran((s) => s.openTafsir);
+	const follow = useQuran((s) => s.follow);
+	const toggleFollow = useQuran((s) => s.toggleFollow);
+	const wbw = useQuran((s) => s.wbw);
+	const toggleWbw = useQuran((s) => s.toggleWbw);
+	const learnMode = useQuran((s) => s.learnMode);
+	const setLearnMode = useQuran((s) => s.setLearnMode);
+	const speed = useQuran((s) => s.speed);
+	const setSpeed = useQuran((s) => s.setSpeed);
+	const gapMs = useQuran((s) => s.gapMs);
+	const setGapMs = useQuran((s) => s.setGapMs);
+	const exactSync = useQuran((s) => s.exactSync);
+	const waiting = useQuran((s) => s.waiting);
+	const [data, setData] = (0, import_react.useState)(null);
+	const [error, setError] = (0, import_react.useState)("");
+	const [q, setQ] = (0, import_react.useState)("");
+	const [listOpen, setListOpen] = (0, import_react.useState)(false);
+	const activeRef = (0, import_react.useRef)(null);
+	(0, import_react.useEffect)(() => {
+		loadMushaf().then(setData).catch(() => setError("Не удалось загрузить мусхаф."));
+	}, []);
+	(0, import_react.useEffect)(() => {
+		activeRef.current?.scrollIntoView({
+			block: "nearest",
+			behavior: "auto"
+		});
+	}, [ayah, surah]);
+	const current = data?.[surah - 1];
+	const hits = (0, import_react.useMemo)(() => data && q.trim().length > 1 ? searchMushaf(data, q) : [], [data, q]);
+	const meta = surahOf(surah);
+	const rec = reciterById(reciterId);
+	const recSurahs = reciterSurahs(rec);
+	const ayahs = current?.ayahs ?? [];
+	const windowed = ayahs.length > 40 ? ayahs.filter((a) => a.i >= Math.max(1, ayah - 6) && a.i <= Math.min(meta.ayahs, ayah + 28)) : ayahs;
+	const modeMeta = MODES.find((m) => m.id === learnMode) ?? MODES[0];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-6xl gap-4 px-4 pt-4 lg:grid-cols-[260px_minmax(0,1fr)]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+			className: cn("lg:block", listOpen ? "block" : "hidden"),
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-3 flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--bg-elev)] px-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Search, { className: "size-4 text-[var(--muted)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						className: "min-h-11 border-0 bg-transparent px-0",
+						placeholder: "Сура или поиск по Кулиеву",
+						value: q,
+						onChange: (e) => setQ(e.target.value)
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mb-3 flex gap-1 overflow-x-auto pb-1",
+					children: JUZ_START.map((j) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "shrink-0 rounded-full border border-[var(--line)] px-2.5 py-1 text-[11px] text-[var(--muted)]",
+						onClick: () => {
+							setRef(j.surah, j.ayah);
+							setListOpen(false);
+						},
+						children: ["Дж ", j.juz]
+					}, j.juz))
+				}),
+				hits.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "grid gap-1",
+					children: hits.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: "w-full rounded-2xl px-3 py-2 text-left text-sm hover:bg-[var(--surface)]",
+						onClick: () => {
+							setRef(h.surah, h.ayah.i);
+							setListOpen(false);
+							setQ("");
+						},
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-[var(--muted)]",
+								children: [
+									h.surah,
+									":",
+									h.ayah.i
+								]
+							}),
+							" ",
+							h.ayah.ru.slice(0, 90)
+						]
+					}) }, `${h.surah}-${h.ayah.i}`))
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "grid max-h-[70dvh] gap-0.5 overflow-y-auto pr-1",
+					children: SURAHS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => {
+							setRef(s.n, 1);
+							setListOpen(false);
+						},
+						className: cn("flex min-h-11 w-full items-center justify-between rounded-2xl px-3 text-left text-sm", s.n === surah ? "bg-[var(--surface)] text-[var(--accent)]" : "hover:bg-[var(--bg-elev)]"),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "truncate",
+							children: [
+								s.n,
+								". ",
+								s.ru
+							]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ms-2 shrink-0",
+							lang: "ar",
+							children: s.ar
+						})]
+					}) }, s.n))
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "min-w-0",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-wrap items-end justify-between gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "text-[11px] uppercase tracking-[0.18em] text-[var(--muted)]",
+							children: [
+								meta.place === "M" ? "Мекканская" : "Мединская",
+								" · ",
+								meta.ayahs,
+								" аятов"
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+							className: "font-display mt-1 text-3xl tracking-tight",
+							children: [
+								meta.ru,
+								" ",
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "ayah-ar ms-2 inline text-2xl",
+									lang: "ar",
+									children: meta.ar
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm text-[var(--muted)]",
+							children: "Смысловой перевод Эльмира Кулиева · полный мусхаф"
+						})
+					] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						className: "pill lg:hidden",
+						onClick: () => setListOpen((v) => !v),
+						children: listOpen ? "Мусхаф" : "Суры"
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-4 flex gap-2 overflow-x-auto pb-1",
+					"data-learn-modes": true,
+					children: MODES.map((m) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						"data-learn-mode": m.id,
+						onClick: () => setLearnMode(m.id),
+						className: cn("inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-2 text-xs", m.id === learnMode ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(m.icon, { className: "size-3.5" }), m.label]
+					}, m.id))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-xs text-[var(--muted)]",
+					children: modeMeta.hint
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-3 flex flex-wrap gap-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							"data-follow": true,
+							onClick: toggleFollow,
+							className: cn("inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3 text-xs", follow ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Highlighter, { className: "size-3.5" }), "Следить"]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							"data-wbw": true,
+							onClick: toggleWbw,
+							className: cn("inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3 text-xs", wbw ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Languages, { className: "size-3.5" }), "Слова"]
+						}),
+						SPEEDS.map((sp) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => setSpeed(sp),
+							className: cn("min-h-11 rounded-full border px-3 text-xs tabular-nums", sp === speed ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+							children: [sp, "×"]
+						}, sp)),
+						GAPS.map((g) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => setGapMs(g.ms),
+							className: cn("min-h-11 rounded-full border px-3 text-xs", g.ms === gapMs ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+							children: ["пауза ", g.label]
+						}, g.ms))
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-4 flex gap-2 overflow-x-auto pb-1",
+					children: RECITERS.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => {
+							setReciter(r.id);
+							const first = reciterSurahs(r)?.[0];
+							if (first) setRef(first, 1);
+						},
+						className: cn("shrink-0 rounded-full border px-3 py-2 text-left text-xs", r.id === reciterId ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]"),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block font-medium text-[var(--fg)]",
+							children: r.name
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [r.style, r.qdc ? " · синхрон" : ""] })]
+					}, r.id))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-xs text-[var(--muted)]",
+					children: rec.blurb
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-3 flex flex-wrap gap-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "glow",
+							onClick: () => playAt(surah, 1, rec.kind === "surah" ? null : meta.ayahs),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }), " Слушать суру"]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "secondary",
+							className: "pill",
+							onClick: () => openTafsir(surah === 12 ? surah : 12, surah === 12 ? ayah : 1),
+							children: "Тафсир Йусуф"
+						}),
+						recSurahs ? recSurahs.map((n) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							className: cn("rounded-full border px-3 py-2 text-xs", n === surah ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+							onClick: () => {
+								setRef(n, 1);
+								playAt(n, 1, null);
+							},
+							children: surahOf(n).ru
+						}, n)) : null
+					]
+				}),
+				error ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-4 text-sm text-[var(--danger)]",
+					children: error
+				}) : null,
+				lastError ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--muted)]",
+					children: lastError
+				}) : null,
+				waiting ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--accent)]",
+					children: learnMode === "word" ? "Повтори слово — затем «Дальше»." : "Повтори аят — затем «Дальше»."
+				}) : null,
+				playing && follow ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-[11px] text-[var(--muted)]",
+					children: exactSync ? "Слово подсвечивается по записи чтеца." : "Подсветка по длительности аята — нажми слово, чтобы прыгнуть."
+				}) : null,
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ol", {
+					className: "mt-5 grid gap-3",
+					children: [
+						windowed[0] && windowed[0].i > 1 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							className: "text-sm text-[var(--muted)]",
+							onClick: () => setRef(surah, Math.max(1, windowed[0].i - 20)),
+							children: "Выше"
+						}) }) : null,
+						windowed.map((a) => {
+							const active = a.i === ayah;
+							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+								ref: active ? (el) => {
+									activeRef.current = el;
+								} : void 0,
+								className: cn("list-item rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4", active && "ayah-active"),
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-start justify-between gap-3",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+											type: "button",
+											className: "grid size-8 shrink-0 place-items-center rounded-full border border-[var(--line)] text-xs tabular-nums",
+											onClick: () => playAt(surah, a.i, null),
+											"aria-label": `Слушать аят ${a.i}`,
+											children: a.i
+										}), playing && active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "live-dot mt-2" }) : null]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AyahLine, {
+										ayah: a,
+										active
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										className: "mt-3 block w-full text-left",
+										onClick: () => playAt(surah, a.i, null),
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-sm leading-relaxed text-[var(--fg)]",
+											children: a.ru
+										})
+									}),
+									surah === 12 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										className: "mt-2 text-xs text-[var(--accent)]",
+										onClick: () => openTafsir(12, a.i),
+										children: "Тафсир этого аята"
+									}) : null
+								]
+							}, a.g);
+						}),
+						windowed.length && windowed[windowed.length - 1].i < meta.ayahs ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							className: "text-sm text-[var(--muted)]",
+							onClick: () => setRef(surah, Math.min(meta.ayahs, windowed[windowed.length - 1].i + 1)),
+							children: "Ниже"
+						}) }) : null
+					]
+				})
+			]
+		})]
+	});
+}
+var STATUS_RU = {
+	not_entered: "не указано",
+	incomplete: "не хватает данных",
+	below_nisab: "ниже нисаба",
+	due: "к уплате",
+	exempt: "не входит",
+	not_applicable: "не считается",
+	unverified_rule: "правило не проверено"
+};
+var OVERALL_RU = {
+	due: "Нужно заплатить",
+	mixed: "Часть посчитана, часть ещё нет",
+	incomplete: "Не хватает данных — закят пока не считаем",
+	not_due_confirmed: "Не подпадает под закят"
+};
+var NISAB_MODE_RU = {
+	gold: "по золоту",
+	silver: "по серебру",
+	lower: "по меньшему из двух",
+	higher: "по большему из двух",
+	separate: "золото и серебро раздельно"
+};
+var SOURCE_TYPE_RU = {
+	quran: "Коран",
+	hadith: "хадис",
+	fiqh: "фикх",
+	institutional: "страница организации",
+	market: "рынок",
+	metrology: "меры веса",
+	math: "расчёт"
+};
+var REVIEW_RU = {
+	primary_text_checked: "первоисточник сверен",
+	translation_checked: "перевод сверен",
+	institutional_page_checked: "публичная страница сверена",
+	unverified: "не сверено",
+	scholar_review_absent: "рецензии учёного нет"
+};
+var RECIPIENTS = [
+	{
+		ar: "الفقراء",
+		ru: "Бедные (фукараʾ)"
+	},
+	{
+		ar: "المساкин",
+		ru: "Нищие (масакин)"
+	},
+	{
+		ar: "العاملين عليها",
+		ru: "Работающие со сбором"
+	},
+	{
+		ar: "المؤلفة قلوبهم",
+		ru: "Те, чьи сердца хотят привлечь"
+	},
+	{
+		ar: "في الرقاب",
+		ru: "Выкуп рабов / неволи"
+	},
+	{
+		ar: "الغارمين",
+		ru: "Должники"
+	},
+	{
+		ar: "في سبيل الله",
+		ru: "На пути Аллаха"
+	},
+	{
+		ar: "ابن السبيل",
+		ru: "Путник"
+	}
+];
+function resultToJson(input, result) {
+	return JSON.stringify({
+		schemaVersion: 1,
+		disclaimer: "Программный расчёт. Не богословская рецензия и не факт уплаты. Источники привязаны к правилам.",
+		input,
+		result: {
+			...result,
+			totalMoneyExact: formatPlain(result.totalMoneyExact),
+			totalMoneyRounded: formatFixed(result.totalMoneyRounded, 2),
+			nisab: {
+				...result.nisab,
+				goldGrams: formatPlain(result.nisab.goldGrams),
+				silverGrams: formatPlain(result.nisab.silverGrams),
+				goldValue: result.nisab.goldValue !== null ? formatPlain(result.nisab.goldValue) : null,
+				silverValue: result.nisab.silverValue !== null ? formatPlain(result.nisab.silverValue) : null,
+				threshold: result.nisab.threshold !== null ? formatPlain(result.nisab.threshold) : null
+			},
+			categories: result.categories.map((c) => ({
+				...c,
+				baseMoney: c.baseMoney !== void 0 ? formatPlain(c.baseMoney) : void 0,
+				zakatMoney: c.zakatMoney !== void 0 ? formatPlain(c.zakatMoney) : void 0
+			}))
+		}
+	}, null, 2);
+}
+function resultToCsv(result) {
+	const rows = [[
+		"category",
+		"status",
+		"base",
+		"zakat_money",
+		"natural",
+		"missing"
+	]];
+	for (const c of result.categories) rows.push([
+		c.title,
+		c.status,
+		c.baseMoney !== void 0 ? formatFixed(c.baseMoney, 2) : "",
+		c.zakatMoney !== void 0 ? formatFixed(c.zakatMoney, 2) : "",
+		(c.natural ?? []).map((n) => `${n.count} ${n.label}`).join("; "),
+		c.missing.join("; ")
+	]);
+	return rows.map((r) => r.map((cell) => `"${String(cell).replace(/"/g, "\"\"")}"`).join(",")).join("\n");
+}
+function resultToHtml(input, result) {
+	const profile = getProfile(result.profileId);
+	const money = (q) => q === void 0 ? "—" : formatMoney(q, result.baseCurrency);
+	const cats = result.categories.map((c) => {
+		const src = getSources(c.sourceIds).map((s) => `<li><a href="${s.url}">${s.title}</a> — ${s.locator}. ${s.notes}</li>`).join("");
+		const nat = (c.natural ?? []).map((n) => `<li>${n.label}</li>`).join("");
+		const steps = c.steps.map((s) => `<li>${s.label}${s.output ? `: <b>${s.output}</b>` : ""}</li>`).join("");
+		return `<section>
+        <h2>${c.title}</h2>
+        <p>Статус: ${STATUS_RU[c.status]}</p>
+        <p>База: ${money(c.baseMoney)} · Закят (деньги): ${money(c.zakatMoney)}</p>
+        ${nat ? `<p>Натура:</p><ul>${nat}</ul>` : ""}
+        <ol>${steps}</ol>
+        <h3>Источники</h3>
+        <ul>${src}</ul>
+        ${c.missing.length ? `<p>Не хватает данных: ${c.missing.join("; ")}</p>` : ""}
+      </section>`;
+	}).join("\n");
+	return `<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<title>Мизан — отчёт закята</title>
+<style>
+  body { font-family: "Source Serif 4", Georgia, serif; max-width: 820px; margin: 2rem auto; color: #10221a; }
+  h1 { font-weight: 600; }
+  [lang=ar], .ar { direction: rtl; font-family: "Noto Naskh Arabic", serif; font-size: 1.15rem; }
+  .warn { border: 1px solid #b45309; padding: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; }
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+  <p class="no-print"><button onclick="window.print()">Печать / PDF</button></p>
+  <h1>Мизан — расчёт закята</h1>
+  <p class="warn">Это не факт уплаты и не рецензия учёного. Деньги никуда не уходят.</p>
+  <p>Школа: ${profile.name} (${profile.version}). Дата: ${result.asOfDate}. Валюта: ${result.baseCurrency}.</p>
+  <p>Статус: ${OVERALL_RU[result.overallStatus] ?? result.overallStatus}. ${result.completeness === "complete" ? "Всё заполнено." : "Есть пропуски."} Нисаб: ${NISAB_MODE_RU[result.nisab.mode]}.</p>
+  <p>К уплате: ${formatMoney(result.totalMoneyRounded, result.baseCurrency)}.</p>
+  ${result.natural.length ? `<h2>Натурой</h2><ul>${result.natural.map((n) => `<li>${n.label}</li>`).join("")}</ul>` : ""}
+  ${cats}
+  <h2>Котировки</h2>
+  <table><thead><tr><th>Актив</th><th>Курс</th><th>Статус</th><th>Источник</th></tr></thead>
+  <tbody>${result.quotes.quotes.map((q) => `<tr><td>${q.asset}/${q.quote}</td><td>${q.rate}</td><td>${q.status}</td><td>${q.source} ${q.author ?? ""}</td></tr>`).join("")}</tbody></table>
+  <h2>Предупреждения</h2>
+  <ul>${result.warnings.map((w) => `<li>${w}</li>`).join("")}</ul>
+</body></html>`;
+}
+function downloadBlob(filename, mime, content) {
+	const blob = new Blob([content], { type: mime });
+	const a = document.createElement("a");
+	a.href = URL.createObjectURL(blob);
+	a.download = filename;
+	a.click();
+	URL.revokeObjectURL(a.href);
+}
+var fetchMarketQuotes = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("2256758a01d7d38f82abb42ce595af37449d2ca88815971d0a7c8e2ffb677585"));
+function ResultsPanel() {
+	const result = useMizan((s) => s.lastResult);
+	if (!result) return null;
+	const profile = getProfile(result.profileId);
+	const exact = formatPlain(result.totalMoneyExact);
+	const showExact = result.totalMoneyRounded !== 0n && !exact.endsWith(".00") && !/^[0.]+$/.test(exact);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+		className: "result-panel border border-[var(--line)] bg-[var(--bg-elev)] p-[var(--pad,1rem)] lg:sticky lg:top-24",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-[11px] uppercase tracking-[0.12em] text-[var(--muted)]",
+				children: "Закят к уплате"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "font-display mt-2 text-4xl leading-none tabular-nums text-[var(--ok)] sm:text-5xl",
+				"data-testid": "zakat-total",
+				children: formatMoney(result.totalMoneyRounded, result.baseCurrency)
+			}),
+			showExact ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "mt-2 text-xs text-[var(--muted)]",
+				children: ["без округления: ", exact]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-3 text-sm",
+				children: OVERALL_RU[result.overallStatus] ?? result.overallStatus
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: [
+					profile.name,
+					" · ",
+					result.asOfDate,
+					" · ",
+					result.completeness === "complete" ? "всё заполнено" : "есть пропуски"
+				]
+			}),
+			result.nisab.threshold !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "mt-2 text-sm tabular-nums",
+				children: [
+					"Порог нисаба: ",
+					formatMoney(result.nisab.threshold, result.baseCurrency),
+					" (",
+					NISAB_MODE_RU[result.nisab.mode],
+					")"
+				]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--danger)]",
+				children: "Нисаб не посчитан — нет цены золота или серебра."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-3 grid grid-cols-2 gap-2 text-center",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "border border-[var(--line)] p-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[11px] text-[var(--muted)]",
+							children: "Нисаб золота"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "font-display tabular-nums",
+							children: [formatPlain(result.nisab.goldGrams), " г"]
+						}),
+						result.nisab.goldValue !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs tabular-nums text-[var(--muted)]",
+							children: formatMoney(result.nisab.goldValue, result.baseCurrency)
+						}) : null
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "border border-[var(--line)] p-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-[11px] text-[var(--muted)]",
+							children: "Нисаб серебра"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "font-display tabular-nums",
+							children: [formatPlain(result.nisab.silverGrams), " г"]
+						}),
+						result.nisab.silverValue !== null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs tabular-nums text-[var(--muted)]",
+							children: formatMoney(result.nisab.silverValue, result.baseCurrency)
+						}) : null
+					]
+				})]
+			}),
+			result.natural.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-3 text-sm",
+				children: result.natural.map((n, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: n.label }, i))
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-4 grid gap-1 text-sm",
+				children: result.categories.filter((c) => c.status !== "not_entered").map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+					className: "flex justify-between gap-3 border-t border-[var(--line)] py-1",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: c.title }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "shrink-0 text-right tabular-nums text-[var(--muted)]",
+						children: [
+							c.zakatMoney !== void 0 ? formatMoney(c.zakatMoney, result.baseCurrency) : "",
+							c.natural?.length ? ` ${c.natural.map((n) => n.label).join(", ")}` : "",
+							c.zakatMoney === void 0 && !c.natural?.length ? STATUS_RU[c.status] : ` · ${STATUS_RU[c.status]}`
+						]
+					})]
+				}, c.id))
+			}),
+			result.warnings.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-4 text-xs text-[var(--muted)]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "font-medium text-[var(--fg)]",
+					children: "Важно знать"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "mt-1 list-disc pl-4",
+					children: result.warnings.slice(0, 6).map((w) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: w }, w))
+				})]
+			}) : null,
+			result.missing.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-4 text-xs text-[var(--danger)]",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "font-medium",
+					children: "Не хватает данных"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "mt-1 list-disc pl-4",
+					children: result.missing.slice(0, 8).map((m) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: m }, m))
+				})]
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ExportBar, {})
+		]
+	});
+}
+function ExportBar() {
+	const input = useMizan((s) => s.input);
+	const result = useMizan((s) => s.lastResult);
+	const saveDraft = useMizan((s) => s.saveDraft);
+	const [saved, setSaved] = (0, import_react.useState)(false);
+	if (!result) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "mt-4 grid gap-2",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				onClick: () => {
+					downloadBlob(`mizan-${input.asOfDate}.json`, "application/json;charset=utf-8", resultToJson(input, result));
+				},
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "size-4" }), "Скачать расчёт"]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: "Файл, чтобы потом снова открыть этот расчёт в Мизане."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => {
+					const html = resultToHtml(input, result);
+					const w = window.open("", "_blank");
+					if (w) {
+						w.document.write(html);
+						w.document.close();
+					} else downloadBlob(`mizan-${input.asOfDate}.html`, "text/html;charset=utf-8", html);
+				},
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { className: "size-4" }), "Распечатать или PDF"]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => downloadBlob(`mizan-${input.asOfDate}.csv`, "text/csv;charset=utf-8", resultToCsv(result)),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Table2, { className: "size-4" }), "Скачать таблицу"]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "ghost",
+				onClick: () => {
+					saveDraft();
+					setSaved(true);
+				},
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bookmark, { className: "size-4" }), saved ? "Сохранено в приложении" : "Сохранить здесь"]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: "Это только копия расчёта. Деньги никуда не уходят."
+			})
+		]
+	});
+}
+function RecipientsPanel() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "border border-[var(--line)] bg-[var(--surface)] p-[var(--pad,1rem)]",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "font-display text-lg",
+				children: "Кому можно отдать (Коран 9:60)"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-1 text-xs text-[var(--muted)]",
+				children: "Справка. Калькулятор сам никому не переводит деньги."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "mt-3 grid gap-2 text-sm",
+				children: RECIPIENTS.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+					className: "flex items-baseline justify-between gap-3 border-b border-[var(--line)] py-1",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: r.ru }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						lang: "ar",
+						dir: "rtl",
+						className: "ar text-[var(--muted)]",
+						children: r.ar
+					})]
+				}, r.ru))
+			})
+		]
+	});
+}
+function EvidenceList() {
+	const result = useMizan((s) => s.lastResult);
+	const sources = getSources([...new Set(result?.categories.flatMap((c) => c.sourceIds) ?? ["quran.2.43", "bukhari.1454"])]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "grid gap-3",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+			className: "font-display text-xl",
+			children: "Откуда правила"
+		}), sources.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+			className: "border-l-2 border-[var(--accent)] bg-[var(--surface)] p-3 text-sm",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-xs uppercase tracking-wide text-[var(--muted)]",
+					children: [
+						SOURCE_TYPE_RU[s.type],
+						" · ",
+						REVIEW_RU[s.review]
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "font-medium",
+					children: s.title
+				}),
+				s.arabic ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					lang: "ar",
+					dir: "rtl",
+					className: "ar my-2 text-lg leading-loose",
+					children: s.arabic
+				}) : null,
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: s.translationRu ?? s.translationEn }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "mt-1 text-xs text-[var(--muted)]",
+					children: [
+						s.locator,
+						".",
+						" ",
+						s.url ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							className: "underline",
+							href: s.url,
+							target: "_blank",
+							rel: "noreferrer",
+							children: "открыть источник"
+						}) : "ссылки нет"
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-xs",
+					children: s.notes
+				})
+			]
+		}, s.sourceId))]
+	});
+}
+function AssistantPanel() {
+	const result = useMizan((s) => s.lastResult);
+	const input = useMizan((s) => s.input);
+	const [q, setQ] = (0, import_react.useState)("");
+	const [log, setLog] = (0, import_react.useState)([]);
+	const [busy, setBusy] = (0, import_react.useState)(false);
+	async function send() {
+		const question = q.trim();
+		if (!question || busy) return;
+		setQ("");
+		setLog((l) => [...l, {
+			role: "user",
+			text: question
+		}]);
+		setBusy(true);
+		const local = localSourceSearch(question);
+		const excerpts = (local.length ? local : SOURCES.slice(0, 6)).map((s) => ({
+			id: s.sourceId,
+			title: s.title,
+			locator: s.locator,
+			notes: s.notes,
+			arabic: s.arabic
+		}));
+		const payload = {
+			question,
+			profileId: input.profileId,
+			profileName: getProfile(input.profileId).name,
+			anonymized: {
+				overallStatus: result?.overallStatus ?? "unknown",
+				completeness: result?.completeness ?? "partial",
+				categories: (result?.categories ?? []).map((c) => ({
+					id: c.id,
+					status: c.status,
+					zakat: c.zakatMoney !== void 0 ? formatPlain(c.zakatMoney) : void 0,
+					natural: c.natural?.map((n) => n.label)
+				})),
+				missing: result?.missing ?? []
+			},
+			sourceExcerpts: excerpts
+		};
+		try {
+			const res = await askEvidence({ data: payload });
+			if (res.ok) setLog((l) => [...l, {
+				role: "bot",
+				text: res.text,
+				meta: "Ответ по источникам. Цифры считает калькулятор, не помощник."
+			}]);
+			else {
+				const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
+				setLog((l) => [...l, {
+					role: "bot",
+					text: `${res.error}\n\nИз местных источников:\n${fallback}`,
+					meta: "поиск по сохранённым источникам"
+				}]);
+			}
+		} catch (e) {
+			setLog((l) => [...l, {
+				role: "bot",
+				text: `Сейчас без сети. ${e instanceof Error ? e.message : ""} Ваш расчёт на месте.`,
+				meta: "без сети"
+			}]);
+		} finally {
+			setBusy(false);
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "border border-[var(--line)] bg-[var(--surface)] p-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+				className: "font-display text-lg",
+				children: "Шейх"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: "Мир тебе. Объясняю правила словами. Сумму считает калькулятор."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-3 max-h-56 overflow-y-auto text-sm",
+				children: log.map((m, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: cn("mb-2 p-2", m.role === "user" ? "bg-[var(--bg)]" : "bg-[var(--bg-elev)]"),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "whitespace-pre-wrap",
+						children: m.text
+					}), m.meta ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-1 text-[11px] text-[var(--muted)]",
+						children: m.meta
+					}) : null]
+				}, i))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-2 flex gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: q,
+					placeholder: "Спроси шейха про нисаб, год владения, скот…",
+					onChange: (e) => setQ(e.target.value),
+					onKeyDown: (e) => {
+						if (e.key === "Enter") send();
+					}
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					onClick: () => void send(),
+					disabled: busy,
+					children: "Спросить"
+				})]
+			})
+		]
+	});
+}
+function QuotesButton() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const setQuotesStatus = useMizan((s) => s.setQuotesStatus);
+	const status = useMizan((s) => s.quotesStatus);
+	async function load() {
+		setQuotesStatus("loading");
+		try {
+			const res = await fetchMarketQuotes({ data: {
+				date: input.asOfDate,
+				base: input.baseCurrency,
+				symbols: [
+					"USD",
+					"EUR",
+					"RUB",
+					"EGP",
+					"SAR",
+					"AED",
+					"GBP",
+					"TRY"
+				],
+				cryptoIds: input.crypto.map((c) => c.coingeckoId).filter((x) => Boolean(x))
+			} });
+			if (!res.ok) {
+				setQuotesStatus("error", res.error);
+				return;
+			}
+			const manuals = input.quotes.quotes.filter((q) => q.status === "manual");
+			const merged = [...res.snapshot.quotes.filter((q) => !manuals.some((m) => m.asset === q.asset)), ...manuals];
+			setInput({ quotes: {
+				...res.snapshot,
+				quotes: merged
+			} });
+			setQuotesStatus("ok");
+		} catch (e) {
+			setQuotesStatus("error", e instanceof Error ? e.message : "сеть");
+		}
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+		variant: "secondary",
+		onClick: () => void load(),
+		disabled: status === "loading",
+		children: status === "loading" ? "Загружаем цены…" : "Обновить цены"
+	});
+}
+function SettingsDialog() {
+	const open = useMizan((s) => s.settingsOpen);
+	const setOpen = useMizan((s) => s.setSettingsOpen);
+	const designsOpen = useMizan((s) => s.designsOpen);
+	const setDesigns = useMizan((s) => s.setDesignsOpen);
+	const settings = useMizan((s) => s.settings);
+	const setSettings = useMizan((s) => s.setSettings);
+	const history = useMizan((s) => s.history);
+	const loadSaved = useMizan((s) => s.loadSaved);
+	const duplicate = useMizan((s) => s.duplicate);
+	const deleteSaved = useMizan((s) => s.deleteSaved);
+	const importJson = useMizan((s) => s.importJson);
+	const reciterId = useQuran((s) => s.reciterId);
+	const setReciter = useQuran((s) => s.setReciter);
+	const [importErr, setImportErr] = (0, import_react.useState)("");
+	const [imported, setImported] = (0, import_react.useState)(false);
+	const [note, setNote] = (0, import_react.useState)("");
+	const [probing, setProbing] = (0, import_react.useState)(false);
+	const locale = settings.locale;
+	const t = (k) => translate(locale, k);
+	function close() {
+		stopSpeak();
+		setProbing(false);
+		setOpen(false);
+	}
+	async function probeVoice() {
+		if (probing) {
+			stopSpeak();
+			setProbing(false);
+			return;
+		}
+		setProbing(true);
+		try {
+			await speakText(t("set.voice.probe"), speakLang(locale));
+		} finally {
+			setProbing(false);
+		}
+	}
+	if (!open) return null;
+	function Toggle({ checked, onChange, label }) {
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+			className: "flex min-h-11 items-center gap-2 text-sm sm:col-span-2",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+				type: "checkbox",
+				checked,
+				onChange: (e) => onChange(e.target.checked)
+			}), label]
+		});
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-[90] grid place-items-center bg-[var(--scrim)] p-4",
+		role: "presentation",
+		onPointerDown: (e) => e.stopPropagation(),
+		onClick: close,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			role: "dialog",
+			"aria-labelledby": "settings-title",
+			className: "dialog-enter max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]",
+			onClick: (e) => e.stopPropagation(),
+			onPointerDown: (e) => e.stopPropagation(),
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-4 flex items-center justify-between gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						id: "settings-title",
+						className: "font-display text-2xl",
+						children: t("settings")
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						onClick: close,
+						"aria-label": t("set.close"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-5" })
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mb-4 text-xs text-[var(--muted)]",
+					children: t("set.note")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: t("set.section.lang")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid gap-4 sm:grid-cols-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.lang"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+								value: settings.locale,
+								onChange: (e) => setSettings({ locale: e.target.value }),
+								children: LOCALES.map((l) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: l.id,
+									children: l.native
+								}, l.id))
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.start"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: settings.startTab,
+								onChange: (e) => setSettings({ startTab: e.target.value }),
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "home",
+										children: t("tab.home")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "zakat",
+										children: t("tab.zakat")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "quran",
+										children: t("tab.quran")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "hisn",
+										children: t("tab.hisn")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "learn",
+										children: t("tab.learn")
+									})
+								]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.nav"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+								value: settings.navLayout,
+								onChange: (e) => setSettings({ navLayout: e.target.value }),
+								children: NAV_LAYOUTS.map((n) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: n.id,
+									children: n.id === "theme" ? t("set.as.theme") : t(`set.nav.${n.id}`)
+								}, n.id))
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.scheme"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: settings.colorScheme,
+								onChange: (e) => setSettings({ colorScheme: e.target.value }),
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "theme",
+										children: t("set.as.theme")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "dark",
+										children: t("set.dark")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "light",
+										children: t("set.light")
+									})
+								]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.font"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								type: "range",
+								min: .9,
+								max: 1.3,
+								step: .05,
+								value: settings.fontScale,
+								onChange: (e) => setSettings({ fontScale: Number(e.target.value) })
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.font.family"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: settings.fontPair,
+								onChange: (e) => setSettings({ fontPair: e.target.value }),
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "theme",
+										children: t("set.font.theme")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "fraunces",
+										children: t("set.font.fraunces")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "literata",
+										children: t("set.font.literata")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "newsreader",
+										children: t("set.font.newsreader")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "serif-plex",
+										children: t("set.font.serif")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "plex",
+										children: t("set.font.plex")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "plex-mono",
+										children: t("set.font.mono")
+									})
+								]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.density"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: settings.densityOverride,
+								onChange: (e) => setSettings({ densityOverride: e.target.value }),
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "theme",
+										children: t("set.as.theme")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "compact",
+										children: t("set.compact")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "regular",
+										children: t("set.regular")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: "airy",
+										children: t("set.airy")
+									})
+								]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.home"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+								value: settings.homeSize,
+								onChange: (e) => setSettings({ homeSize: e.target.value }),
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "compact",
+									children: t("set.compact")
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "roomy",
+									children: t("set.roomy")
+								})]
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.keepLastTab,
+							onChange: (keepLastTab) => setSettings({ keepLastTab }),
+							label: t("set.keep")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.reducedMotion,
+							onChange: (reducedMotion) => setSettings({ reducedMotion }),
+							label: t("set.motion")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.highContrast,
+							onChange: (highContrast) => setSettings({ highContrast }),
+							label: t("set.contrast")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.largeTap,
+							onChange: (largeTap) => setSettings({ largeTap }),
+							label: t("set.largetap")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.showHijri,
+							onChange: (showHijri) => setSettings({ showHijri }),
+							label: t("set.hijri")
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: t("set.section.quran")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid gap-4 sm:grid-cols-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+							label: t("set.reciter"),
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+								value: reciterId,
+								onChange: (e) => setReciter(e.target.value),
+								children: RECITERS.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: r.id,
+									children: r.name
+								}, r.id))
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.showMeaning,
+							onChange: (showMeaning) => setSettings({ showMeaning }),
+							label: t("set.meaning")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.favFirst,
+							onChange: (favFirst) => setSettings({ favFirst }),
+							label: t("set.favfirst")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+							checked: settings.autoPlayAyah,
+							onChange: (autoPlayAyah) => setSettings({ autoPlayAyah }),
+							label: t("set.autoplay")
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: t("set.section.voice")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mb-3 text-xs text-[var(--muted)]",
+					children: t("set.voice.note")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid gap-4 sm:grid-cols-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.voice.gender"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.voiceGender ?? "male",
+							onChange: (e) => {
+								stopSpeak();
+								setProbing(false);
+								setSettings({ voiceGender: e.target.value });
+							},
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "male",
+								children: t("set.voice.male")
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "female",
+								children: t("set.voice.female")
+							})]
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.voice.rate"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.voiceRate ?? "normal",
+							onChange: (e) => {
+								stopSpeak();
+								setProbing(false);
+								setSettings({ voiceRate: e.target.value });
+							},
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "slow",
+									children: t("set.voice.slow")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "normal",
+									children: t("set.voice.normal")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "fast",
+									children: t("set.voice.fast")
+								})
+							]
+						})
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "secondary",
+					className: "mt-3",
+					onClick: () => void probeVoice(),
+					"data-go": "voice-probe",
+					children: [probing ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), probing ? t("hadith.stop") : t("set.voice.test")]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: t("set.section.notify")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "grid gap-4 sm:grid-cols-2",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.sabrhour"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+							value: String(settings.sabrHour),
+							onChange: (e) => {
+								const sabrHour = Number(e.target.value);
+								setSettings({ sabrHour });
+								if (settings.sabrNotify) bootNotify(true, sabrHour);
+							},
+							children: Array.from({ length: 24 }, (_, h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", {
+								value: h,
+								children: [String(h).padStart(2, "0"), ":00"]
+							}, h))
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.sabrNotify,
+						onChange: async (on) => {
+							if (on) {
+								const r = await requestNotify();
+								setSettings({ sabrNotify: r === "granted" });
+								if (r === "granted") await bootNotify(true, settings.sabrHour);
+							} else {
+								setSettings({ sabrNotify: false });
+								await bootNotify(false, settings.sabrHour);
+							}
+						},
+						label: t("set.notify")
+					})]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-3 flex flex-wrap gap-2",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						onClick: async () => {
+							if (await requestNotify() === "granted") {
+								const { showSabrNow } = await import("./notify-Cn0VbTpB.mjs");
+								await showSabrNow();
+								setNote("Уведомление ушло, если система его не глушит.");
+							} else setNote("Сначала разрешите уведомления.");
+						},
+						children: t("set.test.notify")
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+					children: t("set.data")
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-wrap gap-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							variant: "secondary",
+							onClick: () => {
+								useHisn.setState({ counts: {} });
+								try {
+									localStorage.removeItem("mizan.v1.hisn");
+								} catch {}
+								setNote(t("set.reset.hisn"));
+							},
+							children: t("set.reset.hisn")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							onClick: () => setDesigns(true),
+							children: t("set.theme")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+							className: "inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm",
+							children: [t("set.import"), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								type: "file",
+								accept: "application/json,.json",
+								className: "sr-only",
+								onChange: async (e) => {
+									const file = e.target.files?.[0];
+									if (!file) return;
+									const text = await file.text();
+									const r = importJson(text);
+									setImportErr(r.ok ? "" : r.error ?? "не получилось открыть файл");
+									setImported(r.ok);
+								}
+							})]
+						})
+					]
+				}),
+				note ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--muted)]",
+					children: note
+				}) : null,
+				imported ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--ok)]",
+					children: t("set.import")
+				}) : null,
+				importErr ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-sm text-[var(--danger)]",
+					children: importErr
+				}) : null,
+				history.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-6",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "mb-2 font-medium",
+						children: t("set.saved")
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+						className: "grid gap-2 text-sm",
+						children: history.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+							className: "flex flex-wrap items-center justify-between gap-2 border border-[var(--line)] p-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+								h.title,
+								" · ",
+								h.input.asOfDate
+							] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "flex gap-2",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										variant: "ghost",
+										onClick: () => loadSaved(h.id),
+										children: t("set.saved.open")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										variant: "ghost",
+										onClick: () => duplicate(h.id),
+										children: t("set.saved.copy")
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+										variant: "ghost",
+										onClick: () => deleteSaved(h.id),
+										children: t("set.saved.delete")
+									})
+								]
+							})]
+						}, h.id))
+					})]
+				}) : null,
+				designsOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DesignGallery, {}) : null
+			]
+		})
+	});
+}
+function DesignGallery() {
+	const settings = useMizan((s) => s.settings);
+	const preview = useMizan((s) => s.previewThemeId);
+	const setPreview = useMizan((s) => s.setPreviewTheme);
+	const apply = useMizan((s) => s.applyTheme);
+	const revert = useMizan((s) => s.revertTheme);
+	const toggleFav = useMizan((s) => s.toggleFavorite);
+	const [q, setQ] = (0, import_react.useState)("");
+	const [family, setFamily] = (0, import_react.useState)("all");
+	const [mode, setMode] = (0, import_react.useState)("all");
+	const [favOnly, setFavOnly] = (0, import_react.useState)(false);
+	const previous = settings.themeId;
+	const list = (0, import_react.useMemo)(() => {
+		return THEMES.filter((t) => {
+			if (family !== "all" && t.family !== family) return false;
+			if (mode !== "all" && t.mode !== mode) return false;
+			if (favOnly && !settings.favorites.includes(t.id)) return false;
+			if (q && !`${t.name} ${t.nameRu} ${t.notes}`.toLowerCase().includes(q.toLowerCase())) return false;
+			return true;
+		});
+	}, [
+		q,
+		family,
+		mode,
+		favOnly,
+		settings.favorites
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "mt-6 border-t border-[var(--line)] pt-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "font-display text-xl",
+				children: "Оформление"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: [
+					"Можно посмотреть, не портя расчёт. Отмена вернёт «",
+					getTheme(previous).nameRu,
+					"»."
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-3 grid gap-3 sm:grid-cols-4",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Поиск",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: q,
+							onChange: (e) => setQ(e.target.value),
+							placeholder: "Изумруд, мастер…"
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Вид экрана",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: family,
+							onChange: (e) => setFamily(e.target.value),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "all",
+								children: "Все"
+							}), Object.entries(LAYOUT_LABEL).map(([k, v]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: k,
+								children: v
+							}, k))]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Светлый или тёмный",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: mode,
+							onChange: (e) => setMode(e.target.value),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "all",
+									children: "Все"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "dark",
+									children: "Тёмные"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "light",
+									children: "Светлые"
+								})
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+						className: "flex min-h-11 items-end gap-2 text-sm",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							type: "checkbox",
+							checked: favOnly,
+							onChange: (e) => setFavOnly(e.target.checked)
+						}), "Только избранные"]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3",
+				children: list.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => setPreview(t.id),
+					className: cn("border p-3 text-left", (preview ?? settings.themeId) === t.id ? "border-[var(--accent)]" : "border-[var(--line)]"),
+					style: {
+						background: t.tokens["--bg"],
+						color: t.tokens["--fg"]
+					},
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "mb-2 flex h-16 overflow-hidden border",
+							style: { borderColor: t.tokens["--line"] },
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "w-1/4",
+								style: { background: t.tokens["--surface"] }
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex-1 p-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "h-2 w-1/2",
+									style: { background: t.tokens["--accent"] }
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "mt-2 h-8",
+									style: { background: t.tokens["--bg-elev"] }
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-sm font-medium",
+							children: t.nameRu
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+							className: "text-[11px] opacity-80",
+							children: [
+								LAYOUT_LABEL[t.family],
+								" · ",
+								t.mode === "dark" ? "тёмная" : "светлая",
+								" · ",
+								t.density
+							]
+						}),
+						(preview ?? settings.themeId) === t.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1 text-[11px]",
+							children: "выбрано"
+						}) : null
+					]
+				}, t.id))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-4 flex flex-wrap gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						onClick: () => {
+							if (preview) apply(preview);
+						},
+						disabled: !preview,
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" }), " Применить"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						onClick: revert,
+						children: "Отмена"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						onClick: () => apply("mizan-emerald"),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { className: "size-4" }), " Вернуть исходный"]
+					}),
+					preview ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "ghost",
+						onClick: () => toggleFav(preview),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { className: "size-4" }), " Избранное"]
+					}) : null
+				]
+			})
+		]
+	});
+}
+var CURRENCIES = [
+	"RUB",
+	"KZT",
+	"TRY",
+	"EGP",
+	"SAR",
+	"AED",
+	"CNY",
+	"USD",
+	"EUR",
+	"GBP"
+];
+function SectionFrame({ id, title, children }) {
+	const openId = useMizan((s) => s.openZakatSection);
+	const setOpen = useMizan((s) => s.setOpenZakatSection);
+	const open = openId === id;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		id: `sec-${id}`,
+		className: "scroll-mt-24 overflow-hidden border border-[var(--line)] bg-[var(--surface)]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "flex min-h-12 w-full items-center justify-between gap-3 px-[var(--pad,1rem)] py-3 text-left",
+			"aria-expanded": open,
+			onClick: () => setOpen(open ? null : id),
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "font-display text-lg text-balance",
+				children: title
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: cn("size-5 shrink-0 text-[var(--muted)] transition-transform duration-200", open && "rotate-180") })]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "roll",
+			"data-open": open ? "true" : "false",
+			...!open ? { inert: true } : {},
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "roll-inner",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "grid gap-4 px-[var(--pad,1rem)] pb-[var(--pad,1rem)]",
+					children
+				})
+			})
+		})]
+	});
+}
+function ParamsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const quotesStatus = useMizan((s) => s.quotesStatus);
+	const quotesError = useMizan((s) => s.quotesError);
+	const gold = input.quotes.quotes.find((q) => q.asset === "XAU_G");
+	const silver = input.quotes.quotes.find((q) => q.asset === "XAG_G");
+	const profile = PROFILES.find((p) => p.id === input.profileId);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "params",
+		title: "Как считать",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Название расчёта",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: input.title,
+							onChange: (e) => setInput({ title: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Дата",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							type: "date",
+							value: input.asOfDate,
+							onChange: (e) => setInput({ asOfDate: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Валюта расчёта",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+							value: input.baseCurrency,
+							onChange: (e) => setInput({ baseCurrency: e.target.value }),
+							children: CURRENCIES.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: c,
+								children: c
+							}, c))
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "По какой школе",
+						hint: "Меняет правила, ваши цифры не стирает.",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+							value: input.profileId,
+							onChange: (e) => setInput({ profileId: e.target.value }),
+							children: PROFILES.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: p.id,
+								children: p.name
+							}, p.id))
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Какой год считать",
+						hint: "В шариате хауль — лунный год владения.",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: input.calendar,
+							onChange: (e) => setInput({ calendar: e.target.value }),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "hijri_lunar",
+								children: "Лунный год (хиджра)"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "gregorian_approx",
+								children: "Обычный календарь, примерно"
+							})]
+						})
+					})
+				]
+			}),
+			profile ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: profile.notes
+			}) : null,
+			input.profileId === "custom" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Режим нисаба (свой набор правил)",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+					value: input.nisabOverride?.mode ?? profile?.nisabMode ?? "gold",
+					onChange: (e) => setInput({ nisabOverride: {
+						...input.nisabOverride,
+						mode: e.target.value
+					} }),
+					children: Object.keys(NISAB_MODE_RU).map((m) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+						value: m,
+						children: NISAB_MODE_RU[m]
+					}, m))
+				})
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Деньги у вас уже год?",
+				hint: "Хауль — год владения. Без ответа денежный закят не считается готовым. На урожай, фитр и клад это не распространяется.",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: input.hawlConfirmed === null ? "unknown" : input.hawlConfirmed ? "yes" : "no",
+					onChange: (e) => setInput({ hawlConfirmed: e.target.value === "unknown" ? null : e.target.value === "yes" }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "unknown",
+							children: "Пока не знаю"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "yes",
+							children: "Да, год уже прошёл"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "no",
+							children: "Нет, год ещё не прошёл"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Нисаб золота, г",
+					hint: "Сколько граммов считается порогом. 85 или 87,48 — современные переводы динара, не текст хадиса.",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: input.nisabOverride?.goldGrams ?? "",
+						placeholder: profile?.nisabGoldGrams,
+						onChange: (e) => setInput({ nisabOverride: {
+							...input.nisabOverride,
+							goldGrams: e.target.value
+						} })
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Нисаб серебра, г",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: input.nisabOverride?.silverGrams ?? "",
+						placeholder: profile?.nisabSilverGrams,
+						onChange: (e) => setInput({ nisabOverride: {
+							...input.nisabOverride,
+							silverGrams: e.target.value
+						} })
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: `Цена золота за грамм, ${input.baseCurrency}`,
+					hint: gold ? `${gold.source} · ${gold.status === "manual" ? "вы ввели сами" : gold.status}` : "Нет цены — введите сами. На прошлую дату сегодняшняя цена не подставляется.",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: gold?.rate ?? "",
+						onChange: (e) => patchQuote(input, setInput, "XAU_G", e.target.value)
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: `Цена серебра за грамм, ${input.baseCurrency}`,
+					hint: silver ? `${silver.source} · ${silver.status === "manual" ? "вы ввели сами" : silver.status}` : "Нет цены",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: silver?.rate ?? "",
+						onChange: (e) => patchQuote(input, setInput, "XAG_G", e.target.value)
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: [
+					"Цены: ",
+					quotesStatus === "ok" ? "обновлены" : quotesStatus === "loading" ? "загружаем" : quotesStatus === "error" ? "не загрузились" : "ещё не брали",
+					quotesError ? ` — ${quotesError}` : "",
+					". То, что вы вписали сами, рынок не перезапишет."
+				]
+			})
+		]
+	});
+}
+function patchQuote(input, setInput, asset, rate) {
+	const rest = input.quotes.quotes.filter((q) => q.asset !== asset);
+	setInput({ quotes: {
+		...input.quotes,
+		quotes: [...rest, {
+			id: `manual:${asset}`,
+			asset,
+			base: asset,
+			quote: input.baseCurrency,
+			unit: "g",
+			rate,
+			marketTime: null,
+			fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+			source: "ручной ввод пользователя",
+			status: "manual",
+			author: "user"
+		}]
+	} });
+}
+function patchFx(input, setInput, from, rate) {
+	const rest = input.quotes.quotes.filter((q) => !(q.asset === from && q.quote === input.baseCurrency && q.unit === "fx"));
+	const row = {
+		id: `manual:fx:${from}:${input.baseCurrency}`,
+		asset: from,
+		base: from,
+		quote: input.baseCurrency,
+		unit: "fx",
+		rate,
+		marketTime: null,
+		fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+		source: "ручной ввод пользователя",
+		status: "manual",
+		author: "user"
+	};
+	setInput({ quotes: {
+		...input.quotes,
+		quotes: [...rest, row]
+	} });
+}
+function MoneySection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const add = () => setInput({ money: [...input.money, {
+		id: uid("m"),
+		label: "Счёт",
+		currency: input.baseCurrency,
+		amount: "",
+		ownerSharePct: "100",
+		joint: false
+	}] });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "money",
+		title: "Деньги, которые вы держите год",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "Наличные, карта, вклад и то, что вам должны — если это реально можно получить. Если валюта другая, укажите курс, иначе сумма не посчитается."
+			}),
+			input.money.map((line, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MoneyRow, {
+				line,
+				index: i
+			}, line.id)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: add,
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить счёт или валюту"]
+			})
+		]
+	});
+}
+function MoneyRow({ line, index }) {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const update = (patch) => {
+		const money = input.money.map((m) => m.id === line.id ? {
+			...m,
+			...patch
+		} : m);
+		setInput({ money });
+	};
+	const fx = input.quotes.quotes.find((q) => q.asset === line.currency && q.quote === input.baseCurrency && q.unit === "fx");
+	const needsFx = line.currency !== input.baseCurrency;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "row-box grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-12",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "sm:col-span-3",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Название",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.label,
+						onChange: (e) => update({ label: e.target.value })
+					})
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "sm:col-span-2",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Валюта",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+						value: line.currency,
+						onChange: (e) => update({ currency: e.target.value }),
+						children: CURRENCIES.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { children: c }, c))
+					})
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "sm:col-span-3",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Сумма",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: line.amount,
+						onChange: (e) => update({ amount: e.target.value })
+					})
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "sm:col-span-2",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Ваша доля, %",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.ownerSharePct,
+						onChange: (e) => update({ ownerSharePct: e.target.value })
+					})
+				})
+			}),
+			needsFx ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "sm:col-span-3",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: `Курс: сколько ${input.baseCurrency} за 1 ${line.currency}`,
+					hint: fx ? fx.status === "manual" ? "вы ввели сами" : "с рынка" : "Впишите сами или нажмите «Обновить цены»",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						inputMode: "decimal",
+						value: fx?.rate ?? "",
+						onChange: (e) => patchFx(input, setInput, line.currency, e.target.value)
+					})
+				})
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex items-end sm:col-span-2",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-xs",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: line.joint,
+						onChange: (e) => update({ joint: e.target.checked })
+					}), "Общее имущество"]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex items-end sm:col-span-2",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					variant: "ghost",
+					"aria-label": "Удалить",
+					onClick: () => setInput({ money: input.money.filter((m) => m.id !== line.id) }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "size-4" }),
+						" ",
+						index + 1
+					]
+				})
+			})
+		]
+	});
+}
+function MetalsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "metals",
+		title: "Золото и серебро",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "Чистое вещество = масса × проба / 1000. Украшения: у ханафитов входят в закят, у шафиитов, маликитов и ханбалитов личное ношение обычно не входит."
+			}),
+			input.metals.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MetalRow, { line }, line.id)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => setInput({ metals: [...input.metals, {
+					id: uid("au"),
+					metal: "gold",
+					grams: "",
+					purityPerMille: "999",
+					form: "bullion",
+					use: "investment"
+				}] }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить металл"]
+			})
+		]
+	});
+}
+function MetalRow({ line }) {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const update = (patch) => setInput({ metals: input.metals.map((m) => m.id === line.id ? {
+		...m,
+		...patch
+	} : m) });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "row-box grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-5",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Металл",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.metal,
+					onChange: (e) => update({ metal: e.target.value }),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+						value: "gold",
+						children: "Золото"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+						value: "silver",
+						children: "Серебро"
+					})]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Масса, г",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.grams,
+					inputMode: "decimal",
+					onChange: (e) => update({ grams: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Проба",
+				hint: "Например 585, 750, 999 из тысячи",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.purityPerMille,
+					inputMode: "decimal",
+					onChange: (e) => update({ purityPerMille: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Форма",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.form,
+					onChange: (e) => update({ form: e.target.value }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "bullion",
+							children: "Слиток"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "coin",
+							children: "Монета"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "jewelry",
+							children: "Украшение"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "other",
+							children: "Иное"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Назначение",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.use,
+					onChange: (e) => update({ use: e.target.value }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "investment",
+							children: "Накопление"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "personal_wear",
+							children: "Личное ношение"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "trade",
+							children: "Торговля"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "unknown",
+							children: "Неизвестно"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "ghost",
+				onClick: () => setInput({ metals: input.metals.filter((m) => m.id !== line.id) }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "size-4" }), " Удалить"]
+			})
+		]
+	});
+}
+function TradeSection() {
+	const t = useMizan((s) => s.input.trade);
+	const setInput = useMizan((s) => s.setInput);
+	const set = (patch) => setInput({ trade: {
+		...t,
+		...patch
+	} });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionFrame, {
+		id: "trade",
+		title: "Бизнес и товар",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "grid gap-4 sm:grid-cols-2",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Товар на складе",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: t.inventory,
+						onChange: (e) => set({ inventory: e.target.value })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Деньги бизнеса",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: t.businessCash,
+						onChange: (e) => set({ businessCash: e.target.value })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Вам должны",
+					hint: "Только то, что реально можно получить",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: t.receivables,
+						onChange: (e) => set({ receivables: e.target.value })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Долги бизнеса",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: t.payables,
+						onChange: (e) => set({ payables: e.target.value })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Валюта",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+						value: t.currency,
+						onChange: (e) => set({ currency: e.target.value }),
+						children: CURRENCIES.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { children: c }, c))
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Ваша доля, %",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: t.ownerSharePct,
+						onChange: (e) => set({ ownerSharePct: e.target.value })
+					})
+				})
+			]
+		})
+	});
+}
+function InvestmentsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "investments",
+		title: "Инвестиции",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "Если акции как товар — считаем всё. Если только часть имущества в них закятная — укажите процент. «Примерно 25 %» — оценка, не правило из Корана."
+			}),
+			input.investments.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InvestRow, { line }, line.id)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => setInput({ investments: [...input.investments, {
+					id: uid("inv"),
+					kind: "stock",
+					label: "Акции",
+					currency: input.baseCurrency,
+					marketValue: "",
+					mode: "trade_100",
+					assetFractionPct: "",
+					ownerSharePct: "100"
+				}] }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить вложение"]
+			})
+		]
+	});
+}
+function InvestRow({ line }) {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const update = (patch) => setInput({ investments: input.investments.map((m) => m.id === line.id ? {
+		...m,
+		...patch
+	} : m) });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "row-box grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Название",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.label,
+					onChange: (e) => update({ label: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Вид",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.kind,
+					onChange: (e) => update({ kind: e.target.value }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "stock",
+							children: "Акции"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "fund",
+							children: "Фонд"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "etf",
+							children: "ETF"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "sukuk",
+							children: "Сукук"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "pension",
+							children: "Пенсионный счёт"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "other",
+							children: "Иное"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Рыночная стоимость",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.marketValue,
+					onChange: (e) => update({ marketValue: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Как считать",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.mode,
+					onChange: (e) => update({ mode: e.target.value }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "trade_100",
+							children: "Как товар — целиком"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "asset_fraction",
+							children: "Только закятная часть"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "proxy_25",
+							children: "Примерно 25 % (оценка, не правило)"
+						})
+					]
+				})
+			}),
+			line.mode === "asset_fraction" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Какая доля, %",
+				hint: "Без доли расчёт неполный. 25 % сами не подставим.",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.assetFractionPct,
+					onChange: (e) => update({ assetFractionPct: e.target.value })
+				})
+			}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "ghost",
+				onClick: () => setInput({ investments: input.investments.filter((m) => m.id !== line.id) }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "size-4" }), " Удалить"]
+			})
+		]
+	});
+}
+function CryptoSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "crypto",
+		title: "Криптовалюта",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "Прямого хадиса нет. То, что можно сразу продать, входит в деньги по цене. Стейкинг, DeFi и заблокированное сами не включаем. Ссылки ниже — мнения, не хукм."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+				className: "flex flex-wrap gap-2 text-xs",
+				children: CRYPTO_OPINION_LINKS.map((l) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					className: "underline text-[var(--muted)]",
+					href: l.url,
+					target: "_blank",
+					rel: "noreferrer",
+					children: l.name
+				}) }, l.url))
+			}),
+			input.crypto.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CryptoRow, { line }, line.id)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => setInput({ crypto: [...input.crypto, {
+					id: uid("c"),
+					symbol: "BTC",
+					name: "Bitcoin",
+					quantity: "",
+					price: "",
+					priceCurrency: input.baseCurrency,
+					availability: "liquid",
+					purpose: "hold"
+				}] }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить монету"]
+			})
+		]
+	});
+}
+function CryptoRow({ line }) {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const update = (patch) => setInput({ crypto: input.crypto.map((m) => m.id === line.id ? {
+		...m,
+		...patch
+	} : m) });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "row-box grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Монета",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.symbol,
+					onChange: (e) => update({ symbol: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Количество",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.quantity,
+					onChange: (e) => update({ quantity: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: `Цена, ${line.priceCurrency}`,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+					value: line.price,
+					onChange: (e) => update({ price: e.target.value })
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+				label: "Можно ли продать сейчас",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+					value: line.availability,
+					onChange: (e) => update({ availability: e.target.value }),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "liquid",
+							children: "Да, сразу"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "staked",
+							children: "В стейкинге"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "locked",
+							children: "Заблокировано"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "defi",
+							children: "В DeFi"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "lent",
+							children: "Отдано в долг"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "unknown",
+							children: "Не знаю"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "ghost",
+				onClick: () => setInput({ crypto: input.crypto.filter((m) => m.id !== line.id) }),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "size-4" })
+			})
+		]
+	});
+}
+function PropertySection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "property",
+		title: "Недвижимость",
+		children: [input.realEstate.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-3",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Объект",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.label,
+						onChange: (e) => setInput({ realEstate: input.realEstate.map((x) => x.id === line.id ? {
+							...x,
+							label: e.target.value
+						} : x) })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Назначение",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: line.purpose,
+						onChange: (e) => setInput({ realEstate: input.realEstate.map((x) => x.id === line.id ? {
+							...x,
+							purpose: e.target.value
+						} : x) }),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "personal",
+								children: "Личное"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "rental",
+								children: "Аренда (доход)"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "trade",
+								children: "Торговля (стоимость)"
+							})
+						]
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: line.purpose === "rental" ? "Годовой доход" : "Стоимость",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.purpose === "rental" ? line.annualRent : line.propertyValue,
+						onChange: (e) => setInput({ realEstate: input.realEstate.map((x) => x.id === line.id ? line.purpose === "rental" ? {
+							...x,
+							annualRent: e.target.value
+						} : {
+							...x,
+							propertyValue: e.target.value
+						} : x) })
+					})
+				})
+			]
+		}, line.id)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+			variant: "secondary",
+			onClick: () => setInput({ realEstate: [...input.realEstate, {
+				id: uid("re"),
+				purpose: "personal",
+				label: "Объект",
+				currency: input.baseCurrency,
+				propertyValue: "",
+				annualRent: ""
+			}] }),
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить объект"]
+		})]
+	});
+}
+function DebtsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "debts",
+		title: "Долги",
+		children: [input.debts.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Название",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.label,
+						onChange: (e) => setInput({ debts: input.debts.map((x) => x.id === line.id ? {
+							...x,
+							label: e.target.value
+						} : x) })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Вид",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: line.kind,
+						onChange: (e) => setInput({ debts: input.debts.map((x) => x.id === line.id ? {
+							...x,
+							kind: e.target.value
+						} : x) }),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "payable",
+							children: "Я должен"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "receivable",
+							children: "Мне должны"
+						})]
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Сумма",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: line.amount,
+						onChange: (e) => setInput({ debts: input.debts.map((x) => x.id === line.id ? {
+							...x,
+							amount: e.target.value
+						} : x) })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Когда / можно ли получить",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+						value: line.kind === "payable" ? line.timing : line.collectible,
+						onChange: (e) => setInput({ debts: input.debts.map((x) => x.id === line.id ? line.kind === "payable" ? {
+							...x,
+							timing: e.target.value
+						} : {
+							...x,
+							collectible: e.target.value
+						} : x) }),
+						children: line.kind === "payable" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "immediate",
+								children: "Нужно отдать сейчас"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "long",
+								children: "Потом, не срочно"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "unknown",
+								children: "Не знаю"
+							})
+						] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "yes",
+								children: "Можно получить"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "no",
+								children: "Скорее нет"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "unknown",
+								children: "Не знаю"
+							})
+						] })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					variant: "ghost",
+					onClick: () => setInput({ debts: input.debts.filter((x) => x.id !== line.id) }),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trash2, { className: "size-4" })
+				})
+			]
+		}, line.id)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+			variant: "secondary",
+			onClick: () => setInput({ debts: [...input.debts, {
+				id: uid("d"),
+				kind: "payable",
+				label: "Долг",
+				currency: input.baseCurrency,
+				amount: "",
+				timing: "immediate",
+				collectible: "yes"
+			}] }),
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить долг"]
+		})]
+	});
+}
+function LivestockSection() {
+	const L = useMizan((s) => s.input.livestock);
+	const profileId = useMizan((s) => s.input.profileId);
+	const profile = PROFILES.find((p) => p.id === profileId);
+	const setInput = useMizan((s) => s.setInput);
+	const set = (patch) => setInput({ livestock: {
+		...L,
+		...patch
+	} });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "livestock",
+		title: "Скот",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "Овцы: от 40 до 120 голов — одна овца, не «поделить на 40». Верблюды — Бухари 1454. Коровы — Абу Дауд 1576. Головы в рубли сами не складываем."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Пасётся сам?",
+					hint: "Саима — на подножном корму, не на купленном корме.",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: L.grazing === null ? "u" : L.grazing ? "y" : "n",
+						onChange: (e) => set({ grazing: e.target.value === "u" ? null : e.target.value === "y" }),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "u",
+								children: "Не указано"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "y",
+								children: "Да, пасётся"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "n",
+								children: "Нет, на купленном корме"
+							})
+						]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Скот у вас уже год?",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: L.hawlConfirmed === null ? "u" : L.hawlConfirmed ? "y" : "n",
+						onChange: (e) => set({ hawlConfirmed: e.target.value === "u" ? null : e.target.value === "y" }),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "u",
+								children: "Пока не знаю"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "y",
+								children: "Да"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "n",
+								children: "Нет"
+							})
+						]
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-3",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Овцы / козы, голов",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.sheep,
+							onChange: (e) => set({ sheep: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Верблюды, голов",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.camels,
+							onChange: (e) => set({ camels: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "КРС, голов",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.cattle,
+							onChange: (e) => set({ cattle: e.target.value })
+						})
+					})
+				]
+			}),
+			profile?.livestockCashOk ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: L.cashSubstitute,
+						onChange: (e) => set({ cashSubstitute: e.target.checked })
+					}), "Денежный эквивалент (если школа это допускает)"]
+				}), L.cashSubstitute ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Цена овцы",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.priceSheep,
+							onChange: (e) => set({ priceSheep: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Цена верблюда",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.priceCamel,
+							onChange: (e) => set({ priceCamel: e.target.value })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Цена головы КРС",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: L.priceCattle,
+							onChange: (e) => set({ priceCattle: e.target.value })
+						})
+					})
+				] }) : null]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: "Эта школа не подставляет деньги вместо голов сама."
+			})
+		]
+	});
+}
+function CropsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "crops",
+		title: "Урожай",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-sm text-[var(--muted)]",
+				children: "1 тонна = 1000 кг. Ставка 10 % → 100 кг, 5 % → 50 кг. В деньги переводим только если есть цена за кг. Год владения для урожая не нужен."
+			}),
+			input.crops.map((line) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-3 border border-[var(--line)] p-3 sm:grid-cols-3",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Культура",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: line.cropType,
+							onChange: (e) => setInput({ crops: input.crops.map((x) => x.id === line.id ? {
+								...x,
+								cropType: e.target.value
+							} : x) })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Масса, кг",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: line.massKg,
+							onChange: (e) => setInput({ crops: input.crops.map((x) => x.id === line.id ? {
+								...x,
+								massKg: e.target.value
+							} : x) })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Полив",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: line.irrigation,
+							onChange: (e) => setInput({ crops: input.crops.map((x) => x.id === line.id ? {
+								...x,
+								irrigation: e.target.value
+							} : x) }),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "natural",
+									children: "Дождь / самотёк (10 %)"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "costly",
+									children: "Колодец, насос (5 %)"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "mixed",
+									children: "И так, и так"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "unknown",
+									children: "Не знаю"
+								})
+							]
+						})
+					}),
+					line.irrigation === "mixed" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Какая доля дождём, %",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: line.mixedNaturalSharePct,
+							onChange: (e) => setInput({ crops: input.crops.map((x) => x.id === line.id ? {
+								...x,
+								mixedNaturalSharePct: e.target.value
+							} : x) })
+						})
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Цена за кг (необязательно)",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: line.pricePerKg,
+							onChange: (e) => setInput({ crops: input.crops.map((x) => x.id === line.id ? {
+								...x,
+								pricePerKg: e.target.value
+							} : x) })
+						})
+					})
+				]
+			}, line.id)),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				onClick: () => setInput({ crops: [...input.crops, {
+					id: uid("cr"),
+					cropType: "",
+					massKg: "",
+					irrigation: "natural",
+					mixedNaturalSharePct: "",
+					pricePerKg: "",
+					currency: input.baseCurrency
+				}] }),
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plus, { className: "size-4" }), " Добавить урожай"]
+			})
+		]
+	});
+}
+function SpecialsSection() {
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const r = input.rikaz;
+	const f = input.fitr;
+	const s = input.special ?? {
+		minorOwner: false,
+		inherited: false,
+		incompleteOwnership: false,
+		prepaid: false,
+		overduePeriods: ""
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SectionFrame, {
+		id: "specials",
+		title: "Клад и фитр",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "grid gap-4 sm:grid-cols-2",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Сумма клада",
+					hint: "Риказ — древний клад в земле, не любая находка.",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: r.amount,
+						onChange: (e) => setInput({ rikaz: {
+							...r,
+							amount: e.target.value
+						} })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Это риказ?",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: r.classifiedAsRikaz === null ? "u" : r.classifiedAsRikaz ? "y" : "n",
+						onChange: (e) => setInput({ rikaz: {
+							...r,
+							classifiedAsRikaz: e.target.value === "u" ? null : e.target.value === "y"
+						} }),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "u",
+								children: "Не подтверждаю"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "y",
+								children: "Да, это клад (риказ)"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "n",
+								children: "Нет, обычная находка"
+							})
+						]
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "За сколько человек фитр",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: f.people,
+						onChange: (e) => setInput({ fitr: {
+							...f,
+							people: e.target.value
+						} })
+					})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Чем платить фитр",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: f.mode,
+						onChange: (e) => setInput({ fitr: {
+							...f,
+							mode: e.target.value
+						} }),
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "food_sa",
+							children: "Продуктами (один саʿ)"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "cash_equivalent",
+							children: "Деньгами, как принято у вас"
+						})]
+					})
+				}),
+				f.mode === "cash_equivalent" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Сумма на человека",
+						hint: "Это ваша местная сумма, не общая норма.",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: f.cashPerPerson,
+							onChange: (e) => setInput({ fitr: {
+								...f,
+								cashPerPerson: e.target.value
+							} })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Регион",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: f.region,
+							onChange: (e) => setInput({ fitr: {
+								...f,
+								region: e.target.value
+							} })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: "Год",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+							value: f.year,
+							onChange: (e) => setInput({ fitr: {
+								...f,
+								year: e.target.value
+							} })
+						})
+					})
+				] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Продукт",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: f.product,
+						onChange: (e) => setInput({ fitr: {
+							...f,
+							product: e.target.value
+						} }),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "dates",
+								children: "Финики"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "barley",
+								children: "Ячмень"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "wheat",
+								children: "Пшеница"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "raisins",
+								children: "Изюм"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "local",
+								children: "Местный"
+							})
+						]
+					})
+				})
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("fieldset", {
+			className: "grid gap-2 border border-[var(--line)] p-3",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("legend", {
+					className: "px-1 text-[11px] uppercase tracking-[0.08em] text-[var(--muted)]",
+					children: "Особые ситуации"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: s.minorOwner,
+						onChange: (e) => setInput({ special: {
+							...s,
+							minorOwner: e.target.checked
+						} })
+					}), "Несовершеннолетний владелец (закят за ребёнка сами не решаем)"]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: s.inherited,
+						onChange: (e) => setInput({ special: {
+							...s,
+							inherited: e.target.checked
+						} })
+					}), "Это наследство"]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: s.incompleteOwnership,
+						onChange: (e) => setInput({ special: {
+							...s,
+							incompleteOwnership: e.target.checked
+						} })
+					}), "Владение неполное"]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "flex min-h-11 items-center gap-2 text-sm",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						type: "checkbox",
+						checked: s.prepaid,
+						onChange: (e) => setInput({ special: {
+							...s,
+							prepaid: e.target.checked
+						} })
+					}), "Уже заплатил авансом (просто пометка)"]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Пропущенные годы",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: s.overduePeriods,
+						placeholder: "например: 2 лунных года — итог сам не умножаем",
+						onChange: (e) => setInput({ special: {
+							...s,
+							overduePeriods: e.target.value
+						} })
+					})
+				})
+			]
+		})]
+	});
+}
+function AllSections() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ParamsSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MoneySection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MetalsSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TradeSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InvestmentsSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CryptoSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PropertySection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DebtsSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LivestockSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CropsSection, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SpecialsSection, {})
+	] });
+}
+function ZakatView() {
+	const result = useMizan((s) => s.lastResult);
+	const input = useMizan((s) => s.input);
+	const setInput = useMizan((s) => s.setInput);
+	const open = useMizan((s) => s.zakatOpen);
+	const setOpen = useMizan((s) => s.setZakatOpen);
+	const details = useMizan((s) => s.detailsOpen);
+	const setDetails = useMizan((s) => s.setDetailsOpen);
+	const profile = result ? getProfile(result.profileId) : null;
+	const line = input.money[0];
+	const fetched = (0, import_react.useRef)(false);
+	(0, import_react.useEffect)(() => {
+		if (fetched.current) return;
+		if (input.quotes.quotes.some((q) => q.asset === "XAU_G" || q.asset === "XAG_G")) return;
+		fetched.current = true;
+		const { asOfDate, baseCurrency, crypto } = useMizan.getState().input;
+		(async () => {
+			useMizan.getState().setQuotesStatus("loading");
+			try {
+				const res = await fetchMarketQuotes({ data: {
+					date: asOfDate,
+					base: baseCurrency,
+					symbols: [
+						"USD",
+						"EUR",
+						"RUB",
+						"KZT",
+						"TRY",
+						"EGP",
+						"SAR",
+						"AED",
+						"CNY",
+						"GBP"
+					],
+					cryptoIds: crypto.map((c) => c.coingeckoId).filter((x) => Boolean(x))
+				} });
+				if (!res.ok) {
+					useMizan.getState().setQuotesStatus("error", res.error);
+					return;
+				}
+				const manuals = useMizan.getState().input.quotes.quotes.filter((q) => q.status === "manual");
+				const merged = [...res.snapshot.quotes.filter((q) => !manuals.some((m) => m.asset === q.asset)), ...manuals];
+				useMizan.getState().setInput({ quotes: {
+					...res.snapshot,
+					quotes: merged
+				} });
+				useMizan.getState().setQuotesStatus("ok");
+			} catch (e) {
+				useMizan.getState().setQuotesStatus("error", e instanceof Error ? e.message : "сеть");
+			}
+		})();
+	}, [input.quotes.quotes]);
+	const mal = result?.categories.find((c) => c.id === "mal_net");
+	const below = mal?.status === "below_nisab" || result?.overallStatus === "not_due_confirmed";
+	const due = result?.overallStatus === "due" || result?.overallStatus === "mixed";
+	const empty = !line?.amount.trim() && (mal?.status === "not_entered" || !mal);
+	const needHawl = !empty && !below && !due && input.hawlConfirmed === null;
+	const headline = empty ? "Введите сумму" : below ? "Не подпадает под закят" : due ? "К уплате" : needHawl ? "Нужен год владения" : "Пока не считаем";
+	const amountText = empty || below ? "—" : result ? formatMoney(result.totalMoneyRounded, result.baseCurrency) : "—";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]",
+					children: "Расчёт"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "font-display mt-2 text-3xl tracking-tight",
+					children: "Закят"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-1 text-sm text-[var(--muted)]",
+					children: "Сумма на этой карточке. Остальное — ниже, если нужно."
+				})
+			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+						children: headline
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: cn("font-display mt-2 leading-none tracking-tight", below || empty || needHawl ? "text-4xl text-[var(--fg)]" : "text-5xl tabular-nums text-[var(--ok)]"),
+						"data-testid": "zakat-total",
+						children: below ? "Не подпадает" : needHawl ? "Год?" : amountText
+					}),
+					result && !empty ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [due && result.totalMoneyRounded !== 0n ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "font-display mt-3 text-4xl tabular-nums text-[var(--ok)]",
+						children: formatMoney(result.totalMoneyRounded, result.baseCurrency)
+					}) : null, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "mt-2 text-sm",
+						children: [below ? "Сумма ниже нисаба. Ставка 1/40 не применяется." : needHawl ? "Сумма выше нисаба. Без года владения закят не начисляем." : OVERALL_RU[result.overallStatus] ?? result.overallStatus, profile ? ` · ${profile.name}` : ""]
+					})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-2 text-sm text-[var(--muted)]",
+						children: "Пока нет цифры — нет закята к уплате."
+					}),
+					line ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-4 grid gap-3 sm:grid-cols-2",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+								label: "Сумма",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+									inputMode: "decimal",
+									value: line.amount,
+									placeholder: "0",
+									onChange: (e) => {
+										const money = input.money.map((m) => m.id === line.id ? {
+											...m,
+											amount: e.target.value
+										} : m);
+										setInput({ money });
+									}
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+								label: "Валюта",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+									value: input.baseCurrency,
+									onChange: (e) => {
+										const baseCurrency = e.target.value;
+										const money = input.money.map((m, i) => i === 0 ? {
+											...m,
+											currency: baseCurrency
+										} : m);
+										setInput({
+											baseCurrency,
+											money
+										});
+									},
+									children: CURRENCIES.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: c,
+										children: c
+									}, c))
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+								label: "Деньги уже год?",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+									value: input.hawlConfirmed === null ? "unknown" : input.hawlConfirmed ? "yes" : "no",
+									onChange: (e) => setInput({ hawlConfirmed: e.target.value === "unknown" ? null : e.target.value === "yes" }),
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+											value: "unknown",
+											children: "Пока не знаю"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+											value: "yes",
+											children: "Да, год прошёл"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+											value: "no",
+											children: "Нет, год не прошёл"
+										})
+									]
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+								label: "Школа",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+									value: input.profileId,
+									onChange: (e) => setInput({ profileId: e.target.value }),
+									children: PROFILES.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+										value: p.id,
+										children: p.name
+									}, p.id))
+								})
+							})
+						]
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mt-4 flex flex-wrap gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuotesButton, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "ghost",
+							className: "pill",
+							onClick: () => setDetails(!details),
+							children: [details ? "Скрыть порог" : "Порог нисаба", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: cn("size-4 transition-transform", details && "rotate-180") })]
+						})]
+					}),
+					details ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-3",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ResultsPanel, {})
+					}) : null
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "glow",
+				className: "w-full",
+				onClick: () => setOpen(!open),
+				"aria-expanded": open,
+				children: [open ? "Скрыть остальное" : "Золото, скот, крипто, урожай", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, { className: cn("size-4 transition-transform duration-200", open && "rotate-180") })]
+			}),
+			open ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-3 pb-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AllSections, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RecipientsPanel, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EvidenceList, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AssistantPanel, {})
+				]
+			}) : null
+		]
+	});
+}
+function ThemeApplier() {
+	const settings = useMizan((s) => s.settings);
+	const theme = getTheme(useMizan((s) => s.previewThemeId) ?? settings.themeId);
+	(0, import_react.useEffect)(() => {
+		const root = document.documentElement;
+		Object.entries(theme.tokens).forEach(([k, v]) => root.style.setProperty(k, v));
+		root.dataset.theme = theme.id;
+		root.dataset.family = theme.family;
+		root.dataset.density = settings.densityOverride === "theme" ? theme.density : settings.densityOverride;
+		root.dataset.mode = settings.colorScheme === "theme" ? theme.mode : settings.colorScheme === "dark" ? "dark" : settings.colorScheme === "light" ? "light" : theme.mode;
+		root.dataset.radius = theme.radius;
+		root.dataset.fonts = settings.fontPair && settings.fontPair !== "theme" ? settings.fontPair : theme.fonts;
+		root.dataset.nav = settings.navLayout === "theme" ? theme.nav : settings.navLayout;
+		root.lang = settings.locale === "ar" ? "ar" : settings.locale;
+		root.dir = settings.locale === "ar" ? "rtl" : "ltr";
+		root.dataset.motion = settings.reducedMotion ? "off" : "on";
+		root.dataset.shadow = theme.shadow;
+		root.dataset.tap = settings.largeTap ? "large" : "normal";
+		root.dataset.contrast = settings.highContrast ? "high" : "normal";
+		root.dataset.home = settings.homeSize;
+		root.style.setProperty("--user-font-scale", String(settings.fontScale));
+		root.style.colorScheme = theme.mode;
+	}, [theme, settings]);
+	return null;
+}
+var TABS = [
+	{
+		id: "home",
+		label: "Главная",
+		icon: House
+	},
+	{
+		id: "zakat",
+		label: "Закят",
+		icon: Scale
+	},
+	{
+		id: "quran",
+		label: "Коран",
+		icon: BookOpen
+	},
+	{
+		id: "hisn",
+		label: "Хисн",
+		icon: Shield
+	},
+	{
+		id: "learn",
+		label: "Учить",
+		icon: GraduationCap
+	}
+];
+function parseHash() {
+	if (typeof window === "undefined") return;
+	const h = location.hash.replace(/^#/, "");
+	if (!h) return;
+	const [a, b, c] = h.split("/");
+	if (a === "tafsir") {
+		useMizan.getState().setAppTab("quran");
+		const s = Number(b) || 12;
+		const ay = Number(c);
+		useQuran.getState().openTafsir(s, ay >= 1 ? ay : 1);
+	} else if (a === "quran") {
+		useMizan.getState().setAppTab("quran");
+		const s = Number(b);
+		const ay = Number(c);
+		if (s >= 1 && s <= 114) useQuran.getState().setRef(s, ay >= 1 ? ay : 1);
+	} else if (a === "learn") {
+		useMizan.getState().setAppTab("learn");
+		const n = Number(b);
+		if (n >= 1 && n <= 40) useLearn.getState().setWeek(n);
+	} else if (a === "hisn") {
+		useMizan.getState().setAppTab("hisn");
+		const id = Number(b);
+		if (Number.isFinite(id) && id > 0) useMizan.getState().setHisnChapter(id);
+	} else if (a === "house") {
+		const rooms = new Set([...HOUSE_MAIN, ...HOUSE_MORE].map((t) => t.room).filter(Boolean));
+		if (b && rooms.has(b)) {
+			const n = Number(c);
+			if (b === "nawawi" && Number.isFinite(n) && n >= 1 && n <= 42) useMizan.getState().setHouseNav("nawawi", n, "list");
+			else useMizan.getState().setHouseNav(b, null);
+		} else useMizan.getState().setAppTab("home");
+	} else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn") {
+		useMizan.getState().setAppTab(a);
+		if (a === "home") useMizan.getState().setHouseRoom(null);
+	}
+}
+function Header() {
+	const open = useMizan((s) => s.setSettingsOpen);
+	const setTab = useMizan((s) => s.setAppTab);
+	const locale = useMizan((s) => s.settings.locale);
+	function openSettings(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		open(true);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+		className: "relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "flex min-w-0 items-center gap-3 text-left",
+			onClick: () => setTab("home"),
+			"data-go": "home",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrandMark, { size: 44 }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "min-w-0",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "live-dot" }), "Мизан"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "truncate text-xs text-[var(--muted)]",
+					children: "Шейх · Закят · Коран · Хисн · Иткан"
+				})]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "flex items-center gap-2",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "ghost",
+				className: "pill size-11 p-0",
+				"aria-label": translate(locale, "settings"),
+				"data-go": "settings",
+				onPointerDown: openSettings,
+				onClick: openSettings,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "size-5" })
+			})
+		})]
+	});
+}
+function BottomNav() {
+	const tab = useMizan((s) => s.appTab);
+	const setTab = useMizan((s) => s.setAppTab);
+	const locale = useMizan((s) => s.settings.locale);
+	const layout = useMizan((s) => s.settings.navLayout);
+	const rail = layout === "rail";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+		className: "bottom-dock glass",
+		"aria-label": translate(locale, "nav.home"),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+			className: cn("mx-auto grid max-w-lg", layout === "sidebar" ? "grid-cols-1" : "grid-cols-5"),
+			children: TABS.map((t) => {
+				const Icon = t.icon;
+				const on = tab === t.id;
+				return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => setTab(t.id),
+					"data-go": `tab-${t.id}`,
+					className: cn("flex w-full flex-col items-center justify-center gap-1 text-[11px]", rail ? "min-h-14" : "min-h-16", on ? "nav-glow" : "text-[var(--muted)]"),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, { className: "size-5" }), rail ? null : translate(locale, `nav.${t.id}`)]
+				}) }, t.id);
+			})
+		})
+	});
+}
+function KeepTab({ id, tab, children }) {
+	const seen = (0, import_react.useRef)(tab === id);
+	if (tab === id) seen.current = true;
+	if (!seen.current) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		hidden: tab !== id,
+		className: "tab-keep",
+		"aria-hidden": tab !== id,
+		children
+	});
+}
+function SettingsGate() {
+	if (!useMizan((s) => s.settingsOpen)) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsDialog, {});
+}
+function MizanApp() {
+	const tab = useMizan((s) => s.appTab);
+	const session = useQuran((s) => s.session);
+	const hadithOpen = useMizan((s) => s.houseHadith != null);
+	(0, import_react.useEffect)(() => {
+		hydrateMizan();
+		hydrateQuran();
+		hydrateLearn();
+		hydrateHisn();
+		parseHash();
+		if (!location.hash) {
+			const st = useMizan.getState().settings;
+			if (!st.keepLastTab && st.startTab && st.startTab !== "home") useMizan.getState().setAppTab(st.startTab);
+			else if (!st.keepLastTab) useMizan.getState().setAppTab(st.startTab);
+		}
+		const onHash = () => parseHash();
+		window.addEventListener("hashchange", onHash);
+		const onMsg = (e) => {
+			if (e.data?.type === "OPEN" && typeof e.data.url === "string") {
+				const hash = String(e.data.url).split("#")[1];
+				if (hash) location.hash = hash;
+				parseHash();
+			}
+			if (e.data?.type === "SABR_DUE") {
+				if (useMizan.getState().settings.sabrNotify) import("./notify-Cn0VbTpB.mjs").then((m) => m.showSabrNow());
+			}
+		};
+		navigator.serviceWorker?.addEventListener("message", onMsg);
+		queueMicrotask(() => useMizan.getState().recompute());
+		const st = useMizan.getState().settings;
+		if (st.sabrNotify) startSabrDaily(st.sabrHour);
+		return () => {
+			window.removeEventListener("hashchange", onHash);
+			navigator.serviceWorker?.removeEventListener("message", onMsg);
+		};
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: cn("app-shell", session && "has-player", hadithOpen && "is-hadith"),
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThemeApplier, {}),
+			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "geo-veil",
+				"aria-hidden": true
+			}),
+			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+					id: "home",
+					tab,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HomeView, {})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+					id: "zakat",
+					tab,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZakatView, {})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+					id: "quran",
+					tab,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuranView, {})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+					id: "hisn",
+					tab,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HisnView, {})
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+					id: "learn",
+					tab,
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LearnView, {})
+				})
+			] }),
+			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlayerBar, {}),
+			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BottomNav, {}),
+			hadithOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HadithReader, {}) : null,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsGate, {})
+		]
+	});
+}
+function Home() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MizanApp, {});
+}
+//#endregion
+export { notifySupported as a, showSabrNow as c, Home as component, routes_BBOWwbJt_exports as d, nextSabrLabel as i, shownToday as l, bootNotify as n, registerSw as o, nextSabrDate as r, requestNotify as s, armSabrTimer as t, startSabrDaily as u };

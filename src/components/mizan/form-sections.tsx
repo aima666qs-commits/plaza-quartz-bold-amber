@@ -9,7 +9,7 @@ import { NISAB_MODE_RU } from "@/lib/mizan/labels.ts";
 import { cn, uid } from "@/lib/utils.ts";
 import type { CalculationInput, CryptoLine, InvestmentLine, MetalLine, MoneyLine, NisabMode, Quote } from "@/lib/mizan/types.ts";
 
-const CURRENCIES = ["RUB", "USD", "EUR", "EGP", "SAR", "AED", "TRY", "GBP"];
+const CURRENCIES = ["RUB", "KZT", "TRY", "EGP", "SAR", "AED", "CNY", "USD", "EUR", "GBP"];
 
 export const SECTIONS = [
   { id: "params", title: "Как считать" },
@@ -1041,6 +1041,8 @@ export function SpecialsSection() {
     </SectionFrame>
   );
 }
+
+export { CURRENCIES };
 
 export function AllSections() {
   return (

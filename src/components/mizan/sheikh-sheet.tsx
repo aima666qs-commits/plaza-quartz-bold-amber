@@ -6,7 +6,7 @@ import { askEvidence, localSourceSearch, type AskPayload } from "@/lib/assistant
 import { formatPlain } from "@/lib/mizan/decimal.ts";
 import { getProfile } from "@/lib/mizan/profiles.ts";
 import { SOURCES } from "@/lib/mizan/sources.ts";
-import { listenRu, voiceAvailable } from "@/lib/voice.ts";
+import { listenRu, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
 type Log = { role: "user" | "sheikh"; text: string };
@@ -41,6 +41,7 @@ export function SheikhSheet({
       seeded.current = "";
       stopVoice.current?.();
       setListening(false);
+      stopSpeak();
       return;
     }
     if (seed && seed !== seeded.current) {
@@ -104,18 +105,15 @@ export function SheikhSheet({
     try {
       const res = await askEvidence({ data: payload });
       if (res.ok) {
-        setModelNote(res.model);
+        setModelNote("шейх");
         setLog((l) => [...l, { role: "sheikh", text: res.text }]);
+        void speakText(res.text);
       } else {
         const fallback = excerpts.map((s) => `• ${s.title}: ${s.notes}`).join("\n");
         setModelNote("источники");
-        setLog((l) => [
-          ...l,
-          {
-            role: "sheikh",
-            text: `Мир тебе. Живая модель сейчас молчит — ниже только сохранённый реестр, без выдумки.\n\n${fallback}`,
-          },
-        ]);
+        const text = `Мир тебе. Живая модель сейчас молчит — ниже только сохранённый реестр, без выдумки.\n\n${fallback}`;
+        setLog((l) => [...l, { role: "sheikh", text }]);
+        void speakText("Мир тебе. Живая модель сейчас молчит. Читай источники на экране.");
       }
     } catch {
       setLog((l) => [

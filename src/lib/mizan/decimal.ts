@@ -84,10 +84,12 @@ export function parseDecimal(
     decimalSep = lastComma > lastDot ? "," : ".";
   } else if (lastComma >= 0) {
     const after = s.length - lastComma - 1;
-    decimalSep = after > 0 && after <= 2 ? "," : null;
+    /* 1 000,50 → decimal; 1,000 → grouping; 185,664236 → decimal rate */
+    decimalSep = after > 0 && after !== 3 && after <= SCALE ? "," : after > 0 && after <= 2 ? "," : null;
   } else if (lastDot >= 0) {
     const after = s.length - lastDot - 1;
-    decimalSep = after > 0 && after <= 2 ? "." : null;
+    /* 12164.999887 (live gold) is a decimal, not thousands grouping */
+    decimalSep = after > 0 && after <= SCALE ? "." : after > SCALE ? "." : null;
   }
 
   let intPart: string;

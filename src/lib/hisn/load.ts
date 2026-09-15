@@ -6,7 +6,7 @@ let pending: Promise<HisnBook> | null = null;
 export function loadHisn(): Promise<HisnBook> {
   if (cache) return Promise.resolve(cache);
   if (!pending) {
-    pending = fetch("/hisn/book.json")
+    pending = fetch(`/hisn/book.json?v=3`)
       .then((r) => {
         if (!r.ok) throw new Error("hisn");
         return r.json() as Promise<HisnBook>;

@@ -204,12 +204,6 @@ export function calculate(input: CalculationInput): CalculationResult {
   const cashEntered = moneyLike.some((c) => c.status !== "not_entered");
   if (!cashEntered && isZero(gross) && !moneyIncomplete) {
     malStatus = "not_entered";
-  } else if (hawl === null) {
-    malStatus = "incomplete";
-    malMissing.push("Хауль для денежных активов не подтверждён. Это не равно «не обязан».");
-  } else if (hawl === false) {
-    malStatus = "exempt";
-    malSteps.push({ id: "hawl", label: "Хауль не подтверждён пользователем", output: "денежная ставка 1/40 не применена" });
   } else if (threshold === null) {
     malStatus = "incomplete";
     malMissing.push("Нисаб не посчитан — нет цены металла.");
@@ -218,9 +212,15 @@ export function calculate(input: CalculationInput): CalculationResult {
     malSteps.push({
       id: "nisab",
       label: "Сравнение с нисабом",
-      output: `${formatMoney(net, base)} < ${formatMoney(threshold, base)}`,
+      output: `${formatMoney(net, base)} < ${formatMoney(threshold, base)} — ставка 1/40 не применяется`,
       ruleId: "rule.nisab.profile",
     });
+  } else if (hawl === null) {
+    malStatus = "incomplete";
+    malMissing.push("Хауль для денежных активов не подтверждён. Это не равно «не обязан».");
+  } else if (hawl === false) {
+    malStatus = "exempt";
+    malSteps.push({ id: "hawl", label: "Хауль не подтверждён пользователем", output: "денежная ставка 1/40 не применена" });
   } else {
     malStatus = "due";
     malZakat = mulRatio(net, 1n, 40n);
@@ -263,19 +263,19 @@ export function calculate(input: CalculationInput): CalculationResult {
     if (c.natural) natural.push(...c.natural);
   }
 
-  const anyDue = categories.some((c) => c.status === "due");
-  const anyIncomplete = categories.some((c) => c.status === "incomplete" || c.missing.length > 0);
+  const anyDue = categories.some((c) => c.status === "due" && c.included);
+  const anyIncomplete = categories.some((c) => c.status === "incomplete");
   const anyUnverified = categories.some((c) => c.status === "unverified_rule");
+  const anyBelow = categories.some((c) => c.status === "below_nisab");
   let overall: CalculationResult["overallStatus"];
   if (anyDue && anyIncomplete) overall = "mixed";
   else if (anyDue) overall = "due";
+  else if (anyBelow) overall = "not_due_confirmed";
   else if (anyIncomplete || anyUnverified) overall = "incomplete";
   else if (categories.some((c) => c.status === "below_nisab" || c.status === "exempt" || c.status === "not_entered")) {
     overall = "not_due_confirmed";
     if (categories.every((c) => c.status === "not_entered" || c.status === "not_applicable")) overall = "incomplete";
   } else overall = "incomplete";
-
-  if (overall === "not_due_confirmed" && anyIncomplete) overall = "incomplete";
 
   warnings.push("Это программа, не фетва. Учёный этот расчёт не заверял.");
 

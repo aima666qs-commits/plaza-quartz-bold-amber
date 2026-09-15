@@ -1,19 +1,18 @@
-/** UI-ярлыки для навигации. Это не русское издание книги — заголовки глав: арабский и английский с hisnmuslim.com. */
 export type HisnCollection = {
   id: string;
-  label: string;
+  labelKey: string;
   chapterIds: number[];
 };
 
 export const HISN_COLLECTIONS: HisnCollection[] = [
-  { id: "morning", label: "Утро и вечер", chapterIds: [27] },
-  { id: "prayer", label: "После намаза", chapterIds: [25] },
-  { id: "sleep", label: "Перед сном", chapterIds: [28] },
-  { id: "wake", label: "Пробуждение", chapterIds: [1] },
-  { id: "home", label: "Дом", chapterIds: [10, 11] },
-  { id: "mosque", label: "Мечеть", chapterIds: [12, 13, 14, 15] },
-  { id: "food", label: "Еда", chapterIds: [69, 70] },
-  { id: "travel", label: "В пути", chapterIds: [95, 96] },
-  { id: "dhikr", label: "Зикр", chapterIds: [130, 131] },
-  { id: "tawba", label: "Тауба", chapterIds: [129] },
+  { id: "morning", labelKey: "hisn.col.morning", chapterIds: [27] },
+  { id: "prayer", labelKey: "hisn.col.prayer", chapterIds: [25] },
+  { id: "sleep", labelKey: "hisn.col.sleep", chapterIds: [28] },
+  { id: "wake", labelKey: "hisn.col.wake", chapterIds: [1] },
+  { id: "home", labelKey: "hisn.col.home", chapterIds: [10, 11] },
+  { id: "mosque", labelKey: "hisn.col.mosque", chapterIds: [12, 13, 14, 15] },
+  { id: "food", labelKey: "hisn.col.food", chapterIds: [69, 70] },
+  { id: "travel", labelKey: "hisn.col.travel", chapterIds: [95, 96] },
+  { id: "dhikr", labelKey: "hisn.col.dhikr", chapterIds: [130, 131] },
+  { id: "tawba", labelKey: "hisn.col.tawba", chapterIds: [129] },
 ];

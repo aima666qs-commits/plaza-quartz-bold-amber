@@ -13,8 +13,8 @@ export const STATUS_RU: Record<CategoryStatus, string> = {
 export const OVERALL_RU: Record<string, string> = {
   due: "Нужно заплатить",
   mixed: "Часть посчитана, часть ещё нет",
-  incomplete: "Расчёт неполный — это ещё не ответ «не должен»",
-  not_due_confirmed: "По тому, что заполнено, платить не нужно",
+  incomplete: "Не хватает данных — закят пока не считаем",
+  not_due_confirmed: "Не подпадает под закят",
 };
 
 export const NISAB_MODE_RU: Record<NisabMode, string> = {

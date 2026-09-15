@@ -2,6 +2,8 @@ export type HisnDua = {
   id: number;
   ar: string;
   en: string;
+  ru?: string;
+  tr?: string;
   repeat: number;
   audio: string;
 };
@@ -10,6 +12,8 @@ export type HisnChapter = {
   id: number;
   titleAr: string;
   titleEn: string;
+  titleRu?: string;
+  titleTr?: string;
   audio: string;
   duas: HisnDua[];
 };

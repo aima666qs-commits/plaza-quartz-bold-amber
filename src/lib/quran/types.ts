@@ -28,10 +28,16 @@ export type Reciter = {
   style: string;
   bitrate: 64 | 128 | 192;
   everyayah?: string;
+  kind?: "ayah" | "surah";
+  surahFiles?: Record<number, string>;
   blurb: string;
+  /** Quran.com ayah-recitation id — word timestamps + matching audio. */
+  qdc?: number;
 };
 
 export type RepeatMode = "off" | "ayah" | "surah";
+
+export type LearnPlayMode = "listen" | "echo" | "word" | "hifz";
 
 export type DrillKind = "letters" | "connect" | "harakat" | "tajweed" | "hifz" | "listen";
 

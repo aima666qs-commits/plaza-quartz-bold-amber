@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { CourseId } from "@/lib/learn/catalog.ts";
 import type { TrackId } from "@/lib/learn/tracks.ts";
 import { WEEKS } from "@/lib/quran/curriculum.ts";
 
@@ -7,11 +8,13 @@ const KEY = "mizan.v1.learn";
 interface LearnStore {
   week: number;
   track: TrackId;
+  course: CourseId | null;
   completed: Record<string, true>;
   startedAt: string;
   lastStudy: string;
   setWeek: (n: number) => void;
   setTrack: (t: TrackId) => void;
+  setCourse: (c: CourseId | null) => void;
   toggleDay: (week: number, day: number) => void;
   isDone: (week: number, day: number) => boolean;
   completedCount: () => number;
@@ -25,6 +28,7 @@ function persist() {
       JSON.stringify({
         week: s.week,
         track: s.track,
+        course: s.course,
         completed: s.completed,
         startedAt: s.startedAt,
         lastStudy: s.lastStudy,
@@ -44,6 +48,7 @@ export const TOTAL_STUDY_DAYS = WEEKS.length * 5;
 export const useLearn = create<LearnStore>((set, get) => ({
   week: 1,
   track: "itqan",
+  course: null,
   completed: {},
   startedAt: "",
   lastStudy: "",
@@ -53,6 +58,10 @@ export const useLearn = create<LearnStore>((set, get) => ({
   },
   setTrack: (track) => {
     set({ track });
+    persist();
+  },
+  setCourse: (course) => {
+    set({ course });
     persist();
   },
   toggleDay: (week, day) => {
@@ -81,6 +90,7 @@ export function hydrateLearn() {
     useLearn.setState({
       week: data.week ?? 1,
       track: (data.track as TrackId | undefined) ?? "itqan",
+      course: (data.course as CourseId | null | undefined) ?? null,
       completed: data.completed ?? {},
       startedAt: data.startedAt ?? "",
       lastStudy: data.lastStudy ?? "",

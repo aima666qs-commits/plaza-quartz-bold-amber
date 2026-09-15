@@ -5,11 +5,11 @@
       "width": 1280,
       "height": 800,
       "status": 200,
-      "title": "Мизан — закят, Коран Кулиева, Иткан",
+      "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 398,
-      "bodyTextHash": "21e980120d6215a3fc2fb978c9492de337427d7ecf9d2427a75b454a4192d7b4",
-      "bodyTextPrefix": "م МИЗАН Закят · Коран · Иткан ГОСТЬ КАБИНЕТ Мизан Закят с источн",
+      "bodyTextLen": 890,
+      "bodyTextHash": "d88094b0dacf84069667f4e751d8d2c3d0fbf9d9aededa828b5ad415c69650b7",
+      "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
@@ -19,11 +19,11 @@
       "width": 390,
       "height": 844,
       "status": 200,
-      "title": "Мизан — закят, Коран Кулиева, Иткан",
+      "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 392,
-      "bodyTextHash": "678ad995c6e1545edd69fd62233cfbb307c5869ce8bcd6e24bc3c552e6ea88e0",
-      "bodyTextPrefix": "م МИЗАН Закят · Коран · Иткан КАБИНЕТ Мизан Закят с источниками.",
+      "bodyTextLen": 890,
+      "bodyTextHash": "d88094b0dacf84069667f4e751d8d2c3d0fbf9d9aededa828b5ad415c69650b7",
+      "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
@@ -35,7 +35,6 @@
   "verdictFile": "/workspace/screenshots/app-builder-built.json",
   "divergesFromBaseline": true,
   "baselineReasons": [
-    "desktop: body text changed (754 -> 398 chars, hash mismatch)",
-    "mobile: body text changed (748 -> 392 chars, hash mismatch)"
+    "mobile: body text changed (1127 -> 890 chars, hash mismatch)"
   ]
 }

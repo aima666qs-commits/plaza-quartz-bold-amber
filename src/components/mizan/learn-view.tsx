@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Check, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
-import { PROGRAM, phaseLabel, weekByN, WEEKS } from "@/lib/quran/curriculum.ts";
+import { phaseLabel, weekByN, WEEKS } from "@/lib/quran/curriculum.ts";
 import { HARAKAT, HEAVY, LETTERS, TAJWEED_CARDS } from "@/lib/quran/letters.ts";
-import { TRACKS } from "@/lib/learn/tracks.ts";
+import { COURSES, FACULTIES, type Course } from "@/lib/learn/catalog.ts";
+import { TeacherDesk } from "@/components/mizan/teacher-desk.tsx";
 import { SURAHS, surahOf } from "@/lib/quran/surahs.ts";
 import type { DrillKind, LessonDay } from "@/lib/quran/types.ts";
 import { cn } from "@/lib/utils.ts";
@@ -230,90 +231,142 @@ function DayRow({ week, day }: { week: number; day: LessonDay }) {
 export function LearnView() {
   const weekN = useLearn((s) => s.week);
   const setWeek = useLearn((s) => s.setWeek);
-  const track = useLearn((s) => s.track);
-  const setTrack = useLearn((s) => s.setTrack);
+  const courseId = useLearn((s) => s.course);
+  const setCourse = useLearn((s) => s.setCourse);
   const count = useLearn((s) => s.completedCount());
   const playAt = useQuran((s) => s.playAt);
   const setTab = useMizan((s) => s.setAppTab);
   const week = weekByN(weekN);
   const [drill, setDrill] = useState<DrillKind | null>(week.days.find((d) => d.drill)?.drill ?? "letters");
   const pct = Math.round((count / TOTAL_STUDY_DAYS) * 100);
+  const course = COURSES.find((c) => c.id === courseId) ?? null;
+
+  function openCourse(c: Course) {
+    setCourse(c.id);
+    if (c.action === "hisn") {
+      setTab("hisn");
+      return;
+    }
+    if (c.action === "quran") {
+      setTab("quran");
+    }
+    if (c.action === "tafsir") {
+      useQuran.getState().openTafsir(12, 1);
+      setTab("quran");
+    }
+  }
+
+  if (!course) {
+    return (
+      <div className="page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6">
+        <div>
+          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">جامعة · факультет</p>
+          <h1 className="font-display mt-2 text-3xl tracking-tight">Обучение</h1>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Учитель ведёт урок: слушает, отвечает, держит метод. Иджазу даёт живой шейх, не это окно.
+          </p>
+        </div>
+        <TeacherDesk course={null} />
+        {FACULTIES.map((f) => {
+          const list = COURSES.filter((c) => c.faculty === f.id);
+          if (!list.length) return null;
+          return (
+            <section key={f.id} className="grid gap-2">
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
+                {f.nameAr} · {f.name}
+              </p>
+              {list.map((c) => (
+                <button key={c.id} type="button" className="door text-start" onClick={() => openCourse(c)}>
+                  <span className="ayah-ar block text-lg" lang="ar">
+                    {c.nameAr}
+                  </span>
+                  <span className="font-display mt-1 block text-xl leading-tight">{c.name}</span>
+                  <span className="mt-1 block text-sm text-[var(--muted)]">{c.inventor}</span>
+                </button>
+              ))}
+            </section>
+          );
+        })}
+      </div>
+    );
+  }
+
+  const showArabic = course.action === "arabic";
+  const showTajweed = course.action === "tajweed";
+  const showHifz = course.action === "hifz";
+  const showItqan = course.action === "itqan";
 
   return (
     <div className="page-pad mx-auto grid max-w-3xl gap-5 px-4 pt-6">
-      <div>
-        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
-          {PROGRAM.nameAr} · обучение
-        </p>
-        <h1 className="font-display mt-2 text-3xl tracking-tight">Пути, не иджаза</h1>
-        <p className="mt-2 text-sm text-[var(--muted)]">
-          Шесть дорог разной глубины. «Глубокий» — объём работы, не цена и не диплом. Учитель не заменяется экраном.
-        </p>
-      </div>
+      <button
+        type="button"
+        className="inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]"
+        onClick={() => setCourse(null)}
+      >
+        <ChevronLeft className="size-4" /> Все методы
+      </button>
 
-      <div className="grid gap-2 sm:grid-cols-2">
-        {TRACKS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => {
-              if (t.id === "hisn") {
-                setTab("hisn");
-                return;
-              }
-              if (t.id === "tafsir") {
-                setTab("quran");
-                return;
-              }
-              setTrack(t.id);
-            }}
-            className={cn(
-              "door",
-              track === t.id && t.id !== "hisn" && t.id !== "tafsir" ? "border-[var(--accent)]" : "",
-            )}
-          >
-            <span className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t.depth}</span>
-            <span className="font-display text-xl leading-tight">{t.name}</span>
-            <span className="text-sm text-[var(--muted)]">{t.honest}</span>
-          </button>
-        ))}
-      </div>
+      <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
+        <p className="ayah-ar text-2xl" lang="ar">
+          {course.nameAr}
+        </p>
+        <h1 className="font-display mt-2 text-3xl tracking-tight">{course.name}</h1>
+        <p className="mt-3 text-sm">
+          <span className="text-[var(--muted)]">Кто: </span>
+          {course.inventor}
+        </p>
+        <p className="mt-1 text-sm">
+          <span className="text-[var(--muted)]">Откуда: </span>
+          {course.origin}
+        </p>
+        <p className="mt-3 text-sm">{course.what}</p>
+        <p className="mt-2 text-sm text-[var(--muted)]">{course.how}</p>
+        <p className="mt-3 text-xs text-[var(--muted)]">{course.honest}</p>
+      </header>
 
-      {track === "arabic" || track === "tajweed" ? (
+      <TeacherDesk course={course} />
+
+      {showArabic ? (
         <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-            {track === "arabic" ? "Арабский вход" : "Таджвид Хафс"}
-          </p>
-          <p className="mt-2 text-sm text-[var(--muted)]">
-            {TRACKS.find((t) => t.id === track)?.honest}
-          </p>
+          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Зал арабского</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {(track === "arabic" ? (["letters", "connect", "harakat"] as DrillKind[]) : (["tajweed"] as DrillKind[])).map(
-              (k) => (
-                <button
-                  key={k}
-                  type="button"
-                  onClick={() => setDrill(k)}
-                  className={cn(
-                    "rounded-full border px-3 py-2 text-xs",
-                    drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
-                  )}
-                >
-                  {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"}
-                </button>
-              ),
-            )}
+            {(["letters", "connect", "harakat"] as DrillKind[]).map((k) => (
+              <button
+                key={k}
+                type="button"
+                onClick={() => setDrill(k)}
+                className={cn(
+                  "min-h-11 rounded-full border px-4 text-sm",
+                  drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
+                )}
+              >
+                {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"}
+              </button>
+            ))}
           </div>
           <div className="mt-4">
-            <DrillPanel kind={track === "tajweed" ? "tajweed" : drill ?? "letters"} />
+            <DrillPanel kind={drill === "tajweed" ? "letters" : drill ?? "letters"} />
           </div>
         </section>
       ) : null}
 
-      {track === "hifz" ? (
+      {showTajweed ? (
+        <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
+          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Карточки Хафс</p>
+          <div className="mt-4">
+            <DrillPanel kind="tajweed" />
+          </div>
+        </section>
+      ) : null}
+
+      {showHifz ? (
         <section className="grid gap-2">
           <p className="text-sm text-[var(--muted)]">
-            Джуз Амма, суры 78–114. Текст — мусхаф. Слух — Хусари. Иджазу приложение не выдаёт.
+            {course.id === "three-ten-one"
+              ? "Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя."
+              : course.id === "murajaa"
+                ? "Сегодняшняя сура и пять предыдущих."
+                : "Джуз Амма, суры 78–114."}
           </p>
           {SURAHS.filter((s) => s.n >= 78).map((s) => (
             <div key={s.n} className="flex items-center justify-between gap-2 rounded-2xl border border-[var(--line)] px-3 py-3">
@@ -347,93 +400,94 @@ export function LearnView() {
         </section>
       ) : null}
 
-      {track === "itqan" ? (
-      <>
-      <div className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Прогресс</p>
-          <p className="tabular-nums text-sm">{pct}%</p>
-        </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]">
-          <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${pct}%` }} />
-        </div>
-        <p className="mt-2 text-xs text-[var(--muted)]">
-          {count} из {TOTAL_STUDY_DAYS} учебных дней · 40 недель
-        </p>
-      </div>
+      {showItqan ? (
+        <>
+          <div className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Прогресс</p>
+              <p className="tabular-nums text-sm">{pct}%</p>
+            </div>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]">
+              <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${pct}%` }} />
+            </div>
+            <p className="mt-2 text-xs text-[var(--muted)]">
+              {count} из {TOTAL_STUDY_DAYS} учебных дней · 40 недель
+            </p>
+          </div>
 
-      <div className="flex items-center justify-between gap-2">
-        <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN - 1)} aria-label="Предыдущая неделя">
-          <ChevronLeft className="size-5" />
-        </Button>
-        <div className="min-w-0 text-center">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-            Неделя {week.n} · {phaseLabel(week.phase)}
-          </p>
-          <p className="font-display text-xl leading-tight">{week.title}</p>
-        </div>
-        <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN + 1)} aria-label="Следующая неделя">
-          <ChevronRight className="size-5" />
-        </Button>
-      </div>
+          <div className="flex items-center justify-between gap-2">
+            <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN - 1)} aria-label="Предыдущая неделя">
+              <ChevronLeft className="size-5" />
+            </Button>
+            <div className="min-w-0 text-center">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+                Неделя {week.n} · {phaseLabel(week.phase)}
+              </p>
+              <p className="font-display text-xl leading-tight">{week.title}</p>
+            </div>
+            <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN + 1)} aria-label="Следующая неделя">
+              <ChevronRight className="size-5" />
+            </Button>
+          </div>
 
-      <p className="text-sm">{week.goal}</p>
-      <p className="text-sm text-[var(--muted)]">{week.kuliev}</p>
-      <p className="text-xs text-[var(--muted)]">Зачёт: {week.checkpoint}</p>
+          <p className="text-sm">{week.goal}</p>
+          <p className="text-sm text-[var(--muted)]">{week.kuliev}</p>
+          <p className="text-xs text-[var(--muted)]">Зачёт: {week.checkpoint}</p>
 
-      <Button
-        variant="glow"
-        onClick={() => {
-          useQuran.getState().setReciter("ar.husary");
-          playAt(week.listen.surah, week.listen.from, week.listen.to);
-        }}
-      >
-        <Play className="size-4" /> Слушание недели · {surahOf(week.listen.surah).ru} {week.listen.from}–{week.listen.to}
-      </Button>
-
-      <div className="grid gap-3">
-        {week.days.map((day) => (
-          <DayRow key={day.d} week={week.n} day={day} />
-        ))}
-      </div>
-
-      <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
-        <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Тренажёр</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {(["letters", "connect", "harakat", "tajweed"] as DrillKind[]).map((k) => (
-            <button
-              key={k}
-              type="button"
-              onClick={() => setDrill(k)}
-              className={cn(
-                "rounded-full border px-3 py-2 text-xs",
-                drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
-              )}
-            >
-              {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"}
-            </button>
-          ))}
-        </div>
-        <div className="mt-4">{drill ? <DrillPanel kind={drill} letters={week.letters} /> : null}</div>
-      </section>
-
-      <div className="flex gap-2 overflow-x-auto pb-1">
-        {WEEKS.map((w) => (
-          <button
-            key={w.n}
-            type="button"
-            onClick={() => setWeek(w.n)}
-            className={cn(
-              "grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums",
-              w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
-            )}
+          <Button
+            variant="glow"
+            onClick={() => {
+              useQuran.getState().setReciter("ar.husary");
+              playAt(week.listen.surah, week.listen.from, week.listen.to);
+            }}
           >
-            {w.n}
-          </button>
-        ))}
-      </div>
-      </>
+            <Play className="size-4" /> Слушание недели · {surahOf(week.listen.surah).ru} {week.listen.from}–{week.listen.to}
+          </Button>
+
+          <div className="grid gap-3">
+            {week.days.map((day) => (
+              <DayRow key={day.d} week={week.n} day={day} />
+            ))}
+          </div>
+
+          <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Тренажёр</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {(["letters", "connect", "harakat", "tajweed"] as DrillKind[]).map((k) => (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => setDrill(k)}
+                  className={cn(
+                    "min-h-11 rounded-full border px-3 py-2 text-xs",
+                    drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
+                  )}
+                >
+                  {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"}
+                </button>
+              ))}
+            </div>
+            <div className="mt-4">{drill ? <DrillPanel kind={drill} letters={week.letters} /> : null}</div>
+          </section>
+
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {WEEKS.map((w) => (
+              <button
+                key={w.n}
+                type="button"
+                onClick={() => setWeek(w.n)}
+                className={cn(
+                  "grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums",
+                  w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
+                )}
+              >
+                {w.n}
+              </button>
+            ))}
+          </div>
+        </>
       ) : null}
     </div>
   );
 }
+

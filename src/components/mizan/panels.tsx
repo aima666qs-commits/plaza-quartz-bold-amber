@@ -1,17 +1,24 @@
 import { useMemo, useState } from "react";
+import { Bookmark, Check, Download, Heart, Pause, Printer, RotateCcw, Table2, Volume2, X } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Field, Select, TextInput } from "@/components/ui/field.tsx";
-import { useMizan } from "@/stores/mizan-store.ts";
+import { useHisn } from "@/stores/hisn-store.ts";
+import { useMizan, type VoiceGender, type VoiceRate } from "@/stores/mizan-store.ts";
 import { formatMoney, formatPlain } from "@/lib/mizan/decimal.ts";
 import { getSources, SOURCES } from "@/lib/mizan/sources.ts";
 import { getProfile } from "@/lib/mizan/profiles.ts";
 import { downloadBlob, resultToCsv, resultToHtml, resultToJson } from "@/lib/mizan/export.ts";
 import { askEvidence, localSourceSearch, type AskPayload } from "@/lib/assistant/server.ts";
 import { fetchMarketQuotes } from "@/lib/quotes/server.ts";
-import { LAYOUT_LABEL, THEMES, getTheme, type LayoutFamily } from "@/lib/themes/registry.ts";
+import { LAYOUT_LABEL, THEMES, getTheme, type FontPair, type LayoutFamily } from "@/lib/themes/registry.ts";
+import { LOCALES, NAV_LAYOUTS, translate, type Locale, type NavLayout } from "@/lib/i18n/dict.ts";
+import { speakLang } from "@/lib/house/data.ts";
+import { bootNotify, requestNotify } from "@/lib/notify.ts";
+import { RECITERS } from "@/lib/quran/reciters.ts";
+import { speakText, stopSpeak } from "@/lib/voice.ts";
+import { useQuran } from "@/stores/quran-store.ts";
 import { NISAB_MODE_RU, OVERALL_RU, RECIPIENTS, REVIEW_RU, SOURCE_TYPE_RU, STATUS_RU } from "@/lib/mizan/labels.ts";
 import { cn } from "@/lib/utils.ts";
-import { Bookmark, Check, Download, Heart, Printer, RotateCcw, Table2, X } from "lucide-react";
 
 export function ResultsPanel() {
   const result = useMizan((s) => s.lastResult);
@@ -368,31 +375,121 @@ export function SettingsDialog() {
   const duplicate = useMizan((s) => s.duplicate);
   const deleteSaved = useMizan((s) => s.deleteSaved);
   const importJson = useMizan((s) => s.importJson);
+  const reciterId = useQuran((s) => s.reciterId);
+  const setReciter = useQuran((s) => s.setReciter);
   const [importErr, setImportErr] = useState("");
   const [imported, setImported] = useState(false);
+  const [note, setNote] = useState("");
+  const [probing, setProbing] = useState(false);
+  const locale = settings.locale;
+  const t = (k: string) => translate(locale, k);
+
+  function close() {
+    stopSpeak();
+    setProbing(false);
+    setOpen(false);
+  }
+
+  async function probeVoice() {
+    if (probing) {
+      stopSpeak();
+      setProbing(false);
+      return;
+    }
+    setProbing(true);
+    try {
+      await speakText(t("set.voice.probe"), speakLang(locale));
+    } finally {
+      setProbing(false);
+    }
+  }
+
   if (!open) return null;
+
+  function Toggle({
+    checked,
+    onChange,
+    label,
+  }: {
+    checked: boolean;
+    onChange: (v: boolean) => void;
+    label: string;
+  }) {
+    return (
+      <label className="flex min-h-11 items-center gap-2 text-sm sm:col-span-2">
+        <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+        {label}
+      </label>
+    );
+  }
+
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-[var(--scrim)] p-4"
+      className="fixed inset-0 z-[90] grid place-items-center bg-[var(--scrim)] p-4"
       role="presentation"
-      onClick={() => setOpen(false)}
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={close}
     >
       <div
         role="dialog"
         aria-labelledby="settings-title"
-        className="dialog-enter max-h-[90vh] w-full max-w-5xl overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]"
+        className="dialog-enter max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]"
         onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between gap-3">
           <h2 id="settings-title" className="font-display text-2xl">
-            Настройки
+            {t("settings")}
           </h2>
-          <Button variant="ghost" onClick={() => setOpen(false)} aria-label="Закрыть">
+          <Button variant="ghost" onClick={close} aria-label={t("set.close")}>
             <X className="size-5" />
           </Button>
         </div>
+        <p className="mb-4 text-xs text-[var(--muted)]">{t("set.note")}</p>
+
+        <h3 className="mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.lang")}</h3>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Размер текста">
+          <Field label={t("set.lang")}>
+            <Select value={settings.locale} onChange={(e) => setSettings({ locale: e.target.value as Locale })}>
+              {LOCALES.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.native}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Field label={t("set.start")}>
+            <Select
+              value={settings.startTab}
+              onChange={(e) => setSettings({ startTab: e.target.value as typeof settings.startTab })}
+            >
+              <option value="home">{t("tab.home")}</option>
+              <option value="zakat">{t("tab.zakat")}</option>
+              <option value="quran">{t("tab.quran")}</option>
+              <option value="hisn">{t("tab.hisn")}</option>
+              <option value="learn">{t("tab.learn")}</option>
+            </Select>
+          </Field>
+          <Field label={t("set.nav")}>
+            <Select value={settings.navLayout} onChange={(e) => setSettings({ navLayout: e.target.value as NavLayout })}>
+              {NAV_LAYOUTS.map((n) => (
+                <option key={n.id} value={n.id}>
+                  {n.id === "theme" ? t("set.as.theme") : t(`set.nav.${n.id}`)}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Field label={t("set.scheme")}>
+            <Select
+              value={settings.colorScheme}
+              onChange={(e) => setSettings({ colorScheme: e.target.value as typeof settings.colorScheme })}
+            >
+              <option value="theme">{t("set.as.theme")}</option>
+              <option value="dark">{t("set.dark")}</option>
+              <option value="light">{t("set.light")}</option>
+            </Select>
+          </Field>
+          <Field label={t("set.font")}>
             <input
               type="range"
               min={0.9}
@@ -402,30 +499,167 @@ export function SettingsDialog() {
               onChange={(e) => setSettings({ fontScale: Number(e.target.value) })}
             />
           </Field>
-          <Field label="Плотность">
+          <Field label={t("set.font.family")}>
+            <Select
+              value={settings.fontPair}
+              onChange={(e) => setSettings({ fontPair: e.target.value as FontPair | "theme" })}
+            >
+              <option value="theme">{t("set.font.theme")}</option>
+              <option value="fraunces">{t("set.font.fraunces")}</option>
+              <option value="literata">{t("set.font.literata")}</option>
+              <option value="newsreader">{t("set.font.newsreader")}</option>
+              <option value="serif-plex">{t("set.font.serif")}</option>
+              <option value="plex">{t("set.font.plex")}</option>
+              <option value="plex-mono">{t("set.font.mono")}</option>
+            </Select>
+          </Field>
+          <Field label={t("set.density")}>
             <Select
               value={settings.densityOverride}
               onChange={(e) => setSettings({ densityOverride: e.target.value as typeof settings.densityOverride })}
             >
-              <option value="theme">Как в оформлении</option>
-              <option value="compact">Компактно</option>
-              <option value="regular">Обычно</option>
-              <option value="airy">Воздушно</option>
+              <option value="theme">{t("set.as.theme")}</option>
+              <option value="compact">{t("set.compact")}</option>
+              <option value="regular">{t("set.regular")}</option>
+              <option value="airy">{t("set.airy")}</option>
             </Select>
           </Field>
-          <label className="flex min-h-11 items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={settings.reducedMotion}
-              onChange={(e) => setSettings({ reducedMotion: e.target.checked })}
-            />
-            Без анимаций
-          </label>
+          <Field label={t("set.home")}>
+            <Select
+              value={settings.homeSize}
+              onChange={(e) => setSettings({ homeSize: e.target.value as typeof settings.homeSize })}
+            >
+              <option value="compact">{t("set.compact")}</option>
+              <option value="roomy">{t("set.roomy")}</option>
+            </Select>
+          </Field>
+          <Toggle checked={settings.keepLastTab} onChange={(keepLastTab) => setSettings({ keepLastTab })} label={t("set.keep")} />
+          <Toggle checked={settings.reducedMotion} onChange={(reducedMotion) => setSettings({ reducedMotion })} label={t("set.motion")} />
+          <Toggle checked={settings.highContrast} onChange={(highContrast) => setSettings({ highContrast })} label={t("set.contrast")} />
+          <Toggle checked={settings.largeTap} onChange={(largeTap) => setSettings({ largeTap })} label={t("set.largetap")} />
+          <Toggle checked={settings.showHijri} onChange={(showHijri) => setSettings({ showHijri })} label={t("set.hijri")} />
         </div>
-        <div className="mt-6 flex flex-wrap gap-2">
-          <Button onClick={() => setDesigns(true)}>Оформление</Button>
+
+        <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.quran")}</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label={t("set.reciter")}>
+            <Select value={reciterId} onChange={(e) => setReciter(e.target.value)}>
+              {RECITERS.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.name}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Toggle checked={settings.showMeaning} onChange={(showMeaning) => setSettings({ showMeaning })} label={t("set.meaning")} />
+          <Toggle checked={settings.favFirst} onChange={(favFirst) => setSettings({ favFirst })} label={t("set.favfirst")} />
+          <Toggle checked={settings.autoPlayAyah} onChange={(autoPlayAyah) => setSettings({ autoPlayAyah })} label={t("set.autoplay")} />
+        </div>
+
+        <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.voice")}</h3>
+        <p className="mb-3 text-xs text-[var(--muted)]">{t("set.voice.note")}</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label={t("set.voice.gender")}>
+            <Select
+              value={settings.voiceGender ?? "male"}
+              onChange={(e) => {
+                stopSpeak();
+                setProbing(false);
+                setSettings({ voiceGender: e.target.value as VoiceGender });
+              }}
+            >
+              <option value="male">{t("set.voice.male")}</option>
+              <option value="female">{t("set.voice.female")}</option>
+            </Select>
+          </Field>
+          <Field label={t("set.voice.rate")}>
+            <Select
+              value={settings.voiceRate ?? "normal"}
+              onChange={(e) => {
+                stopSpeak();
+                setProbing(false);
+                setSettings({ voiceRate: e.target.value as VoiceRate });
+              }}
+            >
+              <option value="slow">{t("set.voice.slow")}</option>
+              <option value="normal">{t("set.voice.normal")}</option>
+              <option value="fast">{t("set.voice.fast")}</option>
+            </Select>
+          </Field>
+        </div>
+        <Button variant="secondary" className="mt-3" onClick={() => void probeVoice()} data-go="voice-probe">
+          {probing ? <Pause className="size-4" /> : <Volume2 className="size-4" />}
+          {probing ? t("hadith.stop") : t("set.voice.test")}
+        </Button>
+
+        <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.notify")}</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label={t("set.sabrhour")}>
+            <Select
+              value={String(settings.sabrHour)}
+              onChange={(e) => {
+                const sabrHour = Number(e.target.value);
+                setSettings({ sabrHour });
+                if (settings.sabrNotify) void bootNotify(true, sabrHour);
+              }}
+            >
+              {Array.from({ length: 24 }, (_, h) => (
+                <option key={h} value={h}>
+                  {String(h).padStart(2, "0")}:00
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Toggle
+            checked={settings.sabrNotify}
+            onChange={async (on) => {
+              if (on) {
+                const r = await requestNotify();
+                setSettings({ sabrNotify: r === "granted" });
+                if (r === "granted") await bootNotify(true, settings.sabrHour);
+              } else {
+                setSettings({ sabrNotify: false });
+                await bootNotify(false, settings.sabrHour);
+              }
+            }}
+            label={t("set.notify")}
+          />
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button
+            variant="secondary"
+            onClick={async () => {
+              const r = await requestNotify();
+              if (r === "granted") {
+                const { showSabrNow } = await import("@/lib/notify.ts");
+                await showSabrNow();
+                setNote("Уведомление ушло, если система его не глушит.");
+              } else setNote("Сначала разрешите уведомления.");
+            }}
+          >
+            {t("set.test.notify")}
+          </Button>
+        </div>
+
+        <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.data")}</h3>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              useHisn.setState({ counts: {} });
+              try {
+                localStorage.removeItem("mizan.v1.hisn");
+              } catch {
+                /* ignore */
+              }
+              setNote(t("set.reset.hisn"));
+            }}
+          >
+            {t("set.reset.hisn")}
+          </Button>
+          <Button onClick={() => setDesigns(true)}>{t("set.theme")}</Button>
           <label className="inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm">
-            Открыть сохранённый расчёт
+            {t("set.import")}
             <input
               type="file"
               accept="application/json,.json"
@@ -441,11 +675,12 @@ export function SettingsDialog() {
             />
           </label>
         </div>
-        {imported ? <p className="mt-2 text-sm text-[var(--ok)]">Расчёт открыт.</p> : null}
+        {note ? <p className="mt-2 text-sm text-[var(--muted)]">{note}</p> : null}
+        {imported ? <p className="mt-2 text-sm text-[var(--ok)]">{t("set.import")}</p> : null}
         {importErr ? <p className="mt-2 text-sm text-[var(--danger)]">{importErr}</p> : null}
         {history.length ? (
           <div className="mt-6">
-            <h3 className="mb-2 font-medium">Сохранённые расчёты</h3>
+            <h3 className="mb-2 font-medium">{t("set.saved")}</h3>
             <ul className="grid gap-2 text-sm">
               {history.map((h) => (
                 <li key={h.id} className="flex flex-wrap items-center justify-between gap-2 border border-[var(--line)] p-2">
@@ -454,13 +689,13 @@ export function SettingsDialog() {
                   </span>
                   <span className="flex gap-2">
                     <Button variant="ghost" onClick={() => loadSaved(h.id)}>
-                      Открыть
+                      {t("set.saved.open")}
                     </Button>
                     <Button variant="ghost" onClick={() => duplicate(h.id)}>
-                      Копия
+                      {t("set.saved.copy")}
                     </Button>
                     <Button variant="ghost" onClick={() => deleteSaved(h.id)}>
-                      Удалить
+                      {t("set.saved.delete")}
                     </Button>
                   </span>
                 </li>
