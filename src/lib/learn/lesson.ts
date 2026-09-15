@@ -88,7 +88,7 @@ export function hifzPrompt(surah: number): Prompt {
     kind: "hifz",
     ar: s.ar,
     title: `${s.n}. ${s.ru}`,
-    ask: "Три раза слух Хусари, потом прочитай. Когда прочитал — скажи «прочитал» или нажми кнопку.",
+    ask: "Слушай Хусари, потом прочитай. Когда прочитал — скажи «прочитал» или нажми кнопку.",
     expect: ["прочитал", "прочёл", "прочел", "готово", "повторил", "выучил"],
     hint: `${s.ayahs} аятов. Слух — Хусари.`,
     surah: s.n,
@@ -99,7 +99,7 @@ export function hifzPrompt(surah: number): Prompt {
 export function openLesson(course: Course | null): { line: string; prompt: Prompt | null } {
   if (!course) {
     return {
-      line: "Мир тебе. Я учитель. Коран и арабский — по методу, не с потолка. Скажи «буквы», «нурания», «заучивать» или нажми карточку.",
+      line: "Мир тебе. Сначала выбери метод на карточках: Багдадия, Нурания, талакки, тикрар, сабак, 3+10+1, мураджаʿа.",
       prompt: null,
     };
   }
@@ -117,14 +117,19 @@ export function openLesson(course: Course | null): { line: string; prompt: Promp
     };
   }
   if (course.action === "hifz") {
-    const start = course.id === "juz-amma" || course.id === "three-ten-one" || course.id === "murajaa" ? 114 : 78;
-    const p = hifzPrompt(start);
+    const p = hifzPrompt(114);
     const how =
-      course.id === "three-ten-one"
-        ? "3+10+1: три раза слух, десять раз сами, один раз вчерашняя."
-        : course.id === "murajaa"
-          ? "Сегодняшняя и пять предыдущих."
-          : "Джуз Амма, с коротких.";
+      course.id === "talaqqi"
+        ? "Талакки: слушай, потом верни. Три круга."
+        : course.id === "tikrar"
+          ? "Тикрар: один аят 10 или 21 раз."
+          : course.id === "sabaq"
+            ? "Сабак — новое, сабаки — недавнее, манзиль — старое."
+            : course.id === "three-ten-one"
+              ? "3+10+1: три раза слух, десять раз сами, один раз вчерашняя."
+              : course.id === "murajaa"
+                ? "Сегодняшняя и пять предыдущих."
+                : "Джуз Амма, с коротких.";
     return {
       line: `Мир тебе. ${how} Берём ${p.title}. ${p.ask}`,
       prompt: p,
@@ -145,11 +150,15 @@ export function openLesson(course: Course | null): { line: string; prompt: Promp
 export function intentCourse(question: string): CourseId | null {
   const s = norm(question);
   if (!s) return null;
+  if (/(багдад)/.test(s)) return "baghdadiyah";
   if (/(нуран|хаккан)/.test(s)) return "nuraniyah";
   if (/(букв|арабск|алфавит|огласов)/.test(s)) return "arabic";
-  if (/(3\s*\+?\s*10|три плюс|заучив|хифз)/.test(s)) return "three-ten-one";
-  if (/(мурадж|повтор)/.test(s)) return "murajaa";
-  if (/(джуз|амма|коротк)/.test(s)) return "juz-amma";
+  if (/(талакк|слушай и повтор|услышать)/.test(s)) return "talaqqi";
+  if (/(тикрар|повтор аят|21 раз|десять раз аят)/.test(s)) return "tikrar";
+  if (/(сабак|сабаки|манзил)/.test(s)) return "sabaq";
+  if (/(3\s*\+?\s*10|три плюс|заучив)/.test(s)) return "three-ten-one";
+  if (/(мурадж|повтор старого)/.test(s)) return "murajaa";
+  if (/(джуз|амма|коротк|хифз)/.test(s)) return "juz-amma";
   if (/(таджвид|ихфа|идгам|калькал)/.test(s)) return "tajweed";
   if (/(иткан|сорок недель)/.test(s)) return "itqan";
   if (/(хисн|крепост|вирд|дуа)/.test(s)) return "hisn";

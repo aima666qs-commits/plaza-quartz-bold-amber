@@ -164,7 +164,7 @@ export function TeacherDesk({ course }: { course: Course | null }) {
         <div className="min-w-0">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]">Учитель · урок</p>
           <p className="font-display text-xl leading-tight">{course ? course.name : "Коран и арабский"}</p>
-          <p className="text-xs text-[var(--muted)]">Слушает. Отвечает по методу. Иджазу не ставит.</p>
+          <p className="text-xs text-[var(--muted)]">Слушает. Ведёт выбранный метод. Иджазу не ставит.</p>
         </div>
       </div>
 

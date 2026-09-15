@@ -17,7 +17,8 @@ var grokOgIdentity = { "site": {
 	"card": "custom",
 	"color": "04100c",
 	"description": "Закят · Коран · Хисн",
-	"image": "/og.jpg"
+	"image": "/og.jpg",
+	"banner": "/x-banner.jpg"
 } };
 //#endregion
 //#region scripts/grok-pwa-shared.mjs

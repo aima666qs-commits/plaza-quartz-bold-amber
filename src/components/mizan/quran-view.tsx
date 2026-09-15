@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Highlighter, Languages, PauseCircle, Play, Repeat1, Search, Type } from "lucide-react";
 import { AyahLine } from "@/components/mizan/ayah-line.tsx";
 import { TafsirView } from "@/components/mizan/tafsir-view.tsx";
@@ -54,6 +54,8 @@ function MushafView() {
   const setGapMs = useQuran((s) => s.setGapMs);
   const exactSync = useQuran((s) => s.exactSync);
   const waiting = useQuran((s) => s.waiting);
+  const pulse = useQuran((s) => s.pulse);
+  const glowHue = useQuran((s) => s.glowHue);
   const [data, setData] = useState<MushafSurah[] | null>(null);
   const [error, setError] = useState("");
   const [q, setQ] = useState("");
@@ -321,11 +323,24 @@ function MushafView() {
           ) : null}
           {windowed.map((a: Ayah) => {
             const active = a.i === ayah;
+            const live = active && (playing || waiting);
             return (
               <li
                 key={a.g}
                 ref={active ? (el) => { activeRef.current = el; } : undefined}
-                className={cn("list-item rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4", active && "ayah-active")}
+                className={cn(
+                  "list-item rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4",
+                  active && "ayah-active",
+                  live && "ayah-live",
+                )}
+                style={
+                  live
+                    ? ({
+                        ["--pulse"]: String(Math.max(0.28, pulse)),
+                        ["--glow-hue"]: String(glowHue),
+                      } as CSSProperties)
+                    : undefined
+                }
               >
                 <div className="flex items-start justify-between gap-3">
                   <button

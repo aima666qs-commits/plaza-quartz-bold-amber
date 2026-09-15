@@ -93,6 +93,7 @@ interface Store {
   houseRoom: HouseRoomId | null;
   houseHadith: number | null;
   houseHadithFrom: HouseHadithFrom;
+  homeEpoch: number;
   setInput: (patch: Partial<CalculationInput> | ((prev: CalculationInput) => CalculationInput)) => void;
   setSettings: (patch: Partial<SettingsState>) => void;
   setPreviewTheme: (id: string | null) => void;
@@ -110,6 +111,7 @@ interface Store {
   setHisnChapter: (id: number | null) => void;
   setHouseRoom: (id: HouseRoomId | null) => void;
   setHouseNav: (room: HouseRoomId | null, hadith?: number | null, from?: HouseHadithFrom) => void;
+  resetToHome: () => void;
   recompute: () => CalculationResult;
   saveDraft: (title?: string) => void;
   loadSaved: (id: string) => void;
@@ -209,6 +211,7 @@ export const useMizan = create<Store>((set, get) => ({
   houseRoom: null,
   houseHadith: null,
   houseHadithFrom: "list",
+  homeEpoch: 0,
   setInput: (patch) => {
     const prev = get().input;
     const next = typeof patch === "function" ? patch(prev) : { ...prev, ...patch };
@@ -225,7 +228,7 @@ export const useMizan = create<Store>((set, get) => ({
   applyTheme: (id) => {
     const next = { ...get().settings, themeId: id };
     persistSettings(next);
-    set({ settings: next, previewThemeId: null, designsOpen: false });
+    set({ settings: next, previewThemeId: null });
   },
   revertTheme: () => set({ previewThemeId: null }),
   toggleFavorite: (id) => {
@@ -234,7 +237,22 @@ export const useMizan = create<Store>((set, get) => ({
       : [...get().settings.favorites, id];
     get().setSettings({ favorites: fav });
   },
-  setSettingsOpen: (v) => set({ settingsOpen: v, designsOpen: false }),
+  setSettingsOpen: (v) => {
+    set({ settingsOpen: v, designsOpen: v ? true : false });
+    if (typeof window === "undefined") return;
+    if (v) history.replaceState(null, "", "#settings");
+    else if (location.hash.replace(/^#/, "").startsWith("settings")) {
+      const tab = get().appTab;
+      const map: Record<AppTab, string> = {
+        home: "#home",
+        zakat: "#zakat",
+        quran: "#quran",
+        hisn: "#hisn",
+        learn: "#learn",
+      };
+      history.replaceState(null, "", map[tab]);
+    }
+  },
   setDesignsOpen: (v) => set({ designsOpen: v, settingsOpen: v ? true : get().settingsOpen }),
   setWizardStep: (n) => set({ wizardStep: n }),
   setActiveSection: (id) => set({ activeSection: id }),
@@ -289,6 +307,19 @@ export const useMizan = create<Store>((set, get) => ({
     if (typeof window !== "undefined") {
       history.replaceState(null, "", houseHash(houseRoom, houseHadith));
     }
+  },
+  resetToHome: () => {
+    set({
+      settingsOpen: false,
+      designsOpen: false,
+      houseRoom: null,
+      houseHadith: null,
+      hisnChapterId: null,
+      appTab: "home",
+      homeEpoch: get().homeEpoch + 1,
+    });
+    persistUi(get());
+    if (typeof window !== "undefined") history.replaceState(null, "", "#home");
   },
   recompute: () => {
     const result = calculate(get().input);

@@ -31,6 +31,8 @@ export type Reciter = {
   kind?: "ayah" | "surah";
   surahFiles?: Record<number, string>;
   blurb: string;
+  /** Prefer everyayah CDN; islamic.network 403s for some voices. */
+  skipCdn?: boolean;
   /** Quran.com ayah-recitation id — word timestamps + matching audio. */
   qdc?: number;
 };

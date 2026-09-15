@@ -5,7 +5,8 @@ import { HouseRoom } from "@/components/mizan/house-room.tsx";
 import { SheikhSheet } from "@/components/mizan/sheikh-sheet.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseTile } from "@/lib/house/catalog.ts";
-import { hadithMeaning, hadithOfDay, hadithTitle, hijriLabel, speakLang } from "@/lib/house/data.ts";
+import { hadithMeaning, hadithOfDay, hadithRef, hadithTitle, hijriLabel, speakLang } from "@/lib/house/data.ts";
+import { gradeLabel, gradeNote, isSahih } from "@/lib/house/nawawi-grade.ts";
 import { translate } from "@/lib/i18n/dict.ts";
 import { bootNotify, nextSabrLabel, requestNotify, showSabrNow } from "@/lib/notify.ts";
 import { formatRef, loadAyah } from "@/lib/quran/mushaf.ts";
@@ -71,6 +72,8 @@ function HadithDay() {
   const h = hadithOfDay();
   const meaning = hadithMeaning(h, locale);
   const [speaking, setSpeaking] = useState(false);
+  const [full, setFull] = useState(false);
+  const [source, setSource] = useState(false);
 
   useEffect(() => () => stopSpeak(), []);
 
@@ -95,23 +98,60 @@ function HadithDay() {
       <button type="button" className="hadith-day-open" onClick={() => setNav("nawawi", h.n, "home")} data-go="hadith-day">
         <p className="hadith-day-kicker">
           {translate(locale, "hadith.day")} · {h.n}
+          {isSahih(h.n) ? <span className="hadith-grade"> · {gradeLabel(h.n, locale)}</span> : null}
         </p>
         <p className="hadith-day-ar gold-flow" lang="ar">
           {h.core}
         </p>
         <p className="hadith-day-title">{hadithTitle(h, locale)}</p>
-        {meaning ? <p className="hadith-day-mean">{meaning}</p> : null}
+        {meaning ? <p className={cn("hadith-day-mean", full && "is-full")}>{meaning}</p> : null}
       </button>
-      <button
-        type="button"
-        className={cn("hadith-day-listen", speaking && "is-on")}
-        onClick={(e) => void play(e)}
-        aria-label={translate(locale, "hadith.listen")}
-        data-go="hadith-day-listen"
-      >
-        {speaking ? <Pause className="size-4" /> : <Volume2 className="size-4" />}
-        {translate(locale, speaking ? "hadith.stop" : "hadith.listen")}
-      </button>
+      <div className="hadith-minis">
+        {meaning ? (
+          <button
+            type="button"
+            className="hadith-mini"
+            onClick={(e) => {
+              e.stopPropagation();
+              setFull((v) => !v);
+              setSource(false);
+            }}
+            data-go="hadith-expand"
+            aria-expanded={full}
+          >
+            {full ? translate(locale, "hadith.less") : translate(locale, "hadith.more")}
+          </button>
+        ) : null}
+        <button
+          type="button"
+          className="hadith-mini"
+          onClick={(e) => {
+            e.stopPropagation();
+            setSource((v) => !v);
+            setFull(false);
+          }}
+          data-go="hadith-source"
+          aria-expanded={source}
+        >
+          {translate(locale, "hadith.whence")}
+        </button>
+        <button
+          type="button"
+          className={cn("hadith-day-listen", speaking && "is-on")}
+          onClick={(e) => void play(e)}
+          aria-label={translate(locale, "hadith.listen")}
+          data-go="hadith-day-listen"
+        >
+          {speaking ? <Pause className="size-4" /> : <Volume2 className="size-4" />}
+          {translate(locale, speaking ? "hadith.stop" : "hadith.listen")}
+        </button>
+      </div>
+      {source ? (
+        <p className="hadith-source">
+          {gradeLabel(h.n, locale)} · {hadithRef(h, locale)}
+          <span className="mt-1 block">{gradeNote(h.n, locale)}</span>
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -231,11 +271,13 @@ export function HomeView() {
         </p>
         <p className="home-hero">{translate(locale, "peace.ru")}{returning ? "" : ""}</p>
         {showHijri ? (
-          <p className="text-[11px] text-[var(--muted)]">
+          <p className="text-[11px] text-[var(--muted)]" data-go="hijri">
             {hijri.hijri}
           </p>
         ) : (
-          <p className="text-[11px] text-[var(--muted)]">{hijri.greg}</p>
+          <p className="text-[11px] text-[var(--muted)]" data-go="greg">
+            {hijri.greg}
+          </p>
         )}
       </section>
 

@@ -22,6 +22,16 @@ export const RECITERS: Reciter[] = [
     blurb: "Учебное чтение: паузы, ясность, слово за словом. Голос для иткана и хифза.",
   },
   {
+    id: "ar.yasserdosari",
+    name: "Ясир ад-Даусари",
+    nameAr: "ياسر الدوسري",
+    style: "муратталь",
+    bitrate: 128,
+    everyayah: "Yasser_Ad-Dussary_128kbps",
+    skipCdn: true,
+    blurb: "Имам аль-Харам. Голос Даусари — ясный хиджазский муратталь.",
+  },
+  {
     id: "ar.abuhajar",
     name: "Абу Хаджр аль-Ираки",
     nameAr: "أبو هاجر العراقي",
@@ -146,6 +156,11 @@ export function reciterById(id: string): Reciter {
 export function ayahAudioUrl(reciter: Reciter, global: number, surah: number, ayah: number): string {
   const surahFile = reciter.surahFiles?.[surah];
   if (surahFile) return surahFile;
+  if (reciter.skipCdn && reciter.everyayah) {
+    const s = String(surah).padStart(3, "0");
+    const a = String(ayah).padStart(3, "0");
+    return `https://everyayah.com/data/${reciter.everyayah}/${s}${a}.mp3`;
+  }
   return `https://cdn.islamic.network/quran/audio/${reciter.bitrate}/${reciter.id}/${global}.mp3`;
 }
 

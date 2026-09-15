@@ -1,4 +1,5 @@
 import { Bookmark, Pause, Play, Repeat, SkipBack, SkipForward } from "lucide-react";
+import type { CSSProperties } from "react";
 import { reciterById } from "@/lib/quran/reciters.ts";
 import { surahOf } from "@/lib/quran/surahs.ts";
 import { cn } from "@/lib/utils.ts";
@@ -25,6 +26,8 @@ export function PlayerBar() {
   const replayUnit = useQuran((s) => s.replayUnit);
   const seekRatio = useQuran((s) => s.seekRatio);
   const learnMode = useQuran((s) => s.learnMode);
+  const pulse = useQuran((s) => s.pulse);
+  const glowHue = useQuran((s) => s.glowHue);
   if (!session) return null;
   const meta = surahOf(surah);
   const rec = reciterById(reciterId);
@@ -32,7 +35,17 @@ export function PlayerBar() {
   const ratio = durationMs > 0 ? Math.min(1, audioMs / durationMs) : 0;
 
   return (
-    <div className="player-dock rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+    <div
+      className={cn("player-dock rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]", playing && "ayah-live")}
+      style={
+        playing
+          ? ({
+              ["--pulse"]: String(Math.max(0.28, pulse)),
+              ["--glow-hue"]: String(glowHue),
+            } as CSSProperties)
+          : undefined
+      }
+    >
       <button
         type="button"
         className="mb-2 block h-1.5 w-full overflow-hidden rounded-full bg-[var(--surface)]"

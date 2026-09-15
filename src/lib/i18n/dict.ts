@@ -477,6 +477,11 @@ fill("hadith.font.mean.newsreader", { ru: "Газета", en: "News", ar: "صح�
 fill("hadith.font.mean.plex", { ru: "Гротеск", en: "Sans", ar: "sans", tr: "Sans", uz: "Sans", tg: "Гротеск", kk: "Гротеск" });
 fill("hadith.listen", { ru: "Слушать", en: "Listen", ar: "استمع", tr: "Dinle", uz: "Tingla", tg: "Шунав", kk: "Тыңда" });
 fill("hadith.stop", { ru: "Стоп", en: "Stop", ar: "قف", tr: "Dur", uz: "To‘xta", tg: "Ист", kk: "Тоқта" });
+fill("hadith.more", { ru: "полностью", en: "full", ar: "كامل", tr: "tamamı", uz: "to‘liq", tg: "пурра", kk: "толық" });
+fill("hadith.less", { ru: "свернуть", en: "less", ar: "أقل", tr: "kısalt", uz: "qisqa", tg: "пӯшидан", kk: "жию" });
+fill("hadith.whence", { ru: "откуда", en: "source", ar: "المصدر", tr: "kaynak", uz: "qayerdan", tg: "аз куҷо", kk: "қайдан" });
+fill("hadith.filter.sahih", { ru: "только сахих", en: "sahih only", ar: "الصحيح فقط", tr: "yalnız sahih", uz: "faqat sahih", tg: "танҳо саҳеҳ", kk: "тек сахих" });
+fill("hadith.filter.all", { ru: "все 42", en: "all 42", ar: "الكل ٤٢", tr: "42’si", uz: "42 ta", tg: "ҳамаи 42", kk: "барлығы 42" });
 fill("set.font.family", { ru: "Шрифт", en: "Typeface", ar: "الخط", tr: "Yazı tipi", uz: "Shrift", tg: "Ҳуруф", kk: "Қаріп" });
 fill("set.font.theme", { ru: "Как в оформлении", en: "Follow theme", ar: "حسب المظهر", tr: "Temaya göre", uz: "Mavzuga qarab", tg: "Мувофиқи намуд", kk: "Без бойынша" });
 fill("set.font.fraunces", { ru: "Антиква", en: "Antique serif", ar: "serif", tr: "Antik serif", uz: "Antikva", tg: "Антиква", kk: "Антиква" });
@@ -510,6 +515,38 @@ fill("room.dict.note", { ru: "Короткий список кораническ
 fill("room.recite.note", { ru: "Чтецы дома.", en: "Reciters in the house.", ar: "قرّاء البيت.", tr: "Evdeki okuyucular.", uz: "Uydagi qorilar.", tg: "Қориҳои хона.", kk: "Үйдегі қарилар." });
 fill("room.tajweed.note", { ru: "Карточки правил. Не иджаза.", en: "Rule cards. Not an ijazah.", ar: "بطاقات القواعد. ليست إجازة.", tr: "Kural kartları. İcazet değildir.", uz: "Qoida kartochkalari. Ijoza emas.", tg: "Корти қоидаҳо. Иҷоза нест.", kk: "Ереже карточкалары. Иджаза емес." });
 fill("room.books.note", { ru: "Каталог известных сборников. Полный текст «40 хадисов ан-Навави» — в доме.", en: "Catalogue of well-known collections. The full Forty Hadith is in the house.", ar: "فهرس الكتب المشهورة. الأربعون كاملة في البيت.", tr: "Meşhur eserlerin kataloğu. Kırk hadis evde tam.", uz: "Mashhur to‘plamlar. 40 hadis uyda to‘liq.", tg: "Феҳристи маҷмӯаҳои машҳур. 40 ҳадис дар хона пурра.", kk: "Белгілі жинақтар каталогы. 40 хадис үйде толық." });
+
+fill("set.section.install", { ru: "На телефон", en: "On your phone", ar: "على الهاتف", tr: "Telefona", uz: "Telefonga", tg: "Ба телефон", kk: "Телефонға" });
+fill("set.install.title", { ru: "Поставить как приложение", en: "Install as an app", ar: "ثبّت كتطبيق", tr: "Uygulama olarak kur", uz: "Ilova qilib o‘rnat", tg: "Чун барнома насб кун", kk: "Қолданба ретінде орнат" });
+fill("set.install.lead", {
+  ru: "Полный экран и иконка на рабочем столе. Магазин не нужен: на Android Chrome сам собирает пакет, на iPhone — Safari.",
+  en: "Full screen and a home-screen icon. No store: Chrome packages it on Android, Safari on iPhone.",
+});
+fill("set.install.done", { ru: "Мизан уже на экране.", en: "Mizan is already on the home screen.", ar: "الميزان على الشاشة." });
+fill("set.install.ok", { ru: "Готово. Иконка на рабочем столе.", en: "Done. The icon is on the home screen." });
+fill("set.install.android.title", { ru: "Android", en: "Android", ar: "أندرويد" });
+fill("set.install.ios.title", { ru: "iPhone", en: "iPhone", ar: "آيفون" });
+fill("set.install.android.apk", {
+  ru: "Chrome сам соберёт пакет и поставит иконку весов — это и есть установка, как у обычного приложения.",
+  en: "Chrome packages the app and puts the scales icon on the home screen — that is the install.",
+});
+fill("set.install.android.btn", { ru: "Установить на Android", en: "Install on Android", ar: "تثبيت على أندرويد" });
+fill("set.install.android.now", { ru: "Установить сейчас", en: "Install now", ar: "ثبّت الآن" });
+fill("set.install.ios.btn", { ru: "Как поставить на iPhone", en: "How to add on iPhone", ar: "كيف تثبّت على آيفون" });
+fill("set.install.android.how", {
+  ru: "Chrome: меню ⋮ → «Установить приложение» или «Добавить на главный экран».",
+  en: "Chrome: menu ⋮ → Install app or Add to Home screen.",
+});
+fill("set.install.ios.how", {
+  ru: "Только Safari: кнопка «Поделиться» → «На экран Домой». Chrome на iPhone так не умеет.",
+  en: "Safari only: Share → Add to Home Screen. Chrome on iPhone cannot do this.",
+});
+fill("set.install.android.s1", { ru: "Откройте Мизан в Chrome, не во встроенном окне.", en: "Open Mizan in Chrome, not an in-app browser." });
+fill("set.install.android.s2", { ru: "Меню ⋮ справа вверху → «Установить приложение».", en: "Menu ⋮ at the top right → Install app." });
+fill("set.install.android.s3", { ru: "Иконка весов появится на экране, как у обычного приложения.", en: "The scales icon lands on the home screen like any app." });
+fill("set.install.ios.s1", { ru: "Откройте Мизан в Safari — не в Chrome и не из Telegram.", en: "Open Mizan in Safari — not Chrome, not Telegram." });
+fill("set.install.ios.s2", { ru: "Внизу кнопка «Поделиться» (квадрат со стрелкой).", en: "Tap Share at the bottom (square with an arrow)." });
+fill("set.install.ios.s3", { ru: "Пролистайте и нажмите «На экран «Домой»», затем «Добавить».", en: "Scroll to Add to Home Screen, then Add." });
 
 export function translate(locale: Locale, key: string): string {
   return PACKS[locale][key] ?? PACKS.ru[key] ?? key;

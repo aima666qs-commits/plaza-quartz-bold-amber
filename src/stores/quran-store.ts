@@ -32,6 +32,8 @@ interface QuranStore {
   waiting: boolean;
   exactSync: boolean;
   words: SyncWord[];
+  pulse: number;
+  glowHue: number;
   setReciter: (id: string) => void;
   setRef: (surah: number, ayah: number) => void;
   setRepeat: (r: RepeatMode) => void;
@@ -109,11 +111,28 @@ function startTick() {
     }
     const idx = st.follow ? wordIndexAt(currentSegs, ms) : st.wordIndex;
     const dur = (el.duration || 0) * 1000;
-    if (idx !== st.wordIndex || Math.abs(ms - st.audioMs) > 40) {
+    let pulse = st.pulse;
+    if (idx !== st.wordIndex) {
+      pulse = 1;
+      if (document.documentElement.dataset.motion !== "off") {
+        try {
+          navigator.vibrate?.(16);
+        } catch {
+          /* ignore */
+        }
+      }
+    } else {
+      pulse = Math.max(0.26, st.pulse * 0.88);
+    }
+    const hues = [42, 148, 28, 8, 172, 52];
+    const glowHue = hues[(((idx < 0 ? 0 : idx) + st.ayah) % hues.length + hues.length) % hues.length] ?? 42;
+    if (idx !== st.wordIndex || Math.abs(ms - st.audioMs) > 40 || Math.abs(pulse - st.pulse) > 0.04) {
       useQuran.setState({
         wordIndex: st.follow ? idx : st.wordIndex,
         audioMs: ms,
         durationMs: dur || st.durationMs,
+        pulse,
+        glowHue,
       });
     }
     raf = requestAnimationFrame(loop);
@@ -348,6 +367,8 @@ export const useQuran = create<QuranStore>((set, get) => ({
   waiting: false,
   exactSync: false,
   words: [],
+  pulse: 0,
+  glowHue: 42,
   setReciter: (id) => {
     persist({ reciterId: id });
     set({ reciterId: id });
@@ -442,7 +463,7 @@ export const useQuran = create<QuranStore>((set, get) => ({
     clearGap();
     stopTick();
     getAudio()?.pause();
-    set({ playing: false });
+    set({ playing: false, pulse: 0 });
   },
   toggle: () => {
     if (get().waiting) {

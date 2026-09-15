@@ -1,16 +1,19 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { phaseLabel, weekByN, WEEKS } from "@/lib/quran/curriculum.ts";
 import { HARAKAT, HEAVY, LETTERS, TAJWEED_CARDS } from "@/lib/quran/letters.ts";
-import { COURSES, FACULTIES, type Course } from "@/lib/learn/catalog.ts";
+import { COURSES, FACULTIES, type Course, type CourseId } from "@/lib/learn/catalog.ts";
 import { TeacherDesk } from "@/components/mizan/teacher-desk.tsx";
+import { loadAyah } from "@/lib/quran/mushaf.ts";
 import { SURAHS, surahOf } from "@/lib/quran/surahs.ts";
-import type { DrillKind, LessonDay } from "@/lib/quran/types.ts";
+import type { Ayah, DrillKind, LessonDay } from "@/lib/quran/types.ts";
 import { cn } from "@/lib/utils.ts";
 import { TOTAL_STUDY_DAYS, useLearn } from "@/stores/learn-store.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 import { useQuran } from "@/stores/quran-store.ts";
+
+const AMMA = SURAHS.filter((s) => s.n >= 78);
 
 function LettersDrill({ filter }: { filter?: string[] }) {
   const pool = filter?.length ? LETTERS.filter((l) => filter.includes(l.ar)) : LETTERS;
@@ -228,6 +231,232 @@ function DayRow({ week, day }: { week: number; day: LessonDay }) {
   );
 }
 
+function playHusary(surah: number, from = 1, to?: number | null) {
+  useQuran.getState().setReciter("ar.husary");
+  useQuran.getState().playAt(surah, from, to ?? null);
+}
+
+function openMushaf(surah: number, ayah = 1) {
+  useQuran.getState().setRef(surah, ayah);
+  useMizan.getState().setAppTab("quran");
+}
+
+function SurahRow({
+  n,
+  extra,
+  onPick,
+  picked,
+}: {
+  n: number;
+  extra?: string;
+  onPick?: () => void;
+  picked?: boolean;
+}) {
+  const s = surahOf(n);
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between gap-2 rounded-2xl border px-3 py-3",
+        picked ? "border-[var(--accent)]" : "border-[var(--line)]",
+      )}
+    >
+      <button type="button" className="min-w-0 text-left" onClick={() => (onPick ? onPick() : openMushaf(s.n))}>
+        <span className="ayah-ar block text-lg" lang="ar">
+          {s.ar}
+        </span>
+        <span className="text-xs text-[var(--muted)]">
+          {s.n}. {s.ru} · {s.ayahs} аятов{extra ? ` · ${extra}` : ""}
+        </span>
+      </button>
+      <div className="flex shrink-0 gap-1">
+        <Button variant="ghost" className="pill size-11 p-0" aria-label="Хусари" onClick={() => playHusary(s.n, 1, s.ayahs)}>
+          <Play className="size-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function TalaqqiBoard() {
+  const [n, setN] = useState(114);
+  const [heard, setHeard] = useState(0);
+  const [said, setSaid] = useState(0);
+  const s = surahOf(n);
+  return (
+    <section className="grid gap-3">
+      <p className="text-center text-sm text-[var(--muted)]">Слушай, затем верни. Три круга — обычный минимум урока.</p>
+      <div className="flex items-center justify-center gap-2">
+        <Button variant="secondary" className="pill size-11 p-0" aria-label="Предыдущая сура" onClick={() => setN((x) => (x >= 114 ? 78 : x + 1))}>
+          <ChevronLeft className="size-5" />
+        </Button>
+        <p className="min-w-0 text-center">
+          <span className="ayah-ar block text-2xl" lang="ar">
+            {s.ar}
+          </span>
+          <span className="text-xs text-[var(--muted)]">
+            {s.n}. {s.ru}
+          </span>
+        </p>
+        <Button variant="secondary" className="pill size-11 p-0" aria-label="Следующая сура" onClick={() => setN((x) => (x <= 78 ? 114 : x - 1))}>
+          <ChevronRight className="size-5" />
+        </Button>
+      </div>
+      <div className="flex flex-wrap justify-center gap-2">
+        <Button
+          variant="glow"
+          className="pill"
+          onClick={() => {
+            playHusary(s.n, 1, s.ayahs);
+            setHeard((h) => h + 1);
+          }}
+        >
+          <Play className="size-4" /> Слух · {heard}/3
+        </Button>
+        <Button variant="secondary" className="pill" onClick={() => setSaid((v) => v + 1)}>
+          Повторил · {said}/3
+        </Button>
+        <Button variant="ghost" className="pill" onClick={() => openMushaf(s.n)}>
+          Мусхаф
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function TikrarBoard() {
+  const need = useLearn((s) => s.tikrarNeed);
+  const setNeed = useLearn((s) => s.setTikrarNeed);
+  const [n, setN] = useState(114);
+  const [ayah, setAyah] = useState(1);
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState<Ayah | null>(null);
+  const s = surahOf(n);
+
+  useEffect(() => {
+    let live = true;
+    void loadAyah(n, ayah).then((a) => {
+      if (live) setText(a);
+    });
+    return () => {
+      live = false;
+    };
+  }, [n, ayah]);
+
+  function nextAyah() {
+    setCount(0);
+    if (ayah >= s.ayahs) {
+      const nx = n <= 78 ? 114 : n - 1;
+      setN(nx);
+      setAyah(1);
+      return;
+    }
+    setAyah((a) => a + 1);
+  }
+
+  return (
+    <section className="grid gap-3">
+      <p className="text-center text-sm text-[var(--muted)]">Один аят. Пока не сядет на язык.</p>
+      <div className="flex justify-center gap-2">
+        {([10, 21] as const).map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => {
+              setNeed(k);
+              setCount(0);
+            }}
+            className={cn("min-h-11 rounded-full border px-4 text-sm", need === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]")}
+          >
+            {k} раз
+          </button>
+        ))}
+      </div>
+      <p className="ayah-ar text-center text-3xl leading-relaxed" lang="ar">
+        {text?.ar ?? "…"}
+      </p>
+      <p className="text-center text-xs text-[var(--muted)]">
+        {s.n}. {s.ru} · аят {ayah}/{s.ayahs}
+      </p>
+      <div className="flex flex-wrap justify-center gap-2">
+        <Button
+          variant="glow"
+          className="pill"
+          onClick={() => {
+            playHusary(n, ayah, ayah);
+            setCount((c) => Math.min(need, c + 1));
+          }}
+        >
+          <Play className="size-4" /> Ещё · {count}/{need}
+        </Button>
+        <Button variant="secondary" className="pill" onClick={nextAyah}>
+          Следующий аят
+        </Button>
+        <Button
+          variant="ghost"
+          className="pill"
+          onClick={() => {
+            setN((x) => (x <= 78 ? 114 : x - 1));
+            setAyah(1);
+            setCount(0);
+          }}
+        >
+          Другая сура
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function SabaqBoard() {
+  const sabaq = useLearn((s) => s.sabaqSurah);
+  const setSabaq = useLearn((s) => s.setSabaq);
+  const sabaqi = AMMA.filter((s) => s.n > sabaq && s.n <= Math.min(114, sabaq + 5)).reverse();
+  const manzil = AMMA.filter((s) => s.n > Math.min(114, sabaq + 5)).reverse().slice(0, 6);
+  return (
+    <section className="grid gap-4">
+      <p className="text-center text-sm text-[var(--muted)]">Сабак — новое. Сабаки — недавнее. Манзиль — старое.</p>
+      <div>
+        <p className="mb-2 text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Сабак</p>
+        <SurahRow n={sabaq} extra="сегодня" picked />
+      </div>
+      <div className="grid gap-2">
+        <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Сабаки</p>
+        {sabaqi.length ? sabaqi.map((s) => <SurahRow key={s.n} n={s.n} extra="недавнее" />) : <p className="text-center text-xs text-[var(--muted)]">Пока пусто — это первый урок.</p>}
+      </div>
+      <div className="grid gap-2">
+        <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Манзиль</p>
+        {manzil.length ? manzil.map((s) => <SurahRow key={s.n} n={s.n} extra="старое" />) : <p className="text-center text-xs text-[var(--muted)]">Старого ещё нет.</p>}
+      </div>
+      <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Назначить сабак</p>
+      <div className="grid gap-2">
+        {AMMA.map((s) => (
+          <SurahRow key={s.n} n={s.n} picked={s.n === sabaq} onPick={() => setSabaq(s.n)} extra={s.n === sabaq ? "сабак" : undefined} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AmmaList({ hint }: { hint: string }) {
+  return (
+    <section className="grid gap-2">
+      <p className="text-center text-sm text-[var(--muted)]">{hint}</p>
+      {AMMA.map((s) => (
+        <SurahRow key={s.n} n={s.n} />
+      ))}
+    </section>
+  );
+}
+
+function HifzBoard({ id }: { id: CourseId }) {
+  if (id === "talaqqi") return <TalaqqiBoard />;
+  if (id === "tikrar") return <TikrarBoard />;
+  if (id === "sabaq") return <SabaqBoard />;
+  if (id === "three-ten-one") return <AmmaList hint="Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя." />;
+  if (id === "murajaa") return <AmmaList hint="Сегодняшняя сура и пять предыдущих." />;
+  return <AmmaList hint="Джуз Амма, суры 78–114." />;
+}
+
 export function LearnView() {
   const weekN = useLearn((s) => s.week);
   const setWeek = useLearn((s) => s.setWeek);
@@ -235,48 +464,48 @@ export function LearnView() {
   const setCourse = useLearn((s) => s.setCourse);
   const count = useLearn((s) => s.completedCount());
   const playAt = useQuran((s) => s.playAt);
-  const setTab = useMizan((s) => s.setAppTab);
   const week = weekByN(weekN);
   const [drill, setDrill] = useState<DrillKind | null>(week.days.find((d) => d.drill)?.drill ?? "letters");
   const pct = Math.round((count / TOTAL_STUDY_DAYS) * 100);
   const course = COURSES.find((c) => c.id === courseId) ?? null;
 
   function openCourse(c: Course) {
-    setCourse(c.id);
     if (c.action === "hisn") {
-      setTab("hisn");
+      useMizan.getState().setAppTab("hisn");
       return;
     }
     if (c.action === "quran") {
-      setTab("quran");
+      useMizan.getState().setAppTab("quran");
+      return;
     }
     if (c.action === "tafsir") {
       useQuran.getState().openTafsir(12, 1);
-      setTab("quran");
+      useMizan.getState().setAppTab("quran");
+      return;
     }
+    setCourse(c.id);
   }
 
   if (!course) {
     return (
       <div className="page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6">
-        <div>
+        <div className="text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">جامعة · факультет</p>
-          <h1 className="font-display mt-2 text-3xl tracking-tight">Обучение</h1>
-          <p className="mt-2 text-sm text-[var(--muted)]">
-            Учитель ведёт урок: слушает, отвечает, держит метод. Иджазу даёт живой шейх, не это окно.
+          <h1 className="font-display mt-2 text-3xl tracking-tight">Сначала метод</h1>
+          <p className="mx-auto mt-2 max-w-md text-sm text-[var(--muted)]">
+            Выберите путь. Учитель ведёт только выбранный метод. Иджазу даёт живой шейх, не это окно.
           </p>
         </div>
-        <TeacherDesk course={null} />
         {FACULTIES.map((f) => {
           const list = COURSES.filter((c) => c.faculty === f.id);
           if (!list.length) return null;
           return (
             <section key={f.id} className="grid gap-2">
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
+              <p className="text-center text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]">
                 {f.nameAr} · {f.name}
               </p>
               {list.map((c) => (
-                <button key={c.id} type="button" className="door text-start" onClick={() => openCourse(c)}>
+                <button key={c.id} type="button" className="door text-start" onClick={() => openCourse(c)} data-go={`course-${c.id}`}>
                   <span className="ayah-ar block text-lg" lang="ar">
                     {c.nameAr}
                   </span>
@@ -297,197 +526,147 @@ export function LearnView() {
   const showItqan = course.action === "itqan";
 
   return (
-    <div className="page-pad mx-auto grid max-w-3xl gap-5 px-4 pt-6">
-      <button
-        type="button"
-        className="inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]"
-        onClick={() => setCourse(null)}
-      >
-        <ChevronLeft className="size-4" /> Все методы
-      </button>
+    <div className="method-page" data-go="method-page">
+      <div className="method-inner">
+        <button type="button" className="method-back" onClick={() => setCourse(null)} data-go="methods-back">
+          <ChevronLeft className="size-4" /> Все методы
+        </button>
 
-      <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
-        <p className="ayah-ar text-2xl" lang="ar">
-          {course.nameAr}
-        </p>
-        <h1 className="font-display mt-2 text-3xl tracking-tight">{course.name}</h1>
-        <p className="mt-3 text-sm">
-          <span className="text-[var(--muted)]">Кто: </span>
-          {course.inventor}
-        </p>
-        <p className="mt-1 text-sm">
-          <span className="text-[var(--muted)]">Откуда: </span>
-          {course.origin}
-        </p>
-        <p className="mt-3 text-sm">{course.what}</p>
-        <p className="mt-2 text-sm text-[var(--muted)]">{course.how}</p>
-        <p className="mt-3 text-xs text-[var(--muted)]">{course.honest}</p>
-      </header>
-
-      <TeacherDesk course={course} />
-
-      {showArabic ? (
-        <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Зал арабского</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(["letters", "connect", "harakat"] as DrillKind[]).map((k) => (
-              <button
-                key={k}
-                type="button"
-                onClick={() => setDrill(k)}
-                className={cn(
-                  "min-h-11 rounded-full border px-4 text-sm",
-                  drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
-                )}
-              >
-                {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"}
-              </button>
-            ))}
-          </div>
-          <div className="mt-4">
-            <DrillPanel kind={drill === "tajweed" ? "letters" : drill ?? "letters"} />
-          </div>
-        </section>
-      ) : null}
-
-      {showTajweed ? (
-        <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Карточки Хафс</p>
-          <div className="mt-4">
-            <DrillPanel kind="tajweed" />
-          </div>
-        </section>
-      ) : null}
-
-      {showHifz ? (
-        <section className="grid gap-2">
-          <p className="text-sm text-[var(--muted)]">
-            {course.id === "three-ten-one"
-              ? "Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя."
-              : course.id === "murajaa"
-                ? "Сегодняшняя сура и пять предыдущих."
-                : "Джуз Амма, суры 78–114."}
+        <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5 text-center">
+          <p className="ayah-ar text-2xl" lang="ar">
+            {course.nameAr}
           </p>
-          {SURAHS.filter((s) => s.n >= 78).map((s) => (
-            <div key={s.n} className="flex items-center justify-between gap-2 rounded-2xl border border-[var(--line)] px-3 py-3">
-              <button
-                type="button"
-                className="min-w-0 text-left"
-                onClick={() => {
-                  useQuran.getState().setRef(s.n, 1);
-                  setTab("quran");
-                }}
-              >
-                <span className="ayah-ar block text-lg" lang="ar">
-                  {s.ar}
-                </span>
-                <span className="text-xs text-[var(--muted)]">
-                  {s.n}. {s.ru} · {s.ayahs} аятов
-                </span>
-              </button>
-              <Button
-                variant="ghost"
-                className="pill shrink-0"
-                onClick={() => {
-                  useQuran.getState().setReciter("ar.husary");
-                  playAt(s.n, 1, s.ayahs);
-                }}
-              >
-                <Play className="size-4" />
-              </Button>
-            </div>
-          ))}
-        </section>
-      ) : null}
+          <h1 className="font-display mt-2 text-3xl tracking-tight">{course.name}</h1>
+          <p className="mt-3 text-sm">{course.inventor}</p>
+          <p className="mt-2 text-sm text-[var(--muted)]">{course.how}</p>
+          <p className="mt-3 text-xs text-[var(--muted)]">{course.honest}</p>
+        </header>
 
-      {showItqan ? (
-        <>
-          <div className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Прогресс</p>
-              <p className="tabular-nums text-sm">{pct}%</p>
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]">
-              <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${pct}%` }} />
-            </div>
-            <p className="mt-2 text-xs text-[var(--muted)]">
-              {count} из {TOTAL_STUDY_DAYS} учебных дней · 40 недель
-            </p>
-          </div>
+        <TeacherDesk course={course} />
 
-          <div className="flex items-center justify-between gap-2">
-            <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN - 1)} aria-label="Предыдущая неделя">
-              <ChevronLeft className="size-5" />
-            </Button>
-            <div className="min-w-0 text-center">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-                Неделя {week.n} · {phaseLabel(week.phase)}
-              </p>
-              <p className="font-display text-xl leading-tight">{week.title}</p>
-            </div>
-            <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN + 1)} aria-label="Следующая неделя">
-              <ChevronRight className="size-5" />
-            </Button>
-          </div>
-
-          <p className="text-sm">{week.goal}</p>
-          <p className="text-sm text-[var(--muted)]">{week.kuliev}</p>
-          <p className="text-xs text-[var(--muted)]">Зачёт: {week.checkpoint}</p>
-
-          <Button
-            variant="glow"
-            onClick={() => {
-              useQuran.getState().setReciter("ar.husary");
-              playAt(week.listen.surah, week.listen.from, week.listen.to);
-            }}
-          >
-            <Play className="size-4" /> Слушание недели · {surahOf(week.listen.surah).ru} {week.listen.from}–{week.listen.to}
-          </Button>
-
-          <div className="grid gap-3">
-            {week.days.map((day) => (
-              <DayRow key={day.d} week={week.n} day={day} />
-            ))}
-          </div>
-
+        {showArabic ? (
           <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Тренажёр</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {(["letters", "connect", "harakat", "tajweed"] as DrillKind[]).map((k) => (
+            <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Зал арабского</p>
+            <div className="mt-3 flex flex-wrap justify-center gap-2">
+              {(["letters", "connect", "harakat"] as DrillKind[]).map((k) => (
                 <button
                   key={k}
                   type="button"
                   onClick={() => setDrill(k)}
                   className={cn(
-                    "min-h-11 rounded-full border px-3 py-2 text-xs",
+                    "min-h-11 rounded-full border px-4 text-sm",
                     drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
                   )}
                 >
-                  {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"}
+                  {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"}
                 </button>
               ))}
             </div>
-            <div className="mt-4">{drill ? <DrillPanel kind={drill} letters={week.letters} /> : null}</div>
+            <div className="mt-4">
+              <DrillPanel kind={drill === "tajweed" ? "letters" : drill ?? "letters"} />
+            </div>
           </section>
+        ) : null}
 
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {WEEKS.map((w) => (
-              <button
-                key={w.n}
-                type="button"
-                onClick={() => setWeek(w.n)}
-                className={cn(
-                  "grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums",
-                  w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
-                )}
-              >
-                {w.n}
-              </button>
-            ))}
-          </div>
-        </>
-      ) : null}
+        {showTajweed ? (
+          <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
+            <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Карточки Хафс</p>
+            <div className="mt-4">
+              <DrillPanel kind="tajweed" />
+            </div>
+          </section>
+        ) : null}
+
+        {showHifz ? <HifzBoard id={course.id} /> : null}
+
+        {showItqan ? (
+          <>
+            <div className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Прогресс</p>
+                <p className="tabular-nums text-sm">{pct}%</p>
+              </div>
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]">
+                <div className="h-full rounded-full bg-[var(--accent)]" style={{ width: `${pct}%` }} />
+              </div>
+              <p className="mt-2 text-xs text-[var(--muted)]">
+                {count} из {TOTAL_STUDY_DAYS} учебных дней · 40 недель
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between gap-2">
+              <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN - 1)} aria-label="Предыдущая неделя">
+                <ChevronLeft className="size-5" />
+              </Button>
+              <div className="min-w-0 text-center">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+                  Неделя {week.n} · {phaseLabel(week.phase)}
+                </p>
+                <p className="font-display text-xl leading-tight">{week.title}</p>
+              </div>
+              <Button variant="secondary" className="pill size-11 p-0" onClick={() => setWeek(weekN + 1)} aria-label="Следующая неделя">
+                <ChevronRight className="size-5" />
+              </Button>
+            </div>
+
+            <p className="text-center text-sm">{week.goal}</p>
+            <p className="text-center text-sm text-[var(--muted)]">{week.kuliev}</p>
+            <p className="text-center text-xs text-[var(--muted)]">Зачёт: {week.checkpoint}</p>
+
+            <Button
+              variant="glow"
+              onClick={() => {
+                useQuran.getState().setReciter("ar.husary");
+                playAt(week.listen.surah, week.listen.from, week.listen.to);
+              }}
+            >
+              <Play className="size-4" /> Слушание недели · {surahOf(week.listen.surah).ru} {week.listen.from}–{week.listen.to}
+            </Button>
+
+            <div className="grid gap-3">
+              {week.days.map((day) => (
+                <DayRow key={day.d} week={week.n} day={day} />
+              ))}
+            </div>
+
+            <section className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
+              <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Тренажёр</p>
+              <div className="mt-3 flex flex-wrap justify-center gap-2">
+                {(["letters", "connect", "harakat", "tajweed"] as DrillKind[]).map((k) => (
+                  <button
+                    key={k}
+                    type="button"
+                    onClick={() => setDrill(k)}
+                    className={cn(
+                      "min-h-11 rounded-full border px-3 py-2 text-xs",
+                      drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
+                    )}
+                  >
+                    {k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4">{drill ? <DrillPanel kind={drill} letters={week.letters} /> : null}</div>
+            </section>
+
+            <div className="flex justify-center gap-2 overflow-x-auto pb-1">
+              {WEEKS.map((w) => (
+                <button
+                  key={w.n}
+                  type="button"
+                  onClick={() => setWeek(w.n)}
+                  className={cn(
+                    "grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums",
+                    w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]",
+                  )}
+                >
+                  {w.n}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : null}
+      </div>
     </div>
   );
 }
-

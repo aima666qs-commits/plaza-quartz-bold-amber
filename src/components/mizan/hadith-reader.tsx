@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Volume2 } from "lucide-react";
 import {
   NAWAWI,
+  NAWAWI_SAHIH,
   hadithMeaning,
   hadithRef,
   hadithTitle,
@@ -10,6 +11,7 @@ import {
   type HadithMeanFont,
   type HadithPaper,
 } from "@/lib/house/data.ts";
+import { gradeLabel, gradeNote, isSahih } from "@/lib/house/nawawi-grade.ts";
 import { translate } from "@/lib/i18n/dict.ts";
 import { speakText, stopSpeak } from "@/lib/voice.ts";
 import { cn } from "@/lib/utils.ts";
@@ -48,13 +50,15 @@ export function HadithReader() {
   const meanFont = useMizan((s) => s.settings.hadithMeanFont) ?? "literata";
   const setSettings = useMizan((s) => s.setSettings);
   const [speaking, setSpeaking] = useState<SpeakKind>(null);
+  const [source, setSource] = useState(false);
   const t = (k: string) => translate(locale, k);
   const h = NAWAWI.find((x) => x.n === n) ?? NAWAWI[0];
   const meaning = hadithMeaning(h, locale);
   const title = hadithTitle(h, locale);
-  const i = NAWAWI.findIndex((x) => x.n === h.n);
-  const prev = i > 0 ? NAWAWI[i - 1] : null;
-  const next = i < NAWAWI.length - 1 ? NAWAWI[i + 1] : null;
+  const pool = isSahih(h.n) ? NAWAWI_SAHIH : NAWAWI;
+  const i = pool.findIndex((x) => x.n === h.n);
+  const prev = i > 0 ? pool[i - 1] : null;
+  const next = i >= 0 && i < pool.length - 1 ? pool[i + 1] : null;
 
   useEffect(() => {
     return () => stopSpeak();
@@ -63,6 +67,7 @@ export function HadithReader() {
   useEffect(() => {
     stopSpeak();
     setSpeaking(null);
+    setSource(false);
   }, [h.n]);
 
   function back() {
@@ -113,7 +118,7 @@ export function HadithReader() {
         </button>
         <p className="book-kicker">
           {t("hadith.n")} {h.n}
-          <span className="opacity-50"> / {NAWAWI.length}</span>
+          <span className="opacity-50"> · {gradeLabel(h.n, locale)}</span>
         </p>
         <span className="size-11" />
       </header>
@@ -137,6 +142,16 @@ export function HadithReader() {
           />
         ) : null}
         <p className="book-ref">{hadithRef(h, locale)}</p>
+        <button
+          type="button"
+          className="hadith-mini mx-auto"
+          onClick={() => setSource((v) => !v)}
+          data-go="hadith-source"
+          aria-expanded={source}
+        >
+          {t("hadith.whence")}
+        </button>
+        {source ? <p className="book-source">{gradeNote(h.n, locale)}</p> : null}
         <ChipRow
           items={PAPERS.map((p) => ({ id: p.id, label: t(p.key) }))}
           value={paper}

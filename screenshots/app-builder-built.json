@@ -7,8 +7,8 @@
       "status": 200,
       "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 890,
-      "bodyTextHash": "d88094b0dacf84069667f4e751d8d2c3d0fbf9d9aededa828b5ad415c69650b7",
+      "bodyTextLen": 821,
+      "bodyTextHash": "ae060825c9a7e053e4446eecdaf72c6ac3e98bc9e7112fab94ca30a497d5d6c6",
       "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
       "consoleErrors": [],
@@ -21,8 +21,8 @@
       "status": 200,
       "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 890,
-      "bodyTextHash": "d88094b0dacf84069667f4e751d8d2c3d0fbf9d9aededa828b5ad415c69650b7",
+      "bodyTextLen": 821,
+      "bodyTextHash": "ae060825c9a7e053e4446eecdaf72c6ac3e98bc9e7112fab94ca30a497d5d6c6",
       "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
       "consoleErrors": [],
@@ -35,6 +35,6 @@
   "verdictFile": "/workspace/screenshots/app-builder-built.json",
   "divergesFromBaseline": true,
   "baselineReasons": [
-    "mobile: body text changed (1127 -> 890 chars, hash mismatch)"
+    "mobile: body text changed (1058 -> 821 chars, hash mismatch)"
   ]
 }

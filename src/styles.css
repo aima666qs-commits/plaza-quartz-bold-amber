@@ -46,6 +46,8 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -56,13 +58,17 @@ html {
   color: var(--fg);
   font-family: var(--font-body);
   font-size: calc(16px * var(--user-font-scale));
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
   background: var(--bg);
   min-height: 100dvh;
   color: var(--fg);
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  overscroll-behavior: none;
 }
 
 .font-display,
@@ -219,9 +225,9 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *:not(.gold-flow),
-  *:not(.gold-flow)::before,
-  *:not(.gold-flow)::after {
+  *:not(.gold-flow):not(.ayah-live),
+  *:not(.gold-flow):not(.ayah-live)::before,
+  *:not(.gold-flow):not(.ayah-live)::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
@@ -234,9 +240,34 @@ button {
 .app-shell {
   position: relative;
   min-height: 100dvh;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
   background: var(--bg);
   color: var(--fg);
+}
+
+main,
+.tab-keep,
+.page-pad {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.brand-logo {
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .geo-veil {
@@ -269,6 +300,68 @@ button {
 .ayah-active {
   background: color-mix(in oklab, var(--accent) 10%, transparent);
   box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.ayah-live {
+  --pulse: 0.45;
+  --glow-hue: 42;
+  --glow: hsl(var(--glow-hue) 78% 62%);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% -10%, color-mix(in oklab, var(--glow) calc(var(--pulse) * 34%), transparent), transparent 62%),
+    var(--surface);
+  box-shadow:
+    inset 0 0 48px color-mix(in oklab, var(--glow) calc(var(--pulse) * 52%), transparent),
+    inset 0 -28px 56px color-mix(in oklab, var(--glow) calc(var(--pulse) * 22%), transparent),
+    0 0 36px color-mix(in oklab, var(--glow) calc(var(--pulse) * 32%), transparent);
+  animation: none;
+}
+
+.ayah-live::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 180deg,
+    hsl(var(--glow-hue) 90% 70% / 0),
+    hsl(var(--glow-hue) 90% 68% / calc(var(--pulse) * 0.55)),
+    hsl(calc(var(--glow-hue) + 40) 85% 60% / 0),
+    hsl(calc(var(--glow-hue) + 80) 80% 62% / calc(var(--pulse) * 0.4)),
+    hsl(var(--glow-hue) 90% 70% / 0)
+  );
+  animation: ayah-spin 7s linear infinite;
+  opacity: 0.32;
+  mix-blend-mode: soft-light;
+}
+
+.ayah-live > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes ayah-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ayah-live .ayah-word-now {
+  background: color-mix(in oklab, var(--glow) 62%, transparent);
+  box-shadow:
+    inset 0 0 14px color-mix(in oklab, var(--glow) 70%, white 10%),
+    0 0 22px color-mix(in oklab, var(--glow) 55%, transparent);
+  transform: translateY(-1px) scale(1.05);
+}
+
+[data-motion="off"] .ayah-live,
+[data-motion="off"] .ayah-live::before {
+  animation: none;
+}
+
+.player-dock.ayah-live {
+  overflow: hidden;
 }
 
 .bottom-dock {
@@ -880,6 +973,51 @@ button {
   overflow: hidden;
 }
 
+.hadith-day-mean.is-full {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.hadith-minis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hadith-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.hadith-grade {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hadith-source,
+.book-source {
+  max-width: 26rem;
+  margin-inline: auto;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}
+
 .hadith-day-listen {
   display: inline-flex;
   align-items: center;
@@ -1089,7 +1227,327 @@ button {
   overflow: hidden;
 }
 .app-shell.is-hadith main {
-  visibility: hidden;
+  display: none;
+}
+
+.app-shell.is-settings {
+  overflow: hidden;
+}
+.app-shell.is-settings main,
+.app-shell.is-settings header,
+.app-shell.is-settings .bottom-dock,
+.app-shell.is-settings .player-dock,
+.app-shell.is-settings .geo-veil {
+  display: none !important;
+}
+
+.settings-gear {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.settings-page {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  overflow-y: auto;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  isolation: isolate;
+  pointer-events: auto;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  background-color: var(--bg);
+  color: var(--fg);
+  padding: 0.5rem 1.1rem 2rem;
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
+
+.settings-page > * {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.settings-page > .settings-theme {
+  max-width: 64rem;
+}
+
+.settings-theme {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .settings-theme {
+    grid-template-columns: minmax(0, 1fr) minmax(15.5rem, 18rem);
+    align-items: start;
+  }
+  .theme-stage {
+    order: 2;
+    position: sticky;
+    top: 3.6rem;
+  }
+}
+
+.theme-stage {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--bg-elev);
+  padding: 0.85rem 0.9rem 1rem;
+  min-width: 0;
+}
+
+.theme-stage-kicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.55rem;
+}
+
+.theme-stage-phone {
+  width: 100%;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  padding: 0.85rem 0.8rem 0.7rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  overflow: hidden;
+}
+
+.theme-stage-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.theme-stage-mark {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 8px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.theme-stage-hero {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
+.theme-stage-date {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.theme-stage-ar {
+  font-family: var(--font-arabic);
+  font-size: 1.15rem;
+  direction: rtl;
+}
+
+.theme-stage-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+.theme-stage-tiles i {
+  display: block;
+  height: 2.4rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.theme-stage-dock {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: 0.45rem;
+}
+
+.theme-stage-dock i {
+  display: block;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--muted) 45%, transparent);
+}
+
+.theme-stage-dock i:nth-child(3) {
+  background: var(--accent);
+}
+
+.theme-gallery {
+  min-width: 0;
+}
+
+.theme-swatch {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.75rem;
+  min-width: 0;
+  touch-action: manipulation;
+}
+
+.theme-swatch.is-on {
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.settings-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 2.75rem 1fr 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.5rem;
+  margin: 0 -0.25rem 0.25rem;
+  padding: 0.15rem 0.25rem 0.5rem;
+  background: var(--bg);
+}
+
+.settings-bar h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+.settings-back {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  touch-action: manipulation;
+}
+
+.install-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 1.05rem 1.1rem 1.15rem;
+  background: var(--bg-elev);
+}
+
+.install-split {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.install-pane {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.9rem 0.95rem 1rem;
+  background: var(--bg);
+}
+
+.install-pane-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.install-steps {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.install-steps li {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.install-steps span {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.method-page {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow-y: auto;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  background: var(--bg);
+  padding: 0.75rem 1rem 1.5rem;
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+.has-player .method-page {
+  padding-bottom: max(5.5rem, env(safe-area-inset-bottom));
+}
+
+.app-shell.is-method .player-dock {
+  z-index: 90;
+}
+
+.method-inner {
+  width: 100%;
+  max-width: 40rem;
+  display: grid;
+  gap: 1.1rem;
+  justify-items: stretch;
+}
+
+.method-back {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  gap: 0.25rem;
+  margin-inline: auto;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.app-shell.is-method main > .tab-keep[hidden] {
+  display: none;
 }
 
 .book-page[data-paper="mushaf"] .gold-flow,

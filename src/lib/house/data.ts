@@ -1,6 +1,7 @@
 import namesJson from "@/lib/house/names.json";
 import nawawiJson from "@/lib/house/nawawi.json";
 import { NAWAWI_RU } from "@/lib/house/nawawi-ru.ts";
+import { hadithGrade, isSahih } from "@/lib/house/nawawi-grade.ts";
 import type { Locale } from "@/lib/i18n/dict.ts";
 
 export type AllahName = { n: number; ar: string; tr: string; en: string; ru: string };
@@ -49,6 +50,8 @@ export const NAWAWI: NawawiHadith[] = rawItems.map((h) => {
   };
 });
 
+export const NAWAWI_SAHIH = NAWAWI.filter((h) => isSahih(h.n));
+
 export function nawawiSource(locale: Locale): string {
   if (locale === "en") return "Forty Hadith of Imam an-Nawawi. The English meaning is for study, not a legal ruling.";
   if (locale === "ar") return "الأربعون النووية. المتن العربي من الروايات المشهورة.";
@@ -81,17 +84,39 @@ export function speakLang(locale: Locale): string {
 }
 
 export function hadithOfDay(): NawawiHadith {
-  return NAWAWI[dayIndex(NAWAWI.length)] ?? NAWAWI[0];
+  const pool = NAWAWI_SAHIH.length ? NAWAWI_SAHIH : NAWAWI;
+  return pool[dayIndex(pool.length)] ?? pool[0];
 }
 
 export function hijriLabel(d = new Date(), locale: Locale = "ru"): { hijri: string; greg: string } {
-  const tag = locale === "ar" ? "ar-SA" : locale === "en" ? "en-GB" : locale === "tr" ? "tr-TR" : "ru-RU";
-  const hijri = new Intl.DateTimeFormat(`${tag}-u-ca-islamic-umalqura`, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(d);
-  const greg = new Intl.DateTimeFormat(tag, { day: "numeric", month: "long", year: "numeric" }).format(d);
+  const gregTag = locale === "ar" ? "ar-SA" : locale === "en" ? "en-GB" : locale === "tr" ? "tr-TR" : "ru-RU";
+  const greg = new Intl.DateTimeFormat(gregTag, { day: "numeric", month: "long", year: "numeric" }).format(d);
+  let day = 1;
+  let month = 1;
+  let year = 1447;
+  try {
+    const parts = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    }).formatToParts(d);
+    day = Number(parts.find((p) => p.type === "day")?.value) || day;
+    month = Number(parts.find((p) => p.type === "month")?.value) || month;
+    year = Number(parts.find((p) => p.type === "year")?.value) || year;
+  } catch {
+    /* keep defaults */
+  }
+  const months =
+    locale === "ar"
+      ? ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"]
+      : locale === "en"
+        ? ["Muharram", "Safar", "Rabiʿ I", "Rabiʿ II", "Jumada I", "Jumada II", "Rajab", "Shaʿban", "Ramadan", "Shawwal", "Dhu al-Qaʿda", "Dhu al-Hijja"]
+        : locale === "tr"
+          ? ["Muharrem", "Safer", "Rebiülevvel", "Rebiülahir", "Cemaziyelevvel", "Cemaziyelahir", "Recep", "Şaban", "Ramazan", "Şevval", "Zilkade", "Zilhicce"]
+          : ["мухаррам", "сафар", "рабиʿ I", "рабиʿ II", "джумада I", "джумада II", "раджаб", "шаʿбан", "рамадан", "шавваль", "зуль-каʿда", "зуль-хиджжа"];
+  const monthName = months[Math.min(11, Math.max(0, month - 1))] ?? months[0];
+  const hijri =
+    locale === "ar" ? `${day} ${monthName} ${year} هـ` : locale === "en" ? `${day} ${monthName} ${year} AH` : `${day} ${monthName} ${year} г. х.`;
   return { hijri, greg };
 }
 
@@ -101,3 +126,5 @@ export function dayIndex(mod: number): number {
   const days = Math.floor((now - start) / 86400000);
   return ((days % mod) + mod) % mod;
 }
+
+export { hadithGrade, isSahih };

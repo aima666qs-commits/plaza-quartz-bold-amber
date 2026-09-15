@@ -782,6 +782,46 @@ var Settings = createLucideIcon("settings", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Share2 = createLucideIcon("share-2", [
+	["circle", {
+		cx: "18",
+		cy: "5",
+		r: "3",
+		key: "gq8acd"
+	}],
+	["circle", {
+		cx: "6",
+		cy: "12",
+		r: "3",
+		key: "w7nqdw"
+	}],
+	["circle", {
+		cx: "18",
+		cy: "19",
+		r: "3",
+		key: "1xt0gg"
+	}],
+	["line", {
+		x1: "8.59",
+		x2: "15.42",
+		y1: "13.51",
+		y2: "17.49",
+		key: "47mynk"
+	}],
+	["line", {
+		x1: "15.41",
+		x2: "8.59",
+		y1: "6.51",
+		y2: "10.49",
+		key: "1n3mei"
+	}]
+]);
+/**
+* @license lucide-react v0.510.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Shield = createLucideIcon("shield", [["path", {
 	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
 	key: "oel41y"
@@ -990,4 +1030,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { House as A, ChevronDown as B, Pause as C, Library as D, Lightbulb as E, Download as F, BookOpen as G, CalendarDays as H, CirclePause as I, Bell as K, CircleHelp as L, Heart as M, Headphones as N, Languages as O, GraduationCap as P, ChevronRight as R, Play as S, MessagesSquare as T, Building2 as U, Check as V, Bookmark as W, RotateCcw as _, Trash2 as a, Printer as b, SkipForward as c, Shield as d, Settings as f, Scale as g, ScrollText as h, TriangleAlert as i, Highlighter as j, Landmark as k, SkipBack as l, Search as m, Volume2 as n, Table2 as o, Send as p, Badge as q, Type as r, Sparkles as s, X as t, Signpost as u, Repeat as v, Mic as w, Plus as x, Repeat1 as y, ChevronLeft as z };
+export { Landmark as A, ChevronLeft as B, Play as C, Lightbulb as D, MessagesSquare as E, GraduationCap as F, Bookmark as G, Check as H, Download as I, Badge as J, BookOpen as K, CirclePause as L, Highlighter as M, Heart as N, Library as O, Headphones as P, CircleHelp as R, Plus as S, Mic as T, CalendarDays as U, ChevronDown as V, Building2 as W, Scale as _, Trash2 as a, Repeat1 as b, SkipForward as c, Shield as d, Share2 as f, ScrollText as g, Search as h, TriangleAlert as i, House as j, Languages as k, SkipBack as l, Send as m, Volume2 as n, Table2 as o, Settings as p, Bell as q, Type as r, Sparkles as s, X as t, Signpost as u, RotateCcw as v, Pause as w, Printer as x, Repeat as y, ChevronRight as z };

@@ -1,12 +1,12 @@
 import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
 import { R as require_react, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TSS_SERVER_FUNCTION, r as getServerFnById, t as createServerFn } from "./ssr.mjs";
-import { A as House, B as ChevronDown, C as Pause, D as Library, E as Lightbulb, F as Download, G as BookOpen, H as CalendarDays, I as CirclePause, K as Bell, L as CircleHelp, M as Heart, N as Headphones, O as Languages, P as GraduationCap, R as ChevronRight, S as Play, T as MessagesSquare, U as Building2, V as Check, W as Bookmark, _ as RotateCcw, a as Trash2, b as Printer, c as SkipForward, d as Shield, f as Settings, g as Scale, h as ScrollText, j as Highlighter, k as Landmark, l as SkipBack, m as Search, n as Volume2, o as Table2, p as Send, q as Badge, r as Type, s as Sparkles, t as X, u as Signpost, v as Repeat, w as Mic, x as Plus, y as Repeat1, z as ChevronLeft } from "../_libs/lucide-react.mjs";
+import { A as Landmark, B as ChevronLeft, C as Play, D as Lightbulb, E as MessagesSquare, F as GraduationCap, G as Bookmark, H as Check, I as Download, J as Badge, K as BookOpen, L as CirclePause, M as Highlighter, N as Heart, O as Library, P as Headphones, R as CircleHelp, S as Plus, T as Mic, U as CalendarDays, V as ChevronDown, W as Building2, _ as Scale, a as Trash2, b as Repeat1, c as SkipForward, d as Shield, f as Share2, g as ScrollText, h as Search, j as House, k as Languages, l as SkipBack, m as Send, n as Volume2, o as Table2, p as Settings, q as Bell, r as Type, s as Sparkles, t as X, u as Signpost, v as RotateCcw, w as Pause, x as Printer, y as Repeat, z as ChevronRight } from "../_libs/lucide-react.mjs";
 import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { t as create } from "../_libs/zustand.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BBOWwbJt.js
-var routes_BBOWwbJt_exports = /* @__PURE__ */ __exportAll({
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BSN42R5V.js
+var routes_BSN42R5V_exports = /* @__PURE__ */ __exportAll({
 	a: () => notifySupported,
 	c: () => showSabrNow,
 	component: () => Home,
@@ -1959,6 +1959,60 @@ var NAWAWI_RU = {
 		ru: "Передают со слов Анаса ибн Малика, да будет доволен им Аллах: я слышал, как Посланник Аллаха ﷺ сказал: «Аллах Всевышний сказал: „О сын Адама, пока ты взываешь ко Мне и надеешься на Меня, Я прощаю тебе то, что было от тебя, и Мне нет до этого дела. О сын Адама, если бы твои грехи достигли облаков неба, а затем ты попросил у Меня прощения, Я простил бы тебя. О сын Адама, если бы ты пришёл ко Мне с грехами величиной с землю, а затем встретил Меня, не придавая Мне ничего в сотоварищи, Я пришёл бы к тебе с прощением такой же величины“»."
 	}
 };
+var HASAN = /* @__PURE__ */ new Set([
+	12,
+	18,
+	30,
+	31,
+	32,
+	33,
+	39,
+	41
+]);
+var HASAN_SAHIH = /* @__PURE__ */ new Set([
+	11,
+	19,
+	28,
+	29,
+	42
+]);
+function hadithGrade(n) {
+	if (HASAN.has(n)) return "hasan";
+	if (HASAN_SAHIH.has(n)) return "hasan_sahih";
+	return "sahih";
+}
+function isSahih(n) {
+	return hadithGrade(n) === "sahih";
+}
+function gradeLabel(n, locale) {
+	const g = hadithGrade(n);
+	if (locale === "ar") {
+		if (g === "sahih") return "صحيح";
+		if (g === "hasan_sahih") return "حسن صحيح";
+		return "حسن";
+	}
+	if (locale === "en") {
+		if (g === "sahih") return "sahih";
+		if (g === "hasan_sahih") return "hasan sahih";
+		return "hasan";
+	}
+	if (g === "sahih") return "сахих";
+	if (g === "hasan_sahih") return "хасан сахих";
+	return "хасан";
+}
+function gradeNote(n, locale) {
+	const g = hadithGrade(n);
+	if (locale === "en") {
+		if (g === "sahih") return "In al-Bukhari and/or Muslim, as cited in the Forty.";
+		if (g === "hasan_sahih") return "at-Tirmidhi: hasan sahih, as cited in the Forty.";
+		if (n === 41) return "an-Nawawi: sahih chain in al-Hujjah. Not in the two Sahihs.";
+		return "Graded hasan in the Forty (Tirmidhi, Ibn Majah or others).";
+	}
+	if (g === "sahih") return "В «Сахихе» аль-Бухари и/или Муслима — так в сорока ан-Навави.";
+	if (g === "hasan_sahih") return "ат-Тирмизи: хасан сахих — так в сорока ан-Навави.";
+	if (n === 41) return "Ан-Навави: достоверная цепь в «аль-Худжже». В двух «Сахихах» нет.";
+	return "В сорока ан-Навави отмечен как хасан (ат-Тирмизи, Ибн Маджа или другие).";
+}
 var NAMES_META = names_default;
 var NAMES = NAMES_META.items;
 function cleanAr(s) {
@@ -1978,6 +2032,7 @@ var NAWAWI = nawawi_default.items.map((h) => {
 		refRu: extra?.refRu ?? h.ref
 	};
 });
+var NAWAWI_SAHIH = NAWAWI.filter((h) => isSahih(h.n));
 function hadithTitle(h, locale) {
 	if (locale === "en") return h.titleEn;
 	if (locale === "ar") return `الحديث ${h.n}`;
@@ -2000,21 +2055,86 @@ function speakLang(locale) {
 	return "ru-RU";
 }
 function hadithOfDay() {
-	return NAWAWI[dayIndex(NAWAWI.length)] ?? NAWAWI[0];
+	const pool = NAWAWI_SAHIH.length ? NAWAWI_SAHIH : NAWAWI;
+	return pool[dayIndex(pool.length)] ?? pool[0];
 }
 function hijriLabel(d = /* @__PURE__ */ new Date(), locale = "ru") {
-	const tag = locale === "ar" ? "ar-SA" : locale === "en" ? "en-GB" : locale === "tr" ? "tr-TR" : "ru-RU";
+	const gregTag = locale === "ar" ? "ar-SA" : locale === "en" ? "en-GB" : locale === "tr" ? "tr-TR" : "ru-RU";
+	const greg = new Intl.DateTimeFormat(gregTag, {
+		day: "numeric",
+		month: "long",
+		year: "numeric"
+	}).format(d);
+	let day = 1;
+	let month = 1;
+	let year = 1447;
+	try {
+		const parts = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+			day: "numeric",
+			month: "numeric",
+			year: "numeric"
+		}).formatToParts(d);
+		day = Number(parts.find((p) => p.type === "day")?.value) || day;
+		month = Number(parts.find((p) => p.type === "month")?.value) || month;
+		year = Number(parts.find((p) => p.type === "year")?.value) || year;
+	} catch {}
+	const months = locale === "ar" ? [
+		"محرم",
+		"صفر",
+		"ربيع الأول",
+		"ربيع الآخر",
+		"جمادى الأولى",
+		"جمادى الآخرة",
+		"رجب",
+		"شعبان",
+		"رمضان",
+		"شوال",
+		"ذو القعدة",
+		"ذو الحجة"
+	] : locale === "en" ? [
+		"Muharram",
+		"Safar",
+		"Rabiʿ I",
+		"Rabiʿ II",
+		"Jumada I",
+		"Jumada II",
+		"Rajab",
+		"Shaʿban",
+		"Ramadan",
+		"Shawwal",
+		"Dhu al-Qaʿda",
+		"Dhu al-Hijja"
+	] : locale === "tr" ? [
+		"Muharrem",
+		"Safer",
+		"Rebiülevvel",
+		"Rebiülahir",
+		"Cemaziyelevvel",
+		"Cemaziyelahir",
+		"Recep",
+		"Şaban",
+		"Ramazan",
+		"Şevval",
+		"Zilkade",
+		"Zilhicce"
+	] : [
+		"мухаррам",
+		"сафар",
+		"рабиʿ I",
+		"рабиʿ II",
+		"джумада I",
+		"джумада II",
+		"раджаб",
+		"шаʿбан",
+		"рамадан",
+		"шавваль",
+		"зуль-каʿда",
+		"зуль-хиджжа"
+	];
+	const monthName = months[Math.min(11, Math.max(0, month - 1))] ?? months[0];
 	return {
-		hijri: new Intl.DateTimeFormat(`${tag}-u-ca-islamic-umalqura`, {
-			day: "numeric",
-			month: "long",
-			year: "numeric"
-		}).format(d),
-		greg: new Intl.DateTimeFormat(tag, {
-			day: "numeric",
-			month: "long",
-			year: "numeric"
-		}).format(d)
+		hijri: locale === "ar" ? `${day} ${monthName} ${year} هـ` : locale === "en" ? `${day} ${monthName} ${year} AH` : `${day} ${monthName} ${year} г. х.`,
+		greg
 	};
 }
 function dayIndex(mod) {
@@ -3277,6 +3397,51 @@ fill("hadith.stop", {
 	tg: "Ист",
 	kk: "Тоқта"
 });
+fill("hadith.more", {
+	ru: "полностью",
+	en: "full",
+	ar: "كامل",
+	tr: "tamamı",
+	uz: "to‘liq",
+	tg: "пурра",
+	kk: "толық"
+});
+fill("hadith.less", {
+	ru: "свернуть",
+	en: "less",
+	ar: "أقل",
+	tr: "kısalt",
+	uz: "qisqa",
+	tg: "пӯшидан",
+	kk: "жию"
+});
+fill("hadith.whence", {
+	ru: "откуда",
+	en: "source",
+	ar: "المصدر",
+	tr: "kaynak",
+	uz: "qayerdan",
+	tg: "аз куҷо",
+	kk: "қайдан"
+});
+fill("hadith.filter.sahih", {
+	ru: "только сахих",
+	en: "sahih only",
+	ar: "الصحيح فقط",
+	tr: "yalnız sahih",
+	uz: "faqat sahih",
+	tg: "танҳо саҳеҳ",
+	kk: "тек сахих"
+});
+fill("hadith.filter.all", {
+	ru: "все 42",
+	en: "all 42",
+	ar: "الكل ٤٢",
+	tr: "42’si",
+	uz: "42 ta",
+	tg: "ҳамаи 42",
+	kk: "барлығы 42"
+});
 fill("set.font.family", {
 	ru: "Шрифт",
 	en: "Typeface",
@@ -3573,6 +3738,98 @@ fill("room.books.note", {
 	uz: "Mashhur to‘plamlar. 40 hadis uyda to‘liq.",
 	tg: "Феҳристи маҷмӯаҳои машҳур. 40 ҳадис дар хона пурра.",
 	kk: "Белгілі жинақтар каталогы. 40 хадис үйде толық."
+});
+fill("set.section.install", {
+	ru: "На телефон",
+	en: "On your phone",
+	ar: "على الهاتف",
+	tr: "Telefona",
+	uz: "Telefonga",
+	tg: "Ба телефон",
+	kk: "Телефонға"
+});
+fill("set.install.title", {
+	ru: "Поставить как приложение",
+	en: "Install as an app",
+	ar: "ثبّت كتطبيق",
+	tr: "Uygulama olarak kur",
+	uz: "Ilova qilib o‘rnat",
+	tg: "Чун барнома насб кун",
+	kk: "Қолданба ретінде орнат"
+});
+fill("set.install.lead", {
+	ru: "Полный экран и иконка на рабочем столе. Магазин не нужен: на Android Chrome сам собирает пакет, на iPhone — Safari.",
+	en: "Full screen and a home-screen icon. No store: Chrome packages it on Android, Safari on iPhone."
+});
+fill("set.install.done", {
+	ru: "Мизан уже на экране.",
+	en: "Mizan is already on the home screen.",
+	ar: "الميزان على الشاشة."
+});
+fill("set.install.ok", {
+	ru: "Готово. Иконка на рабочем столе.",
+	en: "Done. The icon is on the home screen."
+});
+fill("set.install.android.title", {
+	ru: "Android",
+	en: "Android",
+	ar: "أندرويد"
+});
+fill("set.install.ios.title", {
+	ru: "iPhone",
+	en: "iPhone",
+	ar: "آيفون"
+});
+fill("set.install.android.apk", {
+	ru: "Chrome сам соберёт пакет и поставит иконку весов — это и есть установка, как у обычного приложения.",
+	en: "Chrome packages the app and puts the scales icon on the home screen — that is the install."
+});
+fill("set.install.android.btn", {
+	ru: "Установить на Android",
+	en: "Install on Android",
+	ar: "تثبيت على أندرويد"
+});
+fill("set.install.android.now", {
+	ru: "Установить сейчас",
+	en: "Install now",
+	ar: "ثبّت الآن"
+});
+fill("set.install.ios.btn", {
+	ru: "Как поставить на iPhone",
+	en: "How to add on iPhone",
+	ar: "كيف تثبّت على آيفون"
+});
+fill("set.install.android.how", {
+	ru: "Chrome: меню ⋮ → «Установить приложение» или «Добавить на главный экран».",
+	en: "Chrome: menu ⋮ → Install app or Add to Home screen."
+});
+fill("set.install.ios.how", {
+	ru: "Только Safari: кнопка «Поделиться» → «На экран Домой». Chrome на iPhone так не умеет.",
+	en: "Safari only: Share → Add to Home Screen. Chrome on iPhone cannot do this."
+});
+fill("set.install.android.s1", {
+	ru: "Откройте Мизан в Chrome, не во встроенном окне.",
+	en: "Open Mizan in Chrome, not an in-app browser."
+});
+fill("set.install.android.s2", {
+	ru: "Меню ⋮ справа вверху → «Установить приложение».",
+	en: "Menu ⋮ at the top right → Install app."
+});
+fill("set.install.android.s3", {
+	ru: "Иконка весов появится на экране, как у обычного приложения.",
+	en: "The scales icon lands on the home screen like any app."
+});
+fill("set.install.ios.s1", {
+	ru: "Откройте Мизан в Safari — не в Chrome и не из Telegram.",
+	en: "Open Mizan in Safari — not Chrome, not Telegram."
+});
+fill("set.install.ios.s2", {
+	ru: "Внизу кнопка «Поделиться» (квадрат со стрелкой).",
+	en: "Tap Share at the bottom (square with an arrow)."
+});
+fill("set.install.ios.s3", {
+	ru: "Пролистайте и нажмите «На экран «Домой»», затем «Добавить».",
+	en: "Scroll to Add to Home Screen, then Add."
 });
 function translate(locale, key) {
 	return PACKS[locale][key] ?? PACKS.ru[key] ?? key;
@@ -6923,14 +7180,6 @@ var DEFAULT_THEME_ID = "mizan-emerald";
 function getTheme(id) {
 	return THEMES.find((t) => t.id === id) ?? THEMES[0];
 }
-var LAYOUT_LABEL = {
-	cabinet: "Кабинет",
-	editorial: "Редакция",
-	wizard: "Мастер",
-	table: "Таблица",
-	cards: "Карточки",
-	research: "Исследование"
-};
 function cn(...inputs) {
 	return twMerge(clsx(inputs));
 }
@@ -7048,6 +7297,7 @@ var useMizan = create((set, get) => ({
 	houseRoom: null,
 	houseHadith: null,
 	houseHadithFrom: "list",
+	homeEpoch: 0,
 	setInput: (patch) => {
 		const prev = get().input;
 		const next = typeof patch === "function" ? patch(prev) : {
@@ -7077,8 +7327,7 @@ var useMizan = create((set, get) => ({
 		persistSettings(next);
 		set({
 			settings: next,
-			previewThemeId: null,
-			designsOpen: false
+			previewThemeId: null
 		});
 	},
 	revertTheme: () => set({ previewThemeId: null }),
@@ -7086,10 +7335,24 @@ var useMizan = create((set, get) => ({
 		const fav = get().settings.favorites.includes(id) ? get().settings.favorites.filter((x) => x !== id) : [...get().settings.favorites, id];
 		get().setSettings({ favorites: fav });
 	},
-	setSettingsOpen: (v) => set({
-		settingsOpen: v,
-		designsOpen: false
-	}),
+	setSettingsOpen: (v) => {
+		set({
+			settingsOpen: v,
+			designsOpen: v ? true : false
+		});
+		if (typeof window === "undefined") return;
+		if (v) history.replaceState(null, "", "#settings");
+		else if (location.hash.replace(/^#/, "").startsWith("settings")) {
+			const tab = get().appTab;
+			history.replaceState(null, "", {
+				home: "#home",
+				zakat: "#zakat",
+				quran: "#quran",
+				hisn: "#hisn",
+				learn: "#learn"
+			}[tab]);
+		}
+	},
 	setDesignsOpen: (v) => set({
 		designsOpen: v,
 		settingsOpen: v ? true : get().settingsOpen
@@ -7154,6 +7417,19 @@ var useMizan = create((set, get) => ({
 		});
 		persistUi(get());
 		if (typeof window !== "undefined") history.replaceState(null, "", houseHash(houseRoom, houseHadith));
+	},
+	resetToHome: () => {
+		set({
+			settingsOpen: false,
+			designsOpen: false,
+			houseRoom: null,
+			houseHadith: null,
+			hisnChapterId: null,
+			appTab: "home",
+			homeEpoch: get().homeEpoch + 1
+		});
+		persistUi(get());
+		if (typeof window !== "undefined") history.replaceState(null, "", "#home");
 	},
 	recompute: () => {
 		const result = calculate(get().input);
@@ -7477,19 +7753,22 @@ function HadithReader() {
 	const meanFont = useMizan((s) => s.settings.hadithMeanFont) ?? "literata";
 	const setSettings = useMizan((s) => s.setSettings);
 	const [speaking, setSpeaking] = (0, import_react.useState)(null);
+	const [source, setSource] = (0, import_react.useState)(false);
 	const t = (k) => translate(locale, k);
 	const h = NAWAWI.find((x) => x.n === n) ?? NAWAWI[0];
 	const meaning = hadithMeaning(h, locale);
 	const title = hadithTitle(h, locale);
-	const i = NAWAWI.findIndex((x) => x.n === h.n);
-	const prev = i > 0 ? NAWAWI[i - 1] : null;
-	const next = i < NAWAWI.length - 1 ? NAWAWI[i + 1] : null;
+	const pool = isSahih(h.n) ? NAWAWI_SAHIH : NAWAWI;
+	const i = pool.findIndex((x) => x.n === h.n);
+	const prev = i > 0 ? pool[i - 1] : null;
+	const next = i >= 0 && i < pool.length - 1 ? pool[i + 1] : null;
 	(0, import_react.useEffect)(() => {
 		return () => stopSpeak();
 	}, []);
 	(0, import_react.useEffect)(() => {
 		stopSpeak();
 		setSpeaking(null);
+		setSource(false);
 	}, [h.n]);
 	function back() {
 		stopSpeak();
@@ -7548,7 +7827,7 @@ function HadithReader() {
 							h.n,
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 								className: "opacity-50",
-								children: [" / ", NAWAWI.length]
+								children: [" · ", gradeLabel(h.n, locale)]
 							})
 						]
 					}),
@@ -7591,6 +7870,18 @@ function HadithReader() {
 						className: "book-ref",
 						children: hadithRef(h, locale)
 					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "hadith-mini mx-auto",
+						onClick: () => setSource((v) => !v),
+						"data-go": "hadith-source",
+						"aria-expanded": source,
+						children: t("hadith.whence")
+					}),
+					source ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "book-source",
+						children: gradeNote(h.n, locale)
+					}) : null,
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChipRow, {
 						items: PAPERS.map((p) => ({
 							id: p.id,
@@ -9020,6 +9311,16 @@ var RECITERS = [
 		blurb: "Учебное чтение: паузы, ясность, слово за словом. Голос для иткана и хифза."
 	},
 	{
+		id: "ar.yasserdosari",
+		name: "Ясир ад-Даусари",
+		nameAr: "ياسر الدوسري",
+		style: "муратталь",
+		bitrate: 128,
+		everyayah: "Yasser_Ad-Dussary_128kbps",
+		skipCdn: true,
+		blurb: "Имам аль-Харам. Голос Даусари — ясный хиджазский муратталь."
+	},
+	{
 		id: "ar.abuhajar",
 		name: "Абу Хаджр аль-Ираки",
 		nameAr: "أبو هاجر العراقي",
@@ -9139,6 +9440,11 @@ function reciterById(id) {
 function ayahAudioUrl(reciter, global, surah, ayah) {
 	const surahFile = reciter.surahFiles?.[surah];
 	if (surahFile) return surahFile;
+	if (reciter.skipCdn && reciter.everyayah) {
+		const s = String(surah).padStart(3, "0");
+		const a = String(ayah).padStart(3, "0");
+		return `https://everyayah.com/data/${reciter.everyayah}/${s}${a}.mp3`;
+	}
 	return `https://cdn.islamic.network/quran/audio/${reciter.bitrate}/${reciter.id}/${global}.mp3`;
 }
 function reciterSurahs(reciter) {
@@ -9327,10 +9633,28 @@ function startTick() {
 		}
 		const idx = st.follow ? wordIndexAt(currentSegs, ms) : st.wordIndex;
 		const dur = (el.duration || 0) * 1e3;
-		if (idx !== st.wordIndex || Math.abs(ms - st.audioMs) > 40) useQuran.setState({
+		let pulse = st.pulse;
+		if (idx !== st.wordIndex) {
+			pulse = 1;
+			if (document.documentElement.dataset.motion !== "off") try {
+				navigator.vibrate?.(16);
+			} catch {}
+		} else pulse = Math.max(.26, st.pulse * .88);
+		const hues = [
+			42,
+			148,
+			28,
+			8,
+			172,
+			52
+		];
+		const glowHue = hues[(((idx < 0 ? 0 : idx) + st.ayah) % hues.length + hues.length) % hues.length] ?? 42;
+		if (idx !== st.wordIndex || Math.abs(ms - st.audioMs) > 40 || Math.abs(pulse - st.pulse) > .04) useQuran.setState({
 			wordIndex: st.follow ? idx : st.wordIndex,
 			audioMs: ms,
-			durationMs: dur || st.durationMs
+			durationMs: dur || st.durationMs,
+			pulse,
+			glowHue
 		});
 		raf = requestAnimationFrame(loop);
 	};
@@ -9562,6 +9886,8 @@ var useQuran = create((set, get) => ({
 	waiting: false,
 	exactSync: false,
 	words: [],
+	pulse: 0,
+	glowHue: 42,
 	setReciter: (id) => {
 		persist$1({ reciterId: id });
 		set({ reciterId: id });
@@ -9696,7 +10022,10 @@ var useQuran = create((set, get) => ({
 		clearGap();
 		stopTick();
 		getAudio()?.pause();
-		set({ playing: false });
+		set({
+			playing: false,
+			pulse: 0
+		});
 	},
 	toggle: () => {
 		if (get().waiting) {
@@ -9892,21 +10221,42 @@ function NamesRoom() {
 function NawawiRoom() {
 	const locale = useMizan((s) => s.settings.locale);
 	const setNav = useMizan((s) => s.setHouseNav);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	const [all, setAll] = (0, import_react.useState)(false);
+	const list = all ? NAWAWI : NAWAWI_SAHIH;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "grid gap-2",
-		children: NAWAWI.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-center justify-center gap-2",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-xs text-[var(--muted)]",
+				children: translate(locale, all ? "hadith.filter.all" : "hadith.filter.sahih")
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				type: "button",
+				className: "hadith-mini",
+				onClick: () => setAll((v) => !v),
+				"data-go": "hadith-filter",
+				children: all ? translate(locale, "hadith.filter.sahih") : translate(locale, "hadith.filter.all")
+			})]
+		}), list.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 			type: "button",
 			className: "flex min-h-12 w-full items-center gap-3 rounded-2xl border border-[var(--line)] px-3 py-2.5 text-left",
 			onClick: () => setNav("nawawi", h.n, "list"),
 			"data-go": `hadith-${h.n}`,
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "w-6 shrink-0 text-[11px] tabular-nums text-[var(--muted)]",
-				children: h.n
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "flex-1 font-medium leading-snug",
-				children: hadithTitle(h, locale)
-			})]
-		}, h.n))
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "w-6 shrink-0 text-[11px] tabular-nums text-[var(--muted)]",
+					children: h.n
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "flex-1 font-medium leading-snug",
+					children: hadithTitle(h, locale)
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "hadith-grade shrink-0",
+					children: gradeLabel(h.n, locale)
+				})
+			]
+		}, h.n))]
 	});
 }
 function IndexRoom() {
@@ -10786,13 +11136,16 @@ function localTeach(course, question) {
 	const q = question.toLowerCase();
 	if (q.includes("иджаз")) return `Мир тебе. Иджазу даёт живой учитель, не это окно. Я веду шаг метода и проверяю ответ. Всё.`;
 	if (!course) {
-		if (/(как учить|метод|заучив|хифз)/.test(q)) return `Мир тебе. Четыре рабочих пути, без выдумки.\nНурания — шейх Нур Мухаммад Хаккани: сначала буква и огласовка, потом сура.\n3+10+1 — практика каттаба: три раза слух Хусари, десять раз сами, один раз вчерашнее. Не хадис.\nДжуз Амма — суры 78–114 первыми, потому что короткие.\nМураджаʿа — новое и несколько старых каждый день.\nНажми карточку или скажи, с какого пути начнём.`;
-		return `Мир тебе. Я учитель. Учу Корану и арабскому по методу, не с потолка. Шейх — на закят, я — на урок.\nСкажи «буквы», «нурания», «заучивать» или нажми карточку.`;
+		if (/(как учить|метод|заучив|хифз)/.test(q)) return `Мир тебе. Рабочие пути каттаба, без выдумки.\nБагдадия и Нурания — сначала буква.\nТалакки — слух, затем повтор.\nТикрар — аят 10 или 21 раз.\nСабак · сабаки · манзиль — новое, недавнее, старое.\n3+10+1 — три слуха, десять своих, один вчерашний.\nДжуз Амма и мураджаʿа.\nНажми карточку метода.`;
+		return `Мир тебе. Я учитель. Сначала выбери метод на карточках — Багдадия, Нурания, талакки, тикрар, сабак. Шейх — на закят, я — на урок.`;
 	}
-	if (course.id === "nuraniyah" || course.id === "arabic") return `Мир тебе. Метод: ${course.name}. ${course.inventor} Сейчас не сура. Назови букву, которую видишь, или скажи «дай букву». Тренажёр — в зале под окном.`;
+	if (course.id === "nuraniyah" || course.id === "arabic" || course.id === "baghdadiyah") return `Мир тебе. Метод: ${course.name}. ${course.inventor} Сейчас не сура. Назови букву, которую видишь, или скажи «дай букву». Тренажёр — в зале под окном.`;
+	if (course.id === "talaqqi") return `Мир тебе. Талакки: слушай Хусари, потом верни своими устами. Три круга. Какую суру из 78–114 берём?`;
+	if (course.id === "tikrar") return `Мир тебе. Тикрар: один аят 10 или 21 раз, затем следующий. Какую суру берём?`;
+	if (course.id === "sabaq") return `Мир тебе. Сабак — новый урок, сабаки — пять недавних, манзиль — старое. Назначь сабак из 78–114.`;
 	if (course.id === "three-ten-one") return `Мир тебе. 3+10+1: три раза слух Хусари, десять раз сами, один раз вчерашняя сура. Это практика каттаба, не хадис. Какую суру из 78–114 берём?`;
 	if (course.id === "murajaa") return `Мир тебе. Мураджаʿа: сегодняшняя сура и пять предыдущих. Без старого новое не держится. Какую повторяешь сегодня?`;
-	if (course.id === "juz-amma" || course.id === "hifz") return `Мир тебе. Джуз Амма — суры 78–114. Открой суру, послушай Хусари, прочитай мне. Какую берём?`;
+	if (course.id === "juz-amma") return `Мир тебе. Джуз Амма — суры 78–114. Открой суру, послушай Хусари, прочитай мне. Какую берём?`;
 	return `Мир тебе. Мы в зале «${course.name}». ${course.how} Скажи, на чём остановился — продолжим с этого места.`;
 }
 var askTeacher = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("8482dd5fd80555ac81baabf2d5c5849150cc20cdf5eccb8879b596b231de4a62"));
@@ -11061,6 +11414,8 @@ function HadithDay() {
 	const h = hadithOfDay();
 	const meaning = hadithMeaning(h, locale);
 	const [speaking, setSpeaking] = (0, import_react.useState)(false);
+	const [full, setFull] = (0, import_react.useState)(false);
+	const [source, setSource] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => () => stopSpeak(), []);
 	async function play(e) {
 		e.stopPropagation();
@@ -11079,42 +11434,90 @@ function HadithDay() {
 	}
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "hadith-day",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-			type: "button",
-			className: "hadith-day-open",
-			onClick: () => setNav("nawawi", h.n, "home"),
-			"data-go": "hadith-day",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-					className: "hadith-day-kicker",
-					children: [
-						translate(locale, "hadith.day"),
-						" · ",
-						h.n
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "hadith-day-ar gold-flow",
-					lang: "ar",
-					children: h.core
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "hadith-day-title",
-					children: hadithTitle(h, locale)
-				}),
-				meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "hadith-day-mean",
-					children: meaning
-				}) : null
-			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-			type: "button",
-			className: cn("hadith-day-listen", speaking && "is-on"),
-			onClick: (e) => void play(e),
-			"aria-label": translate(locale, "hadith.listen"),
-			"data-go": "hadith-day-listen",
-			children: [speaking ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), translate(locale, speaking ? "hadith.stop" : "hadith.listen")]
-		})]
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				type: "button",
+				className: "hadith-day-open",
+				onClick: () => setNav("nawawi", h.n, "home"),
+				"data-go": "hadith-day",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "hadith-day-kicker",
+						children: [
+							translate(locale, "hadith.day"),
+							" · ",
+							h.n,
+							isSahih(h.n) ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "hadith-grade",
+								children: [" · ", gradeLabel(h.n, locale)]
+							}) : null
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "hadith-day-ar gold-flow",
+						lang: "ar",
+						children: h.core
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "hadith-day-title",
+						children: hadithTitle(h, locale)
+					}),
+					meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: cn("hadith-day-mean", full && "is-full"),
+						children: meaning
+					}) : null
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "hadith-minis",
+				children: [
+					meaning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "hadith-mini",
+						onClick: (e) => {
+							e.stopPropagation();
+							setFull((v) => !v);
+							setSource(false);
+						},
+						"data-go": "hadith-expand",
+						"aria-expanded": full,
+						children: full ? translate(locale, "hadith.less") : translate(locale, "hadith.more")
+					}) : null,
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "hadith-mini",
+						onClick: (e) => {
+							e.stopPropagation();
+							setSource((v) => !v);
+							setFull(false);
+						},
+						"data-go": "hadith-source",
+						"aria-expanded": source,
+						children: translate(locale, "hadith.whence")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						className: cn("hadith-day-listen", speaking && "is-on"),
+						onClick: (e) => void play(e),
+						"aria-label": translate(locale, "hadith.listen"),
+						"data-go": "hadith-day-listen",
+						children: [speaking ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), translate(locale, speaking ? "hadith.stop" : "hadith.listen")]
+					})
+				]
+			}),
+			source ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "hadith-source",
+				children: [
+					gradeLabel(h.n, locale),
+					" · ",
+					hadithRef(h, locale),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "mt-1 block",
+						children: gradeNote(h.n, locale)
+					})
+				]
+			}) : null
+		]
 	});
 }
 function SabrCard() {
@@ -11260,9 +11663,11 @@ function HomeView() {
 					}),
 					showHijri ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "text-[11px] text-[var(--muted)]",
+						"data-go": "hijri",
 						children: hijri.hijri
 					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "text-[11px] text-[var(--muted)]",
+						"data-go": "greg",
 						children: hijri.greg
 					})
 				]
@@ -12421,11 +12826,23 @@ var COURSES = [
 		faculty: "arabic",
 		name: "Арабский вход",
 		nameAr: "المدخل",
-		inventor: "Буквы и огласовки — общая база. Тренажёр в этом доме.",
-		origin: "Не учебник и не иджаза. 28 букв, связки, харакат.",
-		what: "Узнать букву, отличить точки, понять, соединяется ли она влево, прочитать ба с фатхой, касрой, даммой.",
+		inventor: "Тренажёр 28 букв, связок и харакат.",
+		origin: "Общая база каттаба, не отдельный учебник и не иджаза.",
+		what: "Узнать букву, точки, соединяется ли влево, прочитать ба с фатхой, касрой, даммой.",
 		how: "Три зала: буквы → связки → огласовки. Карточка, выбор, сразу проверка.",
 		honest: "Это тренажёр. Учителя он не заменяет.",
+		action: "arabic"
+	},
+	{
+		id: "baghdadiyah",
+		faculty: "arabic",
+		name: "Аль-Каида аль-Багдадия",
+		nameAr: "القاعدة البغدادية",
+		inventor: "Классический букварь каттабов и Аль-Азхара.",
+		origin: "Сначала изолированные буквы, потом связки, танвин, мадд. Так открывают чтение в египетских и шамийских школах.",
+		what: "Не открывать суру, пока буква с листа не читается.",
+		how: "Буквы, связки, огласовки — здесь. Фатиха — во вкладке Коран, слух Хусари.",
+		honest: "В доме нет скана багдадийского букваря. Есть та же последовательность.",
 		action: "arabic"
 	},
 	{
@@ -12434,19 +12851,55 @@ var COURSES = [
 		name: "Аль-Каида ан-Нурания",
 		nameAr: "القاعدة النورانية",
 		inventor: "Шейх Нур Мухаммад Хаккани (Пакистан).",
-		origin: "Книга «Аль-Каида ан-Нурания»: сначала буквы и харакат, потом слитное чтение. Не хадис, учебный метод XX века.",
+		origin: "Книга XX века: буква и харакат, затем слитное чтение. Учебный метод, не хадис.",
 		what: "Не открывать суру, пока буква и огласовка не узнаются с листа.",
 		how: "Буквы, связки, огласовки — здесь. Слитное чтение Фатихи — во вкладке Коран, слух Хусари.",
 		honest: "В доме нет скана учебника Хаккани. Есть тренажёр той же последовательности.",
 		action: "arabic"
 	},
 	{
+		id: "talaqqi",
+		faculty: "hifz",
+		name: "Талакки",
+		nameAr: "التلقي",
+		inventor: "Метод передачи Корана: услышать, затем вернуть.",
+		origin: "Так учили сподвижники: слух от учителя, повтор ученика. В каттабе это основа. Здесь слух — Махмуд Халиль аль-Хусари.",
+		what: "Слушаешь отрывок, потом читаешь сам. Пока не совпало — ещё раз.",
+		how: "Выберите суру 78–114. Слух Хусари, затем кнопка «Повторил». Три круга — обычный минимум урока.",
+		honest: "Запись не живой шейх. Иджазу даёт учитель, не экран.",
+		action: "hifz"
+	},
+	{
+		id: "tikrar",
+		faculty: "hifz",
+		name: "Тикрар",
+		nameAr: "التكرار",
+		inventor: "Повтор аята. Студенческая практика каттаба.",
+		origin: "Аят читают 10 или 21 раз подряд, пока не сядет на язык. Число — обычай школ, не текст хадиса.",
+		what: "Один аят — много раз, затем следующий.",
+		how: "Сура из джуз Амма. Слух Хусари на аят, счёт 10 или 21, дальше следующий аят.",
+		honest: "Счёт ваш. Иджазу не ставим.",
+		action: "hifz"
+	},
+	{
+		id: "sabaq",
+		faculty: "hifz",
+		name: "Сабак · сабаки · манзиль",
+		nameAr: "سبق · سبقي · منزل",
+		inventor: "Порядок медресе Южной Азии (деобанди и родственные каттабы).",
+		origin: "Сабак — новый урок. Сабаки — недавние уроки. Манзиль — старое, чтобы не ушло. Так учат миллионы студентов.",
+		what: "Каждый день: новое, вчерашнее и порция старого.",
+		how: "Назначьте сабак из 78–114. Сабаки — пять сур рядом. Манзиль — дальше по джуз Амма. Слух Хусари на каждую.",
+		honest: "Приложение не сдаёт урок шейху. Это ваш вирд.",
+		action: "hifz"
+	},
+	{
 		id: "three-ten-one",
 		faculty: "hifz",
 		name: "3+10+1",
 		nameAr: "ثلاث · عشر · واحدة",
-		inventor: "Практика каттабов и программ хифза, не имя одного автора.",
-		origin: "Три раза слух, десять повторов вслух, один раз склеить со вчерашним. Так учат в школах, это не сунна и не хадис.",
+		inventor: "Практика каттабов, не имя одного автора.",
+		origin: "Три раза слух, десять повторов вслух, один раз склеить со вчерашним.",
 		what: "Новый отрывок держится ухом и языком, вчерашний не отпускается.",
 		how: "Выберите суру 78–114. Слушайте Хусари трижды, читайте десять, затем вчерашнюю суру один раз.",
 		honest: "Счёт повторов — ваш. Иджазу даёт шейх, не экран.",
@@ -12470,7 +12923,7 @@ var COURSES = [
 		name: "Мураджаʿа",
 		nameAr: "المراجعة",
 		inventor: "Классическое правило учителей хифза: новое без старого уходит.",
-		origin: "Каждый день — новая страница и несколько старых. Так держат заученное в каттабах, в том числе в традиции Аль-Азхара.",
+		origin: "Каждый день — новая страница и несколько старых. Так держат заученное, в том числе в традиции Аль-Азхара.",
 		what: "Не копить новое, пока вчерашнее не повторено.",
 		how: "Сегодняшняя сура + пять предыдущих из джуз Амма. Слух Хусари на каждую.",
 		honest: "Приложение не следит за вашей мураджаʿа за вас. Это ваш вирд.",
@@ -12499,18 +12952,6 @@ var COURSES = [
 		how: "Карточка правила и пример. Слух — Хусари во вкладке Коран.",
 		honest: "Карточка не заменяет шейха по таджвиду.",
 		action: "tajweed"
-	},
-	{
-		id: "hifz",
-		faculty: "hifz",
-		name: "Зал хифза",
-		nameAr: "قاعة الحفظ",
-		inventor: "Текст — усмани / Кулиев. Слух — Хусари.",
-		origin: "Суры 78–114 в одном списке, без выбранного метода.",
-		what: "Открыть суру, слушать, читать.",
-		how: "Нажмите суру — мусхаф. Кнопка слуха — Хусари.",
-		honest: "Без метода это просто зал. Выберите 3+10+1 или мураджаʿа выше.",
-		action: "hifz"
 	},
 	{
 		id: "tafsir",
@@ -12619,7 +13060,7 @@ function hifzPrompt(surah) {
 		kind: "hifz",
 		ar: s.ar,
 		title: `${s.n}. ${s.ru}`,
-		ask: "Три раза слух Хусари, потом прочитай. Когда прочитал — скажи «прочитал» или нажми кнопку.",
+		ask: "Слушай Хусари, потом прочитай. Когда прочитал — скажи «прочитал» или нажми кнопку.",
 		expect: [
 			"прочитал",
 			"прочёл",
@@ -12635,7 +13076,7 @@ function hifzPrompt(surah) {
 }
 function openLesson(course) {
 	if (!course) return {
-		line: "Мир тебе. Я учитель. Коран и арабский — по методу, не с потолка. Скажи «буквы», «нурания», «заучивать» или нажми карточку.",
+		line: "Мир тебе. Сначала выбери метод на карточках: Багдадия, Нурания, талакки, тикрар, сабак, 3+10+1, мураджаʿа.",
 		prompt: null
 	};
 	if (course.action === "arabic") {
@@ -12650,9 +13091,9 @@ function openLesson(course) {
 		prompt: null
 	};
 	if (course.action === "hifz") {
-		const p = hifzPrompt(course.id === "juz-amma" || course.id === "three-ten-one" || course.id === "murajaa" ? 114 : 78);
+		const p = hifzPrompt(114);
 		return {
-			line: `Мир тебе. ${course.id === "three-ten-one" ? "3+10+1: три раза слух, десять раз сами, один раз вчерашняя." : course.id === "murajaa" ? "Сегодняшняя и пять предыдущих." : "Джуз Амма, с коротких."} Берём ${p.title}. ${p.ask}`,
+			line: `Мир тебе. ${course.id === "talaqqi" ? "Талакки: слушай, потом верни. Три круга." : course.id === "tikrar" ? "Тикрар: один аят 10 или 21 раз." : course.id === "sabaq" ? "Сабак — новое, сабаки — недавнее, манзиль — старое." : course.id === "three-ten-one" ? "3+10+1: три раза слух, десять раз сами, один раз вчерашняя." : course.id === "murajaa" ? "Сегодняшняя и пять предыдущих." : "Джуз Амма, с коротких."} Берём ${p.title}. ${p.ask}`,
 			prompt: p
 		};
 	}
@@ -12668,11 +13109,15 @@ function openLesson(course) {
 function intentCourse(question) {
 	const s = norm(question);
 	if (!s) return null;
+	if (/(багдад)/.test(s)) return "baghdadiyah";
 	if (/(нуран|хаккан)/.test(s)) return "nuraniyah";
 	if (/(букв|арабск|алфавит|огласов)/.test(s)) return "arabic";
-	if (/(3\s*\+?\s*10|три плюс|заучив|хифз)/.test(s)) return "three-ten-one";
-	if (/(мурадж|повтор)/.test(s)) return "murajaa";
-	if (/(джуз|амма|коротк)/.test(s)) return "juz-amma";
+	if (/(талакк|слушай и повтор|услышать)/.test(s)) return "talaqqi";
+	if (/(тикрар|повтор аят|21 раз|десять раз аят)/.test(s)) return "tikrar";
+	if (/(сабак|сабаки|манзил)/.test(s)) return "sabaq";
+	if (/(3\s*\+?\s*10|три плюс|заучив)/.test(s)) return "three-ten-one";
+	if (/(мурадж|повтор старого)/.test(s)) return "murajaa";
+	if (/(джуз|амма|коротк|хифз)/.test(s)) return "juz-amma";
 	if (/(таджвид|ихфа|идгам|калькал)/.test(s)) return "tajweed";
 	if (/(иткан|сорок недель)/.test(s)) return "itqan";
 	if (/(хисн|крепост|вирд|дуа)/.test(s)) return "hisn";
@@ -12707,6 +13152,8 @@ function persist() {
 			week: s.week,
 			track: s.track,
 			course: s.course,
+			sabaqSurah: s.sabaqSurah,
+			tikrarNeed: s.tikrarNeed,
 			completed: s.completed,
 			startedAt: s.startedAt,
 			lastStudy: s.lastStudy
@@ -12716,11 +13163,22 @@ function persist() {
 function key(week, day) {
 	return `${week}-${day}`;
 }
+function clampSurah(n) {
+	if (!Number.isFinite(n)) return 114;
+	return Math.min(114, Math.max(78, Math.round(n)));
+}
+function mapCourse(id) {
+	if (!id || typeof id !== "string") return null;
+	if (id === "hifz") return "juz-amma";
+	return COURSES.some((c) => c.id === id) ? id : null;
+}
 var TOTAL_STUDY_DAYS = WEEKS.length * 5;
 var useLearn = create((set, get) => ({
 	week: 1,
 	track: "itqan",
 	course: null,
+	sabaqSurah: 114,
+	tikrarNeed: 10,
 	completed: {},
 	startedAt: "",
 	lastStudy: "",
@@ -12733,7 +13191,15 @@ var useLearn = create((set, get) => ({
 		persist();
 	},
 	setCourse: (course) => {
-		set({ course });
+		set({ course: mapCourse(course) });
+		persist();
+	},
+	setSabaq: (n) => {
+		set({ sabaqSurah: clampSurah(n) });
+		persist();
+	},
+	setTikrarNeed: (n) => {
+		set({ tikrarNeed: n === 21 ? 21 : 10 });
 		persist();
 	},
 	toggleDay: (week, day) => {
@@ -12761,7 +13227,9 @@ function hydrateLearn() {
 		useLearn.setState({
 			week: data.week ?? 1,
 			track: data.track ?? "itqan",
-			course: data.course ?? null,
+			course: mapCourse(data.course),
+			sabaqSurah: clampSurah(data.sabaqSurah ?? 114),
+			tikrarNeed: data.tikrarNeed === 21 ? 21 : 10,
 			completed: data.completed ?? {},
 			startedAt: data.startedAt ?? "",
 			lastStudy: data.lastStudy ?? ""
@@ -12971,7 +13439,7 @@ function TeacherDesk({ course }) {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-xs text-[var(--muted)]",
-							children: "Слушает. Отвечает по методу. Иджазу не ставит."
+							children: "Слушает. Ведёт выбранный метод. Иджазу не ставит."
 						})
 					]
 				})]
@@ -13093,6 +13561,7 @@ function TeacherDesk({ course }) {
 		]
 	});
 }
+var AMMA = SURAHS.filter((s) => s.n >= 78);
 function LettersDrill({ filter }) {
 	const pool = filter?.length ? LETTERS.filter((l) => filter.includes(l.ar)) : LETTERS;
 	const [idx, setIdx] = (0, import_react.useState)(0);
@@ -13334,190 +13803,76 @@ function DayRow({ week, day }) {
 		})
 	});
 }
-function LearnView() {
-	const weekN = useLearn((s) => s.week);
-	const setWeek = useLearn((s) => s.setWeek);
-	const courseId = useLearn((s) => s.course);
-	const setCourse = useLearn((s) => s.setCourse);
-	const count = useLearn((s) => s.completedCount());
-	const playAt = useQuran((s) => s.playAt);
-	const setTab = useMizan((s) => s.setAppTab);
-	const week = weekByN(weekN);
-	const [drill, setDrill] = (0, import_react.useState)(week.days.find((d) => d.drill)?.drill ?? "letters");
-	const pct = Math.round(count / TOTAL_STUDY_DAYS * 100);
-	const course = COURSES.find((c) => c.id === courseId) ?? null;
-	function openCourse(c) {
-		setCourse(c.id);
-		if (c.action === "hisn") {
-			setTab("hisn");
-			return;
-		}
-		if (c.action === "quran") setTab("quran");
-		if (c.action === "tafsir") {
-			useQuran.getState().openTafsir(12, 1);
-			setTab("quran");
-		}
-	}
-	if (!course) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]",
-					children: "جامعة · факультет"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-					className: "font-display mt-2 text-3xl tracking-tight",
-					children: "Обучение"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-2 text-sm text-[var(--muted)]",
-					children: "Учитель ведёт урок: слушает, отвечает, держит метод. Иджазу даёт живой шейх, не это окно."
-				})
-			] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TeacherDesk, { course: null }),
-			FACULTIES.map((f) => {
-				const list = COURSES.filter((c) => c.faculty === f.id);
-				if (!list.length) return null;
-				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-					className: "grid gap-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						className: "text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]",
-						children: [
-							f.nameAr,
-							" · ",
-							f.name
-						]
-					}), list.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-						type: "button",
-						className: "door text-start",
-						onClick: () => openCourse(c),
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "ayah-ar block text-lg",
-								lang: "ar",
-								children: c.nameAr
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "font-display mt-1 block text-xl leading-tight",
-								children: c.name
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "mt-1 block text-sm text-[var(--muted)]",
-								children: c.inventor
-							})
-						]
-					}, c.id))]
-				}, f.id);
-			})
-		]
-	});
-	const showArabic = course.action === "arabic";
-	const showTajweed = course.action === "tajweed";
-	const showHifz = course.action === "hifz";
-	const showItqan = course.action === "itqan";
+function playHusary(surah, from = 1, to) {
+	useQuran.getState().setReciter("ar.husary");
+	useQuran.getState().playAt(surah, from, to ?? null);
+}
+function openMushaf(surah, ayah = 1) {
+	useQuran.getState().setRef(surah, ayah);
+	useMizan.getState().setAppTab("quran");
+}
+function SurahRow({ n, extra, onPick, picked }) {
+	const s = surahOf(n);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "page-pad mx-auto grid max-w-3xl gap-5 px-4 pt-6",
+		className: cn("flex items-center justify-between gap-2 rounded-2xl border px-3 py-3", picked ? "border-[var(--accent)]" : "border-[var(--line)]"),
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+			type: "button",
+			className: "min-w-0 text-left",
+			onClick: () => onPick ? onPick() : openMushaf(s.n),
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "ayah-ar block text-lg",
+				lang: "ar",
+				children: s.ar
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "text-xs text-[var(--muted)]",
+				children: [
+					s.n,
+					". ",
+					s.ru,
+					" · ",
+					s.ayahs,
+					" аятов",
+					extra ? ` · ${extra}` : ""
+				]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "flex shrink-0 gap-1",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				variant: "ghost",
+				className: "pill size-11 p-0",
+				"aria-label": "Хусари",
+				onClick: () => playHusary(s.n, 1, s.ayahs),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" })
+			})
+		})]
+	});
+}
+function TalaqqiBoard() {
+	const [n, setN] = (0, import_react.useState)(114);
+	const [heard, setHeard] = (0, import_react.useState)(0);
+	const [said, setSaid] = (0, import_react.useState)(0);
+	const s = surahOf(n);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "grid gap-3",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-				type: "button",
-				className: "inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]",
-				onClick: () => setCourse(null),
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }), " Все методы"]
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-sm text-[var(--muted)]",
+				children: "Слушай, затем верни. Три круга — обычный минимум урока."
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
-				className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-center gap-2",
 				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "ayah-ar text-2xl",
-						lang: "ar",
-						children: course.nameAr
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						className: "font-display mt-2 text-3xl tracking-tight",
-						children: course.name
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						className: "pill size-11 p-0",
+						"aria-label": "Предыдущая сура",
+						onClick: () => setN((x) => x >= 114 ? 78 : x + 1),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						className: "mt-3 text-sm",
+						className: "min-w-0 text-center",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[var(--muted)]",
-							children: "Кто: "
-						}), course.inventor]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						className: "mt-1 text-sm",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[var(--muted)]",
-							children: "Откуда: "
-						}), course.origin]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-3 text-sm",
-						children: course.what
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-2 text-sm text-[var(--muted)]",
-						children: course.how
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-3 text-xs text-[var(--muted)]",
-						children: course.honest
-					})
-				]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TeacherDesk, { course }),
-			showArabic ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
-						children: "Зал арабского"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "mt-3 flex flex-wrap gap-2",
-						children: [
-							"letters",
-							"connect",
-							"harakat"
-						].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							type: "button",
-							onClick: () => setDrill(k),
-							className: cn("min-h-11 rounded-full border px-4 text-sm", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
-							children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"
-						}, k))
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "mt-4",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: drill === "tajweed" ? "letters" : drill ?? "letters" })
-					})
-				]
-			}) : null,
-			showTajweed ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
-					children: "Карточки Хафс"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "mt-4",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: "tajweed" })
-				})]
-			}) : null,
-			showHifz ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				className: "grid gap-2",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm text-[var(--muted)]",
-					children: course.id === "three-ten-one" ? "Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя." : course.id === "murajaa" ? "Сегодняшняя сура и пять предыдущих." : "Джуз Амма, суры 78–114."
-				}), SURAHS.filter((s) => s.n >= 78).map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between gap-2 rounded-2xl border border-[var(--line)] px-3 py-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-						type: "button",
-						className: "min-w-0 text-left",
-						onClick: () => {
-							useQuran.getState().setRef(s.n, 1);
-							setTab("quran");
-						},
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "ayah-ar block text-lg",
+							className: "ayah-ar block text-2xl",
 							lang: "ar",
 							children: s.ar
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
@@ -13525,165 +13880,543 @@ function LearnView() {
 							children: [
 								s.n,
 								". ",
-								s.ru,
-								" · ",
-								s.ayahs,
-								" аятов"
+								s.ru
 							]
 						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						variant: "ghost",
-						className: "pill shrink-0",
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						className: "pill size-11 p-0",
+						"aria-label": "Следующая сура",
+						onClick: () => setN((x) => x <= 78 ? 114 : x - 1),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-wrap justify-center gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "glow",
+						className: "pill",
 						onClick: () => {
-							useQuran.getState().setReciter("ar.husary");
-							playAt(s.n, 1, s.ayahs);
+							playHusary(s.n, 1, s.ayahs);
+							setHeard((h) => h + 1);
 						},
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" })
-					})]
-				}, s.n))]
-			}) : null,
-			showItqan ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center justify-between gap-3",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
-								children: "Прогресс"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-								className: "tabular-nums text-sm",
-								children: [pct, "%"]
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "h-full rounded-full bg-[var(--accent)]",
-								style: { width: `${pct}%` }
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-							className: "mt-2 text-xs text-[var(--muted)]",
-							children: [
-								count,
-								" из ",
-								TOTAL_STUDY_DAYS,
-								" учебных дней · 40 недель"
-							]
-						})
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex items-center justify-between gap-2",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							variant: "secondary",
-							className: "pill size-11 p-0",
-							onClick: () => setWeek(weekN - 1),
-							"aria-label": "Предыдущая неделя",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "min-w-0 text-center",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-								className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
-								children: [
-									"Неделя ",
-									week.n,
-									" · ",
-									phaseLabel(week.phase)
-								]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "font-display text-xl leading-tight",
-								children: week.title
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							variant: "secondary",
-							className: "pill size-11 p-0",
-							onClick: () => setWeek(weekN + 1),
-							"aria-label": "Следующая неделя",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })
-						})
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm",
-					children: week.goal
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm text-[var(--muted)]",
-					children: week.kuliev
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-					className: "text-xs text-[var(--muted)]",
-					children: ["Зачёт: ", week.checkpoint]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-					variant: "glow",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+							" Слух · ",
+							heard,
+							"/3"
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "secondary",
+						className: "pill",
+						onClick: () => setSaid((v) => v + 1),
+						children: [
+							"Повторил · ",
+							said,
+							"/3"
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => openMushaf(s.n),
+						children: "Мусхаф"
+					})
+				]
+			})
+		]
+	});
+}
+function TikrarBoard() {
+	const need = useLearn((s) => s.tikrarNeed);
+	const setNeed = useLearn((s) => s.setTikrarNeed);
+	const [n, setN] = (0, import_react.useState)(114);
+	const [ayah, setAyah] = (0, import_react.useState)(1);
+	const [count, setCount] = (0, import_react.useState)(0);
+	const [text, setText] = (0, import_react.useState)(null);
+	const s = surahOf(n);
+	(0, import_react.useEffect)(() => {
+		let live = true;
+		loadAyah(n, ayah).then((a) => {
+			if (live) setText(a);
+		});
+		return () => {
+			live = false;
+		};
+	}, [n, ayah]);
+	function nextAyah() {
+		setCount(0);
+		if (ayah >= s.ayahs) {
+			const nx = n <= 78 ? 114 : n - 1;
+			setN(nx);
+			setAyah(1);
+			return;
+		}
+		setAyah((a) => a + 1);
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "grid gap-3",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-sm text-[var(--muted)]",
+				children: "Один аят. Пока не сядет на язык."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "flex justify-center gap-2",
+				children: [10, 21].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
 					onClick: () => {
-						useQuran.getState().setReciter("ar.husary");
-						playAt(week.listen.surah, week.listen.from, week.listen.to);
+						setNeed(k);
+						setCount(0);
 					},
+					className: cn("min-h-11 rounded-full border px-4 text-sm", need === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+					children: [k, " раз"]
+				}, k))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "ayah-ar text-center text-3xl leading-relaxed",
+				lang: "ar",
+				children: text?.ar ?? "…"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "text-center text-xs text-[var(--muted)]",
+				children: [
+					s.n,
+					". ",
+					s.ru,
+					" · аят ",
+					ayah,
+					"/",
+					s.ayahs
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-wrap justify-center gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "glow",
+						className: "pill",
+						onClick: () => {
+							playHusary(n, ayah, ayah);
+							setCount((c) => Math.min(need, c + 1));
+						},
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+							" Ещё · ",
+							count,
+							"/",
+							need
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						className: "pill",
+						onClick: nextAyah,
+						children: "Следующий аят"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "ghost",
+						className: "pill",
+						onClick: () => {
+							setN((x) => x <= 78 ? 114 : x - 1);
+							setAyah(1);
+							setCount(0);
+						},
+						children: "Другая сура"
+					})
+				]
+			})
+		]
+	});
+}
+function SabaqBoard() {
+	const sabaq = useLearn((s) => s.sabaqSurah);
+	const setSabaq = useLearn((s) => s.setSabaq);
+	const sabaqi = AMMA.filter((s) => s.n > sabaq && s.n <= Math.min(114, sabaq + 5)).reverse();
+	const manzil = AMMA.filter((s) => s.n > Math.min(114, sabaq + 5)).reverse().slice(0, 6);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "grid gap-4",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-sm text-[var(--muted)]",
+				children: "Сабак — новое. Сабаки — недавнее. Манзиль — старое."
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-2 text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+				children: "Сабак"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SurahRow, {
+				n: sabaq,
+				extra: "сегодня",
+				picked: true
+			})] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+					children: "Сабаки"
+				}), sabaqi.length ? sabaqi.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SurahRow, {
+					n: s.n,
+					extra: "недавнее"
+				}, s.n)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-center text-xs text-[var(--muted)]",
+					children: "Пока пусто — это первый урок."
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+					children: "Манзиль"
+				}), manzil.length ? manzil.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SurahRow, {
+					n: s.n,
+					extra: "старое"
+				}, s.n)) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-center text-xs text-[var(--muted)]",
+					children: "Старого ещё нет."
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+				children: "Назначить сабак"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "grid gap-2",
+				children: AMMA.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SurahRow, {
+					n: s.n,
+					picked: s.n === sabaq,
+					onPick: () => setSabaq(s.n),
+					extra: s.n === sabaq ? "сабак" : void 0
+				}, s.n))
+			})
+		]
+	});
+}
+function AmmaList({ hint }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "grid gap-2",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "text-center text-sm text-[var(--muted)]",
+			children: hint
+		}), AMMA.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SurahRow, { n: s.n }, s.n))]
+	});
+}
+function HifzBoard({ id }) {
+	if (id === "talaqqi") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TalaqqiBoard, {});
+	if (id === "tikrar") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TikrarBoard, {});
+	if (id === "sabaq") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SabaqBoard, {});
+	if (id === "three-ten-one") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AmmaList, { hint: "Сура: 3 раза Хусари, 10 раз сами, 1 раз вчерашняя." });
+	if (id === "murajaa") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AmmaList, { hint: "Сегодняшняя сура и пять предыдущих." });
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AmmaList, { hint: "Джуз Амма, суры 78–114." });
+}
+function LearnView() {
+	const weekN = useLearn((s) => s.week);
+	const setWeek = useLearn((s) => s.setWeek);
+	const courseId = useLearn((s) => s.course);
+	const setCourse = useLearn((s) => s.setCourse);
+	const count = useLearn((s) => s.completedCount());
+	const playAt = useQuran((s) => s.playAt);
+	const week = weekByN(weekN);
+	const [drill, setDrill] = (0, import_react.useState)(week.days.find((d) => d.drill)?.drill ?? "letters");
+	const pct = Math.round(count / TOTAL_STUDY_DAYS * 100);
+	const course = COURSES.find((c) => c.id === courseId) ?? null;
+	function openCourse(c) {
+		if (c.action === "hisn") {
+			useMizan.getState().setAppTab("hisn");
+			return;
+		}
+		if (c.action === "quran") {
+			useMizan.getState().setAppTab("quran");
+			return;
+		}
+		if (c.action === "tafsir") {
+			useQuran.getState().openTafsir(12, 1);
+			useMizan.getState().setAppTab("quran");
+			return;
+		}
+		setCourse(c.id);
+	}
+	if (!course) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "page-pad mx-auto grid max-w-3xl gap-6 px-4 pt-6",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "text-center",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]",
+					children: "جامعة · факультет"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "font-display mt-2 text-3xl tracking-tight",
+					children: "Сначала метод"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mx-auto mt-2 max-w-md text-sm text-[var(--muted)]",
+					children: "Выберите путь. Учитель ведёт только выбранный метод. Иджазу даёт живой шейх, не это окно."
+				})
+			]
+		}), FACULTIES.map((f) => {
+			const list = COURSES.filter((c) => c.faculty === f.id);
+			if (!list.length) return null;
+			return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "grid gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "text-center text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--muted)]",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
-						" Слушание недели · ",
-						surahOf(week.listen.surah).ru,
-						" ",
-						week.listen.from,
-						"–",
-						week.listen.to
+						f.nameAr,
+						" · ",
+						f.name
+					]
+				}), list.map((c) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "door text-start",
+					onClick: () => openCourse(c),
+					"data-go": `course-${c.id}`,
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "ayah-ar block text-lg",
+							lang: "ar",
+							children: c.nameAr
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-display mt-1 block text-xl leading-tight",
+							children: c.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-1 block text-sm text-[var(--muted)]",
+							children: c.inventor
+						})
+					]
+				}, c.id))]
+			}, f.id);
+		})]
+	});
+	const showArabic = course.action === "arabic";
+	const showTajweed = course.action === "tajweed";
+	const showHifz = course.action === "hifz";
+	const showItqan = course.action === "itqan";
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "method-page",
+		"data-go": "method-page",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "method-inner",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					className: "method-back",
+					onClick: () => setCourse(null),
+					"data-go": "methods-back",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-4" }), " Все методы"]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+					className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5 text-center",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "ayah-ar text-2xl",
+							lang: "ar",
+							children: course.nameAr
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+							className: "font-display mt-2 text-3xl tracking-tight",
+							children: course.name
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-sm",
+							children: course.inventor
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-2 text-sm text-[var(--muted)]",
+							children: course.how
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-xs text-[var(--muted)]",
+							children: course.honest
+						})
 					]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "grid gap-3",
-					children: week.days.map((day) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DayRow, {
-						week: week.n,
-						day
-					}, day.d))
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TeacherDesk, { course }),
+				showArabic ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 					className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
-							children: "Тренажёр"
+							className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+							children: "Зал арабского"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "mt-3 flex flex-wrap gap-2",
+							className: "mt-3 flex flex-wrap justify-center gap-2",
 							children: [
 								"letters",
 								"connect",
-								"harakat",
-								"tajweed"
+								"harakat"
 							].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 								type: "button",
 								onClick: () => setDrill(k),
-								className: cn("min-h-11 rounded-full border px-3 py-2 text-xs", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
-								children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"
+								className: cn("min-h-11 rounded-full border px-4 text-sm", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+								children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : "Огласовки"
 							}, k))
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mt-4",
-							children: drill ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, {
-								kind: drill,
-								letters: week.letters
-							}) : null
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: drill === "tajweed" ? "letters" : drill ?? "letters" })
 						})
 					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "flex gap-2 overflow-x-auto pb-1",
-					children: WEEKS.map((w) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						type: "button",
-						onClick: () => setWeek(w.n),
-						className: cn("grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums", w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
-						children: w.n
-					}, w.n))
-				})
-			] }) : null
-		]
+				}) : null,
+				showTajweed ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+						children: "Карточки Хафс"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-4",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, { kind: "tajweed" })
+					})]
+				}) : null,
+				showHifz ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HifzBoard, { id: course.id }) : null,
+				showItqan ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between gap-3",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+									children: "Прогресс"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "tabular-nums text-sm",
+									children: [pct, "%"]
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "mt-3 h-2 overflow-hidden rounded-full bg-[var(--surface)]",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "h-full rounded-full bg-[var(--accent)]",
+									style: { width: `${pct}%` }
+								})
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "mt-2 text-xs text-[var(--muted)]",
+								children: [
+									count,
+									" из ",
+									TOTAL_STUDY_DAYS,
+									" учебных дней · 40 недель"
+								]
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center justify-between gap-2",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "secondary",
+								className: "pill size-11 p-0",
+								onClick: () => setWeek(weekN - 1),
+								"aria-label": "Предыдущая неделя",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "min-w-0 text-center",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+									children: [
+										"Неделя ",
+										week.n,
+										" · ",
+										phaseLabel(week.phase)
+									]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "font-display text-xl leading-tight",
+									children: week.title
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								variant: "secondary",
+								className: "pill size-11 p-0",
+								onClick: () => setWeek(weekN + 1),
+								"aria-label": "Следующая неделя",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronRight, { className: "size-5" })
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-center text-sm",
+						children: week.goal
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-center text-sm text-[var(--muted)]",
+						children: week.kuliev
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "text-center text-xs text-[var(--muted)]",
+						children: ["Зачёт: ", week.checkpoint]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						variant: "glow",
+						onClick: () => {
+							useQuran.getState().setReciter("ar.husary");
+							playAt(week.listen.surah, week.listen.from, week.listen.to);
+						},
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Play, { className: "size-4" }),
+							" Слушание недели · ",
+							surahOf(week.listen.surah).ru,
+							" ",
+							week.listen.from,
+							"–",
+							week.listen.to
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "grid gap-3",
+						children: week.days.map((day) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DayRow, {
+							week: week.n,
+							day
+						}, day.d))
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+						className: "rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]",
+								children: "Тренажёр"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "mt-3 flex flex-wrap justify-center gap-2",
+								children: [
+									"letters",
+									"connect",
+									"harakat",
+									"tajweed"
+								].map((k) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									onClick: () => setDrill(k),
+									className: cn("min-h-11 rounded-full border px-3 py-2 text-xs", drill === k ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+									children: k === "letters" ? "Буквы" : k === "connect" ? "Связки" : k === "harakat" ? "Огласовки" : "Таджвид"
+								}, k))
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "mt-4",
+								children: drill ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DrillPanel, {
+									kind: drill,
+									letters: week.letters
+								}) : null
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "flex justify-center gap-2 overflow-x-auto pb-1",
+						children: WEEKS.map((w) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setWeek(w.n),
+							className: cn("grid size-11 shrink-0 place-items-center rounded-full border text-xs tabular-nums", w.n === weekN ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)]"),
+							children: w.n
+						}, w.n))
+					})
+				] }) : null
+			]
+		})
 	});
 }
 function PlayerBar() {
@@ -13707,13 +14440,19 @@ function PlayerBar() {
 	const replayUnit = useQuran((s) => s.replayUnit);
 	const seekRatio = useQuran((s) => s.seekRatio);
 	const learnMode = useQuran((s) => s.learnMode);
+	const pulse = useQuran((s) => s.pulse);
+	const glowHue = useQuran((s) => s.glowHue);
 	if (!session) return null;
 	const meta = surahOf(surah);
 	const rec = reciterById(reciterId);
 	const marked = bookmarks.some((b) => b.surah === surah && b.ayah === ayah);
 	const ratio = durationMs > 0 ? Math.min(1, audioMs / durationMs) : 0;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "player-dock rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
+		className: cn("player-dock rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]", playing && "ayah-live"),
+		style: playing ? {
+			["--pulse"]: String(Math.max(.28, pulse)),
+			["--glow-hue"]: String(glowHue)
+		} : void 0,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 				type: "button",
@@ -14137,6 +14876,8 @@ function MushafView() {
 	const setGapMs = useQuran((s) => s.setGapMs);
 	const exactSync = useQuran((s) => s.exactSync);
 	const waiting = useQuran((s) => s.waiting);
+	const pulse = useQuran((s) => s.pulse);
+	const glowHue = useQuran((s) => s.glowHue);
 	const [data, setData] = (0, import_react.useState)(null);
 	const [error, setError] = (0, import_react.useState)("");
 	const [q, setQ] = (0, import_react.useState)("");
@@ -14388,11 +15129,16 @@ function MushafView() {
 						}) }) : null,
 						windowed.map((a) => {
 							const active = a.i === ayah;
+							const live = active && (playing || waiting);
 							return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
 								ref: active ? (el) => {
 									activeRef.current = el;
 								} : void 0,
-								className: cn("list-item rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4", active && "ayah-active"),
+								className: cn("list-item rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4", active && "ayah-active", live && "ayah-live"),
+								style: live ? {
+									["--pulse"]: String(Math.max(.28, pulse)),
+									["--glow-hue"]: String(glowHue)
+								} : void 0,
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "flex items-start justify-between gap-3",
@@ -14612,6 +15358,155 @@ function downloadBlob(filename, mime, content) {
 	URL.revokeObjectURL(a.href);
 }
 var fetchMarketQuotes = createServerFn({ method: "POST" }).validator((input) => input).handler(createSsrRpc("2256758a01d7d38f82abb42ce595af37449d2ca88815971d0a7c8e2ffb677585"));
+function standalone() {
+	if (typeof window === "undefined") return false;
+	const n = navigator;
+	return window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || Boolean(n.standalone);
+}
+function InstallHome() {
+	const locale = useMizan((s) => s.settings.locale);
+	const t = (k) => translate(locale, k);
+	const deferred = (0, import_react.useRef)(null);
+	const [can, setCan] = (0, import_react.useState)(false);
+	const [done, setDone] = (0, import_react.useState)(false);
+	const [busy, setBusy] = (0, import_react.useState)(false);
+	const [note, setNote] = (0, import_react.useState)("");
+	(0, import_react.useEffect)(() => {
+		setDone(standalone());
+		const onPrompt = (e) => {
+			e.preventDefault();
+			deferred.current = e;
+			setCan(true);
+		};
+		const onInstalled = () => {
+			setDone(true);
+			setCan(false);
+			deferred.current = null;
+		};
+		window.addEventListener("beforeinstallprompt", onPrompt);
+		window.addEventListener("appinstalled", onInstalled);
+		return () => {
+			window.removeEventListener("beforeinstallprompt", onPrompt);
+			window.removeEventListener("appinstalled", onInstalled);
+		};
+	}, []);
+	async function installAndroid() {
+		const ev = deferred.current;
+		if (ev) {
+			setBusy(true);
+			try {
+				await ev.prompt();
+				const { outcome } = await ev.userChoice;
+				if (outcome === "accepted") {
+					setDone(true);
+					setNote(t("set.install.ok"));
+				}
+			} catch {
+				setNote(t("set.install.android.how"));
+			} finally {
+				setBusy(false);
+				deferred.current = null;
+				setCan(false);
+			}
+			return;
+		}
+		setNote(t("set.install.android.how"));
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "install-card",
+		"data-go": "install",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)]",
+				children: t("set.section.install")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "font-display mt-1 text-2xl leading-tight",
+				children: t("set.install.title")
+			}),
+			done ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				className: "mt-2 flex items-center gap-2 text-sm text-[var(--ok)]",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" }),
+					" ",
+					t("set.install.done")
+				]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--muted)]",
+				children: t("set.install.lead")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "install-split",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+					className: "install-pane",
+					"data-go": "install-android",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "install-pane-kicker",
+							children: t("set.install.android.title")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1 text-sm",
+							children: t("set.install.android.apk")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "glow",
+							className: "mt-3 w-full",
+							disabled: busy || done,
+							onClick: () => void installAndroid(),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { className: "size-4" }), can ? t("set.install.android.now") : t("set.install.android.btn")]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
+							className: "install-steps",
+							children: [
+								"set.install.android.s1",
+								"set.install.android.s2",
+								"set.install.android.s3"
+							].map((k, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: i + 1 }), t(k)] }, k))
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+					className: "install-pane",
+					"data-go": "install-ios",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "install-pane-kicker",
+							children: t("set.install.ios.title")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-1 text-sm",
+							children: t("set.install.ios.how")
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "secondary",
+							className: "mt-3 w-full",
+							onClick: () => {
+								if (navigator.share) navigator.share({
+									title: "Мизан",
+									url: location.origin + location.pathname
+								}).catch(() => setNote(t("set.install.ios.how")));
+								setNote(t("set.install.ios.how"));
+							},
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, { className: "size-4" }), t("set.install.ios.btn")]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
+							className: "install-steps",
+							children: [
+								"set.install.ios.s1",
+								"set.install.ios.s2",
+								"set.install.ios.s3"
+							].map((k, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: i + 1 }), t(k)] }, k))
+						})
+					]
+				})]
+			}),
+			note ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-3 text-sm text-[var(--muted)]",
+				children: note
+			}) : null
+		]
+	});
+}
 function ResultsPanel() {
 	const result = useMizan((s) => s.lastResult);
 	if (!result) return null;
@@ -15025,8 +15920,6 @@ function QuotesButton() {
 function SettingsDialog() {
 	const open = useMizan((s) => s.settingsOpen);
 	const setOpen = useMizan((s) => s.setSettingsOpen);
-	const designsOpen = useMizan((s) => s.designsOpen);
-	const setDesigns = useMizan((s) => s.setDesignsOpen);
 	const settings = useMizan((s) => s.settings);
 	const setSettings = useMizan((s) => s.setSettings);
 	const history = useMizan((s) => s.history);
@@ -15040,13 +15933,33 @@ function SettingsDialog() {
 	const [imported, setImported] = (0, import_react.useState)(false);
 	const [note, setNote] = (0, import_react.useState)("");
 	const [probing, setProbing] = (0, import_react.useState)(false);
+	const openedAt = (0, import_react.useRef)(Date.now());
 	const locale = settings.locale;
 	const t = (k) => translate(locale, k);
 	function close() {
+		if (Date.now() - openedAt.current < 450) return;
 		stopSpeak();
 		setProbing(false);
 		setOpen(false);
 	}
+	(0, import_react.useEffect)(() => {
+		openedAt.current = Date.now();
+		const html = document.documentElement;
+		const prevOverflow = html.style.overflow;
+		html.style.overflow = "hidden";
+		const onKey = (e) => {
+			if (e.key !== "Escape") return;
+			if (Date.now() - openedAt.current < 450) return;
+			stopSpeak();
+			setProbing(false);
+			setOpen(false);
+		};
+		window.addEventListener("keydown", onKey);
+		return () => {
+			html.style.overflow = prevOverflow;
+			window.removeEventListener("keydown", onKey);
+		};
+	}, [setOpen]);
 	async function probeVoice() {
 		if (probing) {
 			stopSpeak();
@@ -15071,463 +15984,536 @@ function SettingsDialog() {
 			}), label]
 		});
 	}
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "fixed inset-0 z-[90] grid place-items-center bg-[var(--scrim)] p-4",
-		role: "presentation",
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "settings-page",
+		role: "dialog",
+		"aria-modal": "true",
+		"aria-labelledby": "settings-title",
+		"data-go": "settings-page",
 		onPointerDown: (e) => e.stopPropagation(),
-		onClick: close,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			role: "dialog",
-			"aria-labelledby": "settings-title",
-			className: "dialog-enter max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]",
-			onClick: (e) => e.stopPropagation(),
-			onPointerDown: (e) => e.stopPropagation(),
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-4 flex items-center justify-between gap-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+		onClick: (e) => e.stopPropagation(),
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "settings-bar",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						type: "button",
+						className: "settings-back",
+						onClick: close,
+						"aria-label": t("set.close"),
+						"data-go": "settings-close",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, { className: "size-5" })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						id: "settings-title",
 						className: "font-display text-2xl",
 						children: t("settings")
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						variant: "ghost",
-						onClick: close,
-						"aria-label": t("set.close"),
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-5" })
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mb-4 text-xs text-[var(--muted)]",
-					children: t("set.note")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
-					children: t("set.section.lang")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid gap-4 sm:grid-cols-2",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.lang"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
-								value: settings.locale,
-								onChange: (e) => setSettings({ locale: e.target.value }),
-								children: LOCALES.map((l) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: l.id,
-									children: l.native
-								}, l.id))
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.start"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: settings.startTab,
-								onChange: (e) => setSettings({ startTab: e.target.value }),
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "home",
-										children: t("tab.home")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "zakat",
-										children: t("tab.zakat")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "quran",
-										children: t("tab.quran")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "hisn",
-										children: t("tab.hisn")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "learn",
-										children: t("tab.learn")
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.nav"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
-								value: settings.navLayout,
-								onChange: (e) => setSettings({ navLayout: e.target.value }),
-								children: NAV_LAYOUTS.map((n) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: n.id,
-									children: n.id === "theme" ? t("set.as.theme") : t(`set.nav.${n.id}`)
-								}, n.id))
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.scheme"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: settings.colorScheme,
-								onChange: (e) => setSettings({ colorScheme: e.target.value }),
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "theme",
-										children: t("set.as.theme")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "dark",
-										children: t("set.dark")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "light",
-										children: t("set.light")
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.font"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-								type: "range",
-								min: .9,
-								max: 1.3,
-								step: .05,
-								value: settings.fontScale,
-								onChange: (e) => setSettings({ fontScale: Number(e.target.value) })
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.font.family"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: settings.fontPair,
-								onChange: (e) => setSettings({ fontPair: e.target.value }),
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "theme",
-										children: t("set.font.theme")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "fraunces",
-										children: t("set.font.fraunces")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "literata",
-										children: t("set.font.literata")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "newsreader",
-										children: t("set.font.newsreader")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "serif-plex",
-										children: t("set.font.serif")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "plex",
-										children: t("set.font.plex")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "plex-mono",
-										children: t("set.font.mono")
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.density"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: settings.densityOverride,
-								onChange: (e) => setSettings({ densityOverride: e.target.value }),
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "theme",
-										children: t("set.as.theme")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "compact",
-										children: t("set.compact")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "regular",
-										children: t("set.regular")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-										value: "airy",
-										children: t("set.airy")
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.home"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-								value: settings.homeSize,
-								onChange: (e) => setSettings({ homeSize: e.target.value }),
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "compact",
-									children: t("set.compact")
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "roomy",
-									children: t("set.roomy")
-								})]
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.keepLastTab,
-							onChange: (keepLastTab) => setSettings({ keepLastTab }),
-							label: t("set.keep")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.reducedMotion,
-							onChange: (reducedMotion) => setSettings({ reducedMotion }),
-							label: t("set.motion")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.highContrast,
-							onChange: (highContrast) => setSettings({ highContrast }),
-							label: t("set.contrast")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.largeTap,
-							onChange: (largeTap) => setSettings({ largeTap }),
-							label: t("set.largetap")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.showHijri,
-							onChange: (showHijri) => setSettings({ showHijri }),
-							label: t("set.hijri")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "settings-back",
+						"aria-hidden": true
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-4 text-xs text-[var(--muted)]",
+				children: t("set.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstallHome, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "settings-theme",
+				id: "settings-theme",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThemeStage, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DesignGallery, {})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.section.lang")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.lang"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+							value: settings.locale,
+							onChange: (e) => setSettings({ locale: e.target.value }),
+							children: LOCALES.map((l) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: l.id,
+								children: l.native
+							}, l.id))
 						})
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
-					children: t("set.section.quran")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid gap-4 sm:grid-cols-2",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-							label: t("set.reciter"),
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
-								value: reciterId,
-								onChange: (e) => setReciter(e.target.value),
-								children: RECITERS.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: r.id,
-									children: r.name
-								}, r.id))
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.showMeaning,
-							onChange: (showMeaning) => setSettings({ showMeaning }),
-							label: t("set.meaning")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.favFirst,
-							onChange: (favFirst) => setSettings({ favFirst }),
-							label: t("set.favfirst")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-							checked: settings.autoPlayAyah,
-							onChange: (autoPlayAyah) => setSettings({ autoPlayAyah }),
-							label: t("set.autoplay")
-						})
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
-					children: t("set.section.voice")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mb-3 text-xs text-[var(--muted)]",
-					children: t("set.voice.note")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid gap-4 sm:grid-cols-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: t("set.voice.gender"),
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.start"),
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							value: settings.voiceGender ?? "male",
-							onChange: (e) => {
-								stopSpeak();
-								setProbing(false);
-								setSettings({ voiceGender: e.target.value });
-							},
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-								value: "male",
-								children: t("set.voice.male")
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-								value: "female",
-								children: t("set.voice.female")
-							})]
-						})
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: t("set.voice.rate"),
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							value: settings.voiceRate ?? "normal",
-							onChange: (e) => {
-								stopSpeak();
-								setProbing(false);
-								setSettings({ voiceRate: e.target.value });
-							},
+							value: settings.startTab,
+							onChange: (e) => setSettings({ startTab: e.target.value }),
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "slow",
-									children: t("set.voice.slow")
+									value: "home",
+									children: t("tab.home")
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "normal",
-									children: t("set.voice.normal")
+									value: "zakat",
+									children: t("tab.zakat")
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "fast",
-									children: t("set.voice.fast")
+									value: "quran",
+									children: t("tab.quran")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "hisn",
+									children: t("tab.hisn")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "learn",
+									children: t("tab.learn")
 								})
 							]
 						})
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-					variant: "secondary",
-					className: "mt-3",
-					onClick: () => void probeVoice(),
-					"data-go": "voice-probe",
-					children: [probing ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), probing ? t("hadith.stop") : t("set.voice.test")]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
-					children: t("set.section.notify")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid gap-4 sm:grid-cols-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: t("set.sabrhour"),
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.nav"),
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
-							value: String(settings.sabrHour),
-							onChange: (e) => {
-								const sabrHour = Number(e.target.value);
-								setSettings({ sabrHour });
-								if (settings.sabrNotify) bootNotify(true, sabrHour);
-							},
-							children: Array.from({ length: 24 }, (_, h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", {
-								value: h,
-								children: [String(h).padStart(2, "0"), ":00"]
-							}, h))
+							value: settings.navLayout,
+							onChange: (e) => setSettings({ navLayout: e.target.value }),
+							children: NAV_LAYOUTS.map((n) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: n.id,
+								children: n.id === "theme" ? t("set.as.theme") : t(`set.nav.${n.id}`)
+							}, n.id))
 						})
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
-						checked: settings.sabrNotify,
-						onChange: async (on) => {
-							if (on) {
-								const r = await requestNotify();
-								setSettings({ sabrNotify: r === "granted" });
-								if (r === "granted") await bootNotify(true, settings.sabrHour);
-							} else {
-								setSettings({ sabrNotify: false });
-								await bootNotify(false, settings.sabrHour);
-							}
-						},
-						label: t("set.notify")
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "mt-3 flex flex-wrap gap-2",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						variant: "secondary",
-						onClick: async () => {
-							if (await requestNotify() === "granted") {
-								const { showSabrNow } = await import("./notify-Cn0VbTpB.mjs");
-								await showSabrNow();
-								setNote("Уведомление ушло, если система его не глушит.");
-							} else setNote("Сначала разрешите уведомления.");
-						},
-						children: t("set.test.notify")
-					})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-					className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
-					children: t("set.data")
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex flex-wrap gap-2",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							variant: "secondary",
-							onClick: () => {
-								useHisn.setState({ counts: {} });
-								try {
-									localStorage.removeItem("mizan.v1.hisn");
-								} catch {}
-								setNote(t("set.reset.hisn"));
-							},
-							children: t("set.reset.hisn")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							onClick: () => setDesigns(true),
-							children: t("set.theme")
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
-							className: "inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm",
-							children: [t("set.import"), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-								type: "file",
-								accept: "application/json,.json",
-								className: "sr-only",
-								onChange: async (e) => {
-									const file = e.target.files?.[0];
-									if (!file) return;
-									const text = await file.text();
-									const r = importJson(text);
-									setImportErr(r.ok ? "" : r.error ?? "не получилось открыть файл");
-									setImported(r.ok);
-								}
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.scheme"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.colorScheme,
+							onChange: (e) => setSettings({ colorScheme: e.target.value }),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "theme",
+									children: t("set.as.theme")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "dark",
+									children: t("set.dark")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "light",
+									children: t("set.light")
+								})
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.font"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							type: "range",
+							min: .9,
+							max: 1.3,
+							step: .05,
+							value: settings.fontScale,
+							onChange: (e) => setSettings({ fontScale: Number(e.target.value) })
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.font.family"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.fontPair,
+							onChange: (e) => setSettings({ fontPair: e.target.value }),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "theme",
+									children: t("set.font.theme")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "fraunces",
+									children: t("set.font.fraunces")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "literata",
+									children: t("set.font.literata")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "newsreader",
+									children: t("set.font.newsreader")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "serif-plex",
+									children: t("set.font.serif")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "plex",
+									children: t("set.font.plex")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "plex-mono",
+									children: t("set.font.mono")
+								})
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.density"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.densityOverride,
+							onChange: (e) => setSettings({ densityOverride: e.target.value }),
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "theme",
+									children: t("set.as.theme")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "compact",
+									children: t("set.compact")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "regular",
+									children: t("set.regular")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+									value: "airy",
+									children: t("set.airy")
+								})
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.home"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+							value: settings.homeSize,
+							onChange: (e) => setSettings({ homeSize: e.target.value }),
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "compact",
+								children: t("set.compact")
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "roomy",
+								children: t("set.roomy")
 							})]
 						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.keepLastTab,
+						onChange: (keepLastTab) => setSettings({ keepLastTab }),
+						label: t("set.keep")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.reducedMotion,
+						onChange: (reducedMotion) => setSettings({ reducedMotion }),
+						label: t("set.motion")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.highContrast,
+						onChange: (highContrast) => setSettings({ highContrast }),
+						label: t("set.contrast")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.largeTap,
+						onChange: (largeTap) => setSettings({ largeTap }),
+						label: t("set.largetap")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.showHijri,
+						onChange: (showHijri) => setSettings({ showHijri }),
+						label: t("set.hijri")
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.section.quran")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+						label: t("set.reciter"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+							value: reciterId,
+							onChange: (e) => setReciter(e.target.value),
+							"data-go": "settings-reciter",
+							children: RECITERS.map((r) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: r.id,
+								children: r.name
+							}, r.id))
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.showMeaning,
+						onChange: (showMeaning) => setSettings({ showMeaning }),
+						label: t("set.meaning")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.favFirst,
+						onChange: (favFirst) => setSettings({ favFirst }),
+						label: t("set.favfirst")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+						checked: settings.autoPlayAyah,
+						onChange: (autoPlayAyah) => setSettings({ autoPlayAyah }),
+						label: t("set.autoplay")
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.section.voice")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mb-3 text-xs text-[var(--muted)]",
+				children: t("set.voice.note")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: t("set.voice.gender"),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: settings.voiceGender ?? "male",
+						onChange: (e) => {
+							stopSpeak();
+							setProbing(false);
+							setSettings({ voiceGender: e.target.value });
+						},
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "male",
+							children: t("set.voice.male")
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+							value: "female",
+							children: t("set.voice.female")
+						})]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: t("set.voice.rate"),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: settings.voiceRate ?? "normal",
+						onChange: (e) => {
+							stopSpeak();
+							setProbing(false);
+							setSettings({ voiceRate: e.target.value });
+						},
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "slow",
+								children: t("set.voice.slow")
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "normal",
+								children: t("set.voice.normal")
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "fast",
+								children: t("set.voice.fast")
+							})
+						]
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+				variant: "secondary",
+				className: "mt-3",
+				onClick: () => void probeVoice(),
+				"data-go": "voice-probe",
+				children: [probing ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Pause, { className: "size-4" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Volume2, { className: "size-4" }), probing ? t("hadith.stop") : t("set.voice.test")]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.section.notify")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-4 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: t("set.sabrhour"),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Select, {
+						value: String(settings.sabrHour),
+						onChange: (e) => {
+							const sabrHour = Number(e.target.value);
+							setSettings({ sabrHour });
+							if (settings.sabrNotify) bootNotify(true, sabrHour);
+						},
+						children: Array.from({ length: 24 }, (_, h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", {
+							value: h,
+							children: [String(h).padStart(2, "0"), ":00"]
+						}, h))
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toggle, {
+					checked: settings.sabrNotify,
+					onChange: async (on) => {
+						if (on) {
+							const r = await requestNotify();
+							setSettings({ sabrNotify: r === "granted" });
+							if (r === "granted") await bootNotify(true, settings.sabrHour);
+						} else {
+							setSettings({ sabrNotify: false });
+							await bootNotify(false, settings.sabrHour);
+						}
+					},
+					label: t("set.notify")
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "mt-3 flex flex-wrap gap-2",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+					variant: "secondary",
+					onClick: async () => {
+						if (await requestNotify() === "granted") {
+							const { showSabrNow } = await import("./notify--icT2eg2.mjs");
+							await showSabrNow();
+							setNote("Уведомление ушло, если система его не глушит.");
+						} else setNote("Сначала разрешите уведомления.");
+					},
+					children: t("set.test.notify")
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+				className: "mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]",
+				children: t("set.data")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-wrap gap-2",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						onClick: () => {
+							useHisn.setState({ counts: {} });
+							try {
+								localStorage.removeItem("mizan.v1.hisn");
+							} catch {}
+							setNote(t("set.reset.hisn"));
+						},
+						children: t("set.reset.hisn")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						onClick: () => document.getElementById("settings-theme")?.scrollIntoView({
+							behavior: "smooth",
+							block: "start"
+						}),
+						children: t("set.theme")
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+						className: "inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm",
+						children: [t("set.import"), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							type: "file",
+							accept: "application/json,.json",
+							className: "sr-only",
+							onChange: async (e) => {
+								const file = e.target.files?.[0];
+								if (!file) return;
+								const text = await file.text();
+								const r = importJson(text);
+								setImportErr(r.ok ? "" : r.error ?? "не получилось открыть файл");
+								setImported(r.ok);
+							}
+						})]
+					})
+				]
+			}),
+			note ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--muted)]",
+				children: note
+			}) : null,
+			imported ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--ok)]",
+				children: t("set.import")
+			}) : null,
+			importErr ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "mt-2 text-sm text-[var(--danger)]",
+				children: importErr
+			}) : null,
+			history.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "mt-6",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "mb-2 font-medium",
+					children: t("set.saved")
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "grid gap-2 text-sm",
+					children: history.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+						className: "flex flex-wrap items-center justify-between gap-2 border border-[var(--line)] p-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							h.title,
+							" · ",
+							h.input.asOfDate
+						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "flex gap-2",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "ghost",
+									onClick: () => loadSaved(h.id),
+									children: t("set.saved.open")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "ghost",
+									onClick: () => duplicate(h.id),
+									children: t("set.saved.copy")
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									variant: "ghost",
+									onClick: () => deleteSaved(h.id),
+									children: t("set.saved.delete")
+								})
+							]
+						})]
+					}, h.id))
+				})]
+			}) : null
+		]
+	});
+}
+function ThemeStage() {
+	const locale = useMizan((s) => s.settings.locale);
+	const hijri = hijriLabel(/* @__PURE__ */ new Date(), locale);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+		className: "theme-stage",
+		"data-go": "theme-preview",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "theme-stage-kicker",
+			children: "Предпросмотр"
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "theme-stage-phone",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "theme-stage-top",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "theme-stage-mark" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Мизан" })]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "bismillah",
+					lang: "ar",
+					children: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "theme-stage-hero",
+					children: "Мир тебе."
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "theme-stage-date",
+					children: hijri.hijri
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "theme-stage-ar gold-flow",
+					lang: "ar",
+					children: "بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "theme-stage-tiles",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {})
 					]
 				}),
-				note ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-2 text-sm text-[var(--muted)]",
-					children: note
-				}) : null,
-				imported ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-2 text-sm text-[var(--ok)]",
-					children: t("set.import")
-				}) : null,
-				importErr ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-2 text-sm text-[var(--danger)]",
-					children: importErr
-				}) : null,
-				history.length ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-6",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-						className: "mb-2 font-medium",
-						children: t("set.saved")
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
-						className: "grid gap-2 text-sm",
-						children: history.map((h) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-							className: "flex flex-wrap items-center justify-between gap-2 border border-[var(--line)] p-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-								h.title,
-								" · ",
-								h.input.asOfDate
-							] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-								className: "flex gap-2",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-										variant: "ghost",
-										onClick: () => loadSaved(h.id),
-										children: t("set.saved.open")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-										variant: "ghost",
-										onClick: () => duplicate(h.id),
-										children: t("set.saved.copy")
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-										variant: "ghost",
-										onClick: () => deleteSaved(h.id),
-										children: t("set.saved.delete")
-									})
-								]
-							})]
-						}, h.id))
-					})]
-				}) : null,
-				designsOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DesignGallery, {}) : null
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
+					className: "theme-stage-dock",
+					"aria-hidden": true,
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", {})
+					]
+				})
 			]
-		})
+		})]
 	});
 }
 function DesignGallery() {
@@ -15538,109 +16524,75 @@ function DesignGallery() {
 	const revert = useMizan((s) => s.revertTheme);
 	const toggleFav = useMizan((s) => s.toggleFavorite);
 	const [q, setQ] = (0, import_react.useState)("");
-	const [family, setFamily] = (0, import_react.useState)("all");
 	const [mode, setMode] = (0, import_react.useState)("all");
-	const [favOnly, setFavOnly] = (0, import_react.useState)(false);
-	const previous = settings.themeId;
+	const currentId = preview ?? settings.themeId;
 	const list = (0, import_react.useMemo)(() => {
 		return THEMES.filter((t) => {
-			if (family !== "all" && t.family !== family) return false;
 			if (mode !== "all" && t.mode !== mode) return false;
-			if (favOnly && !settings.favorites.includes(t.id)) return false;
 			if (q && !`${t.name} ${t.nameRu} ${t.notes}`.toLowerCase().includes(q.toLowerCase())) return false;
 			return true;
 		});
-	}, [
-		q,
-		family,
-		mode,
-		favOnly,
-		settings.favorites
-	]);
+	}, [q, mode]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "mt-6 border-t border-[var(--line)] pt-4",
+		className: "theme-gallery",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 				className: "font-display text-xl",
 				children: "Оформление"
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 				className: "text-xs text-[var(--muted)]",
-				children: [
-					"Можно посмотреть, не портя расчёт. Отмена вернёт «",
-					getTheme(previous).nameRu,
-					"»."
-				]
+				children: "Нажал — весь экран рядом уже в этой теме."
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mt-3 grid gap-3 sm:grid-cols-4",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: "Поиск",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
-							value: q,
-							onChange: (e) => setQ(e.target.value),
-							placeholder: "Изумруд, мастер…"
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: "Вид экрана",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							value: family,
-							onChange: (e) => setFamily(e.target.value),
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+				className: "mt-3 grid gap-3 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Поиск",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextInput, {
+						value: q,
+						onChange: (e) => setQ(e.target.value),
+						placeholder: "Изумруд, мастер…"
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
+					label: "Светлый или тёмный",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
+						value: mode,
+						onChange: (e) => setMode(e.target.value),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
 								value: "all",
 								children: "Все"
-							}), Object.entries(LAYOUT_LABEL).map(([k, v]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-								value: k,
-								children: v
-							}, k))]
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Field, {
-						label: "Светлый или тёмный",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							value: mode,
-							onChange: (e) => setMode(e.target.value),
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "all",
-									children: "Все"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "dark",
-									children: "Тёмные"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-									value: "light",
-									children: "Светлые"
-								})
-							]
-						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
-						className: "flex min-h-11 items-end gap-2 text-sm",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-							type: "checkbox",
-							checked: favOnly,
-							onChange: (e) => setFavOnly(e.target.checked)
-						}), "Только избранные"]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "dark",
+								children: "Тёмные"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+								value: "light",
+								children: "Светлые"
+							})
+						]
 					})
-				]
+				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3",
+				className: "mt-4 grid gap-3 sm:grid-cols-2",
 				children: list.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					type: "button",
-					onClick: () => setPreview(t.id),
-					className: cn("border p-3 text-left", (preview ?? settings.themeId) === t.id ? "border-[var(--accent)]" : "border-[var(--line)]"),
+					onClick: () => {
+						setPreview(t.id);
+						apply(t.id);
+					},
+					className: cn("theme-swatch text-left", currentId === t.id ? "is-on" : ""),
+					"data-go": `theme-${t.id}`,
 					style: {
 						background: t.tokens["--bg"],
-						color: t.tokens["--fg"]
+						color: t.tokens["--fg"],
+						borderColor: currentId === t.id ? t.tokens["--accent"] : t.tokens["--line"]
 					},
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "mb-2 flex h-16 overflow-hidden border",
+							className: "mb-2 flex h-12 overflow-hidden rounded-xl border",
 							style: { borderColor: t.tokens["--line"] },
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "w-1/4",
@@ -15648,10 +16600,10 @@ function DesignGallery() {
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "flex-1 p-2",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "h-2 w-1/2",
+									className: "h-2 w-1/2 rounded-full",
 									style: { background: t.tokens["--accent"] }
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "mt-2 h-8",
+									className: "mt-2 h-6 rounded-md",
 									style: { background: t.tokens["--bg-elev"] }
 								})]
 							})]
@@ -15663,17 +16615,11 @@ function DesignGallery() {
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 							className: "text-[11px] opacity-80",
 							children: [
-								LAYOUT_LABEL[t.family],
-								" · ",
 								t.mode === "dark" ? "тёмная" : "светлая",
 								" · ",
 								t.density
 							]
-						}),
-						(preview ?? settings.themeId) === t.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "mt-1 text-[11px]",
-							children: "выбрано"
-						}) : null
+						})
 					]
 				}, t.id))
 			}),
@@ -15681,26 +16627,19 @@ function DesignGallery() {
 				className: "mt-4 flex flex-wrap gap-2",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-						onClick: () => {
-							if (preview) apply(preview);
-						},
-						disabled: !preview,
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { className: "size-4" }), " Применить"]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-						variant: "secondary",
-						onClick: revert,
-						children: "Отмена"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 						variant: "ghost",
 						onClick: () => apply("mizan-emerald"),
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(RotateCcw, { className: "size-4" }), " Вернуть исходный"]
 					}),
-					preview ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
 						variant: "ghost",
-						onClick: () => toggleFav(preview),
+						onClick: () => toggleFav(currentId),
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Heart, { className: "size-4" }), " Избранное"]
+					}),
+					preview ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						variant: "secondary",
+						onClick: revert,
+						children: "Отмена"
 					}) : null
 				]
 			})
@@ -17423,27 +18362,29 @@ function parseHash() {
 			if (b === "nawawi" && Number.isFinite(n) && n >= 1 && n <= 42) useMizan.getState().setHouseNav("nawawi", n, "list");
 			else useMizan.getState().setHouseNav(b, null);
 		} else useMizan.getState().setAppTab("home");
-	} else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn") {
+	} else if (a === "settings") useMizan.getState().setSettingsOpen(true);
+	else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn") {
+		useMizan.getState().setSettingsOpen(false);
 		useMizan.getState().setAppTab(a);
 		if (a === "home") useMizan.getState().setHouseRoom(null);
 	}
 }
+function goHome() {
+	useLearn.getState().setCourse(null);
+	useQuran.getState().closeTafsir();
+	useMizan.getState().resetToHome();
+}
 function Header() {
-	const open = useMizan((s) => s.setSettingsOpen);
-	const setTab = useMizan((s) => s.setAppTab);
+	const setOpen = useMizan((s) => s.setSettingsOpen);
 	const locale = useMizan((s) => s.settings.locale);
-	function openSettings(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		open(true);
-	}
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 		className: "relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 			type: "button",
 			className: "flex min-w-0 items-center gap-3 text-left",
-			onClick: () => setTab("home"),
+			onClick: goHome,
 			"data-go": "home",
+			"aria-label": "На главную",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrandMark, { size: 44 }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "min-w-0",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
@@ -17454,17 +18395,17 @@ function Header() {
 					children: "Шейх · Закят · Коран · Хисн · Иткан"
 				})]
 			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "flex items-center gap-2",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				variant: "ghost",
-				className: "pill size-11 p-0",
-				"aria-label": translate(locale, "settings"),
-				"data-go": "settings",
-				onPointerDown: openSettings,
-				onClick: openSettings,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "size-5" })
-			})
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+			type: "button",
+			className: "settings-gear",
+			"aria-label": translate(locale, "settings"),
+			"data-go": "settings",
+			onClick: (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				setOpen(true);
+			},
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Settings, { className: "size-5" })
 		})]
 	});
 }
@@ -17510,8 +18451,12 @@ function SettingsGate() {
 }
 function MizanApp() {
 	const tab = useMizan((s) => s.appTab);
+	const homeEpoch = useMizan((s) => s.homeEpoch);
 	const session = useQuran((s) => s.session);
 	const hadithOpen = useMizan((s) => s.houseHadith != null);
+	const settingsOpen = useMizan((s) => s.settingsOpen);
+	const courseOpen = useLearn((s) => s.course != null) && tab === "learn";
+	const chromeOff = hadithOpen || courseOpen || settingsOpen;
 	(0, import_react.useEffect)(() => {
 		hydrateMizan();
 		hydrateQuran();
@@ -17532,7 +18477,7 @@ function MizanApp() {
 				parseHash();
 			}
 			if (e.data?.type === "SABR_DUE") {
-				if (useMizan.getState().settings.sabrNotify) import("./notify-Cn0VbTpB.mjs").then((m) => m.showSabrNow());
+				if (useMizan.getState().settings.sabrNotify) import("./notify--icT2eg2.mjs").then((m) => m.showSabrNow());
 			}
 		};
 		navigator.serviceWorker?.addEventListener("message", onMsg);
@@ -17545,44 +18490,48 @@ function MizanApp() {
 		};
 	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: cn("app-shell", session && "has-player", hadithOpen && "is-hadith"),
+		className: cn("app-shell", session && "has-player", hadithOpen && "is-hadith", courseOpen && "is-method", settingsOpen && "is-settings"),
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThemeApplier, {}),
-			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			hadithOpen || settingsOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "geo-veil",
 				"aria-hidden": true
 			}),
-			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
-					id: "home",
-					tab,
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HomeView, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
-					id: "zakat",
-					tab,
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZakatView, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
-					id: "quran",
-					tab,
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuranView, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
-					id: "hisn",
-					tab,
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HisnView, {})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
-					id: "learn",
-					tab,
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LearnView, {})
-				})
-			] }),
-			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlayerBar, {}),
-			hadithOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BottomNav, {}),
-			hadithOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HadithReader, {}) : null,
+			chromeOff ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+				inert: chromeOff || void 0,
+				"aria-hidden": chromeOff || void 0,
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+						id: "home",
+						tab,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HomeView, {}, homeEpoch)
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+						id: "zakat",
+						tab,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZakatView, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+						id: "quran",
+						tab,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuranView, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+						id: "hisn",
+						tab,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HisnView, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(KeepTab, {
+						id: "learn",
+						tab,
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LearnView, {})
+					})
+				]
+			}),
+			hadithOpen || settingsOpen ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlayerBar, {}),
+			chromeOff ? null : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BottomNav, {}),
+			hadithOpen && !settingsOpen ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HadithReader, {}) : null,
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SettingsGate, {})
 		]
 	});
@@ -17591,4 +18540,4 @@ function Home() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MizanApp, {});
 }
 //#endregion
-export { notifySupported as a, showSabrNow as c, Home as component, routes_BBOWwbJt_exports as d, nextSabrLabel as i, shownToday as l, bootNotify as n, registerSw as o, nextSabrDate as r, requestNotify as s, armSabrTimer as t, startSabrDaily as u };
+export { notifySupported as a, showSabrNow as c, Home as component, routes_BSN42R5V_exports as d, nextSabrLabel as i, shownToday as l, bootNotify as n, registerSw as o, nextSabrDate as r, requestNotify as s, armSabrTimer as t, startSabrDaily as u };

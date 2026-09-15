@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode, type SyntheticEvent } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { BookOpen, GraduationCap, Home, Scale, Settings, Shield } from "lucide-react";
 import { BrandMark } from "@/components/mizan/brand.tsx";
 import { HadithReader } from "@/components/mizan/hadith-reader.tsx";
@@ -9,7 +9,6 @@ import { PlayerBar } from "@/components/mizan/player-bar.tsx";
 import { QuranView } from "@/components/mizan/quran-view.tsx";
 import { SettingsDialog } from "@/components/mizan/panels.tsx";
 import { ZakatView } from "@/components/mizan/zakat-view.tsx";
-import { Button } from "@/components/ui/button.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseRoomId } from "@/lib/house/catalog.ts";
 import { translate } from "@/lib/i18n/dict.ts";
 import { startSabrDaily } from "@/lib/notify.ts";
@@ -88,24 +87,27 @@ function parseHash() {
         useMizan.getState().setHouseNav(b as HouseRoomId, null);
       }
     } else useMizan.getState().setAppTab("home");
+  } else if (a === "settings") {
+    useMizan.getState().setSettingsOpen(true);
   } else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn") {
+    useMizan.getState().setSettingsOpen(false);
     useMizan.getState().setAppTab(a);
     if (a === "home") useMizan.getState().setHouseRoom(null);
   }
 }
 
+function goHome() {
+  useLearn.getState().setCourse(null);
+  useQuran.getState().closeTafsir();
+  useMizan.getState().resetToHome();
+}
+
 function Header() {
-  const open = useMizan((s) => s.setSettingsOpen);
-  const setTab = useMizan((s) => s.setAppTab);
+  const setOpen = useMizan((s) => s.setSettingsOpen);
   const locale = useMizan((s) => s.settings.locale);
-  function openSettings(e: SyntheticEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    open(true);
-  }
   return (
     <header className="relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]">
-      <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={() => setTab("home")} data-go="home">
+      <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={goHome} data-go="home" aria-label="На главную">
         <BrandMark size={44} />
         <div className="min-w-0">
           <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
@@ -115,18 +117,19 @@ function Header() {
           <p className="truncate text-xs text-[var(--muted)]">Шейх · Закят · Коран · Хисн · Иткан</p>
         </div>
       </button>
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          className="pill size-11 p-0"
-          aria-label={translate(locale, "settings")}
-          data-go="settings"
-          onPointerDown={openSettings}
-          onClick={openSettings}
-        >
-          <Settings className="size-5" />
-        </Button>
-      </div>
+      <button
+        type="button"
+        className="settings-gear"
+        aria-label={translate(locale, "settings")}
+        data-go="settings"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen(true);
+        }}
+      >
+        <Settings className="size-5" />
+      </button>
     </header>
   );
 }
@@ -185,8 +188,12 @@ function SettingsGate() {
 
 export function MizanApp() {
   const tab = useMizan((s) => s.appTab);
+  const homeEpoch = useMizan((s) => s.homeEpoch);
   const session = useQuran((s) => s.session);
   const hadithOpen = useMizan((s) => s.houseHadith != null);
+  const settingsOpen = useMizan((s) => s.settingsOpen);
+  const courseOpen = useLearn((s) => s.course != null) && tab === "learn";
+  const chromeOff = hadithOpen || courseOpen || settingsOpen;
   useEffect(() => {
     hydrateMizan();
     hydrateQuran();
@@ -221,13 +228,13 @@ export function MizanApp() {
     };
   }, []);
   return (
-    <div className={cn("app-shell", session && "has-player", hadithOpen && "is-hadith")}>
+    <div className={cn("app-shell", session && "has-player", hadithOpen && "is-hadith", courseOpen && "is-method", settingsOpen && "is-settings")}>
       <ThemeApplier />
-      {hadithOpen ? null : <div className="geo-veil" aria-hidden />}
-      {hadithOpen ? null : <Header />}
-      <main>
+      {hadithOpen || settingsOpen ? null : <div className="geo-veil" aria-hidden />}
+      {chromeOff ? null : <Header />}
+      <main inert={chromeOff || undefined} aria-hidden={chromeOff || undefined}>
         <KeepTab id="home" tab={tab}>
-          <HomeView />
+          <HomeView key={homeEpoch} />
         </KeepTab>
         <KeepTab id="zakat" tab={tab}>
           <ZakatView />
@@ -242,9 +249,9 @@ export function MizanApp() {
           <LearnView />
         </KeepTab>
       </main>
-      {hadithOpen ? null : <PlayerBar />}
-      {hadithOpen ? null : <BottomNav />}
-      {hadithOpen ? <HadithReader /> : null}
+      {hadithOpen || settingsOpen ? null : <PlayerBar />}
+      {chromeOff ? null : <BottomNav />}
+      {hadithOpen && !settingsOpen ? <HadithReader /> : null}
       <SettingsGate />
     </div>
   );

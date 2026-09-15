@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { HADITH_BOOKS, DICT, type HouseRoomId } from "@/lib/house/catalog.ts";
-import { NAMES, NAMES_META, NAWAWI, dayIndex, hadithMeaning, hadithTitle, hijriLabel } from "@/lib/house/data.ts";
+import { NAMES, NAMES_META, NAWAWI, NAWAWI_SAHIH, dayIndex, hadithMeaning, hadithTitle, hijriLabel } from "@/lib/house/data.ts";
+import { gradeLabel } from "@/lib/house/nawawi-grade.ts";
 import { formatRef, loadAyah } from "@/lib/quran/mushaf.ts";
 import { HARAKAT, LETTERS, TAJWEED_CARDS } from "@/lib/quran/letters.ts";
 import { sabrOfDay } from "@/lib/quran/sabr.ts";
@@ -69,9 +70,17 @@ function NamesRoom() {
 function NawawiRoom() {
   const locale = useMizan((s) => s.settings.locale);
   const setNav = useMizan((s) => s.setHouseNav);
+  const [all, setAll] = useState(false);
+  const list = all ? NAWAWI : NAWAWI_SAHIH;
   return (
     <div className="grid gap-2">
-      {NAWAWI.map((h) => (
+      <div className="flex items-center justify-center gap-2">
+        <p className="text-xs text-[var(--muted)]">{translate(locale, all ? "hadith.filter.all" : "hadith.filter.sahih")}</p>
+        <button type="button" className="hadith-mini" onClick={() => setAll((v) => !v)} data-go="hadith-filter">
+          {all ? translate(locale, "hadith.filter.sahih") : translate(locale, "hadith.filter.all")}
+        </button>
+      </div>
+      {list.map((h) => (
         <button
           key={h.n}
           type="button"
@@ -81,6 +90,7 @@ function NawawiRoom() {
         >
           <span className="w-6 shrink-0 text-[11px] tabular-nums text-[var(--muted)]">{h.n}</span>
           <span className="flex-1 font-medium leading-snug">{hadithTitle(h, locale)}</span>
+          <span className="hadith-grade shrink-0">{gradeLabel(h.n, locale)}</span>
         </button>
       ))}
     </div>

@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Bookmark, Check, Download, Heart, Pause, Printer, RotateCcw, Table2, Volume2, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Bookmark, ChevronLeft, Download, Heart, Pause, Printer, RotateCcw, Table2, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { Field, Select, TextInput } from "@/components/ui/field.tsx";
 import { useHisn } from "@/stores/hisn-store.ts";
@@ -10,15 +10,16 @@ import { getProfile } from "@/lib/mizan/profiles.ts";
 import { downloadBlob, resultToCsv, resultToHtml, resultToJson } from "@/lib/mizan/export.ts";
 import { askEvidence, localSourceSearch, type AskPayload } from "@/lib/assistant/server.ts";
 import { fetchMarketQuotes } from "@/lib/quotes/server.ts";
-import { LAYOUT_LABEL, THEMES, getTheme, type FontPair, type LayoutFamily } from "@/lib/themes/registry.ts";
+import { THEMES, type FontPair } from "@/lib/themes/registry.ts";
 import { LOCALES, NAV_LAYOUTS, translate, type Locale, type NavLayout } from "@/lib/i18n/dict.ts";
-import { speakLang } from "@/lib/house/data.ts";
+import { hijriLabel, speakLang } from "@/lib/house/data.ts";
 import { bootNotify, requestNotify } from "@/lib/notify.ts";
 import { RECITERS } from "@/lib/quran/reciters.ts";
 import { speakText, stopSpeak } from "@/lib/voice.ts";
 import { useQuran } from "@/stores/quran-store.ts";
 import { NISAB_MODE_RU, OVERALL_RU, RECIPIENTS, REVIEW_RU, SOURCE_TYPE_RU, STATUS_RU } from "@/lib/mizan/labels.ts";
 import { cn } from "@/lib/utils.ts";
+import { InstallHome } from "@/components/mizan/install-home.tsx";
 
 export function ResultsPanel() {
   const result = useMizan((s) => s.lastResult);
@@ -366,8 +367,6 @@ export function QuotesButton() {
 export function SettingsDialog() {
   const open = useMizan((s) => s.settingsOpen);
   const setOpen = useMizan((s) => s.setSettingsOpen);
-  const designsOpen = useMizan((s) => s.designsOpen);
-  const setDesigns = useMizan((s) => s.setDesignsOpen);
   const settings = useMizan((s) => s.settings);
   const setSettings = useMizan((s) => s.setSettings);
   const history = useMizan((s) => s.history);
@@ -381,14 +380,35 @@ export function SettingsDialog() {
   const [imported, setImported] = useState(false);
   const [note, setNote] = useState("");
   const [probing, setProbing] = useState(false);
+  const openedAt = useRef(Date.now());
   const locale = settings.locale;
   const t = (k: string) => translate(locale, k);
 
   function close() {
+    if (Date.now() - openedAt.current < 450) return;
     stopSpeak();
     setProbing(false);
     setOpen(false);
   }
+
+  useEffect(() => {
+    openedAt.current = Date.now();
+    const html = document.documentElement;
+    const prevOverflow = html.style.overflow;
+    html.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (Date.now() - openedAt.current < 450) return;
+      stopSpeak();
+      setProbing(false);
+      setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      html.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [setOpen]);
 
   async function probeVoice() {
     if (probing) {
@@ -425,29 +445,33 @@ export function SettingsDialog() {
 
   return (
     <div
-      className="fixed inset-0 z-[90] grid place-items-center bg-[var(--scrim)] p-4"
-      role="presentation"
+      className="settings-page"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settings-title"
+      data-go="settings-page"
       onPointerDown={(e) => e.stopPropagation()}
-      onClick={close}
+      onClick={(e) => e.stopPropagation()}
     >
-      <div
-        role="dialog"
-        aria-labelledby="settings-title"
-        className="dialog-enter max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[var(--line)] bg-[var(--bg)] p-5 text-[var(--fg)]"
-        onClick={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 id="settings-title" className="font-display text-2xl">
-            {t("settings")}
-          </h2>
-          <Button variant="ghost" onClick={close} aria-label={t("set.close")}>
-            <X className="size-5" />
-          </Button>
-        </div>
-        <p className="mb-4 text-xs text-[var(--muted)]">{t("set.note")}</p>
+      <div className="settings-bar">
+        <button type="button" className="settings-back" onClick={close} aria-label={t("set.close")} data-go="settings-close">
+          <ChevronLeft className="size-5" />
+        </button>
+        <h2 id="settings-title" className="font-display text-2xl">
+          {t("settings")}
+        </h2>
+        <span className="settings-back" aria-hidden />
+      </div>
+      <p className="mb-4 text-xs text-[var(--muted)]">{t("set.note")}</p>
 
-        <h3 className="mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.lang")}</h3>
+      <InstallHome />
+
+      <section className="settings-theme" id="settings-theme">
+        <ThemeStage />
+        <DesignGallery />
+      </section>
+
+      <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.lang")}</h3>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t("set.lang")}>
             <Select value={settings.locale} onChange={(e) => setSettings({ locale: e.target.value as Locale })}>
@@ -543,7 +567,7 @@ export function SettingsDialog() {
         <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.quran")}</h3>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t("set.reciter")}>
-            <Select value={reciterId} onChange={(e) => setReciter(e.target.value)}>
+            <Select value={reciterId} onChange={(e) => setReciter(e.target.value)} data-go="settings-reciter">
               {RECITERS.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.name}
@@ -657,7 +681,12 @@ export function SettingsDialog() {
           >
             {t("set.reset.hisn")}
           </Button>
-          <Button onClick={() => setDesigns(true)}>{t("set.theme")}</Button>
+          <Button
+            variant="secondary"
+            onClick={() => document.getElementById("settings-theme")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          >
+            {t("set.theme")}
+          </Button>
           <label className="inline-flex min-h-11 cursor-pointer items-center border border-[var(--line)] px-4 text-sm">
             {t("set.import")}
             <input
@@ -703,9 +732,44 @@ export function SettingsDialog() {
             </ul>
           </div>
         ) : null}
-        {designsOpen ? <DesignGallery /> : null}
-      </div>
     </div>
+  );
+}
+
+function ThemeStage() {
+  const locale = useMizan((s) => s.settings.locale);
+  const hijri = hijriLabel(new Date(), locale);
+  return (
+    <aside className="theme-stage" data-go="theme-preview">
+      <p className="theme-stage-kicker">Предпросмотр</p>
+      <div className="theme-stage-phone">
+        <div className="theme-stage-top">
+          <span className="theme-stage-mark" />
+          <span>Мизан</span>
+        </div>
+        <p className="bismillah" lang="ar">
+          بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+        </p>
+        <p className="theme-stage-hero">Мир тебе.</p>
+        <p className="theme-stage-date">{hijri.hijri}</p>
+        <p className="theme-stage-ar gold-flow" lang="ar">
+          بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ
+        </p>
+        <div className="theme-stage-tiles">
+          <i />
+          <i />
+          <i />
+          <i />
+        </div>
+        <nav className="theme-stage-dock" aria-hidden>
+          <i />
+          <i />
+          <i />
+          <i />
+          <i />
+        </nav>
+      </div>
+    </aside>
   );
 }
 
@@ -717,38 +781,22 @@ function DesignGallery() {
   const revert = useMizan((s) => s.revertTheme);
   const toggleFav = useMizan((s) => s.toggleFavorite);
   const [q, setQ] = useState("");
-  const [family, setFamily] = useState<LayoutFamily | "all">("all");
   const [mode, setMode] = useState<"all" | "light" | "dark">("all");
-  const [favOnly, setFavOnly] = useState(false);
-  const previous = settings.themeId;
+  const currentId = preview ?? settings.themeId;
   const list = useMemo(() => {
     return THEMES.filter((t) => {
-      if (family !== "all" && t.family !== family) return false;
       if (mode !== "all" && t.mode !== mode) return false;
-      if (favOnly && !settings.favorites.includes(t.id)) return false;
       if (q && !`${t.name} ${t.nameRu} ${t.notes}`.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [q, family, mode, favOnly, settings.favorites]);
+  }, [q, mode]);
   return (
-    <div className="mt-6 border-t border-[var(--line)] pt-4">
+    <div className="theme-gallery">
       <h3 className="font-display text-xl">Оформление</h3>
-      <p className="text-xs text-[var(--muted)]">
-        Можно посмотреть, не портя расчёт. Отмена вернёт «{getTheme(previous).nameRu}».
-      </p>
-      <div className="mt-3 grid gap-3 sm:grid-cols-4">
+      <p className="text-xs text-[var(--muted)]">Нажал — весь экран рядом уже в этой теме.</p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <Field label="Поиск">
           <TextInput value={q} onChange={(e) => setQ(e.target.value)} placeholder="Изумруд, мастер…" />
-        </Field>
-        <Field label="Вид экрана">
-          <Select value={family} onChange={(e) => setFamily(e.target.value as typeof family)}>
-            <option value="all">Все</option>
-            {Object.entries(LAYOUT_LABEL).map(([k, v]) => (
-              <option key={k} value={k}>
-                {v}
-              </option>
-            ))}
-          </Select>
         </Field>
         <Field label="Светлый или тёмный">
           <Select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
@@ -757,59 +805,51 @@ function DesignGallery() {
             <option value="light">Светлые</option>
           </Select>
         </Field>
-        <label className="flex min-h-11 items-end gap-2 text-sm">
-          <input type="checkbox" checked={favOnly} onChange={(e) => setFavOnly(e.target.checked)} />
-          Только избранные
-        </label>
       </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {list.map((t) => (
           <button
             key={t.id}
             type="button"
-            onClick={() => setPreview(t.id)}
+            onClick={() => {
+              setPreview(t.id);
+              apply(t.id);
+            }}
             className={cn(
-              "border p-3 text-left",
-              (preview ?? settings.themeId) === t.id ? "border-[var(--accent)]" : "border-[var(--line)]",
+              "theme-swatch text-left",
+              currentId === t.id ? "is-on" : "",
             )}
+            data-go={`theme-${t.id}`}
             style={{
               background: t.tokens["--bg"],
               color: t.tokens["--fg"],
+              borderColor: currentId === t.id ? t.tokens["--accent"] : t.tokens["--line"],
             }}
           >
-            <div className="mb-2 flex h-16 overflow-hidden border" style={{ borderColor: t.tokens["--line"] }}>
+            <div className="mb-2 flex h-12 overflow-hidden rounded-xl border" style={{ borderColor: t.tokens["--line"] }}>
               <div className="w-1/4" style={{ background: t.tokens["--surface"] }} />
               <div className="flex-1 p-2">
-                <div className="h-2 w-1/2" style={{ background: t.tokens["--accent"] }} />
-                <div className="mt-2 h-8" style={{ background: t.tokens["--bg-elev"] }} />
+                <div className="h-2 w-1/2 rounded-full" style={{ background: t.tokens["--accent"] }} />
+                <div className="mt-2 h-6 rounded-md" style={{ background: t.tokens["--bg-elev"] }} />
               </div>
             </div>
             <p className="text-sm font-medium">{t.nameRu}</p>
             <p className="text-[11px] opacity-80">
-              {LAYOUT_LABEL[t.family]} · {t.mode === "dark" ? "тёмная" : "светлая"} · {t.density}
+              {t.mode === "dark" ? "тёмная" : "светлая"} · {t.density}
             </p>
-            {(preview ?? settings.themeId) === t.id ? <p className="mt-1 text-[11px]">выбрано</p> : null}
           </button>
         ))}
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
-        <Button
-          onClick={() => {
-            if (preview) apply(preview);
-          }}
-          disabled={!preview}
-        >
-          <Check className="size-4" /> Применить
-        </Button>
-        <Button variant="secondary" onClick={revert}>
-          Отмена
-        </Button>
         <Button variant="ghost" onClick={() => apply("mizan-emerald")}>
           <RotateCcw className="size-4" /> Вернуть исходный
         </Button>
+        <Button variant="ghost" onClick={() => toggleFav(currentId)}>
+          <Heart className="size-4" /> Избранное
+        </Button>
         {preview ? (
-          <Button variant="ghost" onClick={() => toggleFav(preview)}>
-            <Heart className="size-4" /> Избранное
+          <Button variant="secondary" onClick={revert}>
+            Отмена
           </Button>
         ) : null}
       </div>
