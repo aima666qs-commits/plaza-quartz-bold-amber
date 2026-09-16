@@ -10,7 +10,10 @@ export const pullStudy = createServerFn({ method: "GET" })
     const mem = await sql<{ id: number; body: string; created_at: string }>`
       select id, body, created_at from study_memory where user_id = ${context.userId} order by created_at desc limit 40
     `;
-    return { studyMs: clock[0]?.study_ms ?? 0, memories: mem };
+    const progress = await sql<{ lane: string; payload: string }>`
+      select lane, payload::text as payload from study_progress where user_id = ${context.userId}
+    `;
+    return { studyMs: clock[0]?.study_ms ?? 0, memories: mem, progress };
   });
 
 export const pushStudyMs = createServerFn({ method: "POST" })
@@ -35,6 +38,27 @@ export const addMemory = createServerFn({ method: "POST" })
     if (!body) return { ok: false as const };
     const sql = await getSql();
     await sql`insert into study_memory (user_id, body) values (${context.userId}, ${body})`;
+    return { ok: true as const };
+  });
+
+export const pushProgress = createServerFn({ method: "POST" })
+  .middleware([authMiddleware])
+  .validator((input: { lane: string; payload: string }) => input)
+  .handler(async ({ context, data }) => {
+    const lane = data.lane.trim().slice(0, 40) || "none";
+    const payload = data.payload.slice(0, 20000);
+    try {
+      JSON.parse(payload);
+    } catch {
+      return { ok: false as const };
+    }
+    const sql = await getSql();
+    await sql.query(
+      `insert into study_progress (user_id, lane, payload, updated_at)
+       values ($1, $2, $3::jsonb, now())
+       on conflict (user_id, lane) do update set payload = excluded.payload, updated_at = now()`,
+      [context.userId, lane, payload],
+    );
     return { ok: true as const };
   });
 

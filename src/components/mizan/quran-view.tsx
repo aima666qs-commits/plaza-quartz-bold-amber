@@ -375,7 +375,7 @@ function MushafView() {
                 if (first) setRef(first, 1);
               }}
               className={cn(
-                "shrink-0 rounded-full border px-3 py-2 text-left text-xs",
+                "inline-flex min-h-11 shrink-0 flex-col items-start justify-center rounded-2xl border px-3 py-2 text-left text-xs",
                 r.id === reciterId ? "border-[var(--accent)] text-[var(--accent)]" : "border-[var(--line)] text-[var(--muted)]",
               )}
             >
@@ -438,6 +438,16 @@ function MushafView() {
         ) : null}
 
         {mushafLayout === "page" ? (
+          <>
+            {windowed[0] && windowed[0].i > 1 ? (
+              <button
+                type="button"
+                className="mt-4 text-sm text-[var(--muted)]"
+                onClick={() => setRef(surah, Math.max(1, windowed[0].i - 20))}
+              >
+                Выше
+              </button>
+            ) : null}
           <article
             className="mushaf-page mt-5"
             lang="ar"
@@ -460,6 +470,16 @@ function MushafView() {
               );
             })}
           </article>
+            {windowed.length && windowed[windowed.length - 1].i < meta.ayahs ? (
+              <button
+                type="button"
+                className="mt-3 text-sm text-[var(--muted)]"
+                onClick={() => setRef(surah, Math.min(meta.ayahs, windowed[windowed.length - 1].i + 1))}
+              >
+                Ниже
+              </button>
+            ) : null}
+          </>
         ) : null}
 
         {mushafLayout === "page" && current ? (

@@ -3,6 +3,7 @@ import { COURSES, type CourseId } from "@/lib/learn/catalog.ts";
 import type { ArabicMethodId } from "@/lib/learn/arabic-methods.ts";
 import type { TrackId } from "@/lib/learn/tracks.ts";
 import { WEEKS } from "@/lib/quran/curriculum.ts";
+import { pushProgress } from "@/lib/study/server.ts";
 
 const KEY = "mizan.v1.learn";
 
@@ -31,25 +32,38 @@ interface LearnStore {
   completedCount: () => number;
 }
 
+function snapshot() {
+  const s = useLearn.getState();
+  return {
+    week: s.week,
+    track: s.track,
+    course: s.course,
+    lane: s.lane,
+    arabicMethod: s.arabicMethod,
+    lessonN: s.lessonN,
+    sabaqSurah: s.sabaqSurah,
+    tikrarNeed: s.tikrarNeed,
+    completed: s.completed,
+    startedAt: s.startedAt,
+    lastStudy: s.lastStudy,
+  };
+}
+
+let saveTimer: ReturnType<typeof setTimeout> | undefined;
+
 function persist() {
   try {
-    const s = useLearn.getState();
-    localStorage.setItem(
-      KEY,
-      JSON.stringify({
-        week: s.week,
-        track: s.track,
-        course: s.course,
-        lane: s.lane,
-        arabicMethod: s.arabicMethod,
-        lessonN: s.lessonN,
-        sabaqSurah: s.sabaqSurah,
-        tikrarNeed: s.tikrarNeed,
-        completed: s.completed,
-        startedAt: s.startedAt,
-        lastStudy: s.lastStudy,
-      }),
-    );
+    const snap = snapshot();
+    localStorage.setItem(KEY, JSON.stringify(snap));
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      void pushProgress({
+        data: {
+          lane: snap.lane ?? "none",
+          payload: JSON.stringify(snap),
+        },
+      }).catch(() => {});
+    }, 900);
   } catch {
     /* ignore */
   }
@@ -78,7 +92,7 @@ export const useLearn = create<LearnStore>((set, get) => ({
   course: null,
   lane: null,
   arabicMethod: null,
-  lessonN: 1,
+  lessonN: 0,
   sabaqSurah: 114,
   tikrarNeed: 10,
   completed: {},
@@ -101,15 +115,16 @@ export const useLearn = create<LearnStore>((set, get) => ({
       lane,
       course: lane ? get().course : null,
       arabicMethod: lane === "arabic" ? get().arabicMethod : null,
+      lessonN: lane === "arabic" ? get().lessonN : 0,
     });
     persist();
   },
   setArabicMethod: (arabicMethod) => {
-    set({ arabicMethod, lessonN: 1 });
+    set({ arabicMethod, lessonN: 0 });
     persist();
   },
   setLessonN: (n) => {
-    set({ lessonN: Math.max(1, n) });
+    set({ lessonN: Math.max(0, Math.round(n)) });
     persist();
   },
   setSabaq: (n) => {
@@ -149,12 +164,35 @@ export function hydrateLearn() {
       course: mapCourse(data.course),
       lane: data.lane === "quran" || data.lane === "arabic" || data.lane === "hifz" ? data.lane : null,
       arabicMethod: data.arabicMethod ?? null,
-      lessonN: data.lessonN ?? 1,
+      lessonN: data.lessonN ?? 0,
       sabaqSurah: clampSurah(data.sabaqSurah ?? 114),
       tikrarNeed: data.tikrarNeed === 21 ? 21 : 10,
       completed: data.completed ?? {},
       startedAt: data.startedAt ?? "",
       lastStudy: data.lastStudy ?? "",
+    });
+  } catch {
+    /* ignore */
+  }
+}
+
+export function applyServerProgress(payload: string) {
+  try {
+    const data = JSON.parse(payload) as Partial<LearnStore> & { course?: unknown };
+    const local = useLearn.getState();
+    if (local.lastStudy) return;
+    useLearn.setState({
+      week: data.week ?? local.week,
+      track: (data.track as TrackId | undefined) ?? local.track,
+      course: mapCourse(data.course) ?? local.course,
+      lane: data.lane === "quran" || data.lane === "arabic" || data.lane === "hifz" ? data.lane : local.lane,
+      arabicMethod: data.arabicMethod ?? local.arabicMethod,
+      lessonN: data.lessonN ?? local.lessonN,
+      sabaqSurah: clampSurah(data.sabaqSurah ?? local.sabaqSurah),
+      tikrarNeed: data.tikrarNeed === 21 ? 21 : local.tikrarNeed,
+      completed: data.completed ?? local.completed,
+      startedAt: data.startedAt ?? local.startedAt,
+      lastStudy: data.lastStudy ?? local.lastStudy,
     });
   } catch {
     /* ignore */

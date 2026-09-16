@@ -1,40 +1,5 @@
 {
+  "ok": false,
   "url": "http://127.0.0.1:8081/",
-  "viewports": {
-    "desktop": {
-      "width": 1280,
-      "height": 800,
-      "status": 200,
-      "title": "Мизан — закят, Коран, Хисн, Иткан",
-      "hasCanvas": false,
-      "bodyTextLen": 825,
-      "bodyTextHash": "6834084575d1bf6788d1b57bdc829da325552bc0e92d2b4e6f526954305a4acc",
-      "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
-      "horizontalOverflow": false,
-      "consoleErrors": [],
-      "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-built.png"
-    },
-    "mobile": {
-      "width": 390,
-      "height": 844,
-      "status": 200,
-      "title": "Мизан — закят, Коран, Хисн, Иткан",
-      "hasCanvas": false,
-      "bodyTextLen": 825,
-      "bodyTextHash": "6834084575d1bf6788d1b57bdc829da325552bc0e92d2b4e6f526954305a4acc",
-      "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
-      "horizontalOverflow": false,
-      "consoleErrors": [],
-      "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
-    }
-  },
-  "brandWarnings": [],
-  "authWarnings": [],
-  "verdictFile": "/workspace/screenshots/app-builder-built.json",
-  "divergesFromBaseline": true,
-  "baselineReasons": [
-    "mobile: body text changed (1046 -> 825 chars, hash mismatch)"
-  ]
+  "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:8081/\nCall log:\n  - navigating to \"http://127.0.0.1:8081/\", waiting until \"domcontentloaded\"\n"
 }

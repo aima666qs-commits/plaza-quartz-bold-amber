@@ -299,7 +299,7 @@ export function HomeView() {
         <p className="bismillah" lang="ar">
           بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
         </p>
-        <SheikhSeal size={56} onClick={() => openSheikh()} />
+        <SheikhSeal size={152} onClick={() => openSheikh()} />
         <p className="salam-ar mt-1" lang="ar">
           السلام عليكم
         </p>

@@ -24,10 +24,18 @@ export function BrandMark({ size = 44 }: { size?: number }) {
   );
 }
 
-export function SheikhSeal({ size = 128, onClick }: { size?: number; onClick?: () => void }) {
+export function SheikhSeal({ size = 148, onClick }: { size?: number; onClick?: () => void }) {
   const [ok, setOk] = useState(true);
   const inner = ok ? (
-    <img src="/brand/sheikh-seal.jpg" alt="" width={size} height={size} onError={() => setOk(false)} />
+    <img
+      src="/brand/sheikh-seal.jpg"
+      alt=""
+      width={size}
+      height={size}
+      decoding="async"
+      draggable={false}
+      onError={() => setOk(false)}
+    />
   ) : (
     <svg width={size} height={size} viewBox="0 0 128 128" aria-hidden>
       <circle cx="64" cy="64" r="62" fill="#0b2e23" stroke="#f0cf7a" strokeWidth="3" />
@@ -39,9 +47,16 @@ export function SheikhSeal({ size = 128, onClick }: { size?: number; onClick?: (
       </text>
     </svg>
   );
-  if (!onClick) return <span className="sheikh-seal-btn">{inner}</span>;
+  if (!onClick) return <span className="sheikh-seal-btn" style={{ width: size, height: size }}>{inner}</span>;
   return (
-    <button type="button" className="sheikh-seal-btn" aria-label="Спросить шейха" title="Спросить шейха" onClick={onClick}>
+    <button
+      type="button"
+      className="sheikh-seal-btn"
+      style={{ width: size, height: size }}
+      aria-label="Спросить шейха"
+      title="Спросить шейха"
+      onClick={onClick}
+    >
       <i className="sheikh-ring" aria-hidden />
       <i className="sheikh-ring" aria-hidden />
       {inner}

@@ -7,13 +7,11 @@
       "status": 200,
       "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 825,
-      "bodyTextHash": "6834084575d1bf6788d1b57bdc829da325552bc0e92d2b4e6f526954305a4acc",
+      "bodyTextLen": 1321,
+      "bodyTextHash": "4d6fa4d2fd2623d8c38ed0fdbfdcd6f5154f7f0a36e845439d18cbfae3e28721",
       "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
-      "consoleErrors": [
-        "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\n%s%s https://react.dev/link/hydration-mismatch \n\n  ...\n    <SafeFragment fallback={null}>\n      <CatchBoundary getResetKey={function getResetKey} errorComponent={function AppErrorComponent} ...>\n        <SafeFragment fallback={function fallback}>\n          <MatchInnerImpl match={{id:\"//\",ssr:true, ...}}>\n            <Lazy>\n              <Home>\n                <MizanApp>\n                  <div className=\"app-shell\">\n                    <ThemeApplier>\n                    <div>\n                    <Header>\n                    <main inert={undefined} aria-hidden={undefined}>\n                      <KeepTab id=\"home\" tab=\"home\">\n                        <div hidden={false} className=\"tab-keep\" aria-hidden={false}>\n                          <HomeView>\n                            <div className=\"page-pad h...\">\n                              <section>\n                              <form className=\"ask-mini g...\" onSubmit={function onSubmit}>\n                                <input\n                                  className=\"min-h-11 flex-1 bg-transparent text-sm outline-none placeholder:text-[var...\"\n                                  value=\"\"\n                                  placeholder=\"Шейху…\"\n                                  onChange={function onChange}\n-                                 style={{caret-color:\"transparent\"}}\n                                >\n                                ...\n                              ...\n                      ...\n                    ...\n"
-      ],
+      "consoleErrors": [],
       "pageErrors": [],
       "screenshot": "/workspace/screenshots/app-builder-preview.png"
     },
@@ -23,8 +21,8 @@
       "status": 200,
       "title": "Мизан — закят, Коран, Хисн, Иткан",
       "hasCanvas": false,
-      "bodyTextLen": 1046,
-      "bodyTextHash": "6ca42a2a2a9655f6a7f45c4cd2958c0b2d01f6da6054a53efece360907745944",
+      "bodyTextLen": 1321,
+      "bodyTextHash": "4d6fa4d2fd2623d8c38ed0fdbfdcd6f5154f7f0a36e845439d18cbfae3e28721",
       "bodyTextPrefix": "МИЗАН Шейх · Закят · Коран · Хисн · Иткан بِسْمِ ٱللَّهِ ٱلرَّحْ",
       "horizontalOverflow": false,
       "consoleErrors": [],

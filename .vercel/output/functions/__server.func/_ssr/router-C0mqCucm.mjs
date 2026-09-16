@@ -1,9 +1,10 @@
-import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
-import { R as require_react, _ as useRouter, f as createRouter, g as createRootRoute, h as createFileRoute, l as Scripts, m as lazyRouteComponent, p as Outlet, u as HeadContent, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { i as TriangleAlert } from "../_libs/lucide-react.mjs";
-import { a as union, i as string, n as number, r as object, t as literal } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CsrZdg6Q.js
-var router_CsrZdg6Q_exports = /* @__PURE__ */ __exportAll({ getRouter: () => getRouter });
+import { o as __toESM, r as __exportAll } from "../_runtime.mjs";
+import { f as createRouter, g as createRootRoute, h as createFileRoute, l as Scripts, m as lazyRouteComponent, p as Outlet, u as HeadContent, v as useRouter, y as require_jsx_runtime, z as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
+import { L as string, N as number, P as object, R as union, j as literal } from "../_libs/@better-auth/core+[...].mjs";
+import { n as auth } from "./server-DrcDvxwU.mjs";
+import { a as TriangleAlert } from "../_libs/lucide-react.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/router-C0mqCucm.js
+var router_C0mqCucm_exports = /* @__PURE__ */ __exportAll({ getRouter: () => getRouter });
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FALLBACK_MESSAGE = "An unexpected error occurred. Try reloading the page.";
@@ -297,9 +298,9 @@ function PreviewHostBridge() {
 	}, [router]);
 	return null;
 }
-var styles_default = "/assets/styles-DTivwPZZ.css";
+var styles_default = "/assets/styles-DIf0oJSi.css";
 var APP_NAME = "Мизан — закят, Коран, Хисн, Иткан";
-var Route$1 = createRootRoute({
+var Route$3 = createRootRoute({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -350,7 +351,7 @@ var Route$1 = createRootRoute({
 			},
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Noto+Naskh+Arabic:wght@400;700&family=Reem+Kufi:wght@400;500&family=Scheherazade+New:wght@400;700&display=swap"
+				href: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=Aref+Ruqaa:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=Lateef:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Noto+Naskh+Arabic:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Reem+Kufi:wght@400;500&family=Scheherazade+New:wght@400;700&display=swap"
 			},
 			{
 				rel: "stylesheet",
@@ -380,13 +381,32 @@ var Route$1 = createRootRoute({
 		] })]
 	})
 });
-var $$splitComponentImporter = () => import("./routes-XwfHrrZP.mjs").then((n) => n.d);
-var rootRouteChildren = { IndexRoute: createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") }).update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => Route$1
-}) };
-var routeTree = Route$1._addFileChildren(rootRouteChildren)._addFileTypes();
+var $$splitComponentImporter$1 = () => import("./routes-CczT8q8W.mjs").then((n) => n.g);
+var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
+var $$splitComponentImporter = () => import("./login-CL5nzWYs.mjs");
+var Route$1 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
+var Route = createFileRoute("/api/auth/$")({ server: { handlers: {
+	GET: ({ request }) => auth.handler(request),
+	POST: ({ request }) => auth.handler(request)
+} } });
+var rootRouteChildren = {
+	IndexRoute: Route$2.update({
+		id: "/",
+		path: "/",
+		getParentRoute: () => Route$3
+	}),
+	LoginRoute: Route$1.update({
+		id: "/login",
+		path: "/login",
+		getParentRoute: () => Route$3
+	}),
+	ApiAuthSplatRoute: Route.update({
+		id: "/api/auth/$",
+		path: "/api/auth/$",
+		getParentRoute: () => Route$3
+	})
+};
+var routeTree = Route$3._addFileChildren(rootRouteChildren)._addFileTypes();
 function getRouter() {
 	return createRouter({
 		routeTree,
@@ -394,4 +414,4 @@ function getRouter() {
 	});
 }
 //#endregion
-export { getRouter, router_CsrZdg6Q_exports as t };
+export { getRouter, router_C0mqCucm_exports as t };

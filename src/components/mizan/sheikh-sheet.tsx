@@ -7,6 +7,7 @@ import { formatPlain } from "@/lib/mizan/decimal.ts";
 import { getProfile } from "@/lib/mizan/profiles.ts";
 import { SOURCES } from "@/lib/mizan/sources.ts";
 import { hearAsk, speakText, stopSpeak, voiceAvailable } from "@/lib/voice.ts";
+import { pullStudy } from "@/lib/study/server.ts";
 import { markSalawat } from "@/lib/voice/adab.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
@@ -106,6 +107,12 @@ export function SheikhSheet({
       sourceExcerpts: excerpts,
     };
     try {
+      try {
+        const study = await pullStudy();
+        payload.memories = study.memories.map((m) => m.body).slice(0, 12);
+      } catch {
+        payload.memories = [];
+      }
       const res = await askEvidence({ data: payload });
       if (res.ok) {
         const text = markSalawat(res.text);

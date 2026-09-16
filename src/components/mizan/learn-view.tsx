@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { phaseLabel, weekByN, WEEKS } from "@/lib/quran/curriculum.ts";
 import { HARAKAT, HEAVY, LETTERS, TAJWEED_CARDS } from "@/lib/quran/letters.ts";
 import { ARABIC_METHODS, methodById } from "@/lib/learn/arabic-methods.ts";
+import { IRAB_DRILLS } from "@/lib/learn/ajurrumiyya.ts";
 import { COURSES, type Course, type CourseId } from "@/lib/learn/catalog.ts";
 import { TeacherDesk } from "@/components/mizan/teacher-desk.tsx";
 import { loadAyah } from "@/lib/quran/mushaf.ts";
@@ -166,11 +167,66 @@ function TajweedDrill() {
   );
 }
 
-function DrillPanel({ kind, letters }: { kind: DrillKind; letters?: string[] }) {
+function IrabDrill() {
+  const [i, setI] = useState(0);
+  const [picked, setPicked] = useState<string | null>(null);
+  const item = IRAB_DRILLS[i % IRAB_DRILLS.length];
+  const ok = picked === item.ok;
+  return (
+    <div className="grid gap-3">
+      <p className="text-center text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+        И‘раб · {item.ref}
+      </p>
+      <p className="ayah-ar text-center text-3xl" lang="ar" dir="rtl">
+        {item.ar}
+      </p>
+      <p className="text-center text-sm text-[var(--muted)]">{item.ru}</p>
+      <p className="text-center text-sm">
+        Слово <span className="ayah-ar inline text-xl" lang="ar">{item.pick}</span>
+        <span className="mt-1 block">{item.q}</span>
+      </p>
+      <div className="grid gap-2">
+        {item.options.map((o) => (
+          <button
+            key={o}
+            type="button"
+            onClick={() => setPicked(o)}
+            className={cn(
+              "min-h-12 rounded-2xl border px-3 text-sm",
+              picked && o === item.ok && "border-[var(--ok)] text-[var(--ok)]",
+              picked && o === picked && o !== item.ok && "border-[var(--danger)] text-[var(--danger)]",
+              !picked && "border-[var(--line)]",
+            )}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+      {picked ? (
+        <>
+          <p className={ok ? "text-sm text-[var(--ok)]" : "text-sm text-[var(--danger)]"}>{item.why}</p>
+          <Button
+            variant="secondary"
+            className="pill"
+            onClick={() => {
+              setPicked(null);
+              setI((n) => n + 1);
+            }}
+          >
+            {ok ? "Дальше" : "Ещё раз"}
+          </Button>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function DrillPanel({ kind, letters }: { kind: DrillKind | "irab" | "read"; letters?: string[] }) {
   if (kind === "letters") return <LettersDrill filter={letters} />;
   if (kind === "connect") return <ConnectDrill />;
   if (kind === "harakat") return <HarakatDrill />;
   if (kind === "tajweed") return <TajweedDrill />;
+  if (kind === "irab") return <IrabDrill />;
   if (kind === "hifz") {
     return <p className="text-sm text-[var(--muted)]">Откройте аяты в мусхафе, скройте перевод, читайте, затем сверьте Кулиева.</p>;
   }
@@ -543,46 +599,59 @@ export function LearnView() {
   }
 
   if (lane === "arabic" && method && !course) {
-    return (
-      <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
-        <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
-          <p className="ayah-ar text-2xl" lang="ar">
-            {method.ar}
-          </p>
-          <h1 className="font-display mt-2 text-3xl">{method.ru}</h1>
-          <p className="mt-2 text-sm text-[var(--muted)]">{method.honest}</p>
-        </header>
-        <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Уроки</p>
-        {method.lessons.map((ls) => (
-          <button
-            key={ls.n}
-            type="button"
-            className={cn("door text-start", lessonN === ls.n && "border-[var(--accent)]")}
-            onClick={() => setLessonN(ls.n)}
-          >
-            <span className="text-[11px] text-[var(--muted)]">
-              Урок {ls.n} · {ls.minutes} мин
-            </span>
-            <span className="mt-1 block font-display text-xl">{ls.title}</span>
-            <span className="mt-1 block text-sm text-[var(--muted)]">{ls.goal}</span>
+    if (lesson && lessonN > 0) {
+      return (
+        <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
+          <button type="button" className="method-back" onClick={() => setLessonN(0)}>
+            <ChevronLeft className="size-4" /> Все уроки
           </button>
-        ))}
-        {lesson ? (
           <article className="rounded-[28px] border border-[var(--line)] bg-[var(--surface)] p-5">
             <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
-              Урок {lesson.n}
+              {method.ru} · урок {lesson.n} из {method.lessons.length}
             </p>
             <h2 className="font-display mt-1 text-2xl">{lesson.title}</h2>
-            <p className="mt-3 text-sm">{lesson.teach}</p>
-            <p className="ayah-ar mt-4 text-3xl" lang="ar">
+            {lesson.matn ? (
+              <p className="ayah-ar mt-4 text-2xl leading-relaxed" lang="ar" dir="rtl">
+                {lesson.matn}
+              </p>
+            ) : null}
+            <p className="mt-3 text-sm leading-relaxed">{lesson.teach}</p>
+            <p className="ayah-ar mt-4 text-3xl" lang="ar" dir="rtl">
               {lesson.exampleAr}
             </p>
             <p className="mt-2 text-sm text-[var(--muted)]">{lesson.exampleRu}</p>
+            {lesson.i3rab?.length ? (
+              <ul className="mt-3 grid gap-1 text-sm">
+                {lesson.i3rab.map((row) => (
+                  <li key={row.word} className="flex justify-between gap-2 rounded-xl border border-[var(--line)] px-3 py-2">
+                    <span className="ayah-ar text-xl" lang="ar">
+                      {row.word}
+                    </span>
+                    <span className="text-right text-xs text-[var(--muted)]">
+                      {row.role}
+                      <span className="mt-0.5 block">{row.mark}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {lesson.quranEx ? (
+              <button
+                type="button"
+                className="mt-3 w-full rounded-2xl border border-[var(--line)] p-3 text-start"
+                onClick={() => useMizan.getState().setAppTab("quran")}
+              >
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Коран {lesson.quranRef}</p>
+                <p className="ayah-ar mt-1 text-2xl" lang="ar" dir="rtl">
+                  {lesson.quranEx}
+                </p>
+              </button>
+            ) : null}
             <div className="mt-4">
-              <DrillPanel kind={lesson.drill === "read" ? "letters" : lesson.drill} />
+              <DrillPanel kind={lesson.drill} />
             </div>
             <div className="mt-4 flex gap-2">
-              <Button variant="secondary" className="pill" disabled={lesson.n <= 1} onClick={() => setLessonN(lesson.n - 1)}>
+              <Button variant="secondary" className="pill" onClick={() => setLessonN(lesson.n <= 1 ? 0 : lesson.n - 1)}>
                 Назад
               </Button>
               <Button
@@ -601,7 +670,33 @@ export function LearnView() {
               Открыть мусхаф
             </Button>
           </article>
-        ) : null}
+        </div>
+      );
+    }
+    return (
+      <div className="page-pad mx-auto grid max-w-3xl gap-4 px-4 pt-6">
+        <header className="rounded-[28px] border border-[var(--line)] bg-[var(--bg-elev)] p-5">
+          <p className="ayah-ar text-2xl" lang="ar">
+            {method.ar}
+          </p>
+          <h1 className="font-display mt-2 text-3xl">{method.ru}</h1>
+          <p className="mt-2 text-sm text-[var(--muted)]">{method.honest}</p>
+        </header>
+        <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">Уроки · {method.lessons.length}</p>
+        {method.lessons.map((ls) => (
+          <button
+            key={ls.n}
+            type="button"
+            className="door text-start"
+            onClick={() => setLessonN(ls.n)}
+          >
+            <span className="text-[11px] text-[var(--muted)]">
+              Урок {ls.n} · {ls.minutes} мин
+            </span>
+            <span className="mt-1 block font-display text-xl">{ls.title}</span>
+            <span className="mt-1 block text-sm text-[var(--muted)]">{ls.goal}</span>
+          </button>
+        ))}
       </div>
     );
   }

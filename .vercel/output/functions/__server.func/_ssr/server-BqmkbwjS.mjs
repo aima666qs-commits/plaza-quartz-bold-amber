@@ -1,8 +1,8 @@
-import { t as createServerFn } from "./ssr.mjs";
+import { r as createServerFn } from "./ssr.mjs";
 import { i as safeVoiceId, r as defaultVoice } from "./catalog-BXA7W0Vo.mjs";
-import { t as createServerRpc } from "./createServerRpc-A6pJPYTF.mjs";
+import { t as createServerRpc } from "./createServerRpc-CcvdN_gc.mjs";
 import { spawn } from "node:child_process";
-//#region node_modules/.nitro/vite/services/ssr/assets/server-D6YcwJkY.js
+//#region node_modules/.nitro/vite/services/ssr/assets/server-BqmkbwjS.js
 function synth(text, lang, gender, rate, voice) {
 	return new Promise((resolve, reject) => {
 		const p = spawn("python3", [

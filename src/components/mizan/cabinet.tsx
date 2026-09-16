@@ -84,7 +84,7 @@ export function CabinetSheet() {
           fallback={
             <div className="mt-4 grid gap-3">
               <p className="text-sm text-[var(--muted)]">
-                Гость: {hours} ч из 2. Потом вход. Google, почта или X. Telegram на этой платформе нет.
+                Гость: {hours} ч из 2. Потом вход. Google, почта или X. Telegram на этой платформе нет — почта его заменяет.
               </p>
               <Link to="/login" className="btn-glow grid min-h-12 place-items-center rounded-full">
                 Войти

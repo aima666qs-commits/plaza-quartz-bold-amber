@@ -42,8 +42,26 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-mushaf-font="uthmani"] { --font-arabic: "Scheherazade New", "Noto Naskh Arabic", serif; }
-[data-mushaf-font="naskh"] { --font-arabic: "Noto Naskh Arabic", "Scheherazade New", serif; }
+html.mizan-native body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.mizan-native {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html.mizan-native .ayah-ar,
+html.mizan-native .mushaf-page,
+html.mizan-native textarea,
+html.mizan-native input {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+[data-mushaf-font="uthmani"] { --font-arabic: "Scheherazade New", "Noto Naskh Arabic", "Noto Naskh Arabic UI", "Droid Arabic Naskh", serif; }
+[data-mushaf-font="naskh"] { --font-arabic: "Noto Naskh Arabic", "Scheherazade New", "Droid Arabic Naskh", serif; }
 [data-mushaf-font="amiri"] { --font-arabic: "Amiri Quran", Amiri, "Scheherazade New", serif; }
 [data-mushaf-font="indopak"] { --font-arabic: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif; }
 [data-mushaf-font="lateef"] { --font-arabic: Lateef, "Noto Naskh Arabic", serif; }
@@ -306,9 +324,14 @@ canvas {
   text-align: right;
   overflow-wrap: normal;
   word-break: keep-all;
+  line-break: auto;
+  letter-spacing: 0;
+  white-space: normal;
+  unicode-bidi: isolate;
   max-width: 100%;
-  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1, "curs" 1;
   font-kerning: none;
+  text-rendering: optimizeLegibility;
 }
 
 .ayah-active {
@@ -498,10 +521,16 @@ canvas {
 
 .sheikh-seal-btn {
   position: relative;
-  width: 128px;
-  height: 128px;
+  width: 152px;
+  height: 152px;
   border-radius: 999px;
   margin-top: 0.75rem;
+  overflow: visible;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--accent) 55%, transparent),
+    0 0 0 6px color-mix(in oklab, var(--accent) 12%, transparent),
+    0 18px 40px color-mix(in oklab, #000 45%, transparent);
 }
 
 .sheikh-seal-btn img,
@@ -509,9 +538,13 @@ canvas {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 18%;
   border-radius: inherit;
   position: relative;
   z-index: 1;
+  image-rendering: auto;
+  -webkit-user-drag: none;
+  animation: seal-turn 22s ease-in-out infinite;
 }
 
 .sheikh-seal-sm {
@@ -519,6 +552,7 @@ canvas {
   height: 44px;
   border-radius: 999px;
   object-fit: cover;
+  animation: none;
 }
 
 .sheikh-ring {
@@ -541,6 +575,12 @@ canvas {
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes seal-turn {
+  0%, 70% { transform: rotate(0deg); }
+  86% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .sheikh-sheet {
@@ -680,7 +720,8 @@ canvas {
 @media (prefers-reduced-motion: reduce) {
   .greet-line,
   .sheikh-seal-btn,
-  .sheikh-ring {
+  .sheikh-ring,
+  .sheikh-seal-btn img {
     animation: none;
     opacity: 1;
     transform: none;
@@ -724,7 +765,9 @@ canvas {
   text-align-last: right;
   overflow-wrap: normal;
   word-break: keep-all;
-  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+  letter-spacing: 0;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
   padding: 1.1rem 1rem 1.3rem;
   border-radius: 24px;
   border: 1px solid var(--line);
@@ -733,6 +776,8 @@ canvas {
 
 .mushaf-ayah {
   cursor: pointer;
+  unicode-bidi: isolate;
+  letter-spacing: 0;
 }
 
 .mushaf-ayah.is-now {

@@ -128,6 +128,8 @@ function startTick() {
       if (document.documentElement.dataset.motion !== "off") {
         try {
           navigator.vibrate?.(16);
+          const native = (window as Window & { MizanNative?: { vibrate?: (n: number) => void } }).MizanNative;
+          native?.vibrate?.(18);
         } catch {
           /* ignore */
         }

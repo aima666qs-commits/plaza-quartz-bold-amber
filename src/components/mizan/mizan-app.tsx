@@ -17,7 +17,7 @@ import { startSabrDaily } from "@/lib/notify.ts";
 import { getTheme } from "@/lib/themes/registry.ts";
 import { cn } from "@/lib/utils.ts";
 import { hydrateHisn } from "@/stores/hisn-store.ts";
-import { hydrateLearn, useLearn } from "@/stores/learn-store.ts";
+import { applyServerProgress, hydrateLearn, useLearn } from "@/stores/learn-store.ts";
 import { hydrateMizan, useMizan, type AppTab } from "@/stores/mizan-store.ts";
 import { hydrateQuran, useQuran } from "@/stores/quran-store.ts";
 
@@ -123,6 +123,14 @@ function goBack() {
   }
   if (l.course != null) {
     l.setCourse(null);
+    return;
+  }
+  if (l.lane === "arabic" && l.arabicMethod && l.lessonN > 0) {
+    l.setLessonN(0);
+    return;
+  }
+  if (l.lane === "arabic" && l.arabicMethod) {
+    l.setArabicMethod(null);
     return;
   }
   if (l.lane) {
@@ -256,6 +264,16 @@ export function MizanApp() {
     hydrateLearn();
     hydrateHisn();
     parseHash();
+    void import("@/lib/study/server.ts")
+      .then(({ pullStudy }) => pullStudy())
+      .then((d) => {
+        const row = d.progress?.find((p) => p.lane !== "none") ?? d.progress?.[0];
+        if (row?.payload) applyServerProgress(row.payload);
+      })
+      .catch(() => {});
+    if (typeof navigator !== "undefined" && /MizanNative/.test(navigator.userAgent)) {
+      document.documentElement.classList.add("mizan-native");
+    }
     if (!location.hash) {
       const st = useMizan.getState().settings;
       if (!st.keepLastTab && st.startTab && st.startTab !== "home") useMizan.getState().setAppTab(st.startTab);

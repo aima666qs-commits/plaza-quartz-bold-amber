@@ -1,4 +1,8 @@
+import { AJURRUMIYYA_LESSONS } from "@/lib/learn/ajurrumiyya.ts";
+
 export type ArabicMethodId = "madinah" | "bayna" | "alkitaab" | "immersive" | "nahw";
+
+export type LessonDrill = "letters" | "connect" | "harakat" | "read" | "irab";
 
 export type Lesson = {
   n: number;
@@ -6,9 +10,13 @@ export type Lesson = {
   minutes: number;
   goal: string;
   teach: string;
-  drill: "letters" | "connect" | "harakat" | "read";
+  drill: LessonDrill;
   exampleAr: string;
   exampleRu: string;
+  matn?: string;
+  i3rab?: { word: string; role: string; mark: string }[];
+  quranEx?: string;
+  quranRef?: string;
 };
 
 export type ArabicMethod = {
@@ -69,7 +77,7 @@ export const ARABIC_METHODS: ArabicMethod[] = [
       { n: 1, title: "Корень ك ت ب", minutes: 25, goal: "три буквы", teach: "Арабское слово живёт корнем. كَتَبَ كِتَاب كَاتِب مَكْتَب.", drill: "letters", exampleAr: "كَتَبَ", exampleRu: "написал" },
       { n: 2, title: "Корень د ر س", minutes: 20, goal: "درس", teach: "دَرَسَ — учил. مَدْرَسَة — школа. دَرْس — урок.", drill: "connect", exampleAr: "دَرَسَ الطَّالِبُ", exampleRu: "Студент учил." },
       { n: 3, title: "Исм и фи‘ль", minutes: 25, goal: "اسم فعل", teach: "Имя и глагол. Предложение может начинаться с имени или с глагола.", drill: "harakat", exampleAr: "الْوَلَدُ كَتَبَ", exampleRu: "Мальчик написал." },
-      { n: 4, title: "Идафа", minutes: 25, goal: " possessor", teach: "كِتَابُ الطَّالِبِ — книга студента. Первое без артикля, второе несёт определённость.", drill: "read", exampleAr: "بَابُ الْمَسْجِدِ", exampleRu: "Дверь мечети." },
+      { n: 4, title: "Идафа", minutes: 25, goal: "إضافه", teach: "كِتَابُ الطَّالِبِ — книга студента. Первое без артикля, второе несёт определённость.", drill: "read", exampleAr: "بَابُ الْمَسْجِدِ", exampleRu: "Дверь мечети." },
       { n: 5, title: "Причастие", minutes: 25, goal: "فاعل", teach: "Катиб — пишущий. Модель فَاعِل.", drill: "harakat", exampleAr: "هُوَ كَاتِبٌ", exampleRu: "Он пишущий / писатель." },
       { n: 6, title: "Масдар", minutes: 20, goal: "مصدر", teach: "Отглагольное имя. كِتَابَة — писание.", drill: "read", exampleAr: "كِتَابَةُ الدَّرْسِ", exampleRu: "Написание урока." },
     ],
@@ -89,17 +97,12 @@ export const ARABIC_METHODS: ArabicMethod[] = [
   },
   {
     id: "nahw",
-    ru: "Классический нахв",
+    ru: "Аджуррумия",
     ar: "الآجرومية",
-    origin: "Ибн Аджуррум → Катар ан-нада → Альфия Ибн Малика. Путь медресе.",
-    why: "Понимаешь и‘раб Корана, не только бытовой диалог.",
-    honest: "Тяжёлый путь. Без шейха легко застрять. Начинаем с Аджуррумии.",
-    lessons: [
-      { n: 1, title: "Речь", minutes: 25, goal: "كلام", teach: "الكلام: اسم، فعل، حرف. Всё, что с пользой сказано.", drill: "letters", exampleAr: "الْكَلَامُ اسْمٌ وَفِعْلٌ وَحَرْفٌ", exampleRu: "Речь: имя, глагол и частица." },
-      { n: 2, title: "И‘раб", minutes: 30, goal: "رفع نصب", teach: "Четыре состояния: раф‘, насб, джарр, джазм.", drill: "harakat", exampleAr: "جَاءَ زَيْدٌ", exampleRu: "Пришёл Зейд — раф‘." },
-      { n: 3, title: "Знаки раф‘а", minutes: 25, goal: "ضمة", teach: "Дамма — главный знак раф‘а у единственного числа.", drill: "read", exampleAr: "الْمُسْلِمُ", exampleRu: "Мусульманин (раф‘)." },
-      { n: 4, title: "Насб", minutes: 25, goal: "فتحة", teach: "Фатха — главный знак насба. رأيت زيداً.", drill: "harakat", exampleAr: "رَأَيْتُ زَيْدًا", exampleRu: "Я видел Зейда." },
-    ],
+    origin: "Абу Абдуллах Мухаммад ибн Мухаммад ибн Давуд ас-Санхаджи, Ибн Аджуррум (ум. 723 / 1323). Матн, с которого начинают нахв в Магрибе, Хиджазе и каттабах Азхара. Дальше — Катр ан-нада, потом Альфия Ибн Малика.",
+    why: "Понимаешь и‘раб Корана, не только базарный диалог. 24 урока закрывают весь матн.",
+    honest: "Это матн, не иджаза. Без шейха легко заучить термины и не услышать окончание. Живой разбор сильнее карточки.",
+    lessons: AJURRUMIYYA_LESSONS,
   },
 ];
 
