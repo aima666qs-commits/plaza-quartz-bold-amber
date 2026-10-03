@@ -71,8 +71,8 @@ export function CabinetSheet() {
   }
 
   return (
-    <div className="fixed inset-0 z-[90] grid place-items-end bg-black/50 p-3 sm:place-items-center">
-      <article className="max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-[28px] border border-[var(--line)] bg-[var(--bg)] p-5">
+    <div className="cabinet-layer" onClick={() => setOpen(false)}>
+      <article className="cabinet-sheet" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between gap-2">
           <h1 className="font-display text-2xl">Кабинет</h1>
           <button type="button" className="settings-gear" onClick={() => setOpen(false)} aria-label="Закрыть">

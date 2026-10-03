@@ -166,14 +166,14 @@ export async function prefetchSpeak(text: string, lang = "ru-RU") {
   }
 }
 
-export async function speakText(text: string, lang = "ru-RU") {
+export async function speakText(text: string, lang = "ru-RU", voiceId?: string) {
   if (typeof window === "undefined") return;
   const prepared = speakPrep(text.replace(/[ʿʾ*#_]/g, ""), lang);
   if (!prepared) return;
   stopSpeak();
   const mine = seq;
   const { gender, rate, voiceAr, voiceRu } = voicePrefs();
-  const voice = neuralId(lang, voiceAr, voiceRu, gender);
+  const voice = voiceId && /^[a-zA-Z]{2}-[a-zA-Z]{2}-[A-Za-z]+Neural$/.test(voiceId) ? voiceId : neuralId(lang, voiceAr, voiceRu, gender);
   const chunks = chunkText(prepared);
   for (const chunk of chunks) {
     if (mine !== seq) return;

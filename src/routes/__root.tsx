@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { civil } from "@/lib/civil.ts";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Мизан — закят, Коран, Хисн, Иткан";
@@ -13,7 +14,7 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: "Закят с источниками, Коран Кулиева, Крепость мусульманина, арабский и программа Иткан.",
+        content: civil("Мизан: закят по источникам, Коран, Крепость мусульманина и сборники хадисов."),
       },
       { name: "theme-color", content: "#04100c" },
       { name: "color-scheme", content: "dark" },

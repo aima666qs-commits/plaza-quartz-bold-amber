@@ -64,6 +64,47 @@ const ru: Pack = {
   "tile.mecca": "Мекка",
   "tile.madina": "Медина",
   "tile.learn": "Учить",
+  "win.quran": "Коран",
+  "win.books": "Хадисы",
+  "win.salah": "Намаз",
+  "win.qibla": "Кибла",
+  "win.zakat": "Закят",
+  "win.hisn": "Хисн",
+  "win.learn": "Обучение",
+  "win.profile": "Профиль",
+  "salah.kicker": "Намаз и кибла",
+  "salah.title": "Намаз",
+  "salah.ask": "Спрашиваю место…",
+  "salah.calc": "Считаю время…",
+  "salah.denied": "Место не разрешено. Нажми ещё раз и разреши геолокацию — иначе время будет не твоё.",
+  "salah.none": "Браузер не отдаёт место. Время намаза без координат не выдумываем.",
+  "salah.down": "Сервис времени намаза сейчас не ответил. Своё время не подставляем.",
+  "salah.again": "Место снова не разрешено.",
+  "salah.refresh": "Обновить место",
+  "salah.compass": "Компас",
+  "salah.qibla": "Кибла",
+  "salah.north": "от севера",
+  "salah.hanafi": "аср ханафитский",
+  "salah.shafii": "аср шафиитский",
+  "salah.m.egypt": "Египет",
+  "salah.m.mwl": "Лига исламского мира",
+  "salah.m.league": "Лига, шафиитский аср",
+  "salah.m.isna": "Северная Америка",
+  "salah.m.karachi": "Карачи",
+  "salah.m.turkey": "Турция",
+  "salah.m.russia": "Россия",
+  "salah.m.mecca": "Мекка, Умм аль-Кура",
+  "note.book": "Тетрадь",
+  "note.lesson": "Урок",
+  "note.ayah": "Аят",
+  "note.hadith": "Хадис",
+  "note.note": "Заметка",
+  "note.name": "Название",
+  "note.text": "Текст",
+  "note.save": "Сохранить",
+  "phrase.allah": "Аллах — единственный, достойный поклонения.",
+  "phrase.salawat": "Да благословит его Аллах и приветствует.",
+  "phrase.subhan": "Пречист Аллах от всего, что Ему не подобает.",
 };
 
 const en: Pack = {
@@ -152,6 +193,47 @@ const ar: Pack = {
   "tile.mecca": "مكة",
   "tile.madina": "المدينة",
   "tile.learn": "تعلّم",
+  "win.quran": "القرآن",
+  "win.books": "الأحاديث",
+  "win.salah": "الصلاة",
+  "win.qibla": "القبلة",
+  "win.zakat": "الزكاة",
+  "win.hisn": "الحصن",
+  "win.learn": "التعلّم",
+  "win.profile": "الملف",
+  "salah.kicker": "الصلاة والقبلة",
+  "salah.title": "الصلاة",
+  "salah.ask": "أحدّد المكان…",
+  "salah.calc": "أحسب الوقت…",
+  "salah.denied": "المكان غير مسموح. اضغط مرة أخرى واسمح بالموقع، وإلا لن يكون الوقت وقتك.",
+  "salah.none": "المتصفح لا يعطي المكان. لا نختلق وقت الصلاة بلا إحداثيات.",
+  "salah.down": "خدمة وقت الصلاة لم تجب. لا نضع وقتاً من عندنا.",
+  "salah.again": "المكان غير مسموح مرة أخرى.",
+  "salah.refresh": "تحديث المكان",
+  "salah.compass": "البوصلة",
+  "salah.qibla": "القبلة",
+  "salah.north": "من الشمال",
+  "salah.hanafi": "العصر حنفي",
+  "salah.shafii": "العصر شافعي",
+  "salah.m.egypt": "مصر",
+  "salah.m.mwl": "رابطة العالم الإسلامي",
+  "salah.m.league": "الرابطة، عصر شافعي",
+  "salah.m.isna": "أمريكا الشمالية",
+  "salah.m.karachi": "كراتشي",
+  "salah.m.turkey": "تركيا",
+  "salah.m.russia": "روسيا",
+  "salah.m.mecca": "مكة، أم القرى",
+  "note.book": "دفتر",
+  "note.lesson": "درس",
+  "note.ayah": "آية",
+  "note.hadith": "حديث",
+  "note.note": "ملاحظة",
+  "note.name": "العنوان",
+  "note.text": "النص",
+  "note.save": "حفظ",
+  "phrase.allah": "الله: المعبود بحق، لا إله غيره.",
+  "phrase.salawat": "صلى الله عليه وسلم: دعاء له بالبركة والسلام.",
+  "phrase.subhan": "سبحان الله: تنزيه الله عن كل نقص.",
 };
 
 const tr: Pack = {
@@ -382,6 +464,7 @@ fill("set.scheme", { ru: "Свет / тень", en: "Light / dark", ar: "فات�
 fill("set.font", { ru: "Размер текста", en: "Text size", ar: "حجم الخط", tr: "Yazı boyutu", uz: "Matn o‘lchami", tg: "Андозаи матн", kk: "Мәтін өлшемі" });
 fill("set.density", { ru: "Плотность", en: "Density", ar: "الكثافة", tr: "Sıklık", uz: "Zichlik", tg: "Зичӣ", kk: "Тығыздық" });
 fill("set.home", { ru: "Сетка главной", en: "Home grid", ar: "شبكة الرئيسية", tr: "Ana sayfa ızgarası", uz: "Bosh sahifa panjarasi", tg: "Тӯри асосӣ", kk: "Басты тор" });
+fill("set.home.style", { ru: "Вид главной", en: "Home layout", ar: "شكل الرئيسية", tr: "Ana ekran düzeni", uz: "Bosh sahifa ko‘rinishi", tg: "Намуди саҳифа", kk: "Басты бет түрі" });
 fill("set.reciter", { ru: "Чтец Корана", en: "Quran reciter", ar: "قارئ القرآن", tr: "Kur’an okuyucusu", uz: "Qur’on qorisi", tg: "Қории Қуръон", kk: "Құран қариі" });
 fill("set.sabrhour", { ru: "Час аята сабра", en: "Sabr ayah hour", ar: "ساعة آية الصبر", tr: "Sabır ayeti saati", uz: "Sabr oyat soati", tg: "Соати ояти сабр", kk: "Сабыр аяты сағаты" });
 fill("set.motion", { ru: "Без анимаций", en: "Reduce motion", ar: "بدون حركة", tr: "Animasyonsuz", uz: "Animatsiyasiz", tg: "Бе ҳаракат", kk: "Анимациясыз" });
@@ -484,7 +567,7 @@ fill("hadith.stop", { ru: "Стоп", en: "Stop", ar: "قف", tr: "Dur", uz: "To
 fill("hadith.more", { ru: "полностью", en: "full", ar: "كامل", tr: "tamamı", uz: "to‘liq", tg: "пурра", kk: "толық" });
 fill("hadith.less", { ru: "свернуть", en: "less", ar: "أقل", tr: "kısalt", uz: "qisqa", tg: "пӯшидан", kk: "жию" });
 fill("hadith.whence", { ru: "откуда", en: "source", ar: "المصدر", tr: "kaynak", uz: "qayerdan", tg: "аз куҷо", kk: "қайдан" });
-fill("hadith.lang.ar", { ru: "ع", en: "ع", ar: "ع", tr: "ع", uz: "ع", tg: "ع", kk: "ع" });
+fill("hadith.lang.ar", { ru: "عربي", en: "عربي", ar: "عربي", tr: "عربي", uz: "عربي", tg: "عربي", kk: "عربي" });
 fill("hadith.lang.ru", { ru: "рус", en: "RU", ar: "روس", tr: "RU", uz: "RU", tg: "RU", kk: "RU" });
 fill("hadith.chain", { ru: "Цепочка", en: "Chain", ar: "السند", tr: "Sened", uz: "Isnod", tg: "Силсила", kk: "Тізбек" });
 fill("hadith.chain.narrator", { ru: "Равий", en: "Narrator", ar: "الراوي", tr: "Râvi", uz: "Roviy", tg: "Ровӣ", kk: "Рауи" });
@@ -525,7 +608,7 @@ fill("room.quiz.note", { ru: "Имя по смыслу.", en: "Name by meaning."
 fill("room.dict.note", { ru: "Короткий список коранических слов дома.", en: "A short list of Quranic words.", ar: "قائمة قصيرة من كلمات القرآن.", tr: "Kısa bir Kur’an kelime listesi.", uz: "Qur’on so‘zlarining qisqa ro‘yxati.", tg: "Рӯйхати кӯтоҳи калимаҳои Қуръон.", kk: "Құран сөздерінің қысқа тізімі." });
 fill("room.recite.note", { ru: "Чтецы дома.", en: "Reciters in the house.", ar: "قرّاء البيت.", tr: "Evdeki okuyucular.", uz: "Uydagi qorilar.", tg: "Қориҳои хона.", kk: "Үйдегі қарилар." });
 fill("room.tajweed.note", { ru: "Карточки правил. Не иджаза.", en: "Rule cards. Not an ijazah.", ar: "بطاقات القواعد. ليست إجازة.", tr: "Kural kartları. İcazet değildir.", uz: "Qoida kartochkalari. Ijoza emas.", tg: "Корти қоидаҳо. Иҷоза нест.", kk: "Ереже карточкалары. Иджаза емес." });
-fill("room.books.note", { ru: "Каталог известных сборников. Полный текст «40 хадисов ан-Навави» — в доме.", en: "Catalogue of well-known collections. The full Forty Hadith is in the house.", ar: "فهرس الكتب المشهورة. الأربعون كاملة في البيت.", tr: "Meşhur eserlerin kataloğu. Kırk hadis evde tam.", uz: "Mashhur to‘plamlar. 40 hadis uyda to‘liq.", tg: "Феҳристи маҷмӯаҳои машҳур. 40 ҳадис дар хона пурра.", kk: "Белгілі жинақтар каталогы. 40 хадис үйде толық." });
+fill("room.books.note", { ru: "Сборники открываются внутри. Полный текст «40 хадисов ан-Навави» — отдельной комнатой.", en: "Collections open inside the app. The Forty Hadith also has its own room.", ar: "الكتب تُفتح داخل التطبيق. الأربعون لها غرفة.", tr: "Eserler uygulamanın içinde açılır. Kırk hadisin ayrı odası var.", uz: "To‘plamlar ilova ichida ochiladi. 40 hadisning alohida xonasi bor.", tg: "Маҷмӯаҳо дар дохили барнома кушода мешаванд. 40 ҳадис ҳуҷраи алоҳида дорад.", kk: "Жинақтар қолданба ішінде ашылады. 40 хадистің бөлек бөлмесі бар." });
 
 fill("set.section.install", { ru: "На телефон", en: "On your phone", ar: "على الهاتف", tr: "Telefona", uz: "Telefonga", tg: "Ба телефон", kk: "Телефонға" });
 fill("set.install.title", { ru: "Поставить как приложение", en: "Install as an app", ar: "ثبّت كتطبيق", tr: "Uygulama olarak kur", uz: "Ilova qilib o‘rnat", tg: "Чун барнома насб кун", kk: "Қолданба ретінде орнат" });
@@ -564,6 +647,53 @@ fill("set.install.android.s3", { ru: "Иконка весов появится �
 fill("set.install.ios.s1", { ru: "Откройте Мизан в Safari — не в Chrome и не из Telegram.", en: "Open Mizan in Safari — not Chrome, not Telegram." });
 fill("set.install.ios.s2", { ru: "Внизу кнопка «Поделиться» (квадрат со стрелкой).", en: "Tap Share at the bottom (square with an arrow)." });
 fill("set.install.ios.s3", { ru: "Пролистайте и нажмите «На экран «Домой»», затем «Добавить».", en: "Scroll to Add to Home Screen, then Add." });
+
+fill("win.quran", { ru: "Коран", en: "Quran", ar: "القرآن", tr: "Kur’an", uz: "Qur’on", tg: "Қуръон", kk: "Құран" });
+fill("win.books", { ru: "Хадисы", en: "Hadith", ar: "الأحاديث", tr: "Hadisler", uz: "Hadislar", tg: "Ҳадисҳо", kk: "Хадистер" });
+fill("win.salah", { ru: "Намаз", en: "Prayer", ar: "الصلاة", tr: "Namaz", uz: "Namoz", tg: "Намоз", kk: "Намаз" });
+fill("win.qibla", { ru: "Кибла", en: "Qibla", ar: "القبلة", tr: "Kıble", uz: "Qibla", tg: "Қибла", kk: "Құбыла" });
+fill("win.zakat", { ru: "Закят", en: "Zakat", ar: "الزكاة", tr: "Zekât", uz: "Zakot", tg: "Закот", kk: "Зекет" });
+fill("win.hisn", { ru: "Хисн", en: "Hisn", ar: "الحصن", tr: "Hisn", uz: "Hisn", tg: "Ҳисн", kk: "Хисн" });
+fill("win.learn", { ru: "Обучение", en: "Learn", ar: "التعلّم", tr: "Öğren", uz: "O‘qish", tg: "Омӯзиш", kk: "Оқу" });
+fill("win.profile", { ru: "Профиль", en: "Profile", ar: "الملف", tr: "Profil", uz: "Profil", tg: "Профил", kk: "Профиль" });
+fill("salah.kicker", { ru: "Намаз и кибла", en: "Prayer and qibla", ar: "الصلاة والقبلة", tr: "Namaz ve kıble", uz: "Namoz va qibla", tg: "Намоз ва қибла", kk: "Намаз және құбыла" });
+fill("salah.title", { ru: "Намаз", en: "Prayer", ar: "الصلاة", tr: "Namaz", uz: "Namoz", tg: "Намоз", kk: "Намаз" });
+fill("salah.ask", { ru: "Спрашиваю место…", en: "Asking for location…", ar: "أحدّد المكان…", tr: "Konum isteniyor…", uz: "Joy so‘ralmoqda…", tg: "Ҷой пурсида мешавад…", kk: "Орын сұралуда…" });
+fill("salah.calc", { ru: "Считаю время…", en: "Calculating the time…", ar: "أحسب الوقت…", tr: "Vakit hesaplanıyor…", uz: "Vaqt hisoblanmoqda…", tg: "Вақт ҳисоб мешавад…", kk: "Уақыт есептелуде…" });
+fill("salah.denied", { ru: "Место не разрешено. Нажми ещё раз и разреши геолокацию — иначе время будет не твоё.", en: "Location is blocked. Tap again and allow it, or the time will not be yours.", ar: "المكان غير مسموح. اضغط مرة أخرى واسمح بالموقع، وإلا لن يكون الوقت وقتك.", tr: "Konum kapalı. Tekrar bas ve izin ver, yoksa vakit senin olmaz.", uz: "Joy ruxsati yo‘q. Yana bosing va ruxsat bering, aks holda vaqt sizniki bo‘lmaydi.", tg: "Ҷой манъ аст. Боз зер кунед ва иҷозат диҳед, вагарна вақт аз они шумо нест.", kk: "Орынға рұқсат жоқ. Қайта басып, рұқсат беріңіз, әйтпесе уақыт сіздікі болмайды." });
+fill("salah.none", { ru: "Браузер не отдаёт место. Время намаза без координат не выдумываем.", en: "The browser gives no location. Prayer times are not invented without coordinates.", ar: "المتصفح لا يعطي المكان. لا نختلق وقت الصلاة بلا إحداثيات.", tr: "Tarayıcı konum vermiyor. Koordinatsız namaz vakti uydurmayız.", uz: "Brauzer joy bermaydi. Koordinatasiz namoz vaqtini o‘ylab topmaymiz.", tg: "Браузер ҷой намедиҳад. Бе координата вақти намозро ихтироъ намекунем.", kk: "Браузер орын бермейді. Координатсыз намаз уақытын ойдан шығармаймыз." });
+fill("salah.down", { ru: "Сервис времени намаза сейчас не ответил. Своё время не подставляем.", en: "The prayer-time service did not answer. We do not invent a time.", ar: "خدمة وقت الصلاة لم تجب. لا نضع وقتاً من عندنا.", tr: "Namaz vakti servisi cevap vermedi. Kendi vaktimizi koyamayız.", uz: "Namoz vaqti xizmati javob bermadi. O‘z vaqtimizni qo‘ymaymiz.", tg: "Хизмати вақти намоз ҷавоб надод. Вақти худро намегузорем.", kk: "Намаз уақыты қызметі жауап бермеді. Өз уақытымызды қоймаймыз." });
+fill("salah.again", { ru: "Место снова не разрешено.", en: "Location was denied again.", ar: "المكان غير مسموح مرة أخرى.", tr: "Konum yine reddedildi.", uz: "Joy yana rad etildi.", tg: "Ҷой боз манъ шуд.", kk: "Орын тағы рұқсат етілмеді." });
+fill("salah.net", { ru: "Точное место закрыто. Время по сети — разреши геолокацию, и оно станет твоим.", en: "Precise location is off. Time is from the network until you allow location.", ar: "الموقع الدقيق مغلق. الوقت من الشبكة حتى تسمح بالموقع.", tr: "Kesin konum kapalı. İzin verene kadar vakit ağdan.", uz: "Aniq joy yopiq. Ruxsat berguncha vaqt tarmoqdan.", tg: "Ҷои дақиқ баста аст. То иҷозат вақт аз шабака аст.", kk: "Дәл орын жабық. Рұқсат бергенше уақыт желіден." });
+fill("salah.compass.no", { ru: "Компас не разрешён. Нажми ещё раз и разреши датчик.", en: "Compass was denied. Tap again and allow the sensor.", ar: "البوصلة غير مسموحة. اضغط مرة أخرى واسمح بالمستشعر.", tr: "Pusula reddedildi. Tekrar bas ve sensöre izin ver.", uz: "Kompas rad etildi. Yana bosing va datchikka ruxsat bering.", tg: "Қутбнамо манъ шуд. Боз зер кунед ва ба сенсор иҷозат диҳед.", kk: "Компасқа рұқсат жоқ. Қайта басып, датчикке рұқсат беріңіз." });
+fill("salah.refresh", { ru: "Обновить место", en: "Update location", ar: "تحديث المكان", tr: "Konumu yenile", uz: "Joyni yangilash", tg: "Ҷойро нав кардан", kk: "Орынды жаңарту" });
+fill("salah.compass", { ru: "Компас", en: "Compass", ar: "البوصلة", tr: "Pusula", uz: "Kompas", tg: "Қутбнамо", kk: "Компас" });
+fill("salah.qibla", { ru: "Кибла", en: "Qibla", ar: "القبلة", tr: "Kıble", uz: "Qibla", tg: "Қибла", kk: "Құбыла" });
+fill("salah.north", { ru: "от севера", en: "from north", ar: "من الشمال", tr: "kuzeyden", uz: "shimoldan", tg: "аз шимол", kk: "солтүстіктен" });
+fill("salah.face", { ru: "Кибла перед тобой", en: "Qibla is in front of you", ar: "القبلة أمامك", tr: "Kıble önünde", uz: "Qibla oldingda", tg: "Қибла пеши ту", kk: "Құбыла алдыңда" });
+fill("salah.turn", { ru: "Поверни телефон, пока Кааба не встанет наверх", en: "Turn the phone until the Kaaba sits at the top", ar: "أدر الهاتف حتى تستقر الكعبة في الأعلى", tr: "Kâbe üste gelene kadar telefonu çevir", uz: "Kaaba tepaga chiqquncha telefonni burang", tg: "Телефонро то Каъба боло наояд гардонед", kk: "Қағба жоғары шыққанша телефонды бұрыңыз" });
+fill("salah.flat", { ru: "Держи телефон ровно, как компас", en: "Hold the phone flat, like a compass", ar: "أمسك الهاتف مسطحاً كالبوصلة", tr: "Telefonu pusula gibi düz tut", uz: "Telefonni kompasdek tekis tuting", tg: "Телефонро ҳамвор, чун қутбнамо, доред", kk: "Телефонды компас сияқты тегіс ұстаңыз" });
+fill("salah.hanafi", { ru: "аср ханафитский", en: "Hanafi asr", ar: "العصر حنفي", tr: "ikindi hanefi", uz: "asr hanafiy", tg: "аср ҳанафӣ", kk: "екінті ханафи" });
+fill("salah.shafii", { ru: "аср шафиитский", en: "Shafi asr", ar: "العصر شافعي", tr: "ikindi şafii", uz: "asr shofeiy", tg: "аср шофеӣ", kk: "екінті шафиғи" });
+fill("salah.m.egypt", { ru: "Египет", en: "Egypt", ar: "مصر", tr: "Mısır", uz: "Misr", tg: "Миср", kk: "Мысыр" });
+fill("salah.m.mwl", { ru: "Лига исламского мира", en: "Muslim World League", ar: "رابطة العالم الإسلامي", tr: "İslam Dünyası Birliği", uz: "Islom dunyosi ligasi", tg: "Робитаи ҷаҳони ислом", kk: "Ислам әлемі лигасы" });
+fill("salah.m.league", { ru: "Лига, шафиитский аср", en: "League, Shafi asr", ar: "الرابطة، عصر شافعي", tr: "Birlik, şafii ikindi", uz: "Liga, shofeiy asr", tg: "Робита, асри шофеӣ", kk: "Лига, шафиғи екінті" });
+fill("salah.m.isna", { ru: "Северная Америка", en: "North America", ar: "أمريكا الشمالية", tr: "Kuzey Amerika", uz: "Shimoliy Amerika", tg: "Амрикои Шимолӣ", kk: "Солтүстік Америка" });
+fill("salah.m.karachi", { ru: "Карачи", en: "Karachi", ar: "كراتشي", tr: "Karaçi", uz: "Karachi", tg: "Карачӣ", kk: "Карачи" });
+fill("salah.m.turkey", { ru: "Турция", en: "Turkey", ar: "تركيا", tr: "Türkiye", uz: "Turkiya", tg: "Туркия", kk: "Түркия" });
+fill("salah.m.russia", { ru: "Россия", en: "Russia", ar: "روسيا", tr: "Rusya", uz: "Rossiya", tg: "Русия", kk: "Ресей" });
+fill("salah.m.mecca", { ru: "Мекка, Умм аль-Кура", en: "Makkah, Umm al-Qura", ar: "مكة، أم القرى", tr: "Mekke, Ümmü’l-Kura", uz: "Makka, Umm al-Quro", tg: "Макка, Умм-ул-Қуро", kk: "Мекке, Умм әл-Қура" });
+fill("note.book", { ru: "Тетрадь", en: "Notebook", ar: "دفتر", tr: "Defter", uz: "Daftar", tg: "Дафтар", kk: "Дәптер" });
+fill("note.lesson", { ru: "Урок", en: "Lesson", ar: "درس", tr: "Ders", uz: "Dars", tg: "Дарс", kk: "Сабақ" });
+fill("note.ayah", { ru: "Аят", en: "Ayah", ar: "آية", tr: "Ayet", uz: "Oyat", tg: "Оят", kk: "Аят" });
+fill("note.hadith", { ru: "Хадис", en: "Hadith", ar: "حديث", tr: "Hadis", uz: "Hadis", tg: "Ҳадис", kk: "Хадис" });
+fill("note.note", { ru: "Заметка", en: "Note", ar: "ملاحظة", tr: "Not", uz: "Eslatma", tg: "Ёддошт", kk: "Жазба" });
+fill("note.name", { ru: "Название", en: "Title", ar: "العنوان", tr: "Başlık", uz: "Nom", tg: "Ном", kk: "Атауы" });
+fill("note.text", { ru: "Текст", en: "Text", ar: "النص", tr: "Metin", uz: "Matn", tg: "Матн", kk: "Мәтін" });
+fill("note.save", { ru: "Сохранить", en: "Save", ar: "حفظ", tr: "Kaydet", uz: "Saqlash", tg: "Сабт", kk: "Сақтау" });
+fill("phrase.allah", { ru: "Аллах — единственный, достойный поклонения.", en: "Allah — the only one worthy of worship.", ar: "الله: المعبود بحق، لا إله غيره.", tr: "Allah — ibadete layık olan tek.", uz: "Alloh — ibodatga loyiq yagona zot.", tg: "Аллоҳ — ягона шоистаи ибодат.", kk: "Алла — ғибадатқа лайық жалғыз." });
+fill("phrase.salawat", { ru: "Да благословит его Аллах и приветствует.", en: "May Allah bless him and grant him peace.", ar: "صلى الله عليه وسلم.", tr: "Allah ona salât etsin ve selâm versin.", uz: "Alloh unga salotu salom aytsin.", tg: "Аллоҳ бар ӯ салавот ва салом фиристад.", kk: "Алла оған салауат пен сәлем айтсын." });
+fill("phrase.subhan", { ru: "Пречист Аллах от всего, что Ему не подобает.", en: "Allah is free of everything that does not befit Him.", ar: "سبحان الله: تنزيه الله عن كل نقص.", tr: "Allah, kendine yakışmayandan münezzehtir.", uz: "Alloh O‘ziga noloyiq narsadan pokdir.", tg: "Аллоҳ аз он чи ба Ӯ нашояд пок аст.", kk: "Алла Өзіне лайықсыз нәрседен пәк." });
 
 export function translate(locale: Locale, key: string): string {
   return PACKS[locale][key] ?? PACKS.ru[key] ?? key;

@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/i18n/dict.ts";
 import type { Reciter } from "@/lib/quran/types.ts";
 import { wordBeats } from "@/lib/quran/tajweed.ts";
 
@@ -151,6 +152,37 @@ export async function loadAyahSync(
     return sync;
   } catch {
     return fallback;
+  }
+}
+
+const VERSE_TRANSLATION: Partial<Record<Locale, number>> = {
+  ru: 45,
+  en: 85,
+  tr: 77,
+  kk: 222,
+  uz: 55,
+  tg: 139,
+};
+
+const meaningCache = new Map<string, string>();
+
+export async function loadVerseTranslation(surah: number, ayah: number, locale: Locale): Promise<string> {
+  const id = VERSE_TRANSLATION[locale];
+  if (!id) return "";
+  const key = `${locale}:${surah}:${ayah}`;
+  const hit = meaningCache.get(key);
+  if (hit != null) return hit;
+  try {
+    const r = await fetch(`${QURAN_API}/verses/by_key/${surah}:${ayah}?translations=${id}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!r.ok) return "";
+    const data = (await r.json()) as { verse?: { translations?: { text?: string }[] } };
+    const text = (data.verse?.translations?.[0]?.text ?? "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+    if (text) meaningCache.set(key, text);
+    return text;
+  } catch {
+    return "";
   }
 }
 

@@ -128,6 +128,118 @@ export async function bootNotify(enabled: boolean, hour: number) {
   await startSabrDaily(hour);
 }
 
-export function sabrArmed() {
-  return armed;
+const PREF_KEY = "mizan.v1.adhanPrefs";
+const DONE_KEY = "mizan.v1.salahDone";
+
+export type AdhanPref = { on: boolean; full: boolean; days: boolean[] };
+
+function dayIndex(d: Date) {
+  return (d.getDay() + 6) % 7;
+}
+
+export function readAdhanPrefs(): Record<string, AdhanPref> {
+  try {
+    const raw = localStorage.getItem(PREF_KEY);
+    return raw ? (JSON.parse(raw) as Record<string, AdhanPref>) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function writeAdhanPref(name: string, pref: AdhanPref) {
+  const all = readAdhanPrefs();
+  all[name] = pref;
+  localStorage.setItem(PREF_KEY, JSON.stringify(all));
+}
+
+export function adhanAllowed(name: string, when = new Date()) {
+  const pref = readAdhanPrefs()[name];
+  if (!pref) return true;
+  if (!pref.on) return false;
+  return pref.days[dayIndex(when)] !== false;
+}
+
+export function markPrayerDone(name: string) {
+  const key = new Date().toISOString().slice(0, 10);
+  let all: Record<string, string[]> = {};
+  try {
+    all = JSON.parse(localStorage.getItem(DONE_KEY) || "{}") as Record<string, string[]>;
+  } catch {
+    all = {};
+  }
+  const set = new Set(all[key] ?? []);
+  set.add(name);
+  all[key] = [...set];
+  localStorage.setItem(DONE_KEY, JSON.stringify(all));
+  return Object.keys(all).length;
+}
+
+export function prayerDays() {
+  try {
+    return Object.keys(JSON.parse(localStorage.getItem(DONE_KEY) || "{}") as object).length;
+  } catch {
+    return 0;
+  }
+}
+
+const ADHAN = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"] as const;
+const ADHAN_RU: Record<(typeof ADHAN)[number], string> = {
+  Fajr: "Фаджр",
+  Dhuhr: "Зухр",
+  Asr: "Аср",
+  Maghrib: "Магриб",
+  Isha: "Иша",
+};
+let adhanTimers: number[] = [];
+
+function tone() {
+  const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+  if (!Ctx) return;
+  const ctx = new Ctx();
+  [392, 494, 587, 494, 392].forEach((freq, i) => {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = "sine";
+    o.frequency.value = freq;
+    const t0 = ctx.currentTime + i * 0.42;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(0.07, t0 + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.38);
+    o.connect(g).connect(ctx.destination);
+    o.start(t0);
+    o.stop(t0 + 0.4);
+  });
+  window.setTimeout(() => void ctx.close(), 2800);
+}
+
+export async function playAdhan(name: string) {
+  tone();
+  if (!notifySupported() || Notification.permission !== "granted") return;
+  const title = "Азан";
+  const options = { body: name, tag: "mizan-adhan", lang: "ru" };
+  const reg = await navigator.serviceWorker.ready.catch(() => null);
+  if (reg) await reg.showNotification(title, options);
+  else new Notification(title, options);
+}
+
+export function armAdhan(timings: Record<string, string>) {
+  if (typeof window === "undefined") return;
+  adhanTimers.forEach((id) => window.clearTimeout(id));
+  adhanTimers = [];
+  const now = new Date();
+  for (const name of ADHAN) {
+    const hm = timings[name];
+    if (!hm || !hm.includes(":")) continue;
+    const [h, m] = hm.split(":").map((n) => Number(n));
+    if (!Number.isFinite(h) || !Number.isFinite(m)) continue;
+    const when = new Date();
+    when.setHours(h, m, 0, 0);
+    const wait = when.getTime() - now.getTime();
+    if (wait < 1500 || wait > 24 * 3600 * 1000) continue;
+    if (!adhanAllowed(name, when)) continue;
+    const id = window.setTimeout(() => {
+      void playAdhan(ADHAN_RU[name]);
+    }, wait);
+    adhanTimers.push(id);
+  }
 }

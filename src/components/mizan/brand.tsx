@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils.ts";
 
 export function BrandMark({ size = 44 }: { size?: number }) {
   const [ok, setOk] = useState(true);
@@ -60,6 +61,61 @@ export function SheikhSeal({ size = 148, onClick }: { size?: number; onClick?: (
       <i className="sheikh-ring" aria-hidden />
       <i className="sheikh-ring" aria-hidden />
       {inner}
+    </button>
+  );
+}
+
+export function ScalesFilm({
+  grown = false,
+  mini = false,
+  onHome,
+  onGrow,
+}: {
+  grown?: boolean;
+  mini?: boolean;
+  onHome: () => void;
+  onGrow: () => void;
+}) {
+  const film = useRef<HTMLVideoElement>(null);
+  const wait = useRef<number | null>(null);
+  useEffect(() => {
+    const node = film.current;
+    if (!node) return;
+    node.playbackRate = 0.9;
+    void node.play().catch(() => {});
+  }, []);
+  function press() {
+    if (wait.current != null) {
+      window.clearTimeout(wait.current);
+      wait.current = null;
+      onGrow();
+      return;
+    }
+    wait.current = window.setTimeout(() => {
+      wait.current = null;
+      onHome();
+    }, 280);
+  }
+  return (
+    <button
+      type="button"
+      className={cn("scales-mark", grown && "is-launch", mini && "is-mini")}
+      onClick={press}
+      aria-label={grown ? "Свернуть" : "На главную"}
+      data-go="scales"
+    >
+      <video
+        ref={film}
+        poster="/brand/scales-clear.png"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source src="/brand/scales-rock.webm" type="video/webm" />
+        <source src="/brand/scales-rock.mp4" type="video/mp4" />
+      </video>
     </button>
   );
 }

@@ -22,7 +22,7 @@ FEMALE = {
     "en": "en-US-JennyNeural",
     "tr": "tr-TR-EmelNeural",
 }
-RATES = {"slow": "-8%", "normal": "+14%", "fast": "+32%"}
+RATES = {"slow": "-6%", "normal": "+4%", "fast": "+16%"}
 VOICE_ID = re.compile(r"^[a-zA-Z]{2}-[a-zA-Z]{2}-[A-Za-z]+Neural$")
 
 
@@ -37,8 +37,9 @@ async def main() -> None:
     table = FEMALE if gender == "female" else MALE
     voice = raw_voice if VOICE_ID.fullmatch(raw_voice) else table.get(lang, table["ru"])
     rate = RATES.get(rate_key, RATES["normal"])
-    pitch = "-2Hz" if gender == "female" else "+2Hz"
-    comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch)
+    pitch = "+1Hz" if gender == "female" else "-6Hz"
+    volume = "+0%"
+    comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, volume=volume)
     async for chunk in comm.stream():
         if chunk["type"] == "audio":
             sys.stdout.buffer.write(chunk["data"])

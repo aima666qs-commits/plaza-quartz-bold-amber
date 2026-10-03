@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Heart, Pause, Play, RotateCcw, Type } from "lucide-react";
-import { Button } from "@/components/ui/button.tsx";
+import { ChevronLeft, ChevronRight, Heart, Pause, Play, RotateCcw } from "lucide-react";
 import { TextInput } from "@/components/ui/field.tsx";
 import { HISN_COLLECTIONS } from "@/lib/hisn/collections.ts";
 import { chapterOfDay, loadHisn, morningChapter } from "@/lib/hisn/load.ts";
@@ -10,6 +9,23 @@ import { translate, type Locale } from "@/lib/i18n/dict.ts";
 import { cn } from "@/lib/utils.ts";
 import { useHisn } from "@/stores/hisn-store.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
+
+function transcribe(ar: string) {
+  const map: Record<string, string> = {
+    ا: "а", أ: "а", إ: "и", آ: "а", ب: "б", ت: "т", ث: "с", ج: "дж", ح: "х", خ: "х",
+    د: "д", ذ: "з", ر: "р", ز: "з", س: "с", ش: "ш", ص: "с", ض: "д", ط: "т", ظ: "з",
+    ع: "‘", غ: "г", ف: "ф", ق: "к", ك: "к", ل: "л", م: "м", ن: "н", ه: "х", و: "у",
+    ي: "й", ى: "а", ة: "а", ء: "’", ئ: "й", ؤ: "у",
+  };
+  return ar
+    .replace(/[ًٌٍَُِّْٰٓ]/g, "")
+    .replace(/[^\u0600-\u06FF\s]/g, " ")
+    .split("")
+    .map((ch) => map[ch] ?? (ch.trim() ? ch : " "))
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function useBook() {
   const [book, setBook] = useState<HisnBook | null>(null);
@@ -25,6 +41,7 @@ function useBook() {
 function useHisnAudio() {
   const audio = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState<string | null>(null);
+  const [rate, setRate] = useState(1);
   useEffect(() => {
     audio.current = new Audio();
     const el = audio.current;
@@ -38,6 +55,7 @@ function useHisnAudio() {
   function toggle(url: string) {
     const el = audio.current;
     if (!el || !url) return;
+    el.playbackRate = rate;
     if (playing === url) {
       el.pause();
       setPlaying(null);
@@ -46,19 +64,12 @@ function useHisnAudio() {
     el.src = url;
     void el.play().then(() => setPlaying(url)).catch(() => setPlaying(null));
   }
-  return { playing, toggle };
-}
-
-function Counter({ n, max, onTap }: { n: number; max: number; onTap: () => void }) {
-  const locale = useMizan((s) => s.settings.locale);
-  const done = n >= max;
-  const pct = max > 0 ? Math.min(1, n / max) : 1;
-  return (
-    <button type="button" className={cn("hisn-count", done && "is-done")} onClick={onTap} aria-label={`${n}/${max}`}>
-      <span className="hisn-count-ring" style={{ ["--p" as string]: String(pct) }} />
-      <span className="tabular-nums">{done ? translate(locale, "hisn.done") : `${n}/${max}`}</span>
-    </button>
-  );
+  function cycle() {
+    const next = rate === 0.75 ? 1 : rate === 1 ? 1.25 : rate === 1.25 ? 1.5 : 0.75;
+    setRate(next);
+    if (audio.current) audio.current.playbackRate = next;
+  }
+  return { playing, toggle, rate, cycle };
 }
 
 function HisnReader({ book, chapter }: { book: HisnBook; chapter: HisnChapter }) {
@@ -72,14 +83,13 @@ function HisnReader({ book, chapter }: { book: HisnBook; chapter: HisnChapter })
   const fav = useHisn((s) => s.favorites.includes(chapter.id));
   const toggleFav = useHisn((s) => s.toggleFav);
   const scale = useHisn((s) => s.arabicScale);
-  const setScale = useHisn((s) => s.setArabicScale);
-  const showMeaning = useMizan((s) => s.settings.showMeaning);
-  const setShowMeaning = (v: boolean) => useMizan.getState().setSettings({ showMeaning: v });
   const locale = useMizan((s) => s.settings.locale);
   const t = (k: string) => translate(locale, k);
   const progress = useMemo(() => useHisn.getState().chapterProgress(chapter), [counts, day, chapter]);
-  const { playing, toggle } = useHisnAudio();
+  const { playing, toggle, rate, cycle } = useHisnAudio();
   const title = chapterTitle(chapter, locale);
+  const [trOpen, setTrOpen] = useState(true);
+  const [txOpen, setTxOpen] = useState(false);
 
   const i = Math.min(idx, chapter.duas.length - 1);
   const dua: HisnDua | undefined = chapter.duas[i];
@@ -106,84 +116,70 @@ function HisnReader({ book, chapter }: { book: HisnBook; chapter: HisnChapter })
 
   return (
     <div className="hisn-reader">
-      <div className="flex items-center gap-2">
-        <button
-          type="button"
-          className="inline-flex min-h-11 items-center gap-1 text-sm text-[var(--muted)]"
-          onClick={() => setStored(null)}
-        >
-          <ChevronLeft className="size-4" /> {t("hisn.book")}
+      <div className="azkar-bar">
+        <button type="button" className="azkar-back" onClick={() => setStored(null)} aria-label={t("hisn.book")}>
+          <ChevronLeft className="size-6" />
         </button>
-        <div className="min-w-0 flex-1 text-center">
-          <p className="truncate text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">
-            {i + 1}/{chapter.duas.length} · {progress.have}/{progress.need}
-          </p>
-        </div>
+        <p className="azkar-bar-title">{title || chapter.titleAr}</p>
         <button type="button" className="grid size-11 place-items-center" aria-label={t("hisn.fav")} onClick={() => toggleFav(chapter.id)}>
           <Heart className={cn("size-5", fav && "fill-[var(--accent)] text-[var(--accent)]")} />
         </button>
       </div>
 
-      <header className="text-center">
-        <h1 className="ayah-ar text-2xl" lang="ar">
-          {chapter.titleAr}
-        </h1>
-        {title ? <p className="mt-1 text-xs text-[var(--muted)]">{title}</p> : null}
-      </header>
+      <h1 className="azkar-name">{title || chapter.titleAr}</h1>
+      <p className="hisn-ar azkar-body" lang="ar" style={{ fontSize: `calc(1.85rem * ${scale})` }}>
+        {dua.ar}
+      </p>
 
-      <div className="hisn-progress" aria-hidden>
-        <i style={{ width: `${progress.need ? (100 * progress.have) / progress.need : 0}%` }} />
+      <div className="azkar-play">
+        <span className="tabular-nums">00:00</span>
+        <button type="button" aria-label={t("hisn.reset")} onClick={() => reset(chapter.id, chapter.duas.map((d) => d.id))}>
+          <RotateCcw className="size-5" />
+        </button>
+        <button type="button" className="azkar-go" disabled={!dua.audio && !chapter.audio} onClick={() => toggle(dua.audio || chapter.audio)} aria-label={t("hisn.listen")}>
+          {playing ? <Pause className="size-5" /> : <Play className="size-5" />}
+        </button>
+        <button type="button" className="azkar-rate" onClick={cycle}>
+          {rate.toFixed(2).replace(/0$/, "").replace(/\.$/, "")}x
+        </button>
       </div>
 
-      <article className="hisn-card" onClick={bump}>
-        <p className="hisn-ar" lang="ar" style={{ fontSize: `calc(1.7rem * ${scale})` }}>
-          {dua.ar}
-        </p>
-        {showMeaning && meaning ? <p className="hisn-en">{meaning}</p> : null}
-      </article>
+      <button type="button" className="azkar-fold" aria-expanded={trOpen} onClick={() => setTrOpen((v) => !v)}>
+        <span>{t("hisn.show")}</span>
+        <ChevronRight className={cn("size-4", trOpen && "rotate-90")} />
+      </button>
+      {trOpen && meaning ? <p className="azkar-mean">{meaning}</p> : null}
 
-      <div className="flex items-center justify-between gap-2">
-        <Button variant="ghost" className="pill size-11 p-0" disabled={i === 0} onClick={() => setIdx(i - 1)} aria-label="prev">
-          <ChevronLeft className="size-5" />
-        </Button>
-        <Counter n={n} max={dua.repeat} onTap={bump} />
-        <Button
-          variant="ghost"
-          className="pill size-11 p-0"
-          disabled={i >= chapter.duas.length - 1}
-          onClick={() => setIdx(i + 1)}
-          aria-label="next"
-        >
-          <ChevronRight className="size-5" />
-        </Button>
+      <button type="button" className="azkar-fold" aria-expanded={txOpen} onClick={() => setTxOpen((v) => !v)}>
+        <span>Транскрипция</span>
+        <ChevronRight className={cn("size-4", txOpen && "rotate-90")} />
+      </button>
+      {txOpen ? <p className="azkar-mean azkar-tx">{transcribe(dua.ar)}</p> : null}
+
+      <div className="azkar-meta">
+        <span>
+          <small>{t("hisn.today")}</small>
+          {dua.repeat}
+        </span>
+        <span>
+          <small>{t("hisn.meaning.src")}</small>
+          Хисн
+        </span>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {dua.audio ? (
-          <Button variant="secondary" className="pill" onClick={() => toggle(dua.audio)}>
-            {playing === dua.audio ? <Pause className="size-4" /> : <Play className="size-4" />} {t("hisn.listen")}
-          </Button>
-        ) : null}
-        {chapter.audio ? (
-          <Button variant="ghost" className="pill" onClick={() => toggle(chapter.audio)}>
-            {playing === chapter.audio ? <Pause className="size-4" /> : <Play className="size-4" />} {t("hisn.chapter")}
-          </Button>
-        ) : null}
-        <Button variant="ghost" className="pill" onClick={() => setShowMeaning(!showMeaning)}>
-          {showMeaning ? t("hisn.hide") : t("hisn.show")}
-        </Button>
-        <Button variant="ghost" className="pill" onClick={() => setScale(scale - 0.1)} aria-label="-">
-          <Type className="size-3.5" />−
-        </Button>
-        <Button variant="ghost" className="pill" onClick={() => setScale(scale + 0.1)} aria-label="+">
-          <Type className="size-4" />+
-        </Button>
-        <Button variant="ghost" className="pill" onClick={() => reset(chapter.id, chapter.duas.map((d) => d.id))}>
-          <RotateCcw className="size-4" /> {t("hisn.reset")}
-        </Button>
+      <button type="button" className={cn("azkar-bead", n >= dua.repeat && "is-done")} onClick={bump} aria-label={`${n}/${dua.repeat}`}>
+        {n >= dua.repeat ? n : Math.max(n, 1)}
+      </button>
+      <div className="azkar-strip" role="tablist">
+        {chapter.duas.map((d, nIdx) => (
+          <button key={d.id} type="button" className={nIdx === i ? "is-on" : ""} onClick={() => setIdx(nIdx)}>
+            {nIdx + 1}
+          </button>
+        ))}
       </div>
-      <p className="text-center text-[11px] text-[var(--muted)]">{t("hisn.note")}</p>
-      <p className="text-center text-[11px] text-[var(--muted)]">{t("hisn.meaning.src")}</p>
+      <p className="text-center text-[11px] text-[var(--muted)]">
+        {i + 1}/{chapter.duas.length} · {progress.have}/{progress.need}
+      </p>
     </div>
   );
 }
@@ -267,21 +263,17 @@ function HisnHome({ book }: { book: HisnBook }) {
       </header>
 
       {morning ? (
-        <button type="button" className="hisn-hero" onClick={() => setStored(morning.id)} data-go="hisn-morning">
-          <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">{t("hisn.wird")}</span>
-          <span className="ayah-ar mt-1 block text-lg leading-snug" lang="ar">
-            {morning.titleAr}
-          </span>
-          <span className="mt-1 block text-sm text-[var(--muted)]">{chapterTitle(morning, locale)}</span>
-          {morningP ? (
-            <span className="mt-3 block text-sm tabular-nums">
-              {t("hisn.today")} {morningP.have} / {morningP.need}
-            </span>
-          ) : null}
-          <span className="hisn-progress mt-3">
-            <i style={{ width: `${morningP && morningP.need ? (100 * morningP.have) / morningP.need : 0}%` }} />
-          </span>
-        </button>
+        <div className="azkar-pair">
+          <button type="button" className="azkar-card" onClick={() => setStored(morning.id)} data-go="hisn-morning">
+            <span className="azkar-sun" aria-hidden />
+            <span>Утренние</span>
+            {morningP ? <small className="tabular-nums">{morningP.have}/{morningP.need}</small> : null}
+          </button>
+          <button type="button" className="azkar-card" onClick={() => setStored(morning.id)} data-go="hisn-evening">
+            <span className="azkar-moon" aria-hidden />
+            <span>Вечерние</span>
+          </button>
+        </div>
       ) : null}
 
       <div className="hisn-list">
@@ -297,6 +289,7 @@ function HisnHome({ book }: { book: HisnBook }) {
                 </span>
                 {title ? <span className="mt-0.5 block text-sm text-[var(--muted)]">{title}</span> : null}
               </span>
+              <ChevronRight className="size-4 shrink-0 text-[var(--muted)]" />
             </button>
           );
         })}

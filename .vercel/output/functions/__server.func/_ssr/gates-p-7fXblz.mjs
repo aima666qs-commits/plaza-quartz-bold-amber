@@ -1,5 +1,5 @@
 import { o as __toESM } from "../_runtime.mjs";
-import { y as require_jsx_runtime, z as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
+import { S as require_jsx_runtime, Y as require_react } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as signOut, r as signIn, t as authClient } from "./client-B40BzJxt.mjs";
 import { a as hasGateSessionMarker, t as GROK_PROVIDERS } from "./server-DrcDvxwU.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/gates-p-7fXblz.js

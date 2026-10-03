@@ -1,6 +1,9 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { motion, useReducedMotion } from "framer-motion";
+import { Tap } from "@/components/mizan/press.tsx";
 import { BookOpen, ChevronLeft, GraduationCap, Home, Scale, Settings, Shield, UserRound } from "lucide-react";
-import { BrandMark } from "@/components/mizan/brand.tsx";
+import { ScalesFilm } from "@/components/mizan/brand.tsx";
 import { CabinetSheet } from "@/components/mizan/cabinet.tsx";
 import { HadithReader } from "@/components/mizan/hadith-reader.tsx";
 import { HisnView } from "@/components/mizan/hisn-view.tsx";
@@ -14,6 +17,7 @@ import { ZakatView } from "@/components/mizan/zakat-view.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseRoomId } from "@/lib/house/catalog.ts";
 import { translate } from "@/lib/i18n/dict.ts";
 import { startSabrDaily } from "@/lib/notify.ts";
+import { bootSalah } from "@/lib/salah/boot.ts";
 import { getTheme } from "@/lib/themes/registry.ts";
 import { cn } from "@/lib/utils.ts";
 import { hydrateHisn } from "@/stores/hisn-store.ts";
@@ -36,7 +40,7 @@ function ThemeApplier() {
     root.dataset.fonts = settings.fontPair && settings.fontPair !== "theme" ? settings.fontPair : theme.fonts;
     root.dataset.nav = settings.navLayout === "theme" ? theme.nav : settings.navLayout;
     root.lang = settings.locale === "ar" ? "ar" : settings.locale;
-    root.dir = settings.locale === "ar" ? "rtl" : "ltr";
+    root.dir = "ltr";
     root.dataset.motion = settings.reducedMotion ? "off" : "on";
     root.dataset.shadow = theme.shadow;
     root.dataset.tap = settings.largeTap ? "large" : "normal";
@@ -144,7 +148,7 @@ function goBack() {
   goHome();
 }
 
-function Header() {
+function Header({ grown, onHome, onGrow }: { grown: boolean; onHome: () => void; onGrow: () => void }) {
   const setOpen = useMizan((s) => s.setSettingsOpen);
   const locale = useMizan((s) => s.settings.locale);
   const tab = useMizan((s) => s.appTab);
@@ -155,14 +159,14 @@ function Header() {
   const setCabinet = useMizan((s) => s.setCabinetOpen);
   const back = tab !== "home" || room || tafsirOn || course || Boolean(lane);
   return (
-    <header className="relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]">
+    <header className="app-header relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]">
       {back ? (
         <button type="button" className="settings-gear" onClick={goBack} aria-label="Назад" data-go="back">
           <ChevronLeft className="size-5" />
         </button>
       ) : (
-        <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={goHome} data-go="home" aria-label="На главную">
-          <BrandMark size={44} />
+        <div className="flex min-w-0 items-center gap-3 text-left">
+          <ScalesFilm grown={grown} onHome={onHome} onGrow={onGrow} />
           <div className="min-w-0">
             <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
               <span className="live-dot" />
@@ -170,13 +174,13 @@ function Header() {
             </p>
             <p className="truncate text-xs text-[var(--muted)]">Шейх · Закят · Коран · Хисн · Иткан</p>
           </div>
-        </button>
+        </div>
       )}
       {back ? (
-        <button type="button" className="flex min-w-0 flex-1 items-center gap-2 text-left" onClick={goHome} aria-label="На главную">
-          <BrandMark size={36} />
+        <div className="flex min-w-0 flex-1 items-center gap-2 text-left">
+          <ScalesFilm mini onHome={onHome} onGrow={onGrow} />
           <span className="truncate text-sm">Мизан</span>
-        </button>
+        </div>
       ) : <span className="flex-1" />}
       <button type="button" className="settings-gear" aria-label="Кабинет" onClick={() => setCabinet(true)}>
         <UserRound className="size-5" />
@@ -198,23 +202,26 @@ function Header() {
   );
 }
 
-function BottomNav() {
+function BottomNav({ onPick }: { onPick?: () => void }) {
   const tab = useMizan((s) => s.appTab);
   const setTab = useMizan((s) => s.setAppTab);
   const locale = useMizan((s) => s.settings.locale);
   const layout = useMizan((s) => s.settings.navLayout);
   const rail = layout === "rail";
-  return (
+  if (typeof document === "undefined") return null;
+  return createPortal(
     <nav className="bottom-dock glass" aria-label={translate(locale, "nav.home")}>
-      <ul className={cn("mx-auto grid max-w-lg", layout === "sidebar" ? "grid-cols-1" : "grid-cols-5")}>
+      <ul className="mx-auto grid max-w-lg grid-cols-5">
         {TABS.map((t) => {
           const Icon = t.icon;
           const on = tab === t.id;
           return (
             <li key={t.id}>
-              <button
-                type="button"
-                onClick={() => setTab(t.id)}
+              <Tap
+                onClick={() => {
+                  onPick?.();
+                  setTab(t.id);
+                }}
                 data-go={`tab-${t.id}`}
                 className={cn(
                   "flex w-full flex-col items-center justify-center gap-1 text-[11px]",
@@ -224,23 +231,32 @@ function BottomNav() {
               >
                 <Icon className="size-5" />
                 {rail ? null : translate(locale, `nav.${t.id}`)}
-              </button>
+              </Tap>
             </li>
           );
         })}
       </ul>
-    </nav>
+    </nav>,
+    document.body,
   );
 }
 
 function KeepTab({ id, tab, children }: { id: AppTab; tab: AppTab; children: ReactNode }) {
+  const reduce = useReducedMotion();
   const seen = useRef(tab === id);
   if (tab === id) seen.current = true;
   if (!seen.current) return null;
   return (
-    <div hidden={tab !== id} className="tab-keep" aria-hidden={tab !== id}>
+    <motion.div
+      hidden={tab !== id}
+      className="tab-keep"
+      aria-hidden={tab !== id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: tab === id ? 1 : 0 }}
+      transition={{ duration: reduce ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -256,10 +272,25 @@ export function MizanApp() {
   const session = useQuran((s) => s.session);
   const hadithOpen = useMizan((s) => s.houseHadith != null);
   const settingsOpen = useMizan((s) => s.settingsOpen);
+  const reduce = useMizan((s) => s.settings.reducedMotion);
   const courseOpen = useLearn((s) => s.course != null) && tab === "learn";
   const chromeOff = hadithOpen || settingsOpen;
+  const [welcome, setWelcome] = useState(false);
+  const [grown, setGrown] = useState(false);
+  useEffect(() => {
+    if (reduce || location.hash) return;
+    setWelcome(true);
+    const timer = window.setTimeout(() => setWelcome(false), 7000);
+    return () => window.clearTimeout(timer);
+  }, [reduce]);
+  useEffect(() => {
+    if (!grown) return;
+    const timer = window.setTimeout(() => setGrown(false), 6000);
+    return () => window.clearTimeout(timer);
+  }, [grown]);
   useEffect(() => {
     hydrateMizan();
+    bootSalah();
     hydrateQuran();
     hydrateLearn();
     hydrateHisn();
@@ -302,10 +333,30 @@ export function MizanApp() {
     };
   }, []);
   return (
-    <div className={cn("app-shell", session && "has-player", hadithOpen && "is-hadith", courseOpen && "is-method", settingsOpen && "is-settings")}>
+    <div className={cn("app-shell", session && "has-player", hadithOpen && "is-hadith", courseOpen && "is-method", settingsOpen && "is-settings", grown && "is-launch")}>
       <ThemeApplier />
       {hadithOpen || settingsOpen ? null : <div className="geo-veil" aria-hidden />}
-      {chromeOff ? null : <Header />}
+      {welcome && tab === "home" ? (
+        <button type="button" className="welcome-veil" onClick={() => setWelcome(false)}>
+          <video poster="/brand/scales-clear.png" autoPlay muted loop playsInline>
+            <source src="/brand/scales-rock.webm" type="video/webm" />
+            <source src="/brand/scales-rock.mp4" type="video/mp4" />
+          </video>
+          <strong>Мир тебе</strong>
+          <span>Нажми, чтобы войти</span>
+        </button>
+      ) : null}
+      {chromeOff ? null : (
+        <Header
+          grown={grown && tab === "home"}
+          onHome={() => {
+            setGrown(false);
+            setWelcome(false);
+            goHome();
+          }}
+          onGrow={() => setGrown((v) => !v)}
+        />
+      )}
       {chromeOff ? null : <PlayerBar />}
       <main inert={chromeOff || undefined} aria-hidden={chromeOff || undefined}>
         <KeepTab id="home" tab={tab}>
@@ -324,7 +375,7 @@ export function MizanApp() {
           <LearnView />
         </KeepTab>
       </main>
-      {chromeOff ? null : <BottomNav />}
+      <BottomNav onPick={() => { setGrown(false); setWelcome(false); }} />
       {hadithOpen && !settingsOpen ? <HadithReader /> : null}
       <SettingsGate />
       <CabinetSheet />

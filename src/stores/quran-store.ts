@@ -278,6 +278,8 @@ function persist(partial: Partial<QuranStore>) {
         viewMode: partial.viewMode ?? cur.viewMode,
         mushafFont: partial.mushafFont ?? cur.mushafFont,
         mushafLayout: partial.mushafLayout ?? cur.mushafLayout,
+        wordIndex: partial.wordIndex ?? cur.wordIndex,
+        audioMs: partial.audioMs ?? cur.audioMs,
         learnMode: partial.learnMode ?? cur.learnMode,
         speed: partial.speed ?? cur.speed,
         gapMs: partial.gapMs ?? cur.gapMs,
@@ -320,7 +322,8 @@ function loadSrc(surah: number, ayah: number, reciterId: string, preferred = "")
 }
 
 async function playNow() {
-  const { surah, ayah, reciterId, learnMode, speed } = useQuran.getState();
+  const { surah, ayah, reciterId, learnMode, speed, audioMs, wordIndex } = useQuran.getState();
+  const resumeMs = pendingWord == null && audioMs > 250 ? audioMs : 0;
   const rec = reciterById(reciterId);
   const gen = ++loadGen;
   clearGap();
@@ -336,18 +339,25 @@ async function playNow() {
     words: sync.words,
     exactSync: sync.exact,
     waiting: false,
-    wordIndex: pendingWord ?? (learnMode === "word" || useQuran.getState().follow ? 0 : -1),
-    audioMs: 0,
+    wordIndex: pendingWord ?? (resumeMs > 250 ? wordIndex : learnMode === "word" || useQuran.getState().follow ? 0 : -1),
+    audioMs: resumeMs,
   });
   if (!loadSrc(surah, ayah, reciterId, rec.kind === "surah" ? "" : sync.audioUrl)) return;
   const el = getAudio();
   if (!el) return;
   el.playbackRate = speed;
-  if (learnMode === "word" && pendingWord == null) pendingWord = 0;
+  if (learnMode === "word" && pendingWord == null && resumeMs <= 250) pendingWord = 0;
   if (el.readyState >= 1) applyPendingSeek(el);
   void el.play().then(
     () => {
       if (gen !== loadGen) return;
+      if (resumeMs > 250 && pendingWord == null) {
+        try {
+          el.currentTime = resumeMs / 1000;
+        } catch {
+          /* ignore */
+        }
+      }
       useQuran.setState({ playing: true, session: true, lastError: "", waiting: false });
       startTick();
     },
@@ -502,8 +512,11 @@ export const useQuran = create<QuranStore>((set, get) => ({
   pause: () => {
     clearGap();
     stopTick();
-    getAudio()?.pause();
-    set({ playing: false, pulse: 0 });
+    const el = getAudio();
+    el?.pause();
+    const audioMs = (el?.currentTime || 0) * 1000;
+    persist({ audioMs, wordIndex: get().wordIndex });
+    set({ playing: false, pulse: 0, audioMs });
   },
   stop: () => {
     clearGap();
@@ -521,8 +534,22 @@ export const useQuran = create<QuranStore>((set, get) => ({
       get().continueLearn();
       return;
     }
-    if (get().playing) get().pause();
-    else get().play();
+    if (get().playing) {
+      get().pause();
+      return;
+    }
+    const el = getAudio();
+    if (el?.src && el.paused && !el.ended && el.currentTime > 0.08) {
+      void el.play().then(
+        () => {
+          useQuran.setState({ playing: true, session: true, waiting: false, pulse: 0.4 });
+          startTick();
+        },
+        () => get().play(),
+      );
+      return;
+    }
+    get().play();
   },
   next: () => {
     const rec = reciterById(get().reciterId);
@@ -628,6 +655,8 @@ export function hydrateQuran() {
       learnMode: data.learnMode ?? "listen",
       speed: data.speed ?? 1.2,
       gapMs: data.gapMs ?? 0,
+      wordIndex: typeof data.wordIndex === "number" ? data.wordIndex : -1,
+      audioMs: typeof data.audioMs === "number" ? data.audioMs : 0,
     });
   } catch {
     /* ignore */

@@ -23,7 +23,7 @@ function clean(text: string): string {
 
 export function chapterTitle(chapter: HisnChapter, locale: Locale): string {
   if (locale === "en") return chapter.titleEn;
-  if (locale === "ar") return "";
+  if (locale === "ar") return chapter.titleAr;
   if (locale === "tr") {
     const tr = chapter.titleTr ?? "";
     if (tr && !looksForeignFor("tr", tr)) return tr;

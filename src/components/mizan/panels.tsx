@@ -566,6 +566,15 @@ export function SettingsDialog() {
               <option value="airy">{t("set.airy")}</option>
             </Select>
           </Field>
+          <Field label={t("set.home.style")}>
+            <Select
+              value={settings.homeStyle}
+              onChange={(e) => setSettings({ homeStyle: e.target.value as typeof settings.homeStyle })}
+            >
+              <option value="mizan">Мизан</option>
+              <option value="board">Доска намаза</option>
+            </Select>
+          </Field>
           <Field label={t("set.home")}>
             <Select
               value={settings.homeSize}
@@ -600,7 +609,9 @@ export function SettingsDialog() {
 
         <h3 className="mt-6 mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.section.voice")}</h3>
         <p className="mb-3 text-xs text-[var(--muted)]">{t("set.voice.note")}</p>
-        <p className="mb-3 text-xs text-[var(--muted)]">{t("set.voice.pick")}</p>
+        <p className="mb-3 text-xs text-[var(--muted)]">
+          ElevenLabs подключён. Мужской — Адам, женский — один, Рэйчел. Арабский и русский.
+        </p>
         <p className="mb-2 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">{t("set.voice.ru")}</p>
         <div className="voice-grid" data-go="settings-voice-ru">
           {VOICES_RU.map((v) => (
@@ -829,6 +840,21 @@ function ThemeStage() {
   );
 }
 
+const PLATE: Record<string, string> = {
+  "style-classic": "/brand/themes/classic.jpg",
+  "style-dark": "/brand/themes/dark.jpg",
+  "style-light": "/brand/themes/light.jpg",
+  "style-desert": "/brand/themes/desert.jpg",
+  "style-night": "/brand/themes/night.jpg",
+  "style-amethyst": "/brand/themes/amethyst.jpg",
+  "style-ruby": "/brand/themes/ruby.jpg",
+  "style-ocean": "/brand/themes/silence.jpg",
+  "style-dawn": "/brand/themes/dawn.jpg",
+  "style-olive": "/brand/themes/olive.jpg",
+  "style-medina": "/brand/themes/medina.jpg",
+  "style-marble": "/brand/themes/marble.jpg",
+};
+
 function DesignGallery() {
   const settings = useMizan((s) => s.settings);
   const preview = useMizan((s) => s.previewThemeId);
@@ -848,11 +874,11 @@ function DesignGallery() {
   }, [q, mode]);
   return (
     <div className="theme-gallery">
-      <h3 className="font-display text-xl">Оформление</h3>
+      <h3 className="font-display text-xl">Выбери свой стиль</h3>
       <p className="text-xs text-[var(--muted)]">Нажал — весь экран рядом уже в этой теме.</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <Field label="Поиск">
-          <TextInput value={q} onChange={(e) => setQ(e.target.value)} placeholder="Изумруд, мастер…" />
+          <TextInput value={q} onChange={(e) => setQ(e.target.value)} placeholder="Классический, пустыня, рубин…" />
         </Field>
         <Field label="Светлый или тёмный">
           <Select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
@@ -877,8 +903,10 @@ function DesignGallery() {
             )}
             data-go={`theme-${t.id}`}
             style={{
-              background: t.tokens["--bg"],
-              color: t.tokens["--fg"],
+              background: PLATE[t.id]
+                ? `linear-gradient(180deg, ${t.mode === "light" ? "rgb(255 250 240 / 12%)" : "rgb(0 0 0 / 18%)"}, ${t.mode === "light" ? "rgb(255 248 236 / 48%)" : "rgb(0 0 0 / 55%)"}), url(${PLATE[t.id]}) center/cover`
+                : t.tokens["--bg"],
+              color: PLATE[t.id] && t.mode === "light" ? "#1c241c" : t.tokens["--fg"],
               borderColor: currentId === t.id ? t.tokens["--accent"] : t.tokens["--line"],
             }}
           >
@@ -890,9 +918,7 @@ function DesignGallery() {
               </div>
             </div>
             <p className="text-sm font-medium">{t.nameRu}</p>
-            <p className="text-[11px] opacity-80">
-              {t.mode === "dark" ? "тёмная" : "светлая"} · {t.density}
-            </p>
+            <p className="text-[11px] opacity-80">{t.notes}</p>
           </button>
         ))}
       </div>

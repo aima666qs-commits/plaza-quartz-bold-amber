@@ -45,6 +45,7 @@ export interface SettingsState {
   voiceRate: VoiceRate;
   voiceAr: string;
   voiceRu: string;
+  homeStyle: "mizan" | "board";
 }
 
 const defaultSettings: SettingsState = {
@@ -75,6 +76,7 @@ const defaultSettings: SettingsState = {
   voiceRate: "fast",
   voiceAr: "ar-SA-HamedNeural",
   voiceRu: "ru-RU-DmitryNeural",
+  homeStyle: "mizan",
 };
 
 interface Store {

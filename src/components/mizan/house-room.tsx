@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
-import { HADITH_BOOKS, DICT, type HouseRoomId } from "@/lib/house/catalog.ts";
+import { HadithLibrary } from "@/components/mizan/hadith-library.tsx";
+import { DICT, type HouseRoomId } from "@/lib/house/catalog.ts";
 import { NAMES, NAMES_META, NAWAWI, NAWAWI_SAHIH, dayIndex, hadithMeaning, hadithTitle, hijriLabel } from "@/lib/house/data.ts";
 import { gradeLabel } from "@/lib/house/nawawi-grade.ts";
 import { formatRef, loadAyah } from "@/lib/quran/mushaf.ts";
@@ -20,7 +21,7 @@ export function HouseRoom({ id }: { id: HouseRoomId }) {
   const hadith = useMizan((s) => s.houseHadith);
   if (id === "nawawi" && hadith != null) return null;
   return (
-    <div className="page-pad mx-auto grid max-w-2xl gap-4 px-4 pt-2">
+    <div key={id} className="page-pad md-forward mx-auto grid max-w-2xl gap-4 px-4 pt-2">
       <div className="flex items-center gap-2">
         <button type="button" className="grid size-11 place-items-center" onClick={() => setRoom(null)} aria-label={translate(locale, "hadith.back")}>
           <ChevronLeft className="size-5" />
@@ -411,25 +412,7 @@ function TajweedRoom() {
 }
 
 function BooksRoom() {
-  const locale = useMizan((s) => s.settings.locale);
-  const setNav = useMizan((s) => s.setHouseNav);
-  return (
-    <div className="grid gap-2">
-      <p className="text-xs text-[var(--muted)]">{translate(locale, "room.books.note")}</p>
-      <button type="button" className="door" onClick={() => setNav("nawawi")}>
-        <span className="block font-medium">{translate(locale, "tile.nawawi")}</span>
-      </button>
-      {HADITH_BOOKS.map((b, i) => (
-        <a key={b.id} href={b.href} target="_blank" rel="noreferrer" className="door">
-          <span className="text-[11px] text-[var(--muted)]">{i + 1}</span>
-          <span className="block font-medium">{b.ru}</span>
-          <span className="ayah-ar" lang="ar">
-            {b.ar}
-          </span>
-        </a>
-      ))}
-    </div>
-  );
+  return <HadithLibrary />;
 }
 
 function PlaceRoom({ place }: { place: "M" | "D" }) {

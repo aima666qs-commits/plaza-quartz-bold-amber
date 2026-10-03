@@ -10,20 +10,13 @@ export type NeuralVoice = {
 };
 
 export const VOICES_AR: NeuralVoice[] = [
-  { id: "ar-SA-HamedNeural", lang: "ar", gender: "male", name: "Хамед", place: "Саудия", note: "Хиджаз, ближе к тиляве" },
-  { id: "ar-QA-MoazNeural", lang: "ar", gender: "male", name: "Моаз", place: "Катар", note: "Халиджи, тёплый" },
-  { id: "ar-AE-HamdanNeural", lang: "ar", gender: "male", name: "Хамдан", place: "Эмираты", note: "Залив, ровный" },
-  { id: "ar-EG-ShakirNeural", lang: "ar", gender: "male", name: "Шакир", place: "Египет", note: "Ясный масри" },
-  { id: "ar-IQ-BasselNeural", lang: "ar", gender: "male", name: "Басель", place: "Ирак", note: "Багдадский" },
-  { id: "ar-YE-SalehNeural", lang: "ar", gender: "male", name: "Салех", place: "Йемен", note: "Йеменский" },
-  { id: "ar-SA-ZariyahNeural", lang: "ar", gender: "female", name: "Зария", place: "Саудия", note: "Хиджаз, спокойный" },
-  { id: "ar-EG-SalmaNeural", lang: "ar", gender: "female", name: "Сальма", place: "Египет", note: "Ясный масри" },
-  { id: "ar-AE-FatimaNeural", lang: "ar", gender: "female", name: "Фатима", place: "Эмираты", note: "Залив" },
+  { id: "ar-SA-HamedNeural", lang: "ar", gender: "male", name: "Адам", place: "мужской", note: "Живой голос ElevenLabs, арабский" },
+  { id: "ar-SA-ZariyahNeural", lang: "ar", gender: "female", name: "Рэйчел", place: "женский", note: "Один женский голос" },
 ];
 
 export const VOICES_RU: NeuralVoice[] = [
-  { id: "ru-RU-DmitryNeural", lang: "ru", gender: "male", name: "Дмитрий", place: "русский", note: "Ровный, для смысла" },
-  { id: "ru-RU-SvetlanaNeural", lang: "ru", gender: "female", name: "Светлана", place: "русский", note: "Спокойный" },
+  { id: "ru-RU-DmitryNeural", lang: "ru", gender: "male", name: "Адам", place: "мужской", note: "Живой голос, русский" },
+  { id: "ru-RU-SvetlanaNeural", lang: "ru", gender: "female", name: "Рэйчел", place: "женский", note: "Один женский голос" },
 ];
 
 export const DEFAULT_VOICE_AR = "ar-SA-HamedNeural";
@@ -40,8 +33,9 @@ export function findVoice(id: string | undefined | null): NeuralVoice | undefine
 }
 
 const EDGE_ID = /^[a-zA-Z]{2}-[a-zA-Z]{2}-[A-Za-z]+Neural$/;
+const LIVE = new Set<string>([...VOICES_AR, ...VOICES_RU].map((v) => v.id));
 
 export function safeVoiceId(id: string | undefined | null, fallback: string): string {
-  if (id && EDGE_ID.test(id)) return id;
+  if (id && EDGE_ID.test(id) && LIVE.has(id)) return id;
   return fallback;
 }
