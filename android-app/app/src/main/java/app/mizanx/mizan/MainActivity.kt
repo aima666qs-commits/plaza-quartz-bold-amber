@@ -3,6 +3,13 @@ package app.mizanx.mizan
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -76,20 +83,39 @@ private fun MizanApp() {
             }
         }
     ) { pad ->
-        Column(Modifier.fillMaxSize().padding(pad).padding(horizontal = 20.dp).verticalScroll(rememberScrollState())) {
+        Column(Modifier.fillMaxSize().padding(pad).padding(horizontal = 20.dp)) {
             Spacer(Modifier.height(18.dp))
             Text("МИЗАН", color = Gold, fontSize = 12.sp, letterSpacing = 3.sp)
-            Text(current.label, color = Cream, fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
+            AnimatedContent(
+                targetState = current,
+                transitionSpec = {
+                    (fadeIn(tween(220)) + slideInVertically(tween(280)) { it / 6 }) togetherWith
+                        (fadeOut(tween(160)) + slideOutVertically(tween(200)) { -it / 8 })
+                },
+                label = "tab-title"
+            ) { t ->
+                Text(t.label, color = Cream, fontSize = 32.sp, fontWeight = FontWeight.SemiBold)
+            }
             Text("Шейх · не Айма", color = Mute, fontSize = 13.sp)
             Spacer(Modifier.height(18.dp))
-            when (current) {
-                Tab.Home -> HomeScreen()
-                Tab.Zakat -> ZakatScreen()
-                Tab.Quran -> NoteScreen("Коран", "Мусхаф в этом Android-экране не вшит. Полный текст — в веб-Мизане, локальная сверка с alquran.cloud. Здесь только вход, без выдуманных аятов.")
-                Tab.Hisn -> NoteScreen("Хисн", "132 главы и 267 дуа живут в веб-снимке. Этот экран не подменяет их сокращением.")
-                Tab.Learn -> NoteScreen("Учить", "Шесть путей: арабский вход, Иткан 40 недель, таджвид, хифз Амма, Хисн, смысл Кулиева. «Глубокий» не равен иджазе.")
+            AnimatedContent(
+                targetState = current,
+                transitionSpec = {
+                    fadeIn(tween(240)) togetherWith fadeOut(tween(140))
+                },
+                label = "tab-body"
+            ) { t ->
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    when (t) {
+                        Tab.Home -> HomeScreen()
+                        Tab.Zakat -> ZakatScreen()
+                        Tab.Quran -> NoteScreen("Коран", "Мусхаф в этом Android-экране не вшит. Полный текст — в веб-Мизане, локальная сверка с alquran.cloud. Здесь только вход, без выдуманных аятов.")
+                        Tab.Hisn -> NoteScreen("Хисн", "132 главы и 267 дуа живут в веб-снимке. Этот экран не подменяет их сокращением.")
+                        Tab.Learn -> NoteScreen("Учить", "Шесть путей: арабский вход, Иткан 40 недель, таджвид, хифз Амма, Хисн, смысл Кулиева. «Глубокий» не равен иджазе.")
+                    }
+                    Spacer(Modifier.height(28.dp))
+                }
             }
-            Spacer(Modifier.height(28.dp))
         }
     }
 }
@@ -101,8 +127,8 @@ private fun HomeScreen() {
     }
     Spacer(Modifier.height(12.dp))
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Mini("2,5%", "ставка")
-        Mini("85 г", "нисаб золота")
+        Mini("2,5%", "ставка", Modifier.weight(1f))
+        Mini("85 г", "нисаб золота", Modifier.weight(1f))
     }
 }
 
@@ -144,8 +170,8 @@ private fun Panel(title: String, body: @Composable () -> Unit) {
 }
 
 @Composable
-private fun Mini(value: String, label: String) {
-    Column(Modifier.weight(1f).background(Card, RoundedCornerShape(16.dp)).padding(14.dp)) {
+private fun Mini(value: String, label: String, modifier: Modifier = Modifier) {
+    Column(modifier.background(Card, RoundedCornerShape(16.dp)).padding(14.dp)) {
         Text(value, color = Cream, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
         Text(label, color = Mute, fontSize = 12.sp)
     }
