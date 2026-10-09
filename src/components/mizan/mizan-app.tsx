@@ -380,7 +380,6 @@ export function MizanApp() {
       <SettingsGate />
       <CabinetSheet />
       <StudyGate />
-      <StudyGate />
     </div>
   );
 }
