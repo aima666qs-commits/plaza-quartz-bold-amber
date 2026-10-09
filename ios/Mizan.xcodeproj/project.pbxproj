@@ -1,0 +1,30 @@
+// !$*UTF8*$!
+{
+  archiveVersion = 1;
+  classes = {};
+  objectVersion = 56;
+  objects = {
+    AA0000000000000000000001 /* MizanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MizanApp.swift; sourceTree = "<group>"; };
+    AA0000000000000000000002 /* ShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellView.swift; sourceTree = "<group>"; };
+    AA0000000000000000000003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+    AA0000000000000000000004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+    AA0000000000000000000005 /* Mizan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mizan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+    BB0000000000000000000001 /* Mizan */ = {isa = PBXGroup; children = (AA0000000000000000000001, AA0000000000000000000002, AA0000000000000000000003, AA0000000000000000000004); path = Mizan; sourceTree = "<group>"; };
+    BB0000000000000000000002 /* Products */ = {isa = PBXGroup; children = (AA0000000000000000000005); name = Products; sourceTree = "<group>"; };
+    BB0000000000000000000003 = {isa = PBXGroup; children = (BB0000000000000000000001, BB0000000000000000000002); sourceTree = "<group>"; };
+    CC0000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (DD0000000000000000000001, DD0000000000000000000002); runOnlyForDeploymentPostprocessing = 0; };
+    CC0000000000000000000002 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (DD0000000000000000000003); runOnlyForDeploymentPostprocessing = 0; };
+    DD0000000000000000000001 /* MizanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000001; };
+    DD0000000000000000000002 /* ShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000002; };
+    DD0000000000000000000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004; };
+    EE0000000000000000000001 /* Mizan */ = {isa = PBXNativeTarget; buildConfigurationList = FF0000000000000000000002; buildPhases = (CC0000000000000000000001, CC0000000000000000000002); buildRules = (); dependencies = (); name = Mizan; productName = Mizan; productReference = AA0000000000000000000005; productType = "com.apple.product-type.application"; };
+    EE0000000000000000000002 /* Project object */ = {isa = PBXProject; attributes = {LastUpgradeCheck = 1600; }; buildConfigurationList = FF0000000000000000000001; compatibilityVersion = "Xcode 14.0"; developmentRegion = ru; hasScannedForEncodings = 0; knownRegions = (en, ru, Base); mainGroup = BB0000000000000000000003; productRefGroup = BB0000000000000000000002; projectDirPath = ""; projectRoot = ""; targets = (EE0000000000000000000001); };
+    FF0000000000000000000001 /* Build configuration list for PBXProject */ = {isa = XCConfigurationList; buildConfigurations = (GG0000000000000000000001, GG0000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+    FF0000000000000000000002 /* Build configuration list for PBXNativeTarget "Mizan" */ = {isa = XCConfigurationList; buildConfigurations = (GG0000000000000000000003, GG0000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+    GG0000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_OPTIMIZATION_LEVEL = 0; IPHONEOS_DEPLOYMENT_TARGET = 16.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+    GG0000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; VALIDATE_PRODUCT = YES; }; name = Release; };
+    GG0000000000000000000003 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Mizan/Info.plist; INFOPLIST_KEY_UILaunchScreen_Generation = YES; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks"; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = app.mizanx.mizan; PRODUCT_NAME = Mizan; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+    GG0000000000000000000004 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = Mizan/Info.plist; INFOPLIST_KEY_UILaunchScreen_Generation = YES; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks"; MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = app.mizanx.mizan; PRODUCT_NAME = Mizan; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Release; };
+  };
+  rootObject = EE0000000000000000000002;
+}
