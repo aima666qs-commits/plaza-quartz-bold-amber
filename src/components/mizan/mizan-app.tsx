@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Tap } from "@/components/mizan/press.tsx";
-import { BookOpen, ChevronLeft, GraduationCap, Home, Scale, Settings, Shield, UserRound } from "lucide-react";
+import { ChevronLeft, Search, Settings, UserRound } from "lucide-react";
 import { ScalesFilm } from "@/components/mizan/brand.tsx";
 import { CabinetSheet } from "@/components/mizan/cabinet.tsx";
+import { ContextualRail } from "@/components/mizan/contextual-rail.tsx";
+import { FinanceView } from "@/components/mizan/finance-view.tsx";
 import { HadithReader } from "@/components/mizan/hadith-reader.tsx";
 import { HisnView } from "@/components/mizan/hisn-view.tsx";
 import { HomeView } from "@/components/mizan/home-view.tsx";
 import { LearnView } from "@/components/mizan/learn-view.tsx";
+import { BottomNav, SidebarNav } from "@/components/mizan/nav-chrome.tsx";
 import { PlayerBar } from "@/components/mizan/player-bar.tsx";
 import { QuranView } from "@/components/mizan/quran-view.tsx";
+import { SalahCard } from "@/components/mizan/salah-card.tsx";
+import { SearchOmnibox } from "@/components/mizan/search-omnibox.tsx";
 import { SettingsDialog } from "@/components/mizan/panels.tsx";
 import { StudyGate } from "@/components/mizan/study-gate.tsx";
 import { ZakatView } from "@/components/mizan/zakat-view.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseRoomId } from "@/lib/house/catalog.ts";
 import { translate } from "@/lib/i18n/dict.ts";
+import { markSalahSeen } from "@/lib/nav/recents.ts";
 import { startSabrDaily } from "@/lib/notify.ts";
 import { bootSalah } from "@/lib/salah/boot.ts";
 import { getTheme } from "@/lib/themes/registry.ts";
@@ -52,19 +56,15 @@ function ThemeApplier() {
   return null;
 }
 
-const TABS: { id: AppTab; label: string; icon: typeof Home }[] = [
-  { id: "home", label: "Главная", icon: Home },
-  { id: "zakat", label: "Закят", icon: Scale },
-  { id: "quran", label: "Коран", icon: BookOpen },
-  { id: "hisn", label: "Хисн", icon: Shield },
-  { id: "learn", label: "Учить", icon: GraduationCap },
-];
-
 function parseHash() {
   if (typeof window === "undefined") return;
-  const h = location.hash.replace(/^#/, "");
-  if (!h) return;
-  const [a, b, c] = h.split("/");
+  const raw = location.hash.replace(/^#/, "");
+  if (!raw) return;
+  const [path, query = ""] = raw.split("?");
+  const params = new URLSearchParams(query);
+  const [a, b, c] = path.split("/");
+  const state = useMizan.getState();
+  if (a !== "search" && state.searchOpen) useMizan.setState({ searchOpen: false });
   if (a === "tafsir") {
     useMizan.getState().setAppTab("quran");
     const s = Number(b) || 12;
@@ -93,9 +93,20 @@ function parseHash() {
         useMizan.getState().setHouseNav(b as HouseRoomId, null);
       }
     } else useMizan.getState().setAppTab("home");
+  } else if (a === "search") {
+    useMizan.getState().openSearch(params.get("q") ?? "");
+  } else if (a === "namaz" || a === "salah") {
+    useMizan.getState().openNamaz(false);
+    if (b === "method") window.setTimeout(() => document.getElementById("salah-methods")?.scrollIntoView({ block: "center" }), 80);
+  } else if (a === "qibla") {
+    useMizan.getState().openNamaz(true);
+  } else if (a === "tasbih") {
+    useMizan.getState().setHouseNav("tasbih");
+  } else if (a === "finance") {
+    useMizan.getState().setAppTab("finance");
   } else if (a === "settings") {
     useMizan.getState().setSettingsOpen(true);
-  } else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn") {
+  } else if (a === "zakat" || a === "home" || a === "quran" || a === "learn" || a === "hisn" || a === "namaz" || a === "finance") {
     useMizan.getState().setSettingsOpen(false);
     useMizan.getState().setAppTab(a);
     if (a === "home") useMizan.getState().setHouseRoom(null);
@@ -113,6 +124,18 @@ function goBack() {
   const m = useMizan.getState();
   const q = useQuran.getState();
   const l = useLearn.getState();
+  if (m.navSheet) {
+    m.setNavSheet(false);
+    return;
+  }
+  if (m.searchOpen) {
+    m.closeSearch(true);
+    return;
+  }
+  if (m.qiblaOn) {
+    m.openNamaz(false);
+    return;
+  }
   if (m.settingsOpen) {
     m.setSettingsOpen(false);
     return;
@@ -161,18 +184,18 @@ function Header({ grown, onHome, onGrow }: { grown: boolean; onHome: () => void;
   return (
     <header className="app-header relative z-20 flex min-h-16 items-center justify-between gap-3 px-4 pt-[env(safe-area-inset-top)]">
       {back ? (
-        <button type="button" className="settings-gear" onClick={goBack} aria-label="Назад" data-go="back">
+        <button type="button" className="settings-gear" onClick={goBack} aria-label={translate(locale, "hadith.back")} data-go="back">
           <ChevronLeft className="size-5" />
         </button>
       ) : (
-        <div className="flex min-w-0 items-center gap-3 text-left">
+        <div className="brand-lockup flex min-w-0 items-center gap-3 text-left">
           <ScalesFilm grown={grown} onHome={onHome} onGrow={onGrow} />
           <div className="min-w-0">
             <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--muted)]">
               <span className="live-dot" />
               Мизан
             </p>
-            <p className="truncate text-xs text-[var(--muted)]">Шейх · Закят · Коран · Хисн · Иткан</p>
+            <p className="truncate text-xs text-[var(--muted)]">{translate(locale, "header.tagline")}</p>
           </div>
         </div>
       )}
@@ -182,7 +205,10 @@ function Header({ grown, onHome, onGrow }: { grown: boolean; onHome: () => void;
           <span className="truncate text-sm">Мизан</span>
         </div>
       ) : <span className="flex-1" />}
-      <button type="button" className="settings-gear" aria-label="Кабинет" onClick={() => setCabinet(true)}>
+      <button type="button" className="settings-gear" aria-label={translate(locale, "nav.search")} data-go="search" onClick={() => useMizan.getState().openSearch("")}>
+        <Search className="size-5" />
+      </button>
+      <button type="button" className="settings-gear" aria-label={translate(locale, "nav.cabinet")} onClick={() => setCabinet(true)}>
         <UserRound className="size-5" />
       </button>
       <button
@@ -202,42 +228,22 @@ function Header({ grown, onHome, onGrow }: { grown: boolean; onHome: () => void;
   );
 }
 
-function BottomNav({ onPick }: { onPick?: () => void }) {
-  const tab = useMizan((s) => s.appTab);
-  const setTab = useMizan((s) => s.setAppTab);
+function NamazView() {
   const locale = useMizan((s) => s.settings.locale);
-  const layout = useMizan((s) => s.settings.navLayout);
-  const rail = layout === "rail";
-  if (typeof document === "undefined") return null;
-  return createPortal(
-    <nav className="bottom-dock glass" aria-label={translate(locale, "nav.home")}>
-      <ul className="mx-auto grid max-w-lg grid-cols-5">
-        {TABS.map((t) => {
-          const Icon = t.icon;
-          const on = tab === t.id;
-          return (
-            <li key={t.id}>
-              <Tap
-                onClick={() => {
-                  onPick?.();
-                  setTab(t.id);
-                }}
-                data-go={`tab-${t.id}`}
-                className={cn(
-                  "flex w-full flex-col items-center justify-center gap-1 text-[11px]",
-                  rail ? "min-h-14" : "min-h-16",
-                  on ? "nav-glow" : "text-[var(--muted)]",
-                )}
-              >
-                <Icon className="size-5" />
-                {rail ? null : translate(locale, `nav.${t.id}`)}
-              </Tap>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>,
-    document.body,
+  const qibla = useMizan((s) => s.qiblaOn);
+  const t = (key: string) => translate(locale, key);
+  return (
+    <div className="page-pad mx-auto grid w-full max-w-lg gap-3 px-4 pt-2">
+      <div className="namaz-switch" role="tablist" aria-label={t("salah.kicker")}>
+        <button type="button" role="tab" aria-selected={!qibla} className={!qibla ? "is-on" : undefined} onClick={() => useMizan.getState().openNamaz(false)}>
+          {t("nav.namaz")}
+        </button>
+        <button type="button" role="tab" aria-selected={qibla} className={qibla ? "is-on" : undefined} onClick={() => useMizan.getState().openNamaz(true)}>
+          {t("nav.qibla")}
+        </button>
+      </div>
+      <SalahCard />
+    </div>
   );
 }
 
@@ -332,9 +338,24 @@ export function MizanApp() {
       navigator.serviceWorker?.removeEventListener("message", onMsg);
     };
   }, []);
+  useEffect(() => {
+    if (tab !== "namaz") return;
+    return () => markSalahSeen();
+  }, [tab]);
+  useEffect(() => {
+    const el = document.activeElement;
+    if (el instanceof HTMLElement && el.closest(".tab-keep[hidden]")) el.blur();
+  }, [tab]);
   return (
     <div className={cn("app-shell", session && "has-player", hadithOpen && "is-hadith", courseOpen && "is-method", settingsOpen && "is-settings", grown && "is-launch")}>
       <ThemeApplier />
+      <SidebarNav
+        onHome={() => {
+          setGrown(false);
+          setWelcome(false);
+          goHome();
+        }}
+      />
       {hadithOpen || settingsOpen ? null : <div className="geo-veil" aria-hidden />}
       {welcome && tab === "home" ? (
         <button type="button" className="welcome-veil" onClick={() => setWelcome(false)}>
@@ -357,10 +378,14 @@ export function MizanApp() {
           onGrow={() => setGrown((v) => !v)}
         />
       )}
+      {chromeOff ? null : <ContextualRail />}
       {chromeOff ? null : <PlayerBar />}
       <main inert={chromeOff || undefined} aria-hidden={chromeOff || undefined}>
         <KeepTab id="home" tab={tab}>
           <HomeView key={homeEpoch} />
+        </KeepTab>
+        <KeepTab id="namaz" tab={tab}>
+          <NamazView />
         </KeepTab>
         <KeepTab id="zakat" tab={tab}>
           <ZakatView />
@@ -374,8 +399,12 @@ export function MizanApp() {
         <KeepTab id="learn" tab={tab}>
           <LearnView />
         </KeepTab>
+        <KeepTab id="finance" tab={tab}>
+          <FinanceView />
+        </KeepTab>
       </main>
-      <BottomNav onPick={() => { setGrown(false); setWelcome(false); }} />
+      <BottomNav />
+      <SearchOmnibox />
       {hadithOpen && !settingsOpen ? <HadithReader /> : null}
       <SettingsGate />
       <CabinetSheet />

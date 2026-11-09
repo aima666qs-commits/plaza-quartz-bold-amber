@@ -42,6 +42,7 @@ export function HouseRoom({ id }: { id: HouseRoomId }) {
       {id === "books" ? <BooksRoom /> : null}
       {id === "mecca" ? <PlaceRoom place="M" /> : null}
       {id === "madina" ? <PlaceRoom place="D" /> : null}
+      {id === "tasbih" ? <TasbihRoom /> : null}
     </div>
   );
 }
@@ -444,6 +445,30 @@ function PlaceRoom({ place }: { place: "M" | "D" }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+const BEADS = ["tasbih.subhan", "tasbih.hamd", "tasbih.akbar"] as const;
+
+function TasbihRoom() {
+  const locale = useMizan((s) => s.settings.locale);
+  const [count, setCount] = useState(0);
+  const phrase = BEADS[Math.floor(count / 33) % BEADS.length];
+  const t = (key: string) => translate(locale, key);
+  return (
+    <div className="grid justify-items-center gap-4 py-4">
+      <p className="text-sm text-[var(--muted)]">{t("room.tasbih.note")}</p>
+      <button type="button" className="tasbih-bead" onClick={() => setCount((value) => value + 1)} aria-label={t("tasbih.tap")}>
+        <strong>{count % 33}</strong>
+        <span>{t(phrase)}</span>
+      </button>
+      <p className="text-xs text-[var(--muted)]">
+        {Math.floor(count / 33)} {t("tasbih.round")}
+      </p>
+      <button type="button" className="nav-chip" onClick={() => setCount(0)}>
+        {t("tasbih.reset")}
+      </button>
     </div>
   );
 }

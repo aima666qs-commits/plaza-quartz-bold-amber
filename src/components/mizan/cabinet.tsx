@@ -7,6 +7,8 @@ import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { addMemory, dumpStudy, pullStudy, pushStudyMs } from "@/lib/study/server.ts";
 import { FREE_MS, readStudyMs } from "@/lib/study/clock.ts";
 import { useLearn } from "@/stores/learn-store.ts";
+import { methodById } from "@/lib/learn/arabic-methods.ts";
+import { translate } from "@/lib/i18n/dict.ts";
 import { useMizan } from "@/stores/mizan-store.ts";
 
 export function CabinetSheet() {
@@ -16,9 +18,12 @@ export function CabinetSheet() {
   const [note, setNote] = useState("");
   const [mems, setMems] = useState<{ body: string; created_at: string }[]>([]);
   const [studyMs, setStudyMs] = useState(0);
+  const locale = useMizan((s) => s.settings.locale);
   const lane = useLearn((s) => s.lane);
   const method = useLearn((s) => s.arabicMethod);
   const lessonN = useLearn((s) => s.lessonN);
+  const t = (key: string) => translate(locale, key);
+  const methodName = methodById(method)?.ru;
 
   useEffect(() => {
     setStudyMs(readStudyMs());
@@ -101,8 +106,8 @@ export function CabinetSheet() {
           </div>
           <p className="mt-2 text-sm text-[var(--muted)]">Учёба: {hours} ч. Память на сервере, завтра модель помнит сегодняшнее.</p>
           <p className="mt-1 text-xs text-[var(--muted)]">
-            Сейчас: {lane ?? "не выбран путь"}
-            {method ? ` · ${method} урок ${lessonN}` : ""}
+            {t("cabinet.now")}: {lane ? t(`lane.${lane}`) : t("lane.none")}
+            {methodName ? ` · ${methodName} ${t("note.lesson").toLowerCase()} ${lessonN}` : ""}
           </p>
           <form
             className="mt-4 grid gap-2"

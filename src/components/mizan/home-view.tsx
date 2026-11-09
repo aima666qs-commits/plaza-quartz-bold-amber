@@ -10,6 +10,9 @@ import { StudyDesk } from "@/components/mizan/study-desk.tsx";
 import { Tap } from "@/components/mizan/press.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { HOUSE_MAIN, HOUSE_MORE, type HouseTile } from "@/lib/house/catalog.ts";
+import { NAV_BY_ID, labelKeyFor } from "@/lib/nav/catalog.ts";
+import { goNav } from "@/lib/nav/go.ts";
+import { readRecents, type RecentItem } from "@/lib/nav/recents.ts";
 import { hadithAr, hadithMeaning, hadithOfDay, hadithTitle, hijriLabel, speakLang } from "@/lib/house/data.ts";
 import { gradeLabel, isSahih } from "@/lib/house/nawawi-grade.ts";
 import { translate } from "@/lib/i18n/dict.ts";
@@ -41,21 +44,7 @@ function markMet() {
 }
 
 function go(t: HouseTile) {
-  const setTab = useMizan.getState().setAppTab;
-  const setRoom = useMizan.getState().setHouseRoom;
-  const setHisn = useMizan.getState().setHisnChapter;
-  if (t.id === "tafsir") {
-    useQuran.getState().openTafsir(12, 1);
-    setTab("quran");
-    return;
-  }
-  if (t.tab) {
-    if (t.hisn) setHisn(null);
-    setRoom(null);
-    setTab(t.tab);
-    return;
-  }
-  if (t.room) setRoom(t.room);
+  goNav(t.id);
 }
 
 function Tile({ t }: { t: HouseTile }) {
@@ -73,17 +62,15 @@ function Tile({ t }: { t: HouseTile }) {
 
 function Windows() {
   const locale = useMizan((s) => s.settings.locale);
-  const setTab = useMizan((s) => s.setAppTab);
-  const setRoom = useMizan((s) => s.setHouseRoom);
   const setCabinet = useMizan((s) => s.setCabinetOpen);
   const items = [
-    { id: "quran", label: "win.quran", icon: BookOpen, go: () => setTab("quran") },
-    { id: "books", label: "win.books", icon: Library, go: () => setRoom("books") },
-    { id: "salah", label: "win.salah", icon: Clock, go: () => document.getElementById("salah")?.scrollIntoView({ behavior: "smooth", block: "start" }) },
-    { id: "qibla", label: "win.qibla", icon: Compass, go: () => document.getElementById("salah")?.scrollIntoView({ behavior: "smooth", block: "start" }) },
-    { id: "zakat", label: "win.zakat", icon: Scale, go: () => setTab("zakat") },
-    { id: "hisn", label: "win.hisn", icon: Shield, go: () => setTab("hisn") },
-    { id: "learn", label: "win.learn", icon: GraduationCap, go: () => setTab("learn") },
+    { id: "quran", label: "win.quran", icon: BookOpen, go: () => goNav("quran") },
+    { id: "books", label: "win.books", icon: Library, go: () => goNav("hadith") },
+    { id: "salah", label: "win.salah", icon: Clock, go: () => goNav("namaz") },
+    { id: "qibla", label: "win.qibla", icon: Compass, go: () => goNav("qibla") },
+    { id: "zakat", label: "win.zakat", icon: Scale, go: () => goNav("zakat") },
+    { id: "hisn", label: "win.hisn", icon: Shield, go: () => goNav("hisn") },
+    { id: "learn", label: "win.learn", icon: GraduationCap, go: () => goNav("learn") },
     { id: "profile", label: "win.profile", icon: User, go: () => setCabinet(true) },
   ];
   return (
@@ -319,13 +306,19 @@ export function HomeView() {
   const [listening, setListening] = useState(false);
   const [mic, setMic] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [recents, setRecents] = useState<RecentItem[]>([]);
   const hijri = hijriLabel(new Date(), locale);
+  const swipe = useRef<{ y: number; x: number } | null>(null);
   const stopMic = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     setReturning(alreadyMet());
     markMet();
     setMic(voiceAvailable());
+    const sync = () => setRecents(readRecents().filter((item) => NAV_BY_ID[item.id] || item.id === "search"));
+    sync();
+    window.addEventListener("mizan-recents", sync);
+    return () => window.removeEventListener("mizan-recents", sync);
   }, []);
 
   function openSheikh(question?: string) {
@@ -337,7 +330,23 @@ export function HomeView() {
   if (homeStyle === "board") return <SalahBoard />;
 
   return (
-    <div className={cn("page-pad home-board mx-auto grid w-full max-w-lg gap-4 px-4 pt-1 lg:max-w-6xl", homeSize === "roomy" && "home-roomy")}>
+    <div
+      className={cn("page-pad home-board mx-auto grid w-full max-w-lg gap-4 px-4 pt-1 lg:max-w-6xl", homeSize === "roomy" && "home-roomy")}
+      onTouchStart={(event) => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        swipe.current = { y: touch.clientY, x: touch.clientX };
+      }}
+      onTouchEnd={(event) => {
+        const start = swipe.current;
+        const touch = event.changedTouches[0];
+        swipe.current = null;
+        if (!start || !touch || window.scrollY > 0) return;
+        const dy = touch.clientY - start.y;
+        const dx = Math.abs(touch.clientX - start.x);
+        if (dy > 72 && dx < 48) useMizan.getState().openSearch("");
+      }}
+    >
       <section className="home-span grid justify-items-center text-center">
         <p className="bismillah" lang="ar">
           بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
@@ -356,6 +365,18 @@ export function HomeView() {
             {hijri.greg}
           </p>
         )}
+        {recents.length ? (
+          <div className="recent-row" aria-label={translate(locale, "nav.recent")}>
+            <p>{translate(locale, "nav.recent")}</p>
+            <div>
+              {recents.map((item) => (
+                <button key={item.id} type="button" className="nav-chip" onClick={() => goNav(item.id)}>
+                  {translate(locale, labelKeyFor(item.id))}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <form

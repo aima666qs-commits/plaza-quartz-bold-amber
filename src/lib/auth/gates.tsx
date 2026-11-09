@@ -1,5 +1,7 @@
 import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { Navigate } from "@tanstack/react-router";
+import { translate } from "@/lib/i18n/dict.ts";
+import { useMizan } from "@/stores/mizan-store.ts";
 import { GROK_PROVIDERS, authEnabled, signIn, signOut } from "./client";
 import { hasGateSessionMarker } from "./gate-session-marker";
 import { resolveSignInGateState } from "./sign-in-gate";
@@ -64,6 +66,7 @@ export function SignInGate({
 }
 
 export function SignInButtons() {
+  const locale = useMizan((s) => s.settings.locale);
   return (
     <div className="flex w-full max-w-sm flex-col gap-2">
       {GROK_PROVIDERS.map((p) => (
@@ -73,7 +76,7 @@ export function SignInButtons() {
           onClick={() => signIn(p.providerId, { callbackURL: "/" })}
           className="w-full cursor-pointer rounded-md border border-neutral-300 px-4 py-2 hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-900"
         >
-          Continue with {p.label}
+          {translate(locale, "auth.continue")} {p.label}
         </button>
       ))}
     </div>
@@ -97,8 +100,9 @@ export function UserButton() {
     hasGateSessionMarker,
     noGateSessionOnServer,
   );
+  const locale = useMizan((s) => s.settings.locale);
   if (!user) return null;
-  const label = user.displayName ?? user.primaryEmail ?? "Account";
+  const label = user.displayName ?? user.primaryEmail ?? translate(locale, "auth.account");
   return (
     <div className="flex items-center gap-2">
       {user.profileImageUrl ? (
@@ -124,7 +128,7 @@ export function UserButton() {
           }}
           className="cursor-pointer text-sm underline-offset-4 opacity-70 hover:underline disabled:cursor-wait disabled:no-underline"
         >
-          {signingOut ? "Signing out…" : "Sign out"}
+          {signingOut ? translate(locale, "auth.signingOut") : translate(locale, "auth.signOut")}
         </button>
       )}
     </div>

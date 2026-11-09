@@ -1,6 +1,7 @@
 import type { HouseRoomId } from "@/lib/house/catalog.ts";
 import type { HadithArFont, HadithMeanFont, HadithPaper } from "@/lib/house/data.ts";
 import type { Locale, NavLayout } from "@/lib/i18n/dict.ts";
+import { pushRecent } from "@/lib/nav/recents.ts";
 import type { CalculationInput, CalculationResult, SavedCalculation } from "@/lib/mizan/types.ts";
 import { calculate, emptyInput } from "@/lib/mizan/engine.ts";
 import { DEFAULT_THEME_ID, type FontPair } from "@/lib/themes/registry.ts";
@@ -12,7 +13,7 @@ const SETTINGS_KEY = "mizan.v1.settings";
 const HISTORY_KEY = "mizan.v1.history";
 const UI_KEY = "mizan.v1.ui";
 
-export type AppTab = "home" | "zakat" | "quran" | "hisn" | "learn";
+export type AppTab = "home" | "zakat" | "quran" | "hisn" | "learn" | "namaz" | "finance";
 export type HouseHadithFrom = "list" | "home";
 export type VoiceGender = "male" | "female";
 export type VoiceRate = "slow" | "normal" | "fast";
@@ -113,6 +114,15 @@ interface Store {
   setWizardStep: (n: number) => void;
   setActiveSection: (id: string) => void;
   setAppTab: (t: AppTab) => void;
+  openNamaz: (qibla?: boolean) => void;
+  qiblaOn: boolean;
+  searchOpen: boolean;
+  searchQuery: string;
+  navSheet: boolean;
+  openSearch: (q?: string) => void;
+  closeSearch: (syncHash?: boolean) => void;
+  setSearchQuery: (q: string) => void;
+  setNavSheet: (v: boolean) => void;
   setZakatOpen: (v: boolean) => void;
   setDetailsOpen: (v: boolean) => void;
   setOpenZakatSection: (id: string | null) => void;
@@ -181,10 +191,30 @@ function persistUi(s: Store) {
   }
 }
 
+function tabHash(tab: AppTab, qiblaOn: boolean) {
+  if (tab === "namaz") return qiblaOn ? "#qibla" : "#namaz";
+  if (tab === "finance") return "#finance";
+  if (tab === "zakat") return "#zakat";
+  if (tab === "quran") return "#quran";
+  if (tab === "hisn") return "#hisn";
+  if (tab === "learn") return "#learn";
+  return "#home";
+}
+
+function placeHash(s: { appTab: AppTab; qiblaOn: boolean; houseRoom: HouseRoomId | null; houseHadith: number | null }) {
+  if (s.houseRoom) return houseHash(s.houseRoom, s.houseHadith);
+  return tabHash(s.appTab, s.qiblaOn);
+}
+
 function houseHash(room: HouseRoomId | null, hadith: number | null) {
   if (!room) return "#home";
+  if (room === "tasbih") return "#tasbih";
   if (room === "nawawi" && hadith != null) return `#house/nawawi/${hadith}`;
   return `#house/${room}`;
+}
+
+function scrollTop() {
+  if (typeof window !== "undefined") window.scrollTo(0, 0);
 }
 
 function loadJson<T>(key: string, fallback: T): T {
@@ -213,6 +243,10 @@ export const useMizan = create<Store>((set, get) => ({
   quotesStatus: "idle",
   quotesError: "",
   appTab: "home",
+  qiblaOn: false,
+  searchOpen: false,
+  searchQuery: "",
+  navSheet: false,
   zakatOpen: false,
   detailsOpen: false,
   openZakatSection: null,
@@ -251,15 +285,7 @@ export const useMizan = create<Store>((set, get) => ({
     if (typeof window === "undefined") return;
     if (v) history.replaceState(null, "", "#settings");
     else if (location.hash.replace(/^#/, "").startsWith("settings")) {
-      const tab = get().appTab;
-      const map: Record<AppTab, string> = {
-        home: "#home",
-        zakat: "#zakat",
-        quran: "#quran",
-        hisn: "#hisn",
-        learn: "#learn",
-      };
-      history.replaceState(null, "", map[tab]);
+      history.replaceState(null, "", placeHash(get()));
     }
   },
   setCabinetOpen: (v) => set({ cabinetOpen: v }),
@@ -268,26 +294,44 @@ export const useMizan = create<Store>((set, get) => ({
   setActiveSection: (id) => set({ activeSection: id }),
   setAppTab: (appTab) => {
     const cur = get();
-    if (cur.appTab === appTab && cur.houseRoom == null && cur.houseHadith == null) return;
-    set({ appTab, houseRoom: null, houseHadith: null });
+    if (cur.appTab === appTab && cur.houseRoom == null && cur.houseHadith == null && !cur.qiblaOn && !cur.searchOpen) return;
+    set({ appTab, houseRoom: null, houseHadith: null, qiblaOn: false, searchOpen: false, navSheet: false });
     persistUi(get());
+    pushRecent(appTab);
     if (typeof window !== "undefined") {
-      const map: Record<AppTab, string> = {
-        home: "#home",
-        zakat: "#zakat",
-        quran: "#quran",
-        hisn: "#hisn",
-        learn: "#learn",
-      };
-      if (
-        !location.hash.startsWith("#quran/") &&
-        !location.hash.startsWith("#learn/") &&
-        !location.hash.startsWith("#hisn/")
-      ) {
-        history.replaceState(null, "", map[appTab]);
-      }
+      const hash = location.hash;
+      const keep =
+        (appTab === "quran" && hash.startsWith("#quran/")) ||
+        (appTab === "learn" && hash.startsWith("#learn/")) ||
+        (appTab === "hisn" && hash.startsWith("#hisn/")) ||
+        (appTab === "quran" && hash.startsWith("#tafsir"));
+      if (!keep) history.replaceState(null, "", tabHash(appTab, false));
+      scrollTop();
     }
   },
+  openNamaz: (qibla = false) => {
+    set({ appTab: "namaz", qiblaOn: qibla, houseRoom: null, houseHadith: null, searchOpen: false, navSheet: false });
+    persistUi(get());
+    pushRecent(qibla ? "qibla" : "namaz");
+    if (typeof window !== "undefined") {
+      history.replaceState(null, "", qibla ? "#qibla" : "#namaz");
+      scrollTop();
+    }
+  },
+  openSearch: (q = "") => {
+    set({ searchOpen: true, searchQuery: q, navSheet: false });
+    if (typeof window === "undefined") return;
+    const next = q ? `#search?q=${encodeURIComponent(q)}` : "#search";
+    if (location.hash !== next) history.replaceState(null, "", next);
+  },
+  closeSearch: (syncHash = true) => {
+    set({ searchOpen: false });
+    if (!syncHash || typeof window === "undefined") return;
+    if (!location.hash.replace(/^#/, "").startsWith("search")) return;
+    history.replaceState(null, "", placeHash(get()));
+  },
+  setSearchQuery: (searchQuery) => set({ searchQuery }),
+  setNavSheet: (navSheet) => set({ navSheet }),
   setZakatOpen: (zakatOpen) => {
     set({ zakatOpen });
     persistUi(get());
@@ -312,10 +356,19 @@ export const useMizan = create<Store>((set, get) => ({
   },
   setHouseNav: (houseRoom, hadith = null, from = "list") => {
     const houseHadith = houseRoom === "nawawi" ? hadith : null;
-    set({ houseRoom, houseHadith, houseHadithFrom: from, appTab: "home" });
+    set({
+      houseRoom,
+      houseHadith,
+      houseHadithFrom: from,
+      appTab: "home",
+      qiblaOn: false,
+      searchOpen: false,
+      navSheet: false,
+    });
     persistUi(get());
     if (typeof window !== "undefined") {
       history.replaceState(null, "", houseHash(houseRoom, houseHadith));
+      scrollTop();
     }
   },
   resetToHome: () => {
@@ -326,6 +379,9 @@ export const useMizan = create<Store>((set, get) => ({
       houseHadith: null,
       hisnChapterId: null,
       appTab: "home",
+      qiblaOn: false,
+      searchOpen: false,
+      navSheet: false,
       homeEpoch: get().homeEpoch + 1,
     });
     persistUi(get());

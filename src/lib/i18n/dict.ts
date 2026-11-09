@@ -695,6 +695,102 @@ fill("phrase.allah", { ru: "Аллах — единственный, досто�
 fill("phrase.salawat", { ru: "Да благословит его Аллах и приветствует.", en: "May Allah bless him and grant him peace.", ar: "صلى الله عليه وسلم.", tr: "Allah ona salât etsin ve selâm versin.", uz: "Alloh unga salotu salom aytsin.", tg: "Аллоҳ бар ӯ салавот ва салом фиристад.", kk: "Алла оған салауат пен сәлем айтсын." });
 fill("phrase.subhan", { ru: "Пречист Аллах от всего, что Ему не подобает.", en: "Allah is free of everything that does not befit Him.", ar: "سبحان الله: تنزيه الله عن كل نقص.", tr: "Allah, kendine yakışmayandan münezzehtir.", uz: "Alloh O‘ziga noloyiq narsadan pokdir.", tg: "Аллоҳ аз он чи ба Ӯ нашояд пок аст.", kk: "Алла Өзіне лайықсыз нәрседен пәк." });
 
+fill("nav.more", { ru: "Ещё", en: "More", ar: "المزيد", tr: "Diğer", uz: "Yana", tg: "Боз", kk: "Тағы" });
+fill("nav.namaz", { ru: "Намаз", en: "Prayer", ar: "الصلاة", tr: "Namaz", uz: "Namoz", tg: "Намоз", kk: "Намаз" });
+fill("nav.qibla", { ru: "Кибла", en: "Qibla", ar: "القبلة", tr: "Kıble", uz: "Qibla", tg: "Қибла", kk: "Құбыла" });
+fill("nav.tasbih", { ru: "Тасбих", en: "Tasbih", ar: "التسبيح", tr: "Tesbih", uz: "Tasbeh", tg: "Тасбеҳ", kk: "Тәспі" });
+fill("nav.finance", { ru: "Финансы", en: "Finance", ar: "المال", tr: "Finans", uz: "Moliya", tg: "Молия", kk: "Қаржы" });
+fill("nav.search", { ru: "Поиск", en: "Search", ar: "بحث", tr: "Ara", uz: "Qidiruv", tg: "Ҷустуҷӯ", kk: "Іздеу" });
+fill("nav.hadith", { ru: "Хадисы", en: "Hadith", ar: "الأحاديث", tr: "Hadisler", uz: "Hadislar", tg: "Ҳадисҳо", kk: "Хадистер" });
+fill("nav.menu", { ru: "Главное меню", en: "Main menu", ar: "القائمة الرئيسية", tr: "Ana menü", uz: "Asosiy menyu", tg: "Менюи асосӣ", kk: "Басты мәзір" });
+fill("nav.group.today", { ru: "Сегодня", en: "Today", ar: "اليوم", tr: "Bugün", uz: "Bugun", tg: "Имрӯз", kk: "Бүгін" });
+fill("nav.group.scripture", { ru: "Писание", en: "Scripture", ar: "الوحي", tr: "Vahiy", uz: "Vahiy", tg: "Ваҳй", kk: "Уахи" });
+fill("nav.group.wealth", { ru: "Имущество", en: "Wealth", ar: "المال", tr: "Mal", uz: "Mol", tg: "Мол", kk: "Мүлік" });
+fill("nav.group.more", { ru: "Ещё", en: "More", ar: "المزيد", tr: "Diğer", uz: "Yana", tg: "Боз", kk: "Тағы" });
+fill("nav.pin", { ru: "Закрепить подписи", en: "Pin labels", ar: "تثبيت الأسماء", tr: "Yazıları sabitle", uz: "Yozuvlarni qadash", tg: "Имзоҳоро нигоҳ дор", kk: "Жазуларды бекіту" });
+fill("nav.unpin", { ru: "Только значки", en: "Icons only", ar: "أيقونات فقط", tr: "Yalnız simgeler", uz: "Faqat belgilar", tg: "Танҳо нишона", kk: "Тек белгі" });
+fill("nav.recent", { ru: "Недавние", en: "Recent", ar: "الأخيرة", tr: "Son", uz: "Yaqinda", tg: "Охирин", kk: "Жақында" });
+fill("nav.now", { ru: "Сейчас полезно", en: "Useful now", ar: "مفيد الآن", tr: "Şimdi yararlı", uz: "Hozir foydali", tg: "Ҳоло муфид", kk: "Қазір пайдалы" });
+fill("nav.install", { ru: "Установка", en: "Install", ar: "تثبيت", tr: "Kur", uz: "O‘rnatish", tg: "Насб", kk: "Орнату" });
+fill("nav.cabinet", { ru: "Кабинет", en: "Cabinet", ar: "الخزانة", tr: "Kabinet", uz: "Kabinet", tg: "Кабинет", kk: "Кабинет" });
+fill("nav.bookmarks", { ru: "Закладки", en: "Bookmarks", ar: "العلامات", tr: "Yer imleri", uz: "Xatcho‘plar", tg: "Хатчӯбҳо", kk: "Бетбелгі" });
+fill("nav.method", { ru: "Метод расчёта", en: "Calculation method", ar: "طريقة الحساب", tr: "Hesap yöntemi", uz: "Hisoblash usuli", tg: "Усули ҳисоб", kk: "Есеп әдісі" });
+fill("nav.offline", { ru: "офлайн", en: "offline", ar: "دون اتصال", tr: "çevrimdışı", uz: "oflayn", tg: "офлайн", kk: "офлайн" });
+fill("nav.online", { ru: "на связи", en: "online", ar: "متصل", tr: "çevrimiçi", uz: "onlayn", tg: "дар шабака", kk: "желіде" });
+fill("nav.overflow", { ru: "Ещё разделы", en: "More sections", ar: "أقسام أخرى", tr: "Diğer bölümler", uz: "Yana bo‘limlar", tg: "Бахшҳои дигар", kk: "Тағы бөлімдер" });
+fill("nav.quick", { ru: "Быстрые действия", en: "Quick actions", ar: "أعمال سريعة", tr: "Hızlı işler", uz: "Tez amallar", tg: "Амалҳои тез", kk: "Жылдам әрекет" });
+fill("chip.qibla", { ru: "Кибла", en: "Qibla", ar: "القبلة", tr: "Kıble", uz: "Qibla", tg: "Қибла", kk: "Құбыла" });
+fill("chip.tasbih", { ru: "Тасбих", en: "Tasbih", ar: "التسبيح", tr: "Tesbih", uz: "Tasbeh", tg: "Тасбеҳ", kk: "Тәспі" });
+fill("chip.dua", { ru: "Дуа после намаза", en: "Dua after prayer", ar: "الدعاء بعد الصلاة", tr: "Namazdan sonra dua", uz: "Namozdan keyin duo", tg: "Дуъои баъди намоз", kk: "Намаздан кейінгі дұға" });
+fill("chip.zakat", { ru: "Посчитать закят?", en: "Count zakat?", ar: "أحسب الزكاة؟", tr: "Zekâtı hesapla?", uz: "Zakotni hisoblaymi?", tg: "Закотро ҳисоб кунем?", kk: "Зекетті есептейік пе?" });
+fill("chip.tafsir", { ru: "Тафсир", en: "Tafsir", ar: "التفسير", tr: "Tefsir", uz: "Tafsir", tg: "Тафсир", kk: "Тәпсір" });
+fill("chip.hifz", { ru: "Заучить", en: "Memorize", ar: "احفظ", tr: "Ezberle", uz: "Yodla", tg: "Ҳифз кун", kk: "Жатта" });
+fill("chip.hadith", { ru: "Похожий хадис", en: "A related hadith", ar: "حديث قريب", tr: "Yakın bir hadis", uz: "Yaqin hadis", tg: "Ҳадиси наздик", kk: "Ұқсас хадис" });
+fill("chip.save", { ru: "Сохранить", en: "Save", ar: "حفظ", tr: "Kaydet", uz: "Saqlash", tg: "Сабт", kk: "Сақтау" });
+fill("chip.asset", { ru: "Разбор актива (не фетва)", en: "Asset review (not a fatwa)", ar: "نظر في الأصل (ليست فتوى)", tr: "Varlık incelemesi (fetva değil)", uz: "Aktiv tahlili (fatvo emas)", tg: "Таҳлили дороӣ (на фатво)", kk: "Актив талдауы (пәтуа емес)" });
+fill("chip.zakatHadith", { ru: "Хадис о закяте", en: "Hadith on zakat", ar: "حديث الزكاة", tr: "Zekât hadisi", uz: "Zakot haqida hadis", tg: "Ҳадис дар бораи закот", kk: "Зекет туралы хадис" });
+fill("chip.morning", { ru: "Утро", en: "Morning", ar: "الصباح", tr: "Sabah", uz: "Tong", tg: "Субҳ", kk: "Таң" });
+fill("chip.evening", { ru: "Вечер", en: "Evening", ar: "المساء", tr: "Akşam", uz: "Kech", tg: "Шом", kk: "Кеш" });
+fill("chip.place", { ru: "Указать место", en: "Set location", ar: "حدد المكان", tr: "Konum ver", uz: "Joyni ko‘rsat", tg: "Ҷойро нишон деҳ", kk: "Орынды көрсет" });
+fill("finance.title", { ru: "Халяль / харам · разбор", en: "Halal / haram · review", ar: "حلال / حرام · نظر", tr: "Helal / haram · inceleme", uz: "Halol / harom · tahlil", tg: "Ҳалол / ҳаром · таҳлил", kk: "Халал / харам · талдау" });
+fill("finance.disclaimer", {
+  ru: "Это не фетва и не шариатское заключение.",
+  en: "This is not a fatwa and not a shar‘i ruling.",
+  ar: "هذه ليست فتوى ولا حكماً شرعياً.",
+  tr: "Bu bir fetva ya da şer‘î hüküm değildir.",
+  uz: "Bu fatvo ham, shar’iy hukm ham emas.",
+  tg: "Ин на фатво аст ва на ҳукми шаръӣ.",
+  kk: "Бұл пәтуа да, шариғи үкім де емес.",
+});
+fill("finance.lead", {
+  ru: "Справочный разбор актива по открытым критериям. Решение остаётся за вами и за знающим человеком.",
+  en: "A reference review of an asset by stated criteria. The decision stays with you and with someone who knows.",
+  ar: "نظر مرجعي في أصلٍ وفق معايير معلنة. القرار لك ولمن يعلم.",
+  tr: "Açık ölçülere göre başvuru niteliğinde inceleme. Karar sizde ve bilende kalır.",
+  uz: "Ochiq mezonlar bo‘yicha ma’lumotnoma. Qaror sizda va biladigan kishida.",
+  tg: "Таҳлили маълумотӣ аз рӯи меъёрҳои кушода. Қарор бо шумо ва бо донаст.",
+  kk: "Ашық өлшемдер бойынша анықтамалық талдау. Шешім сізде және білетін адамда.",
+});
+fill("finance.cta", { ru: "Разбор появится здесь", en: "The review will appear here", ar: "النظر يظهر هنا لاحقاً", tr: "İnceleme burada görünecek", uz: "Tahlil shu yerda paydo bo‘ladi", tg: "Таҳлил ин ҷо пайдо мешавад", kk: "Талдау осында шығады" });
+fill("finance.topic.cash", { ru: "Наличные", en: "Cash", ar: "نقد", tr: "Nakit", uz: "Naqd", tg: "Пул", kk: "Қолма-қол" });
+fill("finance.topic.gold", { ru: "Золото и серебро", en: "Gold and silver", ar: "الذهب والفضة", tr: "Altın ve gümüş", uz: "Oltin va kumush", tg: "Тилло ва нуқра", kk: "Алтын және күміс" });
+fill("finance.topic.shares", { ru: "Доли и акции", en: "Shares", ar: "أسهم وحصص", tr: "Paylar", uz: "Ulushlar", tg: "Саҳмҳо", kk: "Үлестер" });
+fill("finance.topic.rent", { ru: "Аренда", en: "Rent", ar: "إجارة", tr: "Kira", uz: "Ijara", tg: "Иҷора", kk: "Жалдау" });
+fill("finance.topic.trade", { ru: "Торговля", en: "Trade", ar: "تجارة", tr: "Ticaret", uz: "Savdo", tg: "Тиҷорат", kk: "Сауда" });
+fill("search.ph", { ru: "Сура, хадис, раздел…", en: "Surah, hadith, section…", ar: "سورة، حديث، قسم…", tr: "Sure, hadis, bölüm…", uz: "Sura, hadis, bo‘lim…", tg: "Сура, ҳадис, бахш…", kk: "Сүре, хадис, бөлім…" });
+fill("search.empty", { ru: "Ничего не нашлось", en: "Nothing found", ar: "لا شيء", tr: "Bir şey yok", uz: "Hech narsa yo‘q", tg: "Чизе нест", kk: "Ештеңе табылмады" });
+fill("search.frequent", { ru: "Частые", en: "Frequent", ar: "المتكررة", tr: "Sık", uz: "Tez-tez", tg: "Зуд-зуд", kk: "Жиі" });
+fill("search.hint", { ru: "Вверх и вниз — выбор, Ввод — открыть, Esc — закрыть", en: "Up and down choose, Enter opens, Esc closes", ar: "أعلى وأسفل للاختيار، إدخال يفتح، خروج يغلق", tr: "Yukarı aşağı seçer, Enter açar, Esc kapatır", uz: "Tepa-past — tanlov, Enter — ochish, Esc — yopish", tg: "Боло ва поён — интихоб, Enter — кушодан, Esc — пӯшидан", kk: "Жоғары-төмен — таңдау, Enter — ашу, Esc — жабу" });
+fill("search.kind.section", { ru: "Раздел", en: "Section", ar: "قسم", tr: "Bölüm", uz: "Bo‘lim", tg: "Бахш", kk: "Бөлім" });
+fill("search.kind.surah", { ru: "Сура", en: "Surah", ar: "سورة", tr: "Sure", uz: "Sura", tg: "Сура", kk: "Сүре" });
+fill("search.kind.hadith", { ru: "Хадис", en: "Hadith", ar: "حديث", tr: "Hadis", uz: "Hadis", tg: "Ҳадис", kk: "Хадис" });
+fill("search.kind.bookmark", { ru: "Закладка", en: "Bookmark", ar: "علامة", tr: "Yer imi", uz: "Xatcho‘p", tg: "Хатчӯб", kk: "Бетбелгі" });
+fill("room.tasbih", { ru: "Тасбих", en: "Tasbih", ar: "التسبيح", tr: "Tesbih", uz: "Tasbeh", tg: "Тасбеҳ", kk: "Тәспі" });
+fill("room.tasbih.note", { ru: "Счётчик зикра. Это не замена намазу.", en: "A dhikr counter. It does not replace the prayer.", ar: "عداد ذكر. لا يغني عن الصلاة.", tr: "Zikir sayacı. Namazın yerine geçmez.", uz: "Zikr hisoblagichi. Namoz o‘rnini bosmaydi.", tg: "Шуморкунандаи зикр. Ҷойи намозро намегирад.", kk: "Зікір есептегіші. Намаздың орнын баспайды." });
+fill("tasbih.tap", { ru: "Нажми бусину", en: "Tap a bead", ar: "اضغط الحبة", tr: "Taneye bas", uz: "Munchoqni bosing", tg: "Муҳраро зер кун", kk: "Моншақты бас" });
+fill("tasbih.reset", { ru: "Сбросить", en: "Reset", ar: "صفّر", tr: "Sıfırla", uz: "Tiklash", tg: "Аз нав", kk: "Қалпына" });
+fill("tasbih.round", { ru: "круг", en: "round", ar: "دورة", tr: "tur", uz: "aylana", tg: "давр", kk: "шеңбер" });
+fill("tasbih.subhan", { ru: "СубханАллах", en: "Subhan Allah", ar: "سبحان الله", tr: "Sübhanallah", uz: "Subhanalloh", tg: "Субҳоналлоҳ", kk: "СубханАлла" });
+fill("tasbih.hamd", { ru: "Альхамдулиллях", en: "Alhamdulillah", ar: "الحمد لله", tr: "Elhamdülillah", uz: "Alhamdulillah", tg: "Алҳамдулиллоҳ", kk: "Альхамдулилла" });
+fill("tasbih.akbar", { ru: "Аллаху акбар", en: "Allahu akbar", ar: "الله أكبر", tr: "Allahu ekber", uz: "Allohu akbar", tg: "Аллоҳу акбар", kk: "Аллаһу әкбар" });
+fill("tile.tasbih", { ru: "Тасбих", en: "Tasbih", ar: "التسبيح", tr: "Tesbih", uz: "Tasbeh", tg: "Тасбеҳ", kk: "Тәспі" });
+fill("header.tagline", { ru: "Шейх · Закят · Коран · Хисн · Иткан", en: "Sheikh · Zakat · Quran · Hisn · Itqan", ar: "الشيخ · الزكاة · القرآن · الحصن · الإتقان", tr: "Şeyh · Zekât · Kur’an · Hisn · İtkan", uz: "Shayx · Zakot · Qur’on · Hisn · Itqon", tg: "Шайх · Закот · Қуръон · Ҳисн · Итқон", kk: "Шейх · Зекет · Құран · Хисн · Итқан" });
+fill("salah.adhan", { ru: "Азан", en: "Adhan", ar: "أذان", tr: "Ezan", uz: "Azon", tg: "Азон", kk: "Азан" });
+fill("salah.adhan.on", { ru: "Азан включён", en: "Adhan is on", ar: "الأذان يعمل", tr: "Ezan açık", uz: "Azon yoniq", tg: "Азон фаъол", kk: "Азан қосулы" });
+fill("compass.n", { ru: "С", en: "N", ar: "شم", tr: "K", uz: "Shm", tg: "Шм", kk: "С" });
+fill("compass.e", { ru: "В", en: "E", ar: "شر", tr: "D", uz: "Shr", tg: "Шр", kk: "Ш" });
+fill("compass.s", { ru: "Ю", en: "S", ar: "جن", tr: "G", uz: "Jn", tg: "Ҷн", kk: "О" });
+fill("compass.w", { ru: "З", en: "W", ar: "غر", tr: "B", uz: "Gʻ", tg: "Ғр", kk: "Б" });
+fill("auth.account", { ru: "Профиль", en: "Profile", ar: "الملف", tr: "Profil", uz: "Profil", tg: "Профил", kk: "Профиль" });
+fill("auth.signOut", { ru: "Выйти", en: "Sign out", ar: "خروج", tr: "Çıkış", uz: "Chiqish", tg: "Баромад", kk: "Шығу" });
+fill("auth.signingOut", { ru: "Выходим…", en: "Signing out…", ar: "جارٍ الخروج…", tr: "Çıkılıyor…", uz: "Chiqilmoqda…", tg: "Баромад…", kk: "Шығу…" });
+fill("auth.continue", { ru: "Войти через", en: "Continue with", ar: "الدخول عبر", tr: "Şununla gir", uz: "Kirish:", tg: "Ворид шудан бо", kk: "Кіру:" });
+fill("lane.quran", { ru: "Коран", en: "Quran", ar: "القرآن", tr: "Kur’an", uz: "Qur’on", tg: "Қуръон", kk: "Құран" });
+fill("lane.arabic", { ru: "Арабский", en: "Arabic", ar: "العربية", tr: "Arapça", uz: "Arabcha", tg: "Арабӣ", kk: "Арабша" });
+fill("lane.hifz", { ru: "Хифз", en: "Memorization", ar: "الحفظ", tr: "Hıfz", uz: "Hifz", tg: "Ҳифз", kk: "Хифз" });
+fill("lane.none", { ru: "путь не выбран", en: "no path yet", ar: "لم يُختر مسار", tr: "yol seçilmedi", uz: "yo‘l tanlanmagan", tg: "роҳ интихоб нашудааст", kk: "жол таңдалмаған" });
+fill("cabinet.now", { ru: "Сейчас", en: "Now", ar: "الآن", tr: "Şimdi", uz: "Hozir", tg: "Ҳоло", kk: "Қазір" });
+
 export function translate(locale: Locale, key: string): string {
   return PACKS[locale][key] ?? PACKS.ru[key] ?? key;
 }

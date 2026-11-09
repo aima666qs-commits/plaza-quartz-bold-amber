@@ -96,10 +96,10 @@ export function SalahCard() {
         >
           <i className="qibla-caret" />
           <div className="qibla-disc" style={{ transform: `rotate(${heading == null ? 0 : -heading}deg)` }}>
-            <span className="qibla-n">N</span>
-            <span className="qibla-e">E</span>
-            <span className="qibla-s">S</span>
-            <span className="qibla-w">W</span>
+            <span className="qibla-n">{t("compass.n")}</span>
+            <span className="qibla-e">{t("compass.e")}</span>
+            <span className="qibla-s">{t("compass.s")}</span>
+            <span className="qibla-w">{t("compass.w")}</span>
             <i className="qibla-kaaba" style={{ transform: `rotate(${bearing}deg) translateY(-5.6rem)` }}>
               <b style={{ transform: `rotate(${-(heading == null ? 0 : -heading) - bearing}deg)` }}>ك</b>
             </i>
@@ -119,7 +119,7 @@ export function SalahCard() {
       {day ? (
         <>
           <p className="mt-1 text-[11px] text-[var(--muted)]">
-            {day.methodName} · {day.timezone} · {day.school === 1 ? t("salah.hanafi") : t("salah.shafii")}
+            {methodLabel(day.method, day.school, day.methodName, locale, t)} · {day.school === 1 ? t("salah.hanafi") : t("salah.shafii")}
           </p>
           <ul className="mt-3 grid grid-cols-3 gap-2">
             {PRAYER_LABELS.map((p) => (
@@ -176,14 +176,14 @@ export function SalahCard() {
               if (perm !== "granted" || !day) return;
               setAdhanOn(true);
               m.armAdhan(day.timings);
-              void m.playAdhan("Азан включён");
+              void m.playAdhan(t("salah.adhan.on"));
             });
           }}
         >
-          {adhanOn ? "Азан включён" : "Азан"}
+          {adhanOn ? t("salah.adhan.on") : t("salah.adhan")}
         </button>
       </div>
-      <div className="method-row mt-2 flex gap-2 overflow-x-auto pb-1">
+      <div id="salah-methods" className="method-row mt-2 flex gap-2 overflow-x-auto pb-1">
         {SALAH_METHODS.map((m) => (
           <button
             key={`${m.method}-${m.school}-${m.label}`}
@@ -197,6 +197,18 @@ export function SalahCard() {
       </div>
     </section>
   );
+}
+
+function methodLabel(
+  method: number,
+  school: 0 | 1,
+  fallback: string,
+  locale: string,
+  t: (key: string) => string,
+) {
+  const known = SALAH_METHODS.find((item) => item.method === method && item.school === school);
+  if (known) return t(known.key);
+  return locale === "en" ? fallback : t("salah.m.mwl");
 }
 
 function armCompass(onHead: (deg: number) => void) {

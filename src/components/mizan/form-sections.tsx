@@ -486,7 +486,7 @@ function InvestRow({ line }: { line: InvestmentLine }) {
         <Select value={line.kind} onChange={(e) => update({ kind: e.target.value as InvestmentLine["kind"] })}>
           <option value="stock">Акции</option>
           <option value="fund">Фонд</option>
-          <option value="etf">ETF</option>
+          <option value="etf">Биржевой фонд</option>
           <option value="sukuk">Сукук</option>
           <option value="pension">Пенсионный счёт</option>
           <option value="other">Иное</option>
